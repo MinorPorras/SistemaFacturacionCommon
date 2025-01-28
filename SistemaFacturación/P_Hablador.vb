@@ -6,6 +6,12 @@ Public Class P_Hablador
     Private precioVenta As New List(Of String)()
     Private cantidad As New List(Of Integer)()
 
+    Private currentProductIndex As Integer = 0
+    Private currentQuantityIndex As Integer = 0
+    Private printProducts As List(Of String)
+    Private printPrices As List(Of String)
+    Private printQuantities As List(Of Integer)
+
     ' Método para inicializar el temporizador y otros componentes necesarios
     Private Sub InicializarComponentes()
         ' Inicializar el temporizador
@@ -120,9 +126,15 @@ Public Class P_Hablador
     End Sub
 
     Friend Sub CREAR_HABLADORES(productos As List(Of String), precios As List(Of String), cant As List(Of Integer))
+        ' Inicializar las variables de estado
+        currentProductIndex = 0
+        currentQuantityIndex = 0
+        printProducts = productos
+        printPrices = precios
+        printQuantities = cant
+
         Dim printDoc As New PrintDocument()
         AddHandler printDoc.PrintPage, AddressOf PrintDocument_PrintPage
-        printDoc.DocumentName = "Habladores de Productos"
 
         ' Configurar el tamaño de papel personalizado en pulgadas
         Dim customPaperSize As New PaperSize("Custom", CInt(72 * 3.937), CInt(297 * 3.937))
@@ -142,7 +154,7 @@ Public Class P_Hablador
         End If
     End Sub
 
-    Private Sub PrintDocument_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PrintDocument.PrintPage
+    Private Sub PrintDocument_PrintPage(sender As Object, e As PrintPageEventArgs)
         Dim tamañoProds As Integer = Md_Inicializacion.GetAppSetting("FontSizeProd")
         Dim tamañoPrecio As Integer = Md_Inicializacion.GetAppSetting("FontSizePrecio")
 
@@ -170,20 +182,17 @@ Public Class P_Hablador
         ' 3. Calcular cuántos guiones caben en el ancho disponible:
         Dim NumGuion As Integer = CInt(Math.Floor(largoDisponible / largoGuion))
 
-        ' Recorrer cada producto y crear habladores según la cantidad especificada
-        For i As Integer = 0 To productos.Count - 1
-            For j As Integer = 1 To cantidad(i)
 
-                ' 4. Crear la cadena con el número calculado de guiones:
-                Dim lines As New String("-"c, NumGuion)
+        yPos = topMargin ' Reiniciar posición vertical en cada nueva página
+        e.HasMorePages = False ' Asumir que no hay más páginas al inicio
 
-                ' 5. Dibujar la línea:
-                e.Graphics.DrawString(lines, font, brush, leftMargin, yPos, stringFormatLeft)
+        ' Recorrer los productos desde el último punto guardado
+        For i As Integer = currentProductIndex To printProducts.Count - 1
+            ' Comenzar desde la última cantidad procesada si es el mismo producto
+            Dim startJ As Integer = If(i = currentProductIndex, currentQuantityIndex, 0)
 
-                ' 6. Actualizar la posición vertical para el siguiente elemento:
-                yPos += e.Graphics.MeasureString(lines, font).Height + 5
-
-                ' Añadir una línea adicional antes de escribir la información del producto (opcional):
+            For j As Integer = startJ To printQuantities(i) - 1
+                'Añadir una línea adicional antes de escribir la información del producto (opcional)
                 yPos += e.Graphics.MeasureString(" ", font).Height
 
                 ' Dibujar el nombre del producto alineado a la izquierda
@@ -202,13 +211,34 @@ Public Class P_Hablador
                 e.Graphics.DrawString(productPrice, fontProds, brush, priceRect, stringFormatLeft)
                 yPos += e.Graphics.MeasureString(productPrice, fontPrices).Height + 20 ' Espacio adicional después de cada hablador
 
-                ' Verificar si se necesita una nueva página
+                ' Crea un linea de guiones que divide ambos habladores
+                If Not (i = printProducts.Count - 1 AndAlso j = printQuantities(i) - 1) Then
+                    Dim lines As New String("-"c, NumGuion)
+                    e.Graphics.DrawString(lines, font, brush, leftMargin, yPos, stringFormatLeft)
+                    yPos += e.Graphics.MeasureString(lines, font).Height + 5
+                End If
+
+                ' Verificar espacio restante
                 If yPos + e.Graphics.MeasureString(productPrice, fontProds).Height > e.MarginBounds.Bottom Then
+                    ' Guardar el progreso actual
+                    currentProductIndex = i
+                    currentQuantityIndex = j + 1 ' Guardar la siguiente cantidad a procesar
                     e.HasMorePages = True
-                    Return
+                    Return ' Salir para generar nueva página
                 End If
             Next
+
+            ' Resetear el índice de cantidad al pasar al siguiente producto
+            currentQuantityIndex = 0
         Next
+
+        ' Limpiar variables si se completó la impresión
+        If Not e.HasMorePages Then
+            printProducts = Nothing
+            printPrices = Nothing
+            printQuantities = Nothing
+            DGV_Hablador.Rows.Clear()
+        End If
     End Sub
 
     Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click

@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports Microsoft.Office.Interop.Access
 Imports System.Configuration
 Imports System.Threading
 
