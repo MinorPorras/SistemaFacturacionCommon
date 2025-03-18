@@ -114,7 +114,7 @@ Partial Class P_ReimprimirFact
         Me.BTN_RegresarFact.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarFact.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarFact.Name = "BTN_RegresarFact"
-        Me.BTN_RegresarFact.Size = New System.Drawing.Size(611, 57)
+        Me.BTN_RegresarFact.Size = New System.Drawing.Size(610, 57)
         Me.BTN_RegresarFact.TabIndex = 51
         Me.BTN_RegresarFact.Text = "Regresar"
         '

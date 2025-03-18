@@ -18,7 +18,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\Usuario\source\repos\SistemaFacturaciónStock\SistemaFacturación\publish\</PublishUrl>
+    <PublishUrl>C:\Users\User\source\repos\SistemaFacturación\SistemaFacturación\publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -32,8 +32,9 @@
     <ProductName>Sistema de Facturación Common</ProductName>
     <PublisherName>Minor Porras Varela</PublisherName>
     <SuiteName>Sistema Fact</SuiteName>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>2.2.0.%2a</ApplicationVersion>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -225,12 +226,18 @@
     <Compile Include="P_DatosFactura.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="P_ReporteVentas.Designer.vb">
+      <DependentUpon>P_ReporteVentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P_ReporteVentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="REPORTES.vb" />
     <Content Include="bd\backupDB\RespaldosSF\dbSistemaFacturaciónStock.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="bd\dbSistemaFacturacion.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="B_Cliente.Designer.vb">
       <DependentUpon>B_Cliente.vb</DependentUpon>
@@ -512,6 +519,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="P_ReimprimirFact.resx">
       <DependentUpon>P_ReimprimirFact.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P_ReporteVentas.resx">
+      <DependentUpon>P_ReporteVentas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="P_SelectUsu.resx">
       <DependentUpon>P_SelectUsu.vb</DependentUpon>

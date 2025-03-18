@@ -34,6 +34,21 @@ Module Md_CONEXION
         End Try
     End Sub
 
+    Public Function CONEXION() As Boolean
+        Try
+            Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
+            db = New SQLiteConnection(stringConexion)
+            If db Is Nothing Or db.State = ConnectionState.Closed Then
+                db.Open()
+            End If
+            Console.WriteLine("Conexión abierta. Ruta de la base de datos: " & db.DataSource)
+            Return True
+        Catch ex As Exception
+            Console.WriteLine("Error al conectarse a la base de datos: " & ex.Message)
+            Return False
+        End Try
+    End Function
+
     Public Sub DESCONECTAR()
         Try
             If db IsNot Nothing AndAlso db.State = ConnectionState.Open Then
@@ -126,5 +141,42 @@ Module Md_CONEXION
         'Se guarda y modifica el archivo
         config.Save(ConfigurationSaveMode.Modified)
         ConfigurationManager.RefreshSection("appSettings")
+    End Sub
+
+    Friend Sub GenerarReporte(desde As Date, hasta As Date, t As DataSet)
+        Try
+            If CONEXION() AndAlso db IsNot Nothing Then
+                Dim consulta As String = "SELECT f.num_factura As '# Fact', " &
+                                     "f.fecha_emision As 'Fecha de emisión', " &
+                                     "c.nombre As 'Nombre', " &
+                                     "total As 'Total', " &
+                                     "CASE f.tipo_venta " &
+                                     "WHEN 0 THEN 'Efectivo' " &
+                                     "WHEN 1 THEN 'Tarjeta' " &
+                                     "WHEN 2 THEN 'Sinpe' " &
+                                     "WHEN 3 THEN 'Depósito' " &
+                                     "WHEN 4 THEN 'Mixto' " &
+                                     "END AS tipo " &
+                                     "FROM factura f " &
+                                     "INNER JOIN clientes c ON c.ID = f.ID_Cliente " &
+                                     "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin;"
+
+                Using cmd As New SQLiteCommand(consulta, db)
+                    cmd.Parameters.Add(New SQLiteParameter("@fechaInicio", desde.ToString("yyyy-MM-dd")))
+                    cmd.Parameters.Add(New SQLiteParameter("@fechaFin", hasta.AddDays(1).ToString("yyyy-MM-dd")))
+                    Using da As New SQLiteDataAdapter(cmd)
+                        ' Limpiar todas las tablas dentro del DataSet
+                        For Each tabla As DataTable In t.Tables
+                            tabla.Columns.Clear() ' Eliminar todas las columnas de cada tabla
+                            tabla.Clear() ' Eliminar todas las filas de cada tabla
+                        Next
+                        da.Fill(t)
+                    End Using
+                End Using
+            End If
+        Catch ex As Exception
+            MsgBox("Error al generar el reporte: " & ex.Message, vbOKOnly, "Error")
+        End Try
+        DESCONECTAR()
     End Sub
 End Module

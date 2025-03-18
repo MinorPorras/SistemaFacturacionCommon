@@ -1,3 +1,6 @@
+**Versión 2.2.1.0 (18 de marzo de 2025)**
+- Se agregó la función de la generación de reportes. Para acceder a ellos solo se presiona el botón "Reportes" en el menu principal y, de momento la función está implementada de forma rápida y solo permite calcular las ventas totales en un intervalo de 2 fechas, en el futuro se planean mostrar gráficos, promedios y incluso generar exportaciones a pdf de lo generado.
+
 **Versión 2.2.0.1 (28 de enero 2025)**
 - Se modificó el código para la creación de los habladores con el fin de tratar de evitar que al imprimir 8 o más habladores la impresora no se detenía e imprimía infinitamente los habladores, además ahora la línea divisora se ajusto para evitar el desperdicio innecesario del papel, por lo que ahora tanto al inicio como al final de la impresión no se agrega una línea divisora extra innecesaria
 - Al regresar de cualquier manera a la caja, la caja de texto de buscar producto se selecciona por defecto

@@ -203,7 +203,9 @@ Public Class M_Inicio
     End Sub
 
     Private Sub BTN_Reporte_Click(sender As Object, e As EventArgs) Handles BTN_Reporte.Click
-        MsgBox("Los reportes no están implementados para esta versión, por favor espere a futuras versiones para poder visualizarlos", vbOKOnly, "Función no implementada")
+        P_ReporteVentas.Show()
+        P_ReporteVentas.Select()
+        Me.Close()
     End Sub
 
     Private Sub Inicio_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
