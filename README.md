@@ -170,7 +170,12 @@ Feliz año esto es lo que trae la nueva actualización
 - Se añadió la función para poder modificar el directorio en el que se exportan los respaldos de la base de datos
 - Se arreglaron problemas en los que los productos no se podían buscar y filtrar por marca, proveedor y categoria a futuro se convertirán en drop downs
 - Se arreglaron temas de diseño de la app para dejar todo un poco más uniforme, en la siguiente versión se modificarán lo iconos a unos más estandarizados
+
+
 - Se modificó el ícono de todas las pestañas al actual y nuevo de la aplicación
 - Se colocó un identificador de la versión de la aplicación en el menu de inicio
 - Se modificaron los nombres de algunos controles que anteriormente aparecían con nombres incorrectos
 - Se agregaron los nombre y títulos de cada una de las pestañas
+
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/MinorPorras/SistemaFacturacionCommon)
