@@ -22,17 +22,103 @@ Module Md_Inicializacion
         End Try
     End Function
 
-
     ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
-    Async Sub CheckForUpdates()
+    Async Sub AutoUpdate()
+        Dim AutoUpdate As String = GetAppSetting("AutoUpdate")
+        If AutoUpdate = "False" Then
+            Return
+        End If
+        ' Verifica si la aplicación se está ejecutando en modo de depuración.
+        ' Si es así, se omite la búsqueda de actualizaciones para evitar sobrescribir los archivos
+        ' de desarrollo con los de una versión publicada.
+#If DEBUG Then
+        Return
+#End If
+
+
+        ' Verifica la conexión a Internet primero
         If Not HayConexionInternet() Then
             MessageBox.Show("No hay conexión a internet. No se puede buscar actualizaciones.", "Sin conexión", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
-        Using mgr = Await UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon")
-            Await mgr.UpdateApp()
-        End Using
+        ' Usa un bloque Try...Catch para manejar cualquier error durante el proceso de actualización
+        Try
+            Using mgr = Await UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon", prerelease:=True)
+
+                ' 1. Verificamos si hay una actualización disponible
+                Dim updateInfo = Await mgr.CheckForUpdate()
+
+                ' 2. Si no hay actualizaciones, salimos de la función sin hacer nada
+                If updateInfo.ReleasesToApply.Count = 0 Then
+                    MessageBox.Show("Tu aplicación está actualizada.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return
+                End If
+
+                ' 3. Si hay actualizaciones, la descargamos y la aplicamos
+                Dim newVersion = updateInfo.ReleasesToApply.Max().Version
+                MessageBox.Show($"¡Nueva versión {newVersion} disponible! Descargando actualización...", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                Await mgr.UpdateApp()
+
+                MessageBox.Show("Actualización completada. Por favor, reinicia la aplicación para aplicar los cambios.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End Using
+
+        Catch ex As Exception
+            ' En caso de un error (como no encontrar el repositorio o un problema de conexión),
+            ' no mostramos el error al usuario y simplemente salimos.
+            ' Si lo deseas, puedes registrar el error en un archivo de log.
+            MessageBox.Show("Ocurrió un error al buscar actualizaciones: " & ex.Message, "Error de actualización", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ' Puedes agregar aquí una línea para registrar el error si lo necesitas.
+        End Try
+    End Sub
+
+    ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
+    Async Sub CheckForUpdates()
+        ' Verifica si la aplicación se está ejecutando en modo de depuración.
+        ' Si es así, se omite la búsqueda de actualizaciones para evitar sobrescribir los archivos
+        ' de desarrollo con los de una versión publicada.
+#If DEBUG Then
+        MessageBox.Show("Está en modo Debug no se revisan nuevas versiones para evitar actualizaciónes que puedan perjudicar el código de nuevas versiones",
+                        "Modo DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Return
+#End If
+
+        ' Verifica la conexión a Internet primero
+        If Not HayConexionInternet() Then
+            MessageBox.Show("No hay conexión a internet. No se puede buscar actualizaciones.", "Sin conexión", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        ' Usa un bloque Try...Catch para manejar cualquier error durante el proceso de actualización
+        Try
+            Using mgr = Await UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon", prerelease:=True)
+
+                ' 1. Verificamos si hay una actualización disponible
+                Dim updateInfo = Await mgr.CheckForUpdate()
+
+                ' 2. Si no hay actualizaciones, salimos de la función sin hacer nada
+                If updateInfo.ReleasesToApply.Count = 0 Then
+                    MessageBox.Show("Tu aplicación está actualizada.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return
+                End If
+
+                ' 3. Si hay actualizaciones, la descargamos y la aplicamos
+                Dim newVersion = updateInfo.ReleasesToApply.Max().Version
+                MessageBox.Show($"¡Nueva versión {newVersion} disponible! Descargando actualización...", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                Await mgr.UpdateApp()
+
+                MessageBox.Show("Actualización completada. Por favor, reinicia la aplicación para aplicar los cambios.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End Using
+
+        Catch ex As Exception
+            ' En caso de un error (como no encontrar el repositorio o un problema de conexión),
+            ' no mostramos el error al usuario y simplemente salimos.
+            ' Si lo deseas, puedes registrar el error en un archivo de log.
+            MessageBox.Show("Ocurrió un error al buscar actualizaciones: " & ex.Message, "Error de actualización", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ' Puedes agregar aquí una línea para registrar el error si lo necesitas.
+        End Try
     End Sub
 
     ' Establece o actualiza un valor en appSettings

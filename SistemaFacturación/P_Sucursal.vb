@@ -14,9 +14,15 @@
             E_NuevaSucursal.TXT_DireccionSucursal.Text = TXT_DireccionSucursal.Text
             E_NuevaSucursal.TXT_TelefonoSucursal.Text = TXT_TelefonoSucursal.Text
             E_NuevaSucursal.TXT_EmailSucursal.Text = TXT_EmailSucursal.Text
-            E_NuevaSucursal.OFD_LogoSucursal.FileName = logo
-            E_NuevaSucursal.BTN_LogoSucursal.Image = Image.FromFile(logo)
-            E_NuevaSucursal.RutaLogo = logo
+            If Not String.IsNullOrEmpty(logo) Then
+                E_NuevaSucursal.OFD_LogoSucursal.FileName = logo
+                E_NuevaSucursal.BTN_LogoSucursal.Image = Image.FromFile(logo)
+                E_NuevaSucursal.RutaLogo = logo
+            Else
+                E_NuevaSucursal.OFD_LogoSucursal.FileName = ""
+                E_NuevaSucursal.BTN_LogoSucursal.Image = Nothing
+                E_NuevaSucursal.RutaLogo = ""
+            End If
             E_NuevaSucursal.ModSuc = True
             E_NuevaSucursal.Show()
             E_NuevaSucursal.Select()

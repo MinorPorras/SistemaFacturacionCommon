@@ -23,6 +23,7 @@ Partial Class ConfigGeneral
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim Animation10 As Guna.UI2.AnimatorNS.Animation = New Guna.UI2.AnimatorNS.Animation()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ConfigGeneral))
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.OFD_ImportarDB = New System.Windows.Forms.OpenFileDialog()
@@ -67,9 +68,26 @@ Partial Class ConfigGeneral
         Me.NUD_SizeProd = New Guna.UI2.WinForms.Guna2NumericUpDown()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.tabGeneral = New System.Windows.Forms.TabPage()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.Guna2Panel3 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.CardLayout1 = New Syncfusion.Windows.Forms.Tools.CardLayout(Me.components)
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.lbl_versionGeneralConfig = New System.Windows.Forms.Label()
+        Me.Guna2Transition1 = New Guna.UI2.WinForms.Guna2Transition()
+        Me.SWT_AutoUpdate = New Guna.UI2.WinForms.Guna2ToggleSwitch()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.BTN_CheckForUpdates = New Guna.UI2.WinForms.Guna2Button()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.LBL_DireccionConexionActual = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.LBL_BackUpDIr = New System.Windows.Forms.Label()
         Me.TCO_Config.SuspendLayout()
         Me.tabDB.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -87,8 +105,10 @@ Partial Class ConfigGeneral
         Me.Guna2Panel2.SuspendLayout()
         CType(Me.NUD_SizePrecio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_SizeProd, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabGeneral.SuspendLayout()
         CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel3.SuspendLayout()
+        CType(Me.CardLayout1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Guna2BorderlessForm1
@@ -114,6 +134,9 @@ Partial Class ConfigGeneral
         Me.TCO_Config.Controls.Add(Me.tabDB)
         Me.TCO_Config.Controls.Add(Me.tabCod)
         Me.TCO_Config.Controls.Add(Me.TabHablador)
+        Me.TCO_Config.Controls.Add(Me.tabGeneral)
+        Me.TCO_Config.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Guna2Transition1.SetDecoration(Me.TCO_Config, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.TCO_Config.ItemSize = New System.Drawing.Size(160, 40)
         Me.TCO_Config.Location = New System.Drawing.Point(-5, 147)
         Me.TCO_Config.Margin = New System.Windows.Forms.Padding(0)
@@ -145,6 +168,7 @@ Partial Class ConfigGeneral
         Me.tabDB.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.tabDB.Controls.Add(Me.BTN_RegresarConfig)
         Me.tabDB.Controls.Add(Me.GroupBox1)
+        Me.Guna2Transition1.SetDecoration(Me.tabDB, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.tabDB.Location = New System.Drawing.Point(4, 44)
         Me.tabDB.Margin = New System.Windows.Forms.Padding(0)
         Me.tabDB.Name = "tabDB"
@@ -155,6 +179,7 @@ Partial Class ConfigGeneral
         'BTN_RegresarConfig
         '
         Me.BTN_RegresarConfig.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.BTN_RegresarConfig, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_RegresarConfig.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_RegresarConfig.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_RegresarConfig.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -174,14 +199,19 @@ Partial Class ConfigGeneral
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.LBL_BackUpDIr)
+        Me.GroupBox1.Controls.Add(Me.Label19)
+        Me.GroupBox1.Controls.Add(Me.LBL_DireccionConexionActual)
+        Me.GroupBox1.Controls.Add(Me.Label18)
         Me.GroupBox1.Controls.Add(Me.BTN_ModConnDB)
         Me.GroupBox1.Controls.Add(Me.BTN_ModBackupDir)
         Me.GroupBox1.Controls.Add(Me.BTN_Importar)
         Me.GroupBox1.Controls.Add(Me.BTN_RspaldoDB)
+        Me.Guna2Transition1.SetDecoration(Me.GroupBox1, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.GroupBox1.Location = New System.Drawing.Point(31, 15)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(590, 293)
+        Me.GroupBox1.Size = New System.Drawing.Size(590, 320)
         Me.GroupBox1.TabIndex = 54
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Gestión de base de datos"
@@ -190,6 +220,7 @@ Partial Class ConfigGeneral
         '
         Me.BTN_ModConnDB.BorderRadius = 25
         Me.BTN_ModConnDB.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ModConnDB, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_ModConnDB.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_ModConnDB.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_ModConnDB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -200,9 +231,9 @@ Partial Class ConfigGeneral
         Me.BTN_ModConnDB.ForeColor = System.Drawing.Color.White
         Me.BTN_ModConnDB.Image = CType(resources.GetObject("BTN_ModConnDB.Image"), System.Drawing.Image)
         Me.BTN_ModConnDB.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_ModConnDB.Location = New System.Drawing.Point(6, 150)
+        Me.BTN_ModConnDB.Location = New System.Drawing.Point(6, 86)
         Me.BTN_ModConnDB.Name = "BTN_ModConnDB"
-        Me.BTN_ModConnDB.Size = New System.Drawing.Size(565, 58)
+        Me.BTN_ModConnDB.Size = New System.Drawing.Size(578, 58)
         Me.BTN_ModConnDB.TabIndex = 14
         Me.BTN_ModConnDB.Text = "Modificar conexión base de datos"
         '
@@ -210,6 +241,7 @@ Partial Class ConfigGeneral
         '
         Me.BTN_ModBackupDir.BorderRadius = 25
         Me.BTN_ModBackupDir.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ModBackupDir, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_ModBackupDir.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_ModBackupDir.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_ModBackupDir.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -220,9 +252,9 @@ Partial Class ConfigGeneral
         Me.BTN_ModBackupDir.ForeColor = System.Drawing.Color.White
         Me.BTN_ModBackupDir.Image = CType(resources.GetObject("BTN_ModBackupDir.Image"), System.Drawing.Image)
         Me.BTN_ModBackupDir.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_ModBackupDir.Location = New System.Drawing.Point(6, 214)
+        Me.BTN_ModBackupDir.Location = New System.Drawing.Point(6, 150)
         Me.BTN_ModBackupDir.Name = "BTN_ModBackupDir"
-        Me.BTN_ModBackupDir.Size = New System.Drawing.Size(565, 58)
+        Me.BTN_ModBackupDir.Size = New System.Drawing.Size(578, 58)
         Me.BTN_ModBackupDir.TabIndex = 13
         Me.BTN_ModBackupDir.Text = "Modificar carpeta de respaldo"
         '
@@ -231,6 +263,7 @@ Partial Class ConfigGeneral
         Me.BTN_Importar.AutoRoundedCorners = True
         Me.BTN_Importar.BorderRadius = 28
         Me.BTN_Importar.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_Importar, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_Importar.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_Importar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Importar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -243,7 +276,7 @@ Partial Class ConfigGeneral
         Me.BTN_Importar.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_Importar.Location = New System.Drawing.Point(6, 22)
         Me.BTN_Importar.Name = "BTN_Importar"
-        Me.BTN_Importar.Size = New System.Drawing.Size(565, 58)
+        Me.BTN_Importar.Size = New System.Drawing.Size(296, 58)
         Me.BTN_Importar.TabIndex = 12
         Me.BTN_Importar.Text = "Importar base de datos"
         '
@@ -251,6 +284,7 @@ Partial Class ConfigGeneral
         '
         Me.BTN_RspaldoDB.BorderRadius = 25
         Me.BTN_RspaldoDB.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_RspaldoDB, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_RspaldoDB.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_RspaldoDB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_RspaldoDB.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -260,9 +294,9 @@ Partial Class ConfigGeneral
         Me.BTN_RspaldoDB.ForeColor = System.Drawing.Color.White
         Me.BTN_RspaldoDB.Image = CType(resources.GetObject("BTN_RspaldoDB.Image"), System.Drawing.Image)
         Me.BTN_RspaldoDB.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_RspaldoDB.Location = New System.Drawing.Point(6, 86)
+        Me.BTN_RspaldoDB.Location = New System.Drawing.Point(308, 22)
         Me.BTN_RspaldoDB.Name = "BTN_RspaldoDB"
-        Me.BTN_RspaldoDB.Size = New System.Drawing.Size(565, 58)
+        Me.BTN_RspaldoDB.Size = New System.Drawing.Size(276, 58)
         Me.BTN_RspaldoDB.TabIndex = 11
         Me.BTN_RspaldoDB.Text = "Respaldar base de datos"
         '
@@ -271,6 +305,7 @@ Partial Class ConfigGeneral
         Me.tabCod.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.tabCod.Controls.Add(Me.Guna2Panel1)
         Me.tabCod.Controls.Add(Me.GroupBox2)
+        Me.Guna2Transition1.SetDecoration(Me.tabCod, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.tabCod.Location = New System.Drawing.Point(4, 44)
         Me.tabCod.Margin = New System.Windows.Forms.Padding(0)
         Me.tabCod.Name = "tabCod"
@@ -282,6 +317,7 @@ Partial Class ConfigGeneral
         '
         Me.Guna2Panel1.Controls.Add(Me.BTN_ActualizarCods)
         Me.Guna2Panel1.Controls.Add(Me.BTN_Regresar)
+        Me.Guna2Transition1.SetDecoration(Me.Guna2Panel1, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Guna2Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Guna2Panel1.Location = New System.Drawing.Point(0, 328)
         Me.Guna2Panel1.Name = "Guna2Panel1"
@@ -290,6 +326,7 @@ Partial Class ConfigGeneral
         '
         'BTN_ActualizarCods
         '
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ActualizarCods, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_ActualizarCods.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_ActualizarCods.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_ActualizarCods.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -309,6 +346,7 @@ Partial Class ConfigGeneral
         'BTN_Regresar
         '
         Me.BTN_Regresar.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.BTN_Regresar, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_Regresar.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_Regresar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Regresar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -344,6 +382,7 @@ Partial Class ConfigGeneral
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.Guna2Transition1.SetDecoration(Me.GroupBox2, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.GroupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.GroupBox2.Location = New System.Drawing.Point(38, 22)
         Me.GroupBox2.Name = "GroupBox2"
@@ -355,6 +394,7 @@ Partial Class ConfigGeneral
         'Label7
         '
         Me.Label7.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label7, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label7.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
         Me.Label7.Location = New System.Drawing.Point(185, 218)
@@ -369,6 +409,7 @@ Partial Class ConfigGeneral
         Me.SWT_ModCod.CheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.SWT_ModCod.CheckedState.InnerBorderColor = System.Drawing.Color.White
         Me.SWT_ModCod.CheckedState.InnerColor = System.Drawing.Color.White
+        Me.Guna2Transition1.SetDecoration(Me.SWT_ModCod, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.SWT_ModCod.Location = New System.Drawing.Point(293, 215)
         Me.SWT_ModCod.Name = "SWT_ModCod"
         Me.SWT_ModCod.Size = New System.Drawing.Size(72, 31)
@@ -384,6 +425,7 @@ Partial Class ConfigGeneral
         Me.NUD_Prod.BackColor = System.Drawing.Color.Transparent
         Me.NUD_Prod.BorderRadius = 14
         Me.NUD_Prod.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_Prod, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_Prod.Enabled = False
         Me.NUD_Prod.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Prod.Location = New System.Drawing.Point(438, 51)
@@ -400,6 +442,7 @@ Partial Class ConfigGeneral
         Me.NUD_Imp.BackColor = System.Drawing.Color.Transparent
         Me.NUD_Imp.BorderRadius = 14
         Me.NUD_Imp.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_Imp, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_Imp.Enabled = False
         Me.NUD_Imp.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Imp.Location = New System.Drawing.Point(82, 145)
@@ -416,6 +459,7 @@ Partial Class ConfigGeneral
         Me.NUD_Cliente.BackColor = System.Drawing.Color.Transparent
         Me.NUD_Cliente.BorderRadius = 14
         Me.NUD_Cliente.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_Cliente, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_Cliente.Enabled = False
         Me.NUD_Cliente.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Cliente.Location = New System.Drawing.Point(155, 51)
@@ -432,6 +476,7 @@ Partial Class ConfigGeneral
         Me.NUD_Prov.BackColor = System.Drawing.Color.Transparent
         Me.NUD_Prov.BorderRadius = 14
         Me.NUD_Prov.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_Prov, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_Prov.Enabled = False
         Me.NUD_Prov.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Prov.Location = New System.Drawing.Point(293, 51)
@@ -448,6 +493,7 @@ Partial Class ConfigGeneral
         Me.NUD_Marca.BackColor = System.Drawing.Color.Transparent
         Me.NUD_Marca.BorderRadius = 14
         Me.NUD_Marca.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_Marca, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_Marca.Enabled = False
         Me.NUD_Marca.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Marca.Location = New System.Drawing.Point(358, 145)
@@ -464,6 +510,7 @@ Partial Class ConfigGeneral
         Me.NUD_Cat.BackColor = System.Drawing.Color.Transparent
         Me.NUD_Cat.BorderRadius = 14
         Me.NUD_Cat.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_Cat, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_Cat.Enabled = False
         Me.NUD_Cat.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Cat.Location = New System.Drawing.Point(220, 145)
@@ -480,6 +527,7 @@ Partial Class ConfigGeneral
         Me.NUD_Cajero.BackColor = System.Drawing.Color.Transparent
         Me.NUD_Cajero.BorderRadius = 14
         Me.NUD_Cajero.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_Cajero, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_Cajero.Enabled = False
         Me.NUD_Cajero.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Cajero.Location = New System.Drawing.Point(17, 51)
@@ -493,6 +541,7 @@ Partial Class ConfigGeneral
         'Label6
         '
         Me.Label6.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label6, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label6.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
         Me.Label6.Location = New System.Drawing.Point(285, 25)
@@ -504,6 +553,7 @@ Partial Class ConfigGeneral
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label5, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label5.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.Location = New System.Drawing.Point(442, 25)
@@ -515,6 +565,7 @@ Partial Class ConfigGeneral
         'LBL_Proveedor
         '
         Me.LBL_Proveedor.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.LBL_Proveedor, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.LBL_Proveedor.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_Proveedor.ForeColor = System.Drawing.Color.White
         Me.LBL_Proveedor.Location = New System.Drawing.Point(30, 25)
@@ -526,6 +577,7 @@ Partial Class ConfigGeneral
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label1, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label1.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(168, 25)
@@ -537,6 +589,7 @@ Partial Class ConfigGeneral
         'Label4
         '
         Me.Label4.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label4, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label4.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.White
         Me.Label4.Location = New System.Drawing.Point(371, 116)
@@ -548,6 +601,7 @@ Partial Class ConfigGeneral
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label2, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label2.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(85, 116)
@@ -559,6 +613,7 @@ Partial Class ConfigGeneral
         'Label3
         '
         Me.Label3.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label3, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label3.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
         Me.Label3.Location = New System.Drawing.Point(219, 116)
@@ -577,6 +632,7 @@ Partial Class ConfigGeneral
         Me.TabHablador.Controls.Add(Me.NUD_SizeProd)
         Me.TabHablador.Controls.Add(Me.Label8)
         Me.TabHablador.Controls.Add(Me.Label9)
+        Me.Guna2Transition1.SetDecoration(Me.TabHablador, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.TabHablador.Location = New System.Drawing.Point(4, 44)
         Me.TabHablador.Margin = New System.Windows.Forms.Padding(0)
         Me.TabHablador.Name = "TabHablador"
@@ -588,6 +644,7 @@ Partial Class ConfigGeneral
         '
         Me.Guna2Panel2.Controls.Add(Me.BTN_ConfigRegHablador)
         Me.Guna2Panel2.Controls.Add(Me.BTN_ActualizarHablador)
+        Me.Guna2Transition1.SetDecoration(Me.Guna2Panel2, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Guna2Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Guna2Panel2.Location = New System.Drawing.Point(0, 337)
         Me.Guna2Panel2.Name = "Guna2Panel2"
@@ -597,6 +654,7 @@ Partial Class ConfigGeneral
         'BTN_ConfigRegHablador
         '
         Me.BTN_ConfigRegHablador.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ConfigRegHablador, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_ConfigRegHablador.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_ConfigRegHablador.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_ConfigRegHablador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -616,6 +674,7 @@ Partial Class ConfigGeneral
         '
         'BTN_ActualizarHablador
         '
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ActualizarHablador, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_ActualizarHablador.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_ActualizarHablador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_ActualizarHablador.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -635,6 +694,7 @@ Partial Class ConfigGeneral
         'Label10
         '
         Me.Label10.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label10, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label10.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.Location = New System.Drawing.Point(248, 242)
@@ -649,6 +709,7 @@ Partial Class ConfigGeneral
         Me.SWT_ModHablador.CheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.SWT_ModHablador.CheckedState.InnerBorderColor = System.Drawing.Color.White
         Me.SWT_ModHablador.CheckedState.InnerColor = System.Drawing.Color.White
+        Me.Guna2Transition1.SetDecoration(Me.SWT_ModHablador, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.SWT_ModHablador.Location = New System.Drawing.Point(359, 242)
         Me.SWT_ModHablador.Name = "SWT_ModHablador"
         Me.SWT_ModHablador.Size = New System.Drawing.Size(72, 31)
@@ -664,6 +725,7 @@ Partial Class ConfigGeneral
         Me.NUD_SizePrecio.BackColor = System.Drawing.Color.Transparent
         Me.NUD_SizePrecio.BorderRadius = 14
         Me.NUD_SizePrecio.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_SizePrecio, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_SizePrecio.Enabled = False
         Me.NUD_SizePrecio.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_SizePrecio.Location = New System.Drawing.Point(390, 155)
@@ -680,6 +742,7 @@ Partial Class ConfigGeneral
         Me.NUD_SizeProd.BackColor = System.Drawing.Color.Transparent
         Me.NUD_SizeProd.BorderRadius = 14
         Me.NUD_SizeProd.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.Guna2Transition1.SetDecoration(Me.NUD_SizeProd, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.NUD_SizeProd.Enabled = False
         Me.NUD_SizeProd.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_SizeProd.Location = New System.Drawing.Point(390, 58)
@@ -693,6 +756,7 @@ Partial Class ConfigGeneral
         'Label8
         '
         Me.Label8.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label8, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label8.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.White
         Me.Label8.Location = New System.Drawing.Point(96, 57)
@@ -704,6 +768,7 @@ Partial Class ConfigGeneral
         'Label9
         '
         Me.Label9.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label9, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label9.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.ForeColor = System.Drawing.Color.White
         Me.Label9.Location = New System.Drawing.Point(96, 157)
@@ -712,8 +777,42 @@ Partial Class ConfigGeneral
         Me.Label9.TabIndex = 107
         Me.Label9.Text = "Tamaño del precio:"
         '
+        'tabGeneral
+        '
+        Me.tabGeneral.Controls.Add(Me.Label17)
+        Me.tabGeneral.Controls.Add(Me.Label16)
+        Me.tabGeneral.Controls.Add(Me.BTN_CheckForUpdates)
+        Me.tabGeneral.Controls.Add(Me.Label15)
+        Me.tabGeneral.Controls.Add(Me.SWT_AutoUpdate)
+        Me.tabGeneral.Controls.Add(Me.lbl_versionGeneralConfig)
+        Me.tabGeneral.Controls.Add(Me.Label14)
+        Me.tabGeneral.Controls.Add(Me.Label13)
+        Me.tabGeneral.Controls.Add(Me.Label12)
+        Me.tabGeneral.Controls.Add(Me.Label11)
+        Me.Guna2Transition1.SetDecoration(Me.tabGeneral, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.tabGeneral.Location = New System.Drawing.Point(4, 44)
+        Me.tabGeneral.Name = "tabGeneral"
+        Me.tabGeneral.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabGeneral.Size = New System.Drawing.Size(653, 406)
+        Me.tabGeneral.TabIndex = 3
+        Me.tabGeneral.Text = "General"
+        Me.tabGeneral.UseVisualStyleBackColor = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label11, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label11.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.White
+        Me.Label11.Location = New System.Drawing.Point(13, 37)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(244, 23)
+        Me.Label11.TabIndex = 107
+        Me.Label11.Text = "Información del producto"
+        '
         'Guna2PictureBox2
         '
+        Me.Guna2Transition1.SetDecoration(Me.Guna2PictureBox2, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
         Me.Guna2PictureBox2.ImageRotate = 0!
         Me.Guna2PictureBox2.Location = New System.Drawing.Point(149, -85)
@@ -727,6 +826,7 @@ Partial Class ConfigGeneral
         '
         Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Firebrick
         Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.Guna2Transition1.SetDecoration(Me.BTN_CerrarApp, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
         Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
@@ -742,10 +842,201 @@ Partial Class ConfigGeneral
         'Guna2Panel3
         '
         Me.Guna2Panel3.Controls.Add(Me.BTN_CerrarApp)
+        Me.Guna2Transition1.SetDecoration(Me.Guna2Panel3, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Guna2Panel3.Location = New System.Drawing.Point(595, 1)
         Me.Guna2Panel3.Name = "Guna2Panel3"
         Me.Guna2Panel3.Size = New System.Drawing.Size(51, 53)
         Me.Guna2Panel3.TabIndex = 124
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label12, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label12.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.White
+        Me.Label12.Location = New System.Drawing.Point(14, 81)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(69, 17)
+        Me.Label12.TabIndex = 108
+        Me.Label12.Text = "Nombre:"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label13, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label13.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.White
+        Me.Label13.Location = New System.Drawing.Point(14, 120)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(67, 17)
+        Me.Label13.TabIndex = 109
+        Me.Label13.Text = "Versión:"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label14, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label14.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.White
+        Me.Label14.Location = New System.Drawing.Point(89, 79)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(220, 19)
+        Me.Label14.TabIndex = 110
+        Me.Label14.Text = "Sistema de Facturación Common"
+        '
+        'lbl_versionGeneralConfig
+        '
+        Me.lbl_versionGeneralConfig.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.lbl_versionGeneralConfig, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.lbl_versionGeneralConfig.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_versionGeneralConfig.ForeColor = System.Drawing.Color.White
+        Me.lbl_versionGeneralConfig.Location = New System.Drawing.Point(87, 120)
+        Me.lbl_versionGeneralConfig.Name = "lbl_versionGeneralConfig"
+        Me.lbl_versionGeneralConfig.Size = New System.Drawing.Size(41, 19)
+        Me.lbl_versionGeneralConfig.TabIndex = 111
+        Me.lbl_versionGeneralConfig.Text = "0.0.0"
+        '
+        'Guna2Transition1
+        '
+        Me.Guna2Transition1.AnimationType = Guna.UI2.AnimatorNS.AnimationType.Scale
+        Me.Guna2Transition1.Cursor = Nothing
+        Animation10.AnimateOnlyDifferences = True
+        Animation10.BlindCoeff = CType(resources.GetObject("Animation10.BlindCoeff"), System.Drawing.PointF)
+        Animation10.LeafCoeff = 0!
+        Animation10.MaxTime = 1.0!
+        Animation10.MinTime = 0!
+        Animation10.MosaicCoeff = CType(resources.GetObject("Animation10.MosaicCoeff"), System.Drawing.PointF)
+        Animation10.MosaicShift = CType(resources.GetObject("Animation10.MosaicShift"), System.Drawing.PointF)
+        Animation10.MosaicSize = 0
+        Animation10.Padding = New System.Windows.Forms.Padding(0, 0, 0, 0)
+        Animation10.RotateCoeff = 0!
+        Animation10.RotateLimit = 0!
+        Animation10.ScaleCoeff = CType(resources.GetObject("Animation10.ScaleCoeff"), System.Drawing.PointF)
+        Animation10.SlideCoeff = CType(resources.GetObject("Animation10.SlideCoeff"), System.Drawing.PointF)
+        Animation10.TimeCoeff = 0!
+        Animation10.TransparencyCoeff = 0!
+        Me.Guna2Transition1.DefaultAnimation = Animation10
+        '
+        'SWT_AutoUpdate
+        '
+        Me.SWT_AutoUpdate.CheckedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.SWT_AutoUpdate.CheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.SWT_AutoUpdate.CheckedState.InnerBorderColor = System.Drawing.Color.White
+        Me.SWT_AutoUpdate.CheckedState.InnerColor = System.Drawing.Color.White
+        Me.Guna2Transition1.SetDecoration(Me.SWT_AutoUpdate, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.SWT_AutoUpdate.Location = New System.Drawing.Point(320, 346)
+        Me.SWT_AutoUpdate.Name = "SWT_AutoUpdate"
+        Me.SWT_AutoUpdate.Size = New System.Drawing.Size(72, 27)
+        Me.SWT_AutoUpdate.TabIndex = 112
+        Me.SWT_AutoUpdate.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(125, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
+        Me.SWT_AutoUpdate.UncheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(125, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
+        Me.SWT_AutoUpdate.UncheckedState.InnerBorderColor = System.Drawing.Color.White
+        Me.SWT_AutoUpdate.UncheckedState.InnerColor = System.Drawing.Color.White
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label15, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label15.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.ForeColor = System.Drawing.Color.White
+        Me.Label15.Location = New System.Drawing.Point(14, 352)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(300, 17)
+        Me.Label15.TabIndex = 113
+        Me.Label15.Text = "Buscar actualizaciones automáticamente:"
+        '
+        'BTN_CheckForUpdates
+        '
+        Me.BTN_CheckForUpdates.BorderRadius = 25
+        Me.BTN_CheckForUpdates.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_CheckForUpdates, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_CheckForUpdates.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_CheckForUpdates.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CheckForUpdates.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CheckForUpdates.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CheckForUpdates.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CheckForUpdates.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_CheckForUpdates.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_CheckForUpdates.ForeColor = System.Drawing.Color.White
+        Me.BTN_CheckForUpdates.Image = CType(resources.GetObject("BTN_CheckForUpdates.Image"), System.Drawing.Image)
+        Me.BTN_CheckForUpdates.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CheckForUpdates.Location = New System.Drawing.Point(398, 330)
+        Me.BTN_CheckForUpdates.Name = "BTN_CheckForUpdates"
+        Me.BTN_CheckForUpdates.Size = New System.Drawing.Size(237, 59)
+        Me.BTN_CheckForUpdates.TabIndex = 115
+        Me.BTN_CheckForUpdates.Text = "Buscar nuevas versiones"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label16, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label16.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.White
+        Me.Label16.Location = New System.Drawing.Point(14, 159)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(52, 17)
+        Me.Label16.TabIndex = 116
+        Me.Label16.Text = "Autor:"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label17, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label17.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.Color.White
+        Me.Label17.Location = New System.Drawing.Point(87, 157)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(177, 19)
+        Me.Label17.TabIndex = 117
+        Me.Label17.Text = "Minor Josué Porras Varela"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label18, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label18.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.White
+        Me.Label18.Location = New System.Drawing.Point(3, 229)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(126, 17)
+        Me.Label18.TabIndex = 117
+        Me.Label18.Text = "Conexión actual:"
+        '
+        'LBL_DireccionConexionActual
+        '
+        Me.LBL_DireccionConexionActual.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.LBL_DireccionConexionActual, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.LBL_DireccionConexionActual.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_DireccionConexionActual.ForeColor = System.Drawing.Color.White
+        Me.LBL_DireccionConexionActual.Location = New System.Drawing.Point(135, 227)
+        Me.LBL_DireccionConexionActual.Name = "LBL_DireccionConexionActual"
+        Me.LBL_DireccionConexionActual.Size = New System.Drawing.Size(70, 19)
+        Me.LBL_DireccionConexionActual.TabIndex = 118
+        Me.LBL_DireccionConexionActual.Text = "Dirección"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.Label19, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Label19.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.ForeColor = System.Drawing.Color.White
+        Me.Label19.Location = New System.Drawing.Point(3, 280)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(174, 17)
+        Me.Label19.TabIndex = 119
+        Me.Label19.Text = "Directorio de respaldo:"
+        '
+        'LBL_BackUpDIr
+        '
+        Me.LBL_BackUpDIr.AutoSize = True
+        Me.Guna2Transition1.SetDecoration(Me.LBL_BackUpDIr, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.LBL_BackUpDIr.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_BackUpDIr.ForeColor = System.Drawing.Color.White
+        Me.LBL_BackUpDIr.Location = New System.Drawing.Point(183, 280)
+        Me.LBL_BackUpDIr.Name = "LBL_BackUpDIr"
+        Me.LBL_BackUpDIr.Size = New System.Drawing.Size(76, 19)
+        Me.LBL_BackUpDIr.TabIndex = 120
+        Me.LBL_BackUpDIr.Text = "backUpDir"
         '
         'ConfigGeneral
         '
@@ -756,6 +1047,7 @@ Partial Class ConfigGeneral
         Me.Controls.Add(Me.Guna2Panel3)
         Me.Controls.Add(Me.TCO_Config)
         Me.Controls.Add(Me.Guna2PictureBox2)
+        Me.Guna2Transition1.SetDecoration(Me, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
@@ -765,6 +1057,7 @@ Partial Class ConfigGeneral
         Me.TCO_Config.ResumeLayout(False)
         Me.tabDB.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.tabCod.ResumeLayout(False)
         Me.Guna2Panel1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
@@ -781,8 +1074,11 @@ Partial Class ConfigGeneral
         Me.Guna2Panel2.ResumeLayout(False)
         CType(Me.NUD_SizePrecio, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_SizeProd, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabGeneral.ResumeLayout(False)
+        Me.tabGeneral.PerformLayout()
         CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Guna2Panel3.ResumeLayout(False)
+        CType(Me.CardLayout1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -833,4 +1129,21 @@ Partial Class ConfigGeneral
     Friend WithEvents Guna2Panel2 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents BTN_CerrarApp As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents Guna2Panel3 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents tabGeneral As TabPage
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents CardLayout1 As Syncfusion.Windows.Forms.Tools.CardLayout
+    Friend WithEvents Label14 As Label
+    Friend WithEvents lbl_versionGeneralConfig As Label
+    Friend WithEvents Guna2Transition1 As Guna.UI2.WinForms.Guna2Transition
+    Friend WithEvents Label15 As Label
+    Friend WithEvents SWT_AutoUpdate As Guna.UI2.WinForms.Guna2ToggleSwitch
+    Friend WithEvents BTN_CheckForUpdates As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents LBL_DireccionConexionActual As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents LBL_BackUpDIr As Label
 End Class

@@ -3,7 +3,7 @@ Imports System.Deployment.Application
 Public Class P_SelectUsu
 
     Private Sub P_LoginCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Md_Inicializacion.CheckForUpdates()
+        Md_Inicializacion.AutoUpdate()
         T.Tables.Clear()
         SQL = "SELECT ID, usuario, color FROM usuario"
         Cargar_Tabla(T, SQL)
