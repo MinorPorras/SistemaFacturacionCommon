@@ -1,5 +1,7 @@
 ﻿Imports System.Configuration
 Imports System.IO
+Imports System.Net
+Imports Squirrel
 
 ' -----------------------------------------------------------------------------
 ' Módulo de inicialización y utilidades de configuración de la aplicación
@@ -7,37 +9,30 @@ Imports System.IO
 ' -----------------------------------------------------------------------------
 Module Md_Inicializacion
 
+    'Comprueba si hay conexión a internet intentando acceder a un sitio conocido
+    Function HayConexionInternet() As Boolean
+        Try
+            Using client As New WebClient()
+                Using stream = client.OpenRead("https://www.google.com")
+                    Return True
+                End Using
+            End Using
+        Catch
+            Return False
+        End Try
+    End Function
+
+
     ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
-    Public Sub CheckForUpdates()
-        ' Ruta completa del archivo setup.exe
-        Dim setupFile As String = "C:\SisFactUtilidades\SisFactIntaller\setup.exe"
-
-        ' Verificar si existe el archivo setup.exe en la ruta de actualización
-        If File.Exists(setupFile) Then
-            ' Obtener la versión actual de la aplicación
-            Dim currentVersion As Version = New Version(Application.ProductVersion)
-            ' Obtener la versión del archivo setup.exe
-            Dim setupFileInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(setupFile)
-            Dim setupFileVersion As String = setupFileInfo.FileVersion
-
-            ' Validar que la cadena de versión sea válida
-            Dim updateVersion As Version = Nothing
-            If Version.TryParse(setupFileVersion, updateVersion) Then
-                ' Comparar versiones para determinar si hay una nueva versión disponible
-                If updateVersion > currentVersion Then
-                    ' Preguntar al usuario si desea actualizar
-                    If MessageBox.Show("Hay una nueva versión disponible. ¿Deseas actualizar?", "Actualización Disponible", MessageBoxButtons.YesNo) = DialogResult.Yes Then
-                        ApplyUpdate(setupFile)
-                    End If
-                End If
-            End If
+    Async Sub CheckForUpdates()
+        If Not HayConexionInternet() Then
+            MessageBox.Show("No hay conexión a internet. No se puede buscar actualizaciones.", "Sin conexión", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
         End If
-    End Sub
 
-    ' Ejecuta el instalador de la nueva versión y cierra la aplicación actual
-    Private Sub ApplyUpdate(setupFile As String)
-        Process.Start(setupFile)
-        Application.Exit()
+        Using mgr = Await UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon")
+            Await mgr.UpdateApp()
+        End Using
     End Sub
 
     ' Establece o actualiza un valor en appSettings
