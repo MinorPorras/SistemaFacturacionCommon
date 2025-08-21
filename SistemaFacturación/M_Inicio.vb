@@ -37,7 +37,11 @@ Public Class M_Inicio
         LBL_Sucursal.Text = "Sucursal: " + ConfigurationManager.AppSettings("Empresa").ToString()
         LBL_Telefono.Text = "Telefono: " + ConfigurationManager.AppSettings("Telefono").ToString()
         LBL_Email.Text = "Email: " + ConfigurationManager.AppSettings("Correo").ToString()
-        PIC_Logo.Image = Image.FromFile(ConfigurationManager.AppSettings("Logo").ToString())
+        Try
+            PIC_Logo.Image = Image.FromFile(ConfigurationManager.AppSettings("Logo").ToString())
+        Catch ex As Exception
+            Console.WriteLine("No se encontró la imagen")
+        End Try
         LBL_Version.Text = "Ver. " + Application.ProductVersion
         Task.Run(Sub()
                      cargarCalProveedores("dia_pedido", "proveedor_diaPedido")

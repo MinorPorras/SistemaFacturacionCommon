@@ -1,16 +1,26 @@
-﻿Imports System.Configuration
+﻿' -------------------------------------------------------------
+' Formulario para la gestión de creación y edición de sucursales
+' Permite ingresar, validar y guardar información de una sucursal
+' -------------------------------------------------------------
+Imports System.Configuration
 
 Public Class E_NuevaSucursal
+    ' Identificador único de la sucursal
     Friend idSucursal As String
+    ' Ruta del logo seleccionado para la sucursal
     Friend RutaLogo As String
+    ' Indica si se está modificando (True) o creando (False) una sucursal
     Friend ModSuc As Boolean = False
 
+    ' Evento: Regresa al formulario de listado de sucursales
     Private Sub BTN_RegresarSuc_Click(sender As Object, e As EventArgs) Handles BTN_RegresarNSuc.Click
         P_Sucursal.Show()
         P_Sucursal.Select()
         Me.Close()
     End Sub
 
+    ' Función: Valida que todos los campos requeridos estén completos
+    ' Habilita o deshabilita el botón de guardar según la validación
     Private Function VALIDAR()
         ' Si el texto no está vacío en el textbox habilita el botón de guardar/agregar
         If TXT_CodSucursal.Text <> "" And TXT_CedJuridicaSucursal.Text <> "" And TXT_NombreSucursal.Text <> "" And TXT_EmailSucursal.Text <> "" And TXT_TelefonoSucursal.Text <> "" And TXT_DireccionSucursal.Text <> "" And RutaLogo <> "" Then
@@ -22,6 +32,7 @@ Public Class E_NuevaSucursal
         End If
     End Function
 
+    ' Evento: Selección de logo para la sucursal mediante OpenFileDialog
     Private Sub BTN_LogoSucursal_Click(sender As Object, e As EventArgs) Handles BTN_LogoSucursal.Click
         Try
             If OFD_LogoSucursal.ShowDialog() = DialogResult.OK Then
@@ -34,6 +45,7 @@ Public Class E_NuevaSucursal
         End Try
     End Sub
 
+    ' Evento: Al cargar el formulario, obtiene una nueva PK si es alta
     Private Sub E_NuevaSucursal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Al cargar la página obtiene una PK nueva
         If ModSuc = False Then
@@ -42,6 +54,7 @@ Public Class E_NuevaSucursal
         VALIDAR()
     End Sub
 
+    ' Eventos: Validan los campos al cambiar el texto en los TextBox
     Private Sub TXT_CodSucursal_TextChanged(sender As Object, e As EventArgs) Handles TXT_CodSucursal.TextChanged
         VALIDAR()
     End Sub
@@ -62,6 +75,11 @@ Public Class E_NuevaSucursal
         VALIDAR()
     End Sub
 
+    Private Sub TXT_TelefonoSucursal_TextChanged(sender As Object, e As EventArgs) Handles TXT_TelefonoSucursal.TextChanged
+        VALIDAR()
+    End Sub
+
+    ' Evento: Guarda la información de la sucursal en la base de datos
     Private Sub BTN_GuardarNSucursal_Click(sender As Object, e As EventArgs) Handles BTN_GuardarNSucursal.Click
         If VALIDAR() Then
             Try
@@ -104,12 +122,14 @@ Public Class E_NuevaSucursal
         End If
     End Sub
 
+    ' Evento: Permite guardar la sucursal presionando Enter
     Private Sub E_NuevaSucursal_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
         If e.KeyChar = Chr(13) Then
             BTN_GuardarNSucursal.PerformClick()
         End If
     End Sub
 
+    ' Limpia todos los campos del formulario
     Friend Sub LIMPIAR()
         TXT_CedJuridicaSucursal.Clear()
         TXT_CodSucursal.Clear()
@@ -117,9 +137,5 @@ Public Class E_NuevaSucursal
         TXT_TelefonoSucursal.Clear()
         TXT_EmailSucursal.Clear()
         TXT_NombreSucursal.Clear()
-    End Sub
-
-    Private Sub TXT_TelefonoSucursal_TextChanged(sender As Object, e As EventArgs) Handles TXT_TelefonoSucursal.TextChanged
-        VALIDAR()
     End Sub
 End Class

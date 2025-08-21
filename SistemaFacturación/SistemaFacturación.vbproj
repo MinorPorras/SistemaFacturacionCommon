@@ -32,8 +32,10 @@
     <ProductName>Sistema de Facturación Common</ProductName>
     <PublisherName>Minor Porras Varela</PublisherName>
     <SuiteName>Sistema Fact</SuiteName>
+    <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>0</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>2.2.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -233,9 +235,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="REPORTES.vb" />
-    <Content Include="bd\backupDB\RespaldosSF\dbSistemaFacturaciónStock.accdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="bd\dbSistemaFacturacion.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -606,7 +605,9 @@
     <None Include="packages.config" />
     <None Include="SistemaFacturación_TemporaryKey.pfx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bd\backupDB\RespaldosSF\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="recursos\ICO_Caja.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

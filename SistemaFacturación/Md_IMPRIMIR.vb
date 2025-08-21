@@ -1,4 +1,10 @@
-﻿Module Md_IMPRIMIR
+﻿' -----------------------------------------------------------------------------
+' Módulo para la generación y armado de la factura impresa o reimpresa
+' Obtiene los datos de la factura, cliente, sucursal y productos para mostrar
+' en la vista previa de impresión o reimpresión.
+' -----------------------------------------------------------------------------
+Module Md_IMPRIMIR
+    ' Variables para almacenar datos de la factura y sucursal
     Dim sucursal As String
     Dim numFact As String
     Dim nomCajero As String
@@ -15,9 +21,11 @@
     Dim vuelto As String
     Dim tventa As String
 
+    ' Genera el contenido de la factura para impresión o reimpresión
+    ' id_factura: ID de la factura a imprimir
+    ' reimprimir: True si es reimpresión, False si es impresión normal
     Public Sub CREAR_FACTURA(id_factura As Integer, reimprimir As Boolean)
-
-
+        ' Obtener datos principales de la factura, cliente y usuario
         T.Tables.Clear()
         SQL = "SELECT f.ID, f.fecha_emision, c.nombre, f.num_factura, f.total, f.efectivo_cliente, f.tarjeta_cliente, f.vuelto, f.tipo_venta, u.usuario" &
             " FROM (factura f LEFT JOIN clientes c ON c.ID =f.ID_Cliente) LEFT JOIN usuario u ON u.ID = f.ID_Usuario WHERE f.ID = " & id_factura
@@ -31,6 +39,7 @@
         vuelto = If(IsDBNull(T.Tables(0).Rows(0).Item(7)), " ", T.Tables(0).Rows(0).Item(7))
         tventa = If(IsDBNull(T.Tables(0).Rows(0).Item(8)), " ", T.Tables(0).Rows(0).Item(8))
         Dim strVenta As String
+        ' Determinar el tipo de venta en texto
         Select Case tventa
             Case 0
                 strVenta = "Efectivo"
@@ -47,7 +56,7 @@
         End Select
         nomCajero = If(IsDBNull(T.Tables(0).Rows(0).Item(9)), " ", T.Tables(0).Rows(0).Item(9))
 
-
+        ' Obtener comentario de la factura si existe
         T1.Tables.Clear()
         SQL = "SELECT comentario FROM factura_comentario WHERE ID_Factura = " & id_factura
         Cargar_Tabla(T1, SQL)
@@ -55,7 +64,7 @@
             comentario = If(IsDBNull(T1.Tables(0).Rows(0).Item(0)), " ", T1.Tables(0).Rows(0).Item(0))
         End If
 
-
+        ' Obtener datos de la sucursal
         T2.Tables.Clear()
         SQL = "SELECT nombre, direccion, ced_juridica, telefono, email FROM sucursal"
         Cargar_Tabla(T2, SQL)
@@ -65,6 +74,7 @@
         telefono = If(IsDBNull(T2.Tables(0).Rows(0).Item(3)), " ", T2.Tables(0).Rows(0).Item(3))
         email = If(IsDBNull(T2.Tables(0).Rows(0).Item(4)), " ", T2.Tables(0).Rows(0).Item(4))
 
+        ' Formatear la dirección para impresión
         Dim direccionsplit() As String = direccion.Split(","c)
         direccion = ""
         For i As Integer = 0 To direccionsplit.Length - 1
@@ -75,8 +85,9 @@
             End If
         Next
 
+        ' Armar el contenido de la factura según si es impresión o reimpresión
         If Not reimprimir Then
-            ' Definir el contenido de la factura
+            ' Definir el contenido de la factura para impresión normal
             P_TerminarVenta.encabezadoFactura = "-------------------------------------------" & vbCrLf &
                                 "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
                                 "------------ " & sucursal & " -------------" & vbCrLf & vbCrLf &
@@ -95,7 +106,7 @@
                                 "-------------------------------------------" & vbCrLf
             P_TerminarVenta.encabezadoProds = "Cant     Descripción        Precio       Total" & vbCrLf &
                                                      "--------------------------------------------------" & vbCrLf
-            cargarProds(id_factura, reimprimir)
+            CargarProds(id_factura, reimprimir)
 
             P_TerminarVenta.finFactura = "-------------------------------------------" & vbCrLf &
                       "Total de la venta: ₡ " & total & vbCrLf &
@@ -115,7 +126,7 @@
                     vbCrLf &
                      "Pago en tarjeta: ₡ " & tCliente & vbCrLf &
                       vbCrLf &
-                      "Vuelto: ₡ " & vuelto & vbCrLf &
+                      "Vuelto: ₡ " & vuelto &
                       vbCrLf &
                       "Tipo de pago: " & strVenta & vbCrLf &
                       vbCrLf &
@@ -123,7 +134,7 @@
                       "-------------------------------------------" & vbCrLf
             End If
         Else
-            ' Definir el contenido de la factura
+            ' Definir el contenido de la factura para reimpresión
             P_ReimprimirFact.encabezadoFactura = "-------------------------------------------" & vbCrLf &
                                 "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
                                 "------------ " & sucursal & " -------------" & vbCrLf & vbCrLf &
@@ -142,7 +153,7 @@
                                 "-------------------------------------------" & vbCrLf
             P_ReimprimirFact.encabezadoProds = "Cant  Descripción            Precio       Total" & vbCrLf &
                                                      "--------------------------------------------------" & vbCrLf
-            cargarProds(id_factura, reimprimir)
+            CargarProds(id_factura, reimprimir)
 
             P_ReimprimirFact.finFactura = "-------------------------------------------" & vbCrLf &
                       "Total de la venta: ₡ " & total & vbCrLf &
@@ -162,7 +173,7 @@
                 P_ReimprimirFact.finFactura += "Pago en efectivo: ₡ " & eCliente & vbCrLf &
                      "Pago en tarjeta: ₡ " & tCliente & vbCrLf &
                       vbCrLf &
-                      "Vuelto: ₡ " & vuelto & vbCrLf &
+                      "Vuelto: ₡ " & vuelto &
                       vbCrLf &
                       "Tipo de pago: " & strVenta & vbCrLf &
                       vbCrLf &
@@ -171,9 +182,13 @@
             End If
         End If
 
+        ' Limpiar comentario para futuras impresiones
         comentario = String.Empty
     End Sub
 
+    ' Carga los productos de la factura y los agrega al contenido de impresión
+    ' idfact: ID de la factura
+    ' reimprimir: True si es reimpresión, False si es impresión normal
     Private Sub CargarProds(idfact As Integer, reimprimir As Boolean)
         T.Tables.Clear()
         SQL = "SELECT f.cant, p.nombre, f.precio_venta FROM ((factura_producto f LEFT JOIN producto p ON p.ID = f.ID_Producto)" &
@@ -181,7 +196,6 @@
         Cargar_Tabla(T, SQL)
         Dim prods As String
         If T.Tables(0).Rows.Count > 0 Then
-
             For i As Integer = 0 To T.Tables(0).Rows.Count - 1
                 prods = T.Tables(0).Rows(i).Item(0) & "." &
                                   T.Tables(0).Rows(i).Item(1) & "." &

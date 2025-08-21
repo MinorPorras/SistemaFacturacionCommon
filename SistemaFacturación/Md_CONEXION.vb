@@ -1,4 +1,8 @@
-﻿Imports System.Configuration
+﻿' -----------------------------------------------------------------------------
+' Módulo de conexión y operaciones con la base de datos SQLite para el sistema
+' Incluye funciones de conexión, ejecución de consultas y utilidades de configuración
+' -----------------------------------------------------------------------------
+Imports System.Configuration
 Imports System.Data.OleDb
 Imports System.Data.SQLite
 Imports System.Threading.Tasks
@@ -7,20 +11,24 @@ Imports System.Windows.Forms
 Module Md_CONEXION
 
 #Region "Conexion"
-
+    ' Instancia de la conexión a la base de datos SQLite
     Private db As SQLiteConnection
+    ' DataSets globales para almacenar resultados de consultas
     Public T As New DataSet
     Public T1 As New DataSet
     Public T2 As New DataSet
     Public T3 As New DataSet
     Public T4 As New DataSet
     Public T5 As New DataSet
+    ' Variables globales de usuario actual
     Public idUsuActual As Integer
     Public nomUsuActual As String
     Public CuentaAdmin As Boolean
+    ' Variables globales para consultas y cadena de conexión
     Public SQL As String
     Public stringConexion As String
 
+    ' Abre la conexión a la base de datos SQLite
     Public Sub CONECTAR()
         Try
             Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
@@ -34,6 +42,7 @@ Module Md_CONEXION
         End Try
     End Sub
 
+    ' Intenta abrir la conexión y retorna True si es exitosa
     Public Function CONEXION() As Boolean
         Try
             Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
@@ -49,6 +58,7 @@ Module Md_CONEXION
         End Try
     End Function
 
+    ' Cierra la conexión a la base de datos si está abierta
     Public Sub DESCONECTAR()
         Try
             If db IsNot Nothing AndAlso db.State = ConnectionState.Open Then
@@ -61,11 +71,10 @@ Module Md_CONEXION
             Console.WriteLine("Error al desconectar: " & ex.Message & " StackTrace: " & ex.StackTrace)
         End Try
     End Sub
-
-
 #End Region
 
 #Region "Interaccion"
+    ' Carga datos en un DataSet usando parámetros en la consulta SQL
     Public Sub CargarTablaParam(ByVal t As DataSet, ByVal consulta As String, ByVal parametros As List(Of SQLiteParameter))
         CONECTAR()
         Using cmd As New SQLiteCommand(consulta, db)
@@ -84,6 +93,7 @@ Module Md_CONEXION
         DESCONECTAR()
     End Sub
 
+    ' Carga datos en un DataSet usando una consulta SQL simple
     Public Sub Cargar_Tabla(ByVal t As DataSet, ByVal consulta As String)
         Try
             CONECTAR()
@@ -101,6 +111,7 @@ Module Md_CONEXION
         End Try
     End Sub
 
+    ' Ejecuta una consulta SQL que no retorna resultados (INSERT, UPDATE, DELETE)
     Public Function EJECUTAR(ByVal SQL As String) As Boolean
         Try
             CONECTAR()
@@ -116,6 +127,7 @@ Module Md_CONEXION
     End Function
 #End Region
 
+    ' Modifica la cadena de conexión en App.config y la variable global
     Friend Sub modConexionString(rutaNueva As String)
         ' Modificar App.config para actualizar la cadena de conexión
         Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
@@ -127,6 +139,7 @@ Module Md_CONEXION
         stringConexion = config.ConnectionStrings.ConnectionStrings("DbConnectionString").ConnectionString
     End Sub
 
+    ' Actualiza o agrega un valor en la sección appSettings de App.config
     Public Sub ActConfig(key As String, value As String)
         ' Load the configuration file
         Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
@@ -143,22 +156,23 @@ Module Md_CONEXION
         ConfigurationManager.RefreshSection("appSettings")
     End Sub
 
+    ' Genera un reporte de facturas entre dos fechas y lo carga en un DataSet
     Friend Sub GenerarReporte(desde As Date, hasta As Date, t As DataSet)
         Try
             If CONEXION() AndAlso db IsNot Nothing Then
-                Dim consulta As String = "SELECT f.num_factura As '# Fact', " &
-                                     "f.fecha_emision As 'Fecha de emisión', " &
-                                     "c.nombre As 'Nombre', " &
-                                     "total As 'Total', " &
-                                     "CASE f.tipo_venta " &
-                                     "WHEN 0 THEN 'Efectivo' " &
-                                     "WHEN 1 THEN 'Tarjeta' " &
-                                     "WHEN 2 THEN 'Sinpe' " &
-                                     "WHEN 3 THEN 'Depósito' " &
-                                     "WHEN 4 THEN 'Mixto' " &
-                                     "END AS tipo " &
-                                     "FROM factura f " &
-                                     "INNER JOIN clientes c ON c.ID = f.ID_Cliente " &
+                Dim consulta As String = "SELECT f.num_factura As '# Fact', " & _
+                                     "f.fecha_emision As 'Fecha de emisión', " & _
+                                     "c.nombre As 'Nombre', " & _
+                                     "total As 'Total', " & _
+                                     "CASE f.tipo_venta " & _
+                                     "WHEN 0 THEN 'Efectivo' " & _
+                                     "WHEN 1 THEN 'Tarjeta' " & _
+                                     "WHEN 2 THEN 'Sinpe' " & _
+                                     "WHEN 3 THEN 'Depósito' " & _
+                                     "WHEN 4 THEN 'Mixto' " & _
+                                     "END AS tipo " & _
+                                     "FROM factura f " & _
+                                     "INNER JOIN clientes c ON c.ID = f.ID_Cliente " & _
                                      "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin;"
 
                 Using cmd As New SQLiteCommand(consulta, db)

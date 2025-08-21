@@ -1,0 +1,57 @@
+# Archivos y carpetas de compilación
+[Bb]in/
+[Oo]bj/
+
+# Archivos de usuario de Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de configuración local
+*.vspscc
+*.vssscc
+*.cache
+*.dbmdl
+
+# Archivos de paquetes NuGet
+*.nupkg
+# Carpetas de paquetes
+packages/
+# Archivos de bloqueo de NuGet
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Archivos de configuración de Visual Studio
+.vs/
+*.VC.db
+*.VC.VC.opendb
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Archivos de publicación
+publish/
+*.publish.xml
+
+# Archivos de configuración de usuario
+*.userprefs
+
+# Archivos de base de datos locales
+*.mdf
+*.ldf
+
+# Archivos de recursos generados
+*.resources
+
+# Archivos de respaldo
+*.bak
+
+# Archivos de configuración de IIS Express
+.vsconfig
+
+# Archivos de configuración de Rider/JetBrains
+.idea/
+*.sln.iml

@@ -1,7 +1,13 @@
 ﻿Imports System.Configuration
 Imports System.IO
 
+' -----------------------------------------------------------------------------
+' Módulo de inicialización y utilidades de configuración de la aplicación
+' Incluye funciones para actualización, configuración y acceso a settings
+' -----------------------------------------------------------------------------
 Module Md_Inicializacion
+
+    ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
     Public Sub CheckForUpdates()
         ' Ruta completa del archivo setup.exe
         Dim setupFile As String = "C:\SisFactUtilidades\SisFactIntaller\setup.exe"
@@ -28,59 +34,45 @@ Module Md_Inicializacion
         End If
     End Sub
 
+    ' Ejecuta el instalador de la nueva versión y cierra la aplicación actual
     Private Sub ApplyUpdate(setupFile As String)
-        ' Ejecutar el instalador de la nueva versión
         Process.Start(setupFile)
-
-        ' Cerrar la aplicación actual para permitir la actualización
         Application.Exit()
     End Sub
 
-
+    ' Establece o actualiza un valor en appSettings
     Sub SetAppSetting(key As String, value As String)
-        ' Abrir el archivo de configuración
         Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
-
-        ' Modificar el valor de la clave especificada
         If config.AppSettings.Settings(key) IsNot Nothing Then
             config.AppSettings.Settings(key).Value = value
         Else
             config.AppSettings.Settings.Add(key, value)
         End If
-
-        ' Guardar los cambios y refrescar la sección
         config.Save(ConfigurationSaveMode.Modified)
         ConfigurationManager.RefreshSection("appSettings")
     End Sub
 
+    ' Obtiene el valor de una clave de appSettings
     Function GetAppSetting(key As String) As String
-        ' Obtener el valor de la clave especificada
         Dim value As String = ConfigurationManager.AppSettings.Get(key)
         Return value
     End Function
 
-
+    ' Establece o actualiza una cadena de conexión en connectionStrings
     Sub SetConnectionString(name As String, connectionString As String)
-        ' Abrir el archivo de configuración
         Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
-
-        ' Modificar el valor del connection string especificado
         If config.ConnectionStrings.ConnectionStrings("conexionString") IsNot Nothing Then
             config.ConnectionStrings.ConnectionStrings("conexionString").ConnectionString = connectionString
         Else
             config.ConnectionStrings.ConnectionStrings.Add(New ConnectionStringSettings("conexionString", connectionString))
         End If
-
-        ' Guardar los cambios y refrescar la sección
         config.Save(ConfigurationSaveMode.Modified)
         ConfigurationManager.RefreshSection("connectionStrings")
     End Sub
 
+    ' Obtiene la cadena de conexión especificada
     Function ObtenerConnectionString(name As String) As String
-        ' Acceder a la conexión desde el archivo de configuración
         Dim settings As ConnectionStringSettings = ConfigurationManager.ConnectionStrings("conexionString")
-
-        ' Comprobar si existe la configuración
         If settings IsNot Nothing Then
             Return settings.ConnectionString
         Else
@@ -88,9 +80,11 @@ Module Md_Inicializacion
         End If
     End Function
 
+    ' Abre la ventana de configuración general y selecciona la pestaña indicada
     Public Sub entrarConfig(index As Integer)
         ConfigGeneral.Show()
         ConfigGeneral.Select()
         ConfigGeneral.TCO_Config.SelectedIndex = index
     End Sub
+
 End Module
