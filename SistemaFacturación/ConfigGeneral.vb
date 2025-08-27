@@ -2,14 +2,34 @@
 Public Class ConfigGeneral
 
     Private Sub ConfigGeneral_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cargarDBConfigInfo()
         CargarAutoCods()
         cargarFontSizes()
+        cargarGeneralConfig()
     End Sub
     Private Sub Guna2ImageButton1_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
         msgCerrarApp()
     End Sub
 
 #Region "TabDB"
+
+    Private Sub cargarDBConfigInfo()
+        ' Cargar información de la conexión actual
+        Dim strConn As String = ObtenerConnectionString("DbConnectionString")
+        If Not String.IsNullOrEmpty(strConn) Then
+            Dim strConnParts As String() = strConn.Split("="c)
+            If strConnParts.Length > 1 Then
+                LBL_DireccionConexionActual.Text = strConnParts(1)
+            End If
+        End If
+
+        ' Cargar información del directorio de respaldo
+        Dim backupDir As String = ConfigurationManager.AppSettings("DirectorioRespaldo")
+        If Not String.IsNullOrEmpty(backupDir) Then
+            LBL_BackUpDIr.Text = backupDir
+        End If
+    End Sub
+
     Private Sub BTN_RegresarConfig_Click(sender As Object, e As EventArgs) Handles BTN_RegresarConfig.Click
         Me.Close()
     End Sub
@@ -149,6 +169,29 @@ Public Class ConfigGeneral
             BTN_ActualizarHablador.Enabled = False
             cargarFontSizes()
         End If
+    End Sub
+#End Region
+
+#Region "General"
+    Private Sub cargarGeneralConfig()
+        lbl_versionGeneralConfig.Text = Application.ProductVersion
+        SWT_AutoUpdate.Checked = Md_Inicializacion.GetAppSetting("AutoUpdate") = "True"
+    End Sub
+
+    Private Sub SWT_AutoUpdate_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_AutoUpdate.CheckedChanged
+        If SWT_AutoUpdate.Checked Then
+            Md_Inicializacion.SetAppSetting("AutoUpdate", "True")
+            MessageBox.Show("La actualización automática está habilitada. La aplicación buscará actualizaciones al iniciar.",
+                            "Configuración Actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            Md_Inicializacion.SetAppSetting("AutoUpdate", "False")
+            MessageBox.Show("La actualización automática está deshabilitada. La aplicación no buscará actualizaciones al iniciar.",
+                            "Configuración Actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+    End Sub
+
+    Private Sub BTN_CheckForUpdates_Click(sender As Object, e As EventArgs) Handles BTN_CheckForUpdates.Click
+        Md_Inicializacion.CheckForUpdates()
     End Sub
 #End Region
 
