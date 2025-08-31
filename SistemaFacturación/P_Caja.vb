@@ -203,6 +203,7 @@ Public Class P_Caja
     End Sub
 
     Friend Sub CargarTotal()
+        totalCaja = 0
         For i As Integer = 0 To DGV_Caja.Rows.Count - 2
             totalCaja += Convert.ToDouble(DGV_Caja.Rows(i).Cells(5).Value)
         Next
@@ -371,11 +372,20 @@ Public Class P_Caja
     End Sub
 
     Private Sub DGV_Caja_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellValueChanged
-        If DGV_Caja.Rows.Count > 1 Then
-            Dim cant As Double = Convert.ToDouble(DGV_Caja.SelectedRows(0).Cells(4).Value)
-            Dim precioVenta As Double = Convert.ToDouble(DGV_Caja.SelectedRows(0).Cells(3).Value)
-            DGV_Caja.SelectedRows(0).Cells(5).Value = precioVenta * cant
+        ' Se asegura de que no estamos en una fila de encabezado o de inserción
+        If e.RowIndex >= 0 AndAlso DGV_Caja.Rows(e.RowIndex).Cells(4).Value IsNot Nothing Then
+            ' Obtiene los valores de la cantidad y el precio de la fila que se está editando
+            Dim cant As Double = Convert.ToDouble(DGV_Caja.Rows(e.RowIndex).Cells(4).Value)
+            Dim precioVenta As Double = Convert.ToDouble(DGV_Caja.Rows(e.RowIndex).Cells(3).Value)
+
+            ' Calcula el subtotal
+            Dim subTotal As Double = precioVenta * cant
+
+            ' Asigna el subtotal a la celda 5 de la fila actual
+            DGV_Caja.Rows(e.RowIndex).Cells(5).Value = subTotal
         End If
+
+        ' Recalcula el total de la factura
         CargarTotal()
     End Sub
 

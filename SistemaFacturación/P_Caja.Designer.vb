@@ -23,10 +23,10 @@ Partial Class P_Caja
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_Caja))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_Caja))
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
@@ -70,6 +70,9 @@ Partial Class P_Caja
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Guna2Panel4 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TXT_Total = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
@@ -77,9 +80,6 @@ Partial Class P_Caja
         Me.TXT_BuscarProducto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.TXT_Total = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Guna2AnimateWindow2 = New Guna.UI2.WinForms.Guna2AnimateWindow(Me.components)
         Me.MNU_CONTX.SuspendLayout()
         CType(Me.PIC_Logo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,13 +88,13 @@ Partial Class P_Caja
         CType(Me.DGV_Caja, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.Guna2Panel2.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Guna2Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
-        Me.Guna2Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Guna2BorderlessForm1
@@ -614,6 +614,7 @@ Partial Class P_Caja
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DGV_Caja.DefaultCellStyle = DataGridViewCellStyle3
         Me.DGV_Caja.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DGV_Caja.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.DGV_Caja.GridColor = System.Drawing.Color.White
         Me.DGV_Caja.Location = New System.Drawing.Point(8, 8)
         Me.DGV_Caja.Margin = New System.Windows.Forms.Padding(8)
@@ -712,6 +713,49 @@ Partial Class P_Caja
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1339, 242)
         Me.TableLayoutPanel1.TabIndex = 120
+        '
+        'Guna2Panel2
+        '
+        Me.Guna2Panel2.Controls.Add(Me.TXT_Total)
+        Me.Guna2Panel2.Controls.Add(Me.Guna2HtmlLabel7)
+        Me.Guna2Panel2.Location = New System.Drawing.Point(672, 3)
+        Me.Guna2Panel2.Name = "Guna2Panel2"
+        Me.Guna2Panel2.Size = New System.Drawing.Size(652, 53)
+        Me.Guna2Panel2.TabIndex = 116
+        '
+        'TXT_Total
+        '
+        Me.TXT_Total.BorderRadius = 20
+        Me.TXT_Total.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_Total.DefaultText = "₡ 0"
+        Me.TXT_Total.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_Total.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_Total.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_Total.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_Total.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_Total.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_Total.ForeColor = System.Drawing.Color.Black
+        Me.TXT_Total.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_Total.Location = New System.Drawing.Point(253, 5)
+        Me.TXT_Total.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.TXT_Total.Name = "TXT_Total"
+        Me.TXT_Total.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_Total.PlaceholderText = ""
+        Me.TXT_Total.SelectedText = ""
+        Me.TXT_Total.Size = New System.Drawing.Size(376, 45)
+        Me.TXT_Total.TabIndex = 124
+        '
+        'Guna2HtmlLabel7
+        '
+        Me.Guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel7.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel7.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel7.Location = New System.Drawing.Point(69, 11)
+        Me.Guna2HtmlLabel7.Name = "Guna2HtmlLabel7"
+        Me.Guna2HtmlLabel7.Size = New System.Drawing.Size(63, 32)
+        Me.Guna2HtmlLabel7.TabIndex = 123
+        Me.Guna2HtmlLabel7.Text = "Total:"
+        Me.Guna2HtmlLabel7.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
         'TableLayoutPanel2
         '
@@ -812,49 +856,6 @@ Partial Class P_Caja
         Me.TableLayoutPanel4.Size = New System.Drawing.Size(658, 394)
         Me.TableLayoutPanel4.TabIndex = 116
         '
-        'Guna2Panel2
-        '
-        Me.Guna2Panel2.Controls.Add(Me.TXT_Total)
-        Me.Guna2Panel2.Controls.Add(Me.Guna2HtmlLabel7)
-        Me.Guna2Panel2.Location = New System.Drawing.Point(672, 3)
-        Me.Guna2Panel2.Name = "Guna2Panel2"
-        Me.Guna2Panel2.Size = New System.Drawing.Size(652, 53)
-        Me.Guna2Panel2.TabIndex = 116
-        '
-        'TXT_Total
-        '
-        Me.TXT_Total.BorderRadius = 20
-        Me.TXT_Total.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.TXT_Total.DefaultText = "₡ 0"
-        Me.TXT_Total.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-        Me.TXT_Total.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-        Me.TXT_Total.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.TXT_Total.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.TXT_Total.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_Total.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_Total.ForeColor = System.Drawing.Color.Black
-        Me.TXT_Total.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_Total.Location = New System.Drawing.Point(253, 5)
-        Me.TXT_Total.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
-        Me.TXT_Total.Name = "TXT_Total"
-        Me.TXT_Total.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TXT_Total.PlaceholderText = ""
-        Me.TXT_Total.SelectedText = ""
-        Me.TXT_Total.Size = New System.Drawing.Size(376, 45)
-        Me.TXT_Total.TabIndex = 124
-        '
-        'Guna2HtmlLabel7
-        '
-        Me.Guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent
-        Me.Guna2HtmlLabel7.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
-        Me.Guna2HtmlLabel7.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel7.Location = New System.Drawing.Point(69, 11)
-        Me.Guna2HtmlLabel7.Name = "Guna2HtmlLabel7"
-        Me.Guna2HtmlLabel7.Size = New System.Drawing.Size(63, 32)
-        Me.Guna2HtmlLabel7.TabIndex = 123
-        Me.Guna2HtmlLabel7.Text = "Total:"
-        Me.Guna2HtmlLabel7.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
-        '
         'P_Caja
         '
         Me.AcceptButton = Me.BTN_NProd
@@ -880,6 +881,8 @@ Partial Class P_Caja
         Me.Guna2Panel4.ResumeLayout(False)
         Me.Guna2Panel4.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.Guna2Panel2.ResumeLayout(False)
+        Me.Guna2Panel2.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
@@ -888,8 +891,6 @@ Partial Class P_Caja
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.TableLayoutPanel4.ResumeLayout(False)
-        Me.Guna2Panel2.ResumeLayout(False)
-        Me.Guna2Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
