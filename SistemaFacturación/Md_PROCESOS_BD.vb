@@ -3,6 +3,8 @@
 ' Incluye funciones para guardar, actualizar, eliminar, obtener y validar datos
 ' -----------------------------------------------------------------------------
 
+Imports Syncfusion.Windows.Forms.Diagram
+
 Module Md_PROCESOS_BD
 
 #Region "Operaciones de Guardado y Actualización"
@@ -91,12 +93,37 @@ Module Md_PROCESOS_BD
     End Sub
 #End Region
 
-#Region "Inserción de Facturas"
+#Region "Gestión de Facturas"
     ' Guarda una factura con los datos proporcionados
     Friend Sub GUARDAR_FACT(ByVal TABLA As String, ByVal DATOS As String)
         SQL = "INSERT INTO " & TABLA & " VALUES (" & DATOS & ")"
         EJECUTAR(SQL)
     End Sub
+
+    'Elimina una factura y sus datos relacionados
+    Friend Function ELIMINAR_FACT(ByVal ID As Integer)
+        'Se elimina la cuenta de la base de datos
+        'Primero se elimina el comentario, luego los productos y finalmente la factura
+        SQL = "DELETE FROM factura_comentario WHERE ID_factura = " & ID
+        If Not EJECUTAR(SQL) Then
+            msgError("No se pudo eliminar el comentario de la base de datos")
+            Return False
+        End If
+
+        SQL = "DELETE FROM factura_producto WHERE ID_factura = " & ID
+        If Not EJECUTAR(SQL) Then
+            msgError("No se pudo eliminar los productos de la factura de la base de datos")
+            Return False
+        End If
+
+        SQL = "DeLETE FROM factura WHERE ID = " & ID
+        If Not EJECUTAR(SQL) Then
+            msgError("No se pudo eliminar la factura de la base de datos")
+            Return False
+        End If
+
+        Return True
+    End Function
 #End Region
 
 #Region "Obtención de PK y Validaciones"
