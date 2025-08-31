@@ -160,20 +160,20 @@ Module Md_CONEXION
     Friend Sub GenerarReporte(desde As Date, hasta As Date, t As DataSet)
         Try
             If CONEXION() AndAlso db IsNot Nothing Then
-                Dim consulta As String = "SELECT f.num_factura As '# Fact', " & _
-                                     "f.fecha_emision As 'Fecha de emisión', " & _
-                                     "c.nombre As 'Nombre', " & _
-                                     "total As 'Total', " & _
-                                     "CASE f.tipo_venta " & _
-                                     "WHEN 0 THEN 'Efectivo' " & _
-                                     "WHEN 1 THEN 'Tarjeta' " & _
-                                     "WHEN 2 THEN 'Sinpe' " & _
-                                     "WHEN 3 THEN 'Depósito' " & _
-                                     "WHEN 4 THEN 'Mixto' " & _
-                                     "END AS tipo " & _
-                                     "FROM factura f " & _
-                                     "INNER JOIN clientes c ON c.ID = f.ID_Cliente " & _
-                                     "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin;"
+                Dim consulta As String = "SELECT f.num_factura As '# Fact', " &
+                                     "f.fecha_emision As 'Fecha de emisión', " &
+                                     "c.nombre As 'Nombre', " &
+                                     "total As 'Total', " &
+                                     "CASE f.tipo_venta " &
+                                     "WHEN 0 THEN 'Efectivo' " &
+                                     "WHEN 1 THEN 'Tarjeta' " &
+                                     "WHEN 2 THEN 'Sinpe' " &
+                                     "WHEN 3 THEN 'Depósito' " &
+                                     "WHEN 4 THEN 'Mixto' " &
+                                     "END AS tipo " &
+                                     "FROM factura f " &
+                                     "INNER JOIN clientes c ON c.ID = f.ID_Cliente " &
+                                     "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin AND cobrada != 0;"
 
                 Using cmd As New SQLiteCommand(consulta, db)
                     cmd.Parameters.Add(New SQLiteParameter("@fechaInicio", desde.ToString("yyyy-MM-dd")))
