@@ -19,18 +19,17 @@ Public Class P_SelectUsu
         Dim r As Integer = Convert.ToInt32(splitRGB(0))
         Dim b As Integer = Convert.ToInt32(splitRGB(1))
         Dim g As Integer = Convert.ToInt32(splitRGB(2))
-        Dim nuevoBTN As New Guna2Button
-
-
-        nuevoBTN.Size = New Drawing.Size(80, 60)
-        nuevoBTN.Font = New Font("Britannic Bold", 16)
-        nuevoBTN.Name = "BTN_Usu" & cont
-        nuevoBTN.Text = nombre
-        nuevoBTN.Tag = tag
-        nuevoBTN.AutoSize = True
-        nuevoBTN.FillColor = Color.FromArgb(r, b, g)
-        nuevoBTN.Margin = New Padding(15, 15, 0, 0)
-        nuevoBTN.Dock = DockStyle.Bottom
+        Dim nuevoBTN As New Guna2Button With {
+            .Size = New Drawing.Size(80, 60),
+            .Font = New Font("Britannic Bold", 16),
+            .Name = "BTN_Usu" & cont,
+            .Text = nombre,
+            .Tag = tag,
+            .AutoSize = True,
+            .FillColor = Color.FromArgb(r, b, g),
+            .Margin = New Padding(15, 15, 0, 0),
+            .Dock = DockStyle.Bottom
+        }
 
         AddHandler nuevoBTN.Click, AddressOf BotonUsu_Click
 

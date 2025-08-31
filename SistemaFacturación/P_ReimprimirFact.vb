@@ -43,7 +43,7 @@ Public Class P_ReimprimirFact
                          Dim busqueda As String = TXT_BuscarFact.Text.Trim()
                          Dim condicionBusqueda As String
                          If busqueda = "" Then
-                             condicionBusqueda = "1=1" ' Esto siempre será verdadero, mostrando todos los registros
+                             condicionBusqueda = "1 = 1" ' Esto siempre será verdadero, mostrando todos los registros
                          Else
                              condicionBusqueda = $"(printf('%015d', CAST(f.num_factura AS INTEGER)) LIKE '%{busqueda}%')"
                          End If
@@ -73,7 +73,7 @@ Public Class P_ReimprimirFact
                                   "LEFT JOIN clientes c ON c.ID = f.ID_CLIENTE " &
                                   "LEFT JOIN usuario u ON u.ID = f.ID_USUARIO " &
                                   "LEFT JOIN factura_comentario fc ON fc.ID_Factura = f.ID " &
-                                  "WHERE " & condicionBusqueda & " " &
+                                  "WHERE f.cobrada = 1 AND " & condicionBusqueda & " " &
                                   "ORDER BY CAST(f.num_factura AS INTEGER) DESC " & cant & ";"
                          Invoke(Sub()
                                     MNU_REIMPRIMIR.Visible = False

@@ -175,7 +175,15 @@ Public Class ConfigGeneral
 #Region "General"
     Private Sub cargarGeneralConfig()
         lbl_versionGeneralConfig.Text = Application.ProductVersion
+
+        ' Deshabilitar el evento para evitar que se dispare
+        RemoveHandler SWT_AutoUpdate.CheckedChanged, AddressOf SWT_AutoUpdate_CheckedChanged
+
+        ' Cambiar el estado del control sin ejecutar el evento
         SWT_AutoUpdate.Checked = Md_Inicializacion.GetAppSetting("AutoUpdate") = "True"
+
+        ' Habilitar el evento nuevamente
+        AddHandler SWT_AutoUpdate.CheckedChanged, AddressOf SWT_AutoUpdate_CheckedChanged
     End Sub
 
     Private Sub SWT_AutoUpdate_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_AutoUpdate.CheckedChanged

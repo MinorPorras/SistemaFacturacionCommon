@@ -12,15 +12,15 @@ Public Class P_Caja
     Friend StrNumFactura As String
     Friend cantProd As Integer = 1
     Friend idUsu As Integer
+    Friend totalCaja As Double = 0
+    Friend Comentario As String = ""
     Private Sub P_Caja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Bounds = Screen.PrimaryScreen.Bounds
-        'Se desabilitan los botones con funciones que aún no se van a utlizar
-        BTN_Conteo.Enabled = False
-        BTN_CuentaCobrar.Enabled = False
-        BTN_GuardarCuenta.Enabled = False
+        'Me.Bounds = Screen.PrimaryScreen.Bounds'
+        Me.WindowState = FormWindowState.Maximized
 
         'Se desabilitann botones que tiene activaciones condicionales
         BTN_TVenta.Enabled = False
+        BTN_GuardarCuenta.Enabled = False
         MNU_CONTX.Enabled = True
 
         'Se cargan los productos favoritos
@@ -203,11 +203,10 @@ Public Class P_Caja
     End Sub
 
     Friend Sub CargarTotal()
-        Dim total As Double = 0
         For i As Integer = 0 To DGV_Caja.Rows.Count - 2
-            total += Convert.ToDouble(DGV_Caja.Rows(i).Cells(5).Value)
+            totalCaja += Convert.ToDouble(DGV_Caja.Rows(i).Cells(5).Value)
         Next
-        TXT_Total.Text = "₡ " + total.ToString()
+        TXT_Total.Text = "₡ " + totalCaja.ToString()
     End Sub
 
     Private Sub AgregarProdFav(btnFav As Guna.UI2.WinForms.Guna2Button)
@@ -302,20 +301,18 @@ Public Class P_Caja
         itemCount = DGV_Caja.Rows.Count
         If itemCount > 1 Then
             BTN_TVenta.Enabled = True
+            BTN_GuardarCuenta.Enabled = True
             MNU_MODIFICAR.Visible = True
             MNU_ELIMINAR.Visible = True
         Else
             MNU_ELIMINAR.Visible = False
+            BTN_GuardarCuenta.Enabled = False
             MNU_MODIFICAR.Visible = False
             BTN_TVenta.Enabled = False
         End If
     End Sub
 
     Friend Sub LIMPIAR()
-        'Se desabilitan los botones con funciones que aún no se van a utlizar
-        BTN_Conteo.Enabled = False
-        BTN_CuentaCobrar.Enabled = False
-        BTN_GuardarCuenta.Enabled = False
 
         'Se desabilitann botones que tiene activaciones condicionales
         BTN_TVenta.Enabled = False
@@ -358,20 +355,18 @@ Public Class P_Caja
 
     Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         Select Case e.KeyCode
-            Case Keys.F1
-                BTN_Conteo.PerformClick()
-            Case Keys.F2
-                BTN_Reprint.PerformClick()
             Case Keys.F3
                 BTN_RegresarCliente.PerformClick()
             Case Keys.F4
-                BTN_DelFactura.PerformClick()
+                BTN_TVenta.PerformClick()
             Case Keys.F5
                 BTN_CuentaCobrar.PerformClick()
             Case Keys.F6
                 BTN_GuardarCuenta.PerformClick()
             Case Keys.F7
-                BTN_TVenta.PerformClick()
+                BTN_Reprint.PerformClick()
+            Case Keys.F8
+                BTN_DelFactura.PerformClick()
         End Select
     End Sub
 
@@ -391,36 +386,56 @@ Public Class P_Caja
     End Sub
 
     Private Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
-        Dim idFactura = OBTENERPK("factura", "ID")
-        If MsgBox("¿Desea guardar la venta?", vbOKCancel + vbDefaultButton1, "Confirmar") = MsgBoxResult.Ok Then
-            Try
-                ' Si la PK que esté guardada en IdCat no existe en la base de datos en esa tabla...
-                If EXISTEPK("factura", "ID", idFactura) = False Then ' Si no se ha guardado la categoría
-                    Dim insert As String = $"{idFactura}, {NumFactura}, '{Date.Now:yyyy-MM-dd HH:mm:ss}', {idCliente}, {idUsu}, {Total}, {0}, {0}, {0}, {0}, {0}"
-                    GUARDAR_FACT("factura", insert)
-                End If
-                Dim NInv As Integer
-                For i As Integer = 0 To DGV_Caja.Rows.Count - 2
-                    GUARDAR_VarCompInt4("factura_producto", idFactura, DGV_Caja.Rows(i).Cells(0).Value.ToString(), DGV_Caja.Rows(i).Cells(4).Value.ToString(), Convert.ToDouble(DGV_Caja.Rows(i).Cells(3).Value.ToString()))
-                    T1.Tables.Clear()
-                    SQL = "SELECT inventario FROM producto WHERE ID = " & DGV_Caja.Rows(i).Cells(0).Value.ToString()
-                    Cargar_Tabla(T1, SQL)
-                    If T1.Tables(0).Rows.Count > 0 Then
-                        NInv = Convert.ToInt32(T1.Tables(0).Rows(0).Item(0)) - Convert.ToInt32(DGV_Caja.Rows(i).Cells(4).Value)
-                        GUARDAR_INT("producto", "inventario", NInv, "ID", DGV_Caja.Rows(i).Cells(0).Value)
-                    End If
-                Next
-                LIMPIAR()
-                CargarNumFactura()
-                mensaje("Cuenta guardada con exito", vbOKOnly, "Venta completada")
-                Me.Close()
-            Catch ex As Exception
-                msgError("Error: " & ex.Message)
-            End Try
+        If DGV_Caja.Rows.Count <= 1 Then
+            msgError("No se puede Guardar una factura vacía")
+            Return
         End If
+        Using dlg As New D_GuardarCuenta()
+            ' Muestra el diálogo
+            dlg.ShowDialog()
+
+            ' Verifica el resultado de nuestra nueva propiedad
+            If dlg.ResultadoDelDialogo = DialogResult.OK Then
+                Console.WriteLine("Se presionó el botón OK")
+                Comentario = dlg.ComentarioIngresado
+                guardarCuenta(Comentario)
+            Else
+                Console.WriteLine("Se presionó el botón Cancel")
+                Return
+            End If
+        End Using
     End Sub
 
-    Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
+    Private Sub guardarCuenta(comentarioRecibido As String)
+        Console.WriteLine("Se guarda la cuenta en la DB")
+        Dim idFactura = OBTENERPK("factura", "ID")
+        Try
+            ' Si la PK que esté guardada en IdCat no existe en la base de datos en esa tabla...
+            If EXISTEPK("factura", "ID", idFactura) = False Then ' Si no se ha guardado la factura
+                Dim insert As String = $"{idFactura}, {NumFactura}, '{Date.Now:yyyy-MM-dd HH:mm:ss}', {idCliente}, {idUsu}, {totalCaja}, {0}, {0}, {0}, {0}, {0}"
+                Console.WriteLine("Se va a guardar la factura: " + insert)
+                GUARDAR_FACT("factura", insert)
+            End If
+            For i As Integer = 0 To DGV_Caja.Rows.Count - 2
+                'Se guardan los productos de la factura
+                GUARDAR_VarCompInt4("factura_producto", idFactura, DGV_Caja.Rows(i).Cells(0).Value.ToString(),
+                                    DGV_Caja.Rows(i).Cells(4).Value.ToString(),
+                                    Convert.ToDouble(DGV_Caja.Rows(i).Cells(3).Value.ToString()))
+            Next
+            GUARDAR_VarCompuestas("factura_comentario", idFactura, comentarioRecibido)
+            LIMPIAR()
+            CargarNumFactura()
+            mensaje("Cuenta guardada con exito", vbOKOnly, "Cuenta por cobrar")
+        Catch ex As Exception
+            msgError("Error: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs)
         msgCerrarApp()
+    End Sub
+
+    Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
+        P_CuentasCobrar.Show()
     End Sub
 End Class
