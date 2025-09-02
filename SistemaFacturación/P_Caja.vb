@@ -47,6 +47,16 @@ Public Class P_Caja
             DGV_Caja.Columns(5).Width = (DGV_Caja.Width * 0.11)
         End If
 
+        ' Añadir los manejadores de eventos para los botones de favoritos
+        AddHandler BTN_Fav1.Click, AddressOf AgregarProdFav
+        AddHandler BTN_Fav2.Click, AddressOf AgregarProdFav
+        AddHandler BTN_Fav3.Click, AddressOf AgregarProdFav
+        AddHandler BTN_Fav4.Click, AddressOf AgregarProdFav
+        AddHandler BTN_Fav5.Click, AddressOf AgregarProdFav
+        AddHandler BTN_Fav6.Click, AddressOf AgregarProdFav
+        AddHandler BTN_Fav7.Click, AddressOf AgregarProdFav
+        AddHandler BTN_Fav8.Click, AddressOf AgregarProdFav
+
 
         'Se coloca la imagen y los datos de la fecha y el día y se inicia el contador para que los vaya actualizando
         PIC_Logo.ImageLocation = ConfigurationManager.AppSettings("Logo").ToString()
@@ -210,58 +220,34 @@ Public Class P_Caja
         TXT_Total.Text = "₡ " + totalCaja.ToString()
     End Sub
 
-    Private Sub AgregarProdFav(btnFav As Guna.UI2.WinForms.Guna2Button)
-        If Not String.IsNullOrWhiteSpace(btnFav.Tag) Then
-            T.Tables.Clear()
-            SQL = "SELECT p.codigo, p.variable, v.precio_venta FROM producto p LEFT JOIN producto_precioVenta v ON p.ID = v.ID_Producto" +
-                " WHERE p.ID = " + btnFav.Tag.ToString()
-            Cargar_Tabla(T, SQL)
-            If T.Tables(0).Rows.Count > 0 Then
-                If T.Tables(0).Rows(0).Item(1) = 0 Then
-                    AgregarProd(btnFav.Tag.ToString(), T.Tables(0).Rows(0).Item(0), btnFav.Text, T.Tables(0).Rows(0).Item(2), 1)
-                Else
-                    E_ProductoVariable.LBL_Cod.Text = T.Tables(0).Rows(0).Item(0)
-                    E_ProductoVariable.LBL_Producto.Text = btnFav.Text
-                    E_ProductoVariable.LBL_ID.Text = btnFav.Tag
-                    E_ProductoVariable.Show()
-                End If
-
-            Else
-                msgError("El código que colocó está mal escrito o no existe")
-            End If
+    ' Subrutina única para manejar el clic de todos los botones de favoritos
+    Private Sub AgregarProdFav(sender As Object, e As EventArgs)
+        ' Obtener el botón que fue clickeado
+        Dim btnFav As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
+        If String.IsNullOrWhiteSpace(btnFav.Tag) Then
+            ' El botón no tiene un ID de producto asignado
+            msgError("No se encontró el producto")
+            Return
         End If
-    End Sub
-
-    Private Sub BTN_Fav1_Click(sender As Object, e As EventArgs) Handles BTN_Fav1.Click
-        AgregarProdFav(BTN_Fav1)
-    End Sub
-
-    Private Sub BTN_Fav2_Click(sender As Object, e As EventArgs) Handles BTN_Fav2.Click
-        AgregarProdFav(BTN_Fav2)
-    End Sub
-
-    Private Sub BTN_Fav3_Click(sender As Object, e As EventArgs) Handles BTN_Fav3.Click
-        AgregarProdFav(BTN_Fav3)
-    End Sub
-
-    Private Sub BTN_Fav4_Click(sender As Object, e As EventArgs) Handles BTN_Fav4.Click
-        AgregarProdFav(BTN_Fav4)
-    End Sub
-
-    Private Sub BTN_Fav5_Click(sender As Object, e As EventArgs) Handles BTN_Fav5.Click
-        AgregarProdFav(BTN_Fav5)
-    End Sub
-
-    Private Sub BTN_Fav6_Click(sender As Object, e As EventArgs) Handles BTN_Fav6.Click
-        AgregarProdFav(BTN_Fav6)
-    End Sub
-
-    Private Sub BTN_Fav7_Click(sender As Object, e As EventArgs) Handles BTN_Fav7.Click
-        AgregarProdFav(BTN_Fav7)
-    End Sub
-
-    Private Sub BTN_Fav8_Click(sender As Object, e As EventArgs) Handles BTN_Fav8.Click
-        AgregarProdFav(BTN_Fav8)
+        ' Buscar el producto en la base de datos usando el ID almacenado en la propiedad Tag del botón
+        T.Tables.Clear()
+        SQL = "SELECT p.codigo, p.variable, v.precio_venta FROM producto p LEFT JOIN producto_precioVenta v ON p.ID = v.ID_Producto" +
+                " WHERE p.ID = " + btnFav.Tag.ToString()
+        Cargar_Tabla(T, SQL)
+        ' Verificar si se encontró el producto
+        If T.Tables(0).Rows.Count <= 0 Then
+            msgError("No se encontró el producto")
+            Return
+        End If
+        ' Agregar el producto a la lista o manejar la variable según corresponda
+        If T.Tables(0).Rows(0).Item(1) = 0 Then
+            AgregarProd(btnFav.Tag.ToString(), T.Tables(0).Rows(0).Item(0), btnFav.Text, T.Tables(0).Rows(0).Item(2), 1)
+        Else
+            E_ProductoVariable.LBL_Cod.Text = T.Tables(0).Rows(0).Item(0)
+            E_ProductoVariable.LBL_Producto.Text = btnFav.Text
+            E_ProductoVariable.LBL_ID.Text = btnFav.Tag
+            E_ProductoVariable.Show()
+        End If
     End Sub
 
     Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
@@ -281,6 +267,7 @@ Public Class P_Caja
     End Sub
 
     Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
+        P_TerminarVenta.Owner = Me
         P_TerminarVenta.LIMPIAR()
         Dim precio As String() = TXT_Total.Text.Split(" "c)
         If DGV_Caja.Rows.Count > 1 Then
@@ -349,8 +336,12 @@ Public Class P_Caja
     End Sub
 
     Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
-        P_ReimprimirFact.Show()
-        P_ReimprimirFact.Select()
+        ' Establece P_Caja (Me) como el dueño de frmReimprimirFact
+        Dim frmReimprimirFact As New P_ReimprimirFact With {
+            .Owner = Me
+        }
+        frmReimprimirFact.Show()
+        frmReimprimirFact.Select()
         Me.Hide()
     End Sub
 
@@ -401,6 +392,8 @@ Public Class P_Caja
             Return
         End If
         Using dlg As New D_GuardarCuenta()
+            ' Establece el propietario del diálogo
+            dlg.Owner = Me
             ' Muestra el diálogo
             dlg.ShowDialog()
 
@@ -446,6 +439,11 @@ Public Class P_Caja
     End Sub
 
     Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
-        P_CuentasCobrar.Show()
+        ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
+        Dim frmCuentasCobrar As New P_CuentasCobrar With {
+            .Owner = Me
+        }
+        ' Muestra el formulario de cuentas por cobrar
+        frmCuentasCobrar.Show()
     End Sub
 End Class
