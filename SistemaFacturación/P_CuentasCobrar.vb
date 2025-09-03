@@ -41,7 +41,6 @@ Public Class P_CuentasCobrar
             .BackColor = Color.FromArgb(38, 38, 38), ' Establece el color de fondo original
             .Cursor = Cursors.Hand ' Cambia el cursor a mano para indicar que es clickeable
             }
-            AddHandler panelLabels.Click, AddressOf Panel_Click_Select_Cuenta
 
             ' 3. Crea el botón (con Dock.Bottom)
             Dim btnEliminar As New Guna2Button With {
@@ -75,7 +74,8 @@ Public Class P_CuentasCobrar
             .Location = New Point(0, 0)
             }
             panelLabels.Controls.Add(lblNombre)
-            'Asigna los eventos de hover a lblNombre
+            'Asigna los eventos de hover y click a lblNombre
+            AddHandler lblNombre.Click, AddressOf Label_Click_Select_Cuenta
             AddHandler lblNombre.MouseEnter, AddressOf PanelLabels_MouseEnter
             AddHandler lblNombre.MouseLeave, AddressOf PanelLabels_MouseLeave
 
@@ -91,7 +91,8 @@ Public Class P_CuentasCobrar
             lblComentario.AutoSize = False
             lblComentario.Size = New Size(panelLabels.Width, panelLabels.Height / 2)
             lblComentario.Location = New Point(0, panelLabels.Height / 2)
-            'Asigna los eventos de hover a lblComentario
+            'Asigna los eventos de hover y click a lblComentario
+            AddHandler lblComentario.Click, AddressOf Label_Click_Select_Cuenta
             AddHandler lblComentario.MouseEnter, AddressOf PanelLabels_MouseEnter
             AddHandler lblComentario.MouseLeave, AddressOf PanelLabels_MouseLeave
             panelLabels.Controls.Add(lblComentario)
@@ -131,7 +132,7 @@ Public Class P_CuentasCobrar
         pan_CuentasCobrar.Controls.Clear()
     End Sub
 
-    Private Sub BtnEliminar_Click(sender As Object, e As EventArgs)
+    Private Async Sub BtnEliminar_Click(sender As Object, e As EventArgs)
         'Se obtiene el nombre del botón que se presionó
         Dim btnDelNombre As String = sender.name
         ' Se hace un substring para obtener el ID de la factura que está en el nombre del botón
@@ -140,34 +141,72 @@ Public Class P_CuentasCobrar
         ' Se busca el control Label por su nombre (lblComentario_ID)
         Dim controlesEncontrados() As Control = Controls.Find($"lblComentario_{idFactura}", True)
 
-        ' Se verifica si se encontró el control
-        If controlesEncontrados.Length > 0 AndAlso TypeOf controlesEncontrados(0) Is Label Then
-            ' Se obtiene el objeto Label y se accede a su propiedad Text
-            Dim lblComentario As Label = CType(controlesEncontrados(0), Label)
-            Dim comentarioTexto As String = lblComentario.Text
-
-            ' Se verifica que el usuario desea eliminar la cuenta, si no, se sale del sub
-            If Not MSG.msgEliminar($"la cuenta con el comentario: {comentarioTexto}") Then
-                Return
-            End If
-
-            'Se elimina la cuenta de la base de datos
-            If ELIMINAR_FACT(idFactura) Then
-                MSG.mensaje("Cuenta eliminada correctamente", vbOKOnly, "Cuenta por cobrar eliminada")
-            End If
-
-            ' 1. Limpia todos los botones existentes
-            LimpiarBotones()
-
-            ' 2. Vuelve a cargar los botones desde la base de datos
-            CrearBotones()
-        Else
-            ' En caso de que no se encuentre el comentario se devuelve un error
-            msgError("No se encontró la cuenta por cobrar")
+        ' Se verifica si se encontró el control y si este es del tipo correcto
+        If controlesEncontrados.Length <= 0 Or TypeOf controlesEncontrados(0) IsNot Label Then
+            MSG.msgError("No se encontró la cuenta por cobrar")
+            Return
         End If
+
+        ' Se obtiene el objeto Label y se accede a su propiedad Text
+        Dim lblComentario As Label = CType(controlesEncontrados(0), Label)
+        Dim comentarioTexto As String = lblComentario.Text
+
+        ' Se verifica que el usuario desea eliminar la cuenta, si no, se sale del sub
+        If Not MSG.msgEliminar($"la cuenta con el comentario: {comentarioTexto}") Then
+            Return
+        End If
+
+        Dim FacturaEliminada As Boolean = Await ELIMINAR_FACT(idFactura)
+
+        'Se elimina la cuenta de la base de datos
+        If Not FacturaEliminada Then
+            MSG.msgError("No se pudo eliminar correctamente la factura")
+        End If
+
+
+        ' 1. Limpia todos los botones existentes
+        LimpiarBotones()
+
+        ' 2. Vuelve a cargar los botones desde la base de datos
+        CrearBotones()
     End Sub
 
-    Private Sub Panel_Click_Select_Cuenta(sender As Object, e As EventArgs)
+    Private Sub Label_Click_Select_Cuenta(sender As Object, e As EventArgs)
+        ' 1. Obtener el Label que fue clickeado
+        Dim label As Label = CType(sender, Label)
 
+        ' 2. Obtener el Panel padre del Label
+        Dim panel As Panel = CType(label.Parent, Panel)
+
+        ' 3. Extraer el ID de la factura del nombre del Panel
+        Dim idFactura As String = panel.Name.Replace("PAN_", "")
+
+        Dim controlEncontrado() As Control = panel.Controls.Find($"lblComentario_{idFactura}", True)
+        Dim comentarioTexto As String = ""
+        ' Se verifica si se encontró el control
+        If controlEncontrado.Length > 0 AndAlso TypeOf controlEncontrado(0) Is Label Then
+            ' Se obtiene el objeto Label y se accede a su propiedad Text
+            Dim lblComentario As Label = CType(controlEncontrado(0), Label)
+            comentarioTexto = lblComentario.Text
+        End If
+
+        ' 4. Consultar los detalles de la factura y los productos (la lógica es la misma)
+        SQL = $"SELECT num_factura, total, ID_Cliente FROM factura WHERE ID = {idFactura}"
+        Dim T_Factura As New DataSet
+        Cargar_Tabla(T_Factura, SQL)
+
+        SQL = $"SELECT ID_Producto, cant, precio_venta FROM factura_producto WHERE ID_Factura = {idFactura}"
+        Dim T_Productos As New DataSet
+        Cargar_Tabla(T_Productos, SQL)
+
+        ' 5. Pasar los datos a la caja
+        If T_Productos.Tables(0).Rows.Count > 0 And T_Factura.Tables(0).Rows.Count > 0 Then
+            Dim cajaForm As P_Caja = CType(Me.Owner, P_Caja)
+            cajaForm.CargarFacturaDesdeCuentas(T_Productos.Tables(0), T_Factura.Tables(0).Rows(0)("num_factura"), T_Factura.Tables(0).Rows(0)("total"),
+                                               idFactura, T_Factura.Tables(0).Rows(0)("ID_Cliente"), comentarioTexto)
+            Me.Close()
+        Else
+            MSG.msgError("No se encontraron datos para esta factura.")
+        End If
     End Sub
 End Class

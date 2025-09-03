@@ -3,6 +3,9 @@
 ' Incluye funciones para guardar, actualizar, eliminar, obtener y validar datos
 ' -----------------------------------------------------------------------------
 
+Imports System.Configuration
+Imports System.Data.SQLite
+Imports Syncfusion.Linq
 Imports Syncfusion.Windows.Forms.Diagram
 
 Module Md_PROCESOS_BD
@@ -100,29 +103,53 @@ Module Md_PROCESOS_BD
         EJECUTAR(SQL)
     End Sub
 
-    'Elimina una factura y sus datos relacionados
-    Friend Function ELIMINAR_FACT(ByVal ID As Integer)
-        'Se elimina la cuenta de la base de datos
-        'Primero se elimina el comentario, luego los productos y finalmente la factura
-        SQL = "DELETE FROM factura_comentario WHERE ID_factura = " & ID
-        If Not EJECUTAR(SQL) Then
-            msgError("No se pudo eliminar el comentario de la base de datos")
-            Return False
-        End If
+    ' Función asíncrona para eliminar una factura y sus datos asociados.
+    Friend Async Function ELIMINAR_FACT(ByVal ID As Integer) As Task(Of Boolean)
+        Return Await Task.Run(Function()
+                                  Dim resultado As Boolean = False
+                                  Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
 
-        SQL = "DELETE FROM factura_producto WHERE ID_factura = " & ID
-        If Not EJECUTAR(SQL) Then
-            msgError("No se pudo eliminar los productos de la factura de la base de datos")
-            Return False
-        End If
+                                  Using db As New SQLiteConnection(stringConexion)
+                                      ' Se inicia un proceso de transacción
+                                      db.Open()
+                                      Dim transaction As SQLiteTransaction = db.BeginTransaction()
 
-        SQL = "DeLETE FROM factura WHERE ID = " & ID
-        If Not EJECUTAR(SQL) Then
-            msgError("No se pudo eliminar la factura de la base de datos")
-            Return False
-        End If
+                                      Try
+                                          ' 1. Eliminar el comentario
+                                          Dim deleteComentarioSql As String = "DELETE FROM factura_comentario WHERE ID_factura = @id"
+                                          Using cmd As New SQLiteCommand(deleteComentarioSql, db, transaction)
+                                              cmd.Parameters.AddWithValue("@id", ID)
+                                              cmd.ExecuteNonQuery()
+                                          End Using
 
-        Return True
+                                          ' 2. Eliminar los productos de la factura
+                                          Dim deleteProductosSql As String = "DELETE FROM factura_producto WHERE ID_factura = @id"
+                                          Using cmd As New SQLiteCommand(deleteProductosSql, db, transaction)
+                                              cmd.Parameters.AddWithValue("@id", ID)
+                                              cmd.ExecuteNonQuery()
+                                          End Using
+
+                                          ' 3. Eliminar la factura principal
+                                          Dim deleteFacturaSql As String = "DELETE FROM factura WHERE ID = @id"
+                                          Using cmd As New SQLiteCommand(deleteFacturaSql, db, transaction)
+                                              cmd.Parameters.AddWithValue("@id", ID)
+                                              cmd.ExecuteNonQuery()
+                                          End Using
+
+                                          ' Si todo salió bien, confirma la transacción
+                                          transaction.Commit()
+                                          resultado = True
+
+                                      Catch ex As Exception
+                                          ' Si algo falla, revierte la transacción
+                                          transaction.Rollback()
+                                          Console.WriteLine("Error al eliminar la factura: " & ex.Message)
+                                          msgError("Error al eliminar la factura: " & ex.Message)
+                                          resultado = False
+                                      End Try
+                                  End Using
+                                  Return resultado
+                              End Function)
     End Function
 #End Region
 
