@@ -131,7 +131,7 @@ Partial Class D_GuardarCuenta
         Me.BTN_ConfirmGuardarCuenta.Name = "BTN_ConfirmGuardarCuenta"
         Me.BTN_ConfirmGuardarCuenta.Size = New System.Drawing.Size(192, 68)
         Me.BTN_ConfirmGuardarCuenta.TabIndex = 57
-        Me.BTN_ConfirmGuardarCuenta.Text = "Seleccionar"
+        Me.BTN_ConfirmGuardarCuenta.Text = "Guardar"
         '
         'D_GuardarCuenta
         '

@@ -27,15 +27,12 @@ Partial Class P_TerminarVenta
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.TabControlTVenta = New Guna.UI2.WinForms.Guna2TabControl()
         Me.Efectivo = New System.Windows.Forms.TabPage()
-        Me.BTN_EColocarTotal = New Guna.UI2.WinForms.Guna2CircleButton()
         Me.TXT_EVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.TXT_ECliente = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_ETotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Tarjeta = New System.Windows.Forms.TabPage()
-        Me.BTN_TColocarTotal = New Guna.UI2.WinForms.Guna2CircleButton()
         Me.TXT_TVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_TCliente = New Guna.UI2.WinForms.Guna2TextBox()
@@ -43,7 +40,6 @@ Partial Class P_TerminarVenta
         Me.TXT_TTotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Sinpe = New System.Windows.Forms.TabPage()
-        Me.BTN_SColocarTotal = New Guna.UI2.WinForms.Guna2CircleButton()
         Me.TXT_SVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_SCliente = New Guna.UI2.WinForms.Guna2TextBox()
@@ -52,15 +48,12 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel9 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.deposito = New System.Windows.Forms.TabPage()
         Me.Guna2HtmlLabel11 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.BTN_DColocarTotal = New Guna.UI2.WinForms.Guna2CircleButton()
         Me.TXT_DVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel10 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_DCliente = New Guna.UI2.WinForms.Guna2TextBox()
         Me.TXT_DTotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Mixto = New System.Windows.Forms.TabPage()
-        Me.BTN_RestanteEfectivo = New Guna.UI2.WinForms.Guna2CircleButton()
-        Me.BTN_RestanteTarjeta = New Guna.UI2.WinForms.Guna2CircleButton()
         Me.TXT_PagoEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_MVuelto = New Guna.UI2.WinForms.Guna2TextBox()
@@ -77,6 +70,13 @@ Partial Class P_TerminarVenta
         Me.PrintDialog = New System.Windows.Forms.PrintDialog()
         Me.BTN_TVentaImp = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TXT_ECliente = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.BTN_EColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_TColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_SColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_DColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_RestanteTarjeta = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_RestanteEfectivo = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TabControlTVenta.SuspendLayout()
         Me.Efectivo.SuspendLayout()
         Me.Tarjeta.SuspendLayout()
@@ -130,10 +130,10 @@ Partial Class P_TerminarVenta
         'Efectivo
         '
         Me.Efectivo.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.Efectivo.Controls.Add(Me.TXT_ECliente)
         Me.Efectivo.Controls.Add(Me.BTN_EColocarTotal)
         Me.Efectivo.Controls.Add(Me.TXT_EVuelto)
         Me.Efectivo.Controls.Add(Me.Guna2HtmlLabel2)
-        Me.Efectivo.Controls.Add(Me.TXT_ECliente)
         Me.Efectivo.Controls.Add(Me.Guna2HtmlLabel1)
         Me.Efectivo.Controls.Add(Me.TXT_ETotal)
         Me.Efectivo.Controls.Add(Me.Guna2HtmlLabel4)
@@ -144,24 +144,6 @@ Partial Class P_TerminarVenta
         Me.Efectivo.Size = New System.Drawing.Size(641, 381)
         Me.Efectivo.TabIndex = 0
         Me.Efectivo.Text = "Efectivo"
-        '
-        'BTN_EColocarTotal
-        '
-        Me.BTN_EColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_EColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_EColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_EColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_EColocarTotal.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_EColocarTotal.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_EColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_EColocarTotal.ImageSize = New System.Drawing.Size(90, 90)
-        Me.BTN_EColocarTotal.Location = New System.Drawing.Point(548, 181)
-        Me.BTN_EColocarTotal.Name = "BTN_EColocarTotal"
-        Me.BTN_EColocarTotal.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
-        Me.BTN_EColocarTotal.Size = New System.Drawing.Size(44, 44)
-        Me.BTN_EColocarTotal.TabIndex = 111
-        Me.BTN_EColocarTotal.Text = "T"
-        Me.BTN_EColocarTotal.TextOffset = New System.Drawing.Point(2, -2)
         '
         'TXT_EVuelto
         '
@@ -176,7 +158,7 @@ Partial Class P_TerminarVenta
         Me.TXT_EVuelto.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_EVuelto.ForeColor = System.Drawing.Color.Black
         Me.TXT_EVuelto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_EVuelto.Location = New System.Drawing.Point(101, 288)
+        Me.TXT_EVuelto.Location = New System.Drawing.Point(103, 318)
         Me.TXT_EVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_EVuelto.Name = "TXT_EVuelto"
         Me.TXT_EVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -192,42 +174,19 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel2.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel2.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel2.Location = New System.Drawing.Point(280, 250)
+        Me.Guna2HtmlLabel2.Location = New System.Drawing.Point(282, 280)
         Me.Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
         Me.Guna2HtmlLabel2.Size = New System.Drawing.Size(78, 32)
         Me.Guna2HtmlLabel2.TabIndex = 102
         Me.Guna2HtmlLabel2.Text = "Vuelto:"
         Me.Guna2HtmlLabel2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
-        'TXT_ECliente
-        '
-        Me.TXT_ECliente.BorderRadius = 20
-        Me.TXT_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.TXT_ECliente.DefaultText = ""
-        Me.TXT_ECliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-        Me.TXT_ECliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-        Me.TXT_ECliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.TXT_ECliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.TXT_ECliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_ECliente.ForeColor = System.Drawing.Color.Black
-        Me.TXT_ECliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_ECliente.Location = New System.Drawing.Point(101, 183)
-        Me.TXT_ECliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-        Me.TXT_ECliente.Name = "TXT_ECliente"
-        Me.TXT_ECliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TXT_ECliente.PlaceholderText = ""
-        Me.TXT_ECliente.SelectedText = ""
-        Me.TXT_ECliente.Size = New System.Drawing.Size(439, 42)
-        Me.TXT_ECliente.TabIndex = 101
-        Me.TXT_ECliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'Guna2HtmlLabel1
         '
         Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel1.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(218, 145)
+        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(220, 104)
         Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
         Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(204, 32)
         Me.Guna2HtmlLabel1.TabIndex = 100
@@ -247,7 +206,7 @@ Partial Class P_TerminarVenta
         Me.TXT_ETotal.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_ETotal.ForeColor = System.Drawing.Color.Black
         Me.TXT_ETotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_ETotal.Location = New System.Drawing.Point(101, 83)
+        Me.TXT_ETotal.Location = New System.Drawing.Point(103, 43)
         Me.TXT_ETotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_ETotal.Name = "TXT_ETotal"
         Me.TXT_ETotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -263,7 +222,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel4.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(289, 45)
+        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(291, 5)
         Me.Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
         Me.Guna2HtmlLabel4.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel4.TabIndex = 98
@@ -287,24 +246,6 @@ Partial Class P_TerminarVenta
         Me.Tarjeta.TabIndex = 1
         Me.Tarjeta.Text = "Tarjeta"
         '
-        'BTN_TColocarTotal
-        '
-        Me.BTN_TColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_TColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_TColocarTotal.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_TColocarTotal.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_TColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_TColocarTotal.ImageSize = New System.Drawing.Size(90, 90)
-        Me.BTN_TColocarTotal.Location = New System.Drawing.Point(548, 181)
-        Me.BTN_TColocarTotal.Name = "BTN_TColocarTotal"
-        Me.BTN_TColocarTotal.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
-        Me.BTN_TColocarTotal.Size = New System.Drawing.Size(44, 44)
-        Me.BTN_TColocarTotal.TabIndex = 112
-        Me.BTN_TColocarTotal.Text = "T"
-        Me.BTN_TColocarTotal.TextOffset = New System.Drawing.Point(2, -2)
-        '
         'TXT_TVuelto
         '
         Me.TXT_TVuelto.BorderRadius = 20
@@ -318,7 +259,7 @@ Partial Class P_TerminarVenta
         Me.TXT_TVuelto.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_TVuelto.ForeColor = System.Drawing.Color.Black
         Me.TXT_TVuelto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_TVuelto.Location = New System.Drawing.Point(101, 288)
+        Me.TXT_TVuelto.Location = New System.Drawing.Point(101, 314)
         Me.TXT_TVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_TVuelto.Name = "TXT_TVuelto"
         Me.TXT_TVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -334,7 +275,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel3.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel3.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel3.Location = New System.Drawing.Point(280, 250)
+        Me.Guna2HtmlLabel3.Location = New System.Drawing.Point(280, 276)
         Me.Guna2HtmlLabel3.Name = "Guna2HtmlLabel3"
         Me.Guna2HtmlLabel3.Size = New System.Drawing.Size(78, 32)
         Me.Guna2HtmlLabel3.TabIndex = 108
@@ -354,7 +295,7 @@ Partial Class P_TerminarVenta
         Me.TXT_TCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_TCliente.ForeColor = System.Drawing.Color.Black
         Me.TXT_TCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_TCliente.Location = New System.Drawing.Point(101, 183)
+        Me.TXT_TCliente.Location = New System.Drawing.Point(101, 156)
         Me.TXT_TCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_TCliente.Name = "TXT_TCliente"
         Me.TXT_TCliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -369,7 +310,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel5.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel5.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel5.Location = New System.Drawing.Point(246, 145)
+        Me.Guna2HtmlLabel5.Location = New System.Drawing.Point(246, 118)
         Me.Guna2HtmlLabel5.Name = "Guna2HtmlLabel5"
         Me.Guna2HtmlLabel5.Size = New System.Drawing.Size(137, 32)
         Me.Guna2HtmlLabel5.TabIndex = 106
@@ -389,7 +330,7 @@ Partial Class P_TerminarVenta
         Me.TXT_TTotal.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_TTotal.ForeColor = System.Drawing.Color.Black
         Me.TXT_TTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_TTotal.Location = New System.Drawing.Point(101, 83)
+        Me.TXT_TTotal.Location = New System.Drawing.Point(101, 55)
         Me.TXT_TTotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_TTotal.Name = "TXT_TTotal"
         Me.TXT_TTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -405,7 +346,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel6.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel6.Location = New System.Drawing.Point(289, 45)
+        Me.Guna2HtmlLabel6.Location = New System.Drawing.Point(289, 17)
         Me.Guna2HtmlLabel6.Name = "Guna2HtmlLabel6"
         Me.Guna2HtmlLabel6.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel6.TabIndex = 104
@@ -429,24 +370,6 @@ Partial Class P_TerminarVenta
         Me.Sinpe.TabIndex = 2
         Me.Sinpe.Text = "Sinpe"
         '
-        'BTN_SColocarTotal
-        '
-        Me.BTN_SColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_SColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_SColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_SColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_SColocarTotal.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_SColocarTotal.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_SColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_SColocarTotal.ImageSize = New System.Drawing.Size(90, 90)
-        Me.BTN_SColocarTotal.Location = New System.Drawing.Point(548, 181)
-        Me.BTN_SColocarTotal.Name = "BTN_SColocarTotal"
-        Me.BTN_SColocarTotal.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
-        Me.BTN_SColocarTotal.Size = New System.Drawing.Size(44, 44)
-        Me.BTN_SColocarTotal.TabIndex = 119
-        Me.BTN_SColocarTotal.Text = "T"
-        Me.BTN_SColocarTotal.TextOffset = New System.Drawing.Point(2, -2)
-        '
         'TXT_SVuelto
         '
         Me.TXT_SVuelto.BorderRadius = 20
@@ -460,7 +383,7 @@ Partial Class P_TerminarVenta
         Me.TXT_SVuelto.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_SVuelto.ForeColor = System.Drawing.Color.Black
         Me.TXT_SVuelto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_SVuelto.Location = New System.Drawing.Point(101, 288)
+        Me.TXT_SVuelto.Location = New System.Drawing.Point(101, 320)
         Me.TXT_SVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_SVuelto.Name = "TXT_SVuelto"
         Me.TXT_SVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -476,7 +399,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel7.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel7.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel7.Location = New System.Drawing.Point(280, 250)
+        Me.Guna2HtmlLabel7.Location = New System.Drawing.Point(280, 282)
         Me.Guna2HtmlLabel7.Name = "Guna2HtmlLabel7"
         Me.Guna2HtmlLabel7.Size = New System.Drawing.Size(78, 32)
         Me.Guna2HtmlLabel7.TabIndex = 117
@@ -496,7 +419,7 @@ Partial Class P_TerminarVenta
         Me.TXT_SCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_SCliente.ForeColor = System.Drawing.Color.Black
         Me.TXT_SCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_SCliente.Location = New System.Drawing.Point(101, 183)
+        Me.TXT_SCliente.Location = New System.Drawing.Point(101, 150)
         Me.TXT_SCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_SCliente.Name = "TXT_SCliente"
         Me.TXT_SCliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -511,7 +434,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel8.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel8.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel8.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel8.Location = New System.Drawing.Point(280, 143)
+        Me.Guna2HtmlLabel8.Location = New System.Drawing.Point(280, 110)
         Me.Guna2HtmlLabel8.Name = "Guna2HtmlLabel8"
         Me.Guna2HtmlLabel8.Size = New System.Drawing.Size(79, 32)
         Me.Guna2HtmlLabel8.TabIndex = 115
@@ -531,7 +454,7 @@ Partial Class P_TerminarVenta
         Me.TXT_STotal.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_STotal.ForeColor = System.Drawing.Color.Black
         Me.TXT_STotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_STotal.Location = New System.Drawing.Point(101, 83)
+        Me.TXT_STotal.Location = New System.Drawing.Point(101, 51)
         Me.TXT_STotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_STotal.Name = "TXT_STotal"
         Me.TXT_STotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -547,7 +470,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel9.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel9.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel9.Location = New System.Drawing.Point(289, 45)
+        Me.Guna2HtmlLabel9.Location = New System.Drawing.Point(289, 13)
         Me.Guna2HtmlLabel9.Name = "Guna2HtmlLabel9"
         Me.Guna2HtmlLabel9.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel9.TabIndex = 113
@@ -557,8 +480,8 @@ Partial Class P_TerminarVenta
         'deposito
         '
         Me.deposito.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.deposito.Controls.Add(Me.Guna2HtmlLabel11)
         Me.deposito.Controls.Add(Me.BTN_DColocarTotal)
+        Me.deposito.Controls.Add(Me.Guna2HtmlLabel11)
         Me.deposito.Controls.Add(Me.TXT_DVuelto)
         Me.deposito.Controls.Add(Me.Guna2HtmlLabel10)
         Me.deposito.Controls.Add(Me.TXT_DCliente)
@@ -576,30 +499,12 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel11.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel11.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel11.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel11.Location = New System.Drawing.Point(280, 143)
+        Me.Guna2HtmlLabel11.Location = New System.Drawing.Point(280, 108)
         Me.Guna2HtmlLabel11.Name = "Guna2HtmlLabel11"
         Me.Guna2HtmlLabel11.Size = New System.Drawing.Size(79, 32)
         Me.Guna2HtmlLabel11.TabIndex = 127
         Me.Guna2HtmlLabel11.Text = "Monto:"
         Me.Guna2HtmlLabel11.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
-        '
-        'BTN_DColocarTotal
-        '
-        Me.BTN_DColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_DColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_DColocarTotal.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_DColocarTotal.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_DColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_DColocarTotal.ImageSize = New System.Drawing.Size(90, 90)
-        Me.BTN_DColocarTotal.Location = New System.Drawing.Point(548, 181)
-        Me.BTN_DColocarTotal.Name = "BTN_DColocarTotal"
-        Me.BTN_DColocarTotal.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
-        Me.BTN_DColocarTotal.Size = New System.Drawing.Size(44, 44)
-        Me.BTN_DColocarTotal.TabIndex = 126
-        Me.BTN_DColocarTotal.Text = "T"
-        Me.BTN_DColocarTotal.TextOffset = New System.Drawing.Point(2, -2)
         '
         'TXT_DVuelto
         '
@@ -614,7 +519,7 @@ Partial Class P_TerminarVenta
         Me.TXT_DVuelto.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_DVuelto.ForeColor = System.Drawing.Color.Black
         Me.TXT_DVuelto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_DVuelto.Location = New System.Drawing.Point(101, 288)
+        Me.TXT_DVuelto.Location = New System.Drawing.Point(101, 322)
         Me.TXT_DVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_DVuelto.Name = "TXT_DVuelto"
         Me.TXT_DVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -630,7 +535,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel10.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel10.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel10.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel10.Location = New System.Drawing.Point(280, 250)
+        Me.Guna2HtmlLabel10.Location = New System.Drawing.Point(280, 284)
         Me.Guna2HtmlLabel10.Name = "Guna2HtmlLabel10"
         Me.Guna2HtmlLabel10.Size = New System.Drawing.Size(78, 32)
         Me.Guna2HtmlLabel10.TabIndex = 124
@@ -650,7 +555,7 @@ Partial Class P_TerminarVenta
         Me.TXT_DCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_DCliente.ForeColor = System.Drawing.Color.Black
         Me.TXT_DCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_DCliente.Location = New System.Drawing.Point(101, 183)
+        Me.TXT_DCliente.Location = New System.Drawing.Point(101, 148)
         Me.TXT_DCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_DCliente.Name = "TXT_DCliente"
         Me.TXT_DCliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -673,7 +578,7 @@ Partial Class P_TerminarVenta
         Me.TXT_DTotal.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_DTotal.ForeColor = System.Drawing.Color.Black
         Me.TXT_DTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_DTotal.Location = New System.Drawing.Point(101, 83)
+        Me.TXT_DTotal.Location = New System.Drawing.Point(101, 50)
         Me.TXT_DTotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_DTotal.Name = "TXT_DTotal"
         Me.TXT_DTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -689,7 +594,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel12.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel12.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel12.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel12.Location = New System.Drawing.Point(289, 45)
+        Me.Guna2HtmlLabel12.Location = New System.Drawing.Point(289, 12)
         Me.Guna2HtmlLabel12.Name = "Guna2HtmlLabel12"
         Me.Guna2HtmlLabel12.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel12.TabIndex = 120
@@ -716,42 +621,6 @@ Partial Class P_TerminarVenta
         Me.Mixto.TabIndex = 4
         Me.Mixto.Text = "Mixto"
         '
-        'BTN_RestanteEfectivo
-        '
-        Me.BTN_RestanteEfectivo.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteEfectivo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RestanteEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RestanteEfectivo.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_RestanteEfectivo.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_RestanteEfectivo.ForeColor = System.Drawing.Color.White
-        Me.BTN_RestanteEfectivo.ImageSize = New System.Drawing.Size(90, 90)
-        Me.BTN_RestanteEfectivo.Location = New System.Drawing.Point(556, 137)
-        Me.BTN_RestanteEfectivo.Name = "BTN_RestanteEfectivo"
-        Me.BTN_RestanteEfectivo.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
-        Me.BTN_RestanteEfectivo.Size = New System.Drawing.Size(44, 44)
-        Me.BTN_RestanteEfectivo.TabIndex = 130
-        Me.BTN_RestanteEfectivo.Text = "R"
-        Me.BTN_RestanteEfectivo.TextOffset = New System.Drawing.Point(2, -2)
-        '
-        'BTN_RestanteTarjeta
-        '
-        Me.BTN_RestanteTarjeta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteTarjeta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RestanteTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RestanteTarjeta.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_RestanteTarjeta.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_RestanteTarjeta.ForeColor = System.Drawing.Color.White
-        Me.BTN_RestanteTarjeta.ImageSize = New System.Drawing.Size(90, 90)
-        Me.BTN_RestanteTarjeta.Location = New System.Drawing.Point(556, 232)
-        Me.BTN_RestanteTarjeta.Name = "BTN_RestanteTarjeta"
-        Me.BTN_RestanteTarjeta.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
-        Me.BTN_RestanteTarjeta.Size = New System.Drawing.Size(44, 44)
-        Me.BTN_RestanteTarjeta.TabIndex = 129
-        Me.BTN_RestanteTarjeta.Text = "R"
-        Me.BTN_RestanteTarjeta.TextOffset = New System.Drawing.Point(2, -2)
-        '
         'TXT_PagoEfectivo
         '
         Me.TXT_PagoEfectivo.BorderRadius = 20
@@ -765,13 +634,13 @@ Partial Class P_TerminarVenta
         Me.TXT_PagoEfectivo.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_PagoEfectivo.ForeColor = System.Drawing.Color.Black
         Me.TXT_PagoEfectivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_PagoEfectivo.Location = New System.Drawing.Point(109, 234)
+        Me.TXT_PagoEfectivo.Location = New System.Drawing.Point(329, 148)
         Me.TXT_PagoEfectivo.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_PagoEfectivo.Name = "TXT_PagoEfectivo"
         Me.TXT_PagoEfectivo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_PagoEfectivo.PlaceholderText = ""
         Me.TXT_PagoEfectivo.SelectedText = ""
-        Me.TXT_PagoEfectivo.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_PagoEfectivo.Size = New System.Drawing.Size(300, 42)
         Me.TXT_PagoEfectivo.TabIndex = 128
         Me.TXT_PagoEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -780,7 +649,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel16.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel16.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel16.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel16.Location = New System.Drawing.Point(254, 196)
+        Me.Guna2HtmlLabel16.Location = New System.Drawing.Point(411, 108)
         Me.Guna2HtmlLabel16.Name = "Guna2HtmlLabel16"
         Me.Guna2HtmlLabel16.Size = New System.Drawing.Size(151, 32)
         Me.Guna2HtmlLabel16.TabIndex = 127
@@ -800,7 +669,7 @@ Partial Class P_TerminarVenta
         Me.TXT_MVuelto.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_MVuelto.ForeColor = System.Drawing.Color.Black
         Me.TXT_MVuelto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_MVuelto.Location = New System.Drawing.Point(109, 331)
+        Me.TXT_MVuelto.Location = New System.Drawing.Point(109, 311)
         Me.TXT_MVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_MVuelto.Name = "TXT_MVuelto"
         Me.TXT_MVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -816,7 +685,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel13.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel13.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel13.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel13.Location = New System.Drawing.Point(288, 293)
+        Me.Guna2HtmlLabel13.Location = New System.Drawing.Point(288, 273)
         Me.Guna2HtmlLabel13.Name = "Guna2HtmlLabel13"
         Me.Guna2HtmlLabel13.Size = New System.Drawing.Size(78, 32)
         Me.Guna2HtmlLabel13.TabIndex = 124
@@ -836,13 +705,13 @@ Partial Class P_TerminarVenta
         Me.TXT_PagoTarjeta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_PagoTarjeta.ForeColor = System.Drawing.Color.Black
         Me.TXT_PagoTarjeta.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_PagoTarjeta.Location = New System.Drawing.Point(109, 137)
+        Me.TXT_PagoTarjeta.Location = New System.Drawing.Point(15, 148)
         Me.TXT_PagoTarjeta.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_PagoTarjeta.Name = "TXT_PagoTarjeta"
         Me.TXT_PagoTarjeta.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_PagoTarjeta.PlaceholderText = ""
         Me.TXT_PagoTarjeta.SelectedText = ""
-        Me.TXT_PagoTarjeta.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_PagoTarjeta.Size = New System.Drawing.Size(300, 42)
         Me.TXT_PagoTarjeta.TabIndex = 123
         Me.TXT_PagoTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -851,7 +720,7 @@ Partial Class P_TerminarVenta
         Me.Guna2HtmlLabel14.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel14.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel14.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel14.Location = New System.Drawing.Point(254, 97)
+        Me.Guna2HtmlLabel14.Location = New System.Drawing.Point(96, 108)
         Me.Guna2HtmlLabel14.Name = "Guna2HtmlLabel14"
         Me.Guna2HtmlLabel14.Size = New System.Drawing.Size(137, 32)
         Me.Guna2HtmlLabel14.TabIndex = 122
@@ -1000,6 +869,120 @@ Partial Class P_TerminarVenta
         Me.Guna2Panel1.Size = New System.Drawing.Size(908, 69)
         Me.Guna2Panel1.TabIndex = 131
         '
+        'TXT_ECliente
+        '
+        Me.TXT_ECliente.BackColor = System.Drawing.Color.Transparent
+        Me.TXT_ECliente.BorderRadius = 20
+        Me.TXT_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_ECliente.DefaultText = ""
+        Me.TXT_ECliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_ECliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_ECliente.ForeColor = System.Drawing.Color.Black
+        Me.TXT_ECliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_ECliente.Location = New System.Drawing.Point(103, 144)
+        Me.TXT_ECliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_ECliente.Name = "TXT_ECliente"
+        Me.TXT_ECliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_ECliente.PlaceholderText = ""
+        Me.TXT_ECliente.SelectedText = ""
+        Me.TXT_ECliente.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_ECliente.TabIndex = 105
+        Me.TXT_ECliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'BTN_EColocarTotal
+        '
+        Me.BTN_EColocarTotal.BorderRadius = 20
+        Me.BTN_EColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_EColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_EColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_EColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_EColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_EColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_EColocarTotal.Location = New System.Drawing.Point(103, 194)
+        Me.BTN_EColocarTotal.Name = "BTN_EColocarTotal"
+        Me.BTN_EColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_EColocarTotal.TabIndex = 106
+        Me.BTN_EColocarTotal.Text = "Colorcar Total"
+        '
+        'BTN_TColocarTotal
+        '
+        Me.BTN_TColocarTotal.BorderRadius = 20
+        Me.BTN_TColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_TColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_TColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_TColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_TColocarTotal.Location = New System.Drawing.Point(101, 206)
+        Me.BTN_TColocarTotal.Name = "BTN_TColocarTotal"
+        Me.BTN_TColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_TColocarTotal.TabIndex = 113
+        Me.BTN_TColocarTotal.Text = "Colorcar Total"
+        '
+        'BTN_SColocarTotal
+        '
+        Me.BTN_SColocarTotal.BorderRadius = 20
+        Me.BTN_SColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_SColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_SColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_SColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_SColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_SColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_SColocarTotal.Location = New System.Drawing.Point(101, 200)
+        Me.BTN_SColocarTotal.Name = "BTN_SColocarTotal"
+        Me.BTN_SColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_SColocarTotal.TabIndex = 119
+        Me.BTN_SColocarTotal.Text = "Colorcar Total"
+        '
+        'BTN_DColocarTotal
+        '
+        Me.BTN_DColocarTotal.BorderRadius = 20
+        Me.BTN_DColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_DColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_DColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_DColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_DColocarTotal.Location = New System.Drawing.Point(101, 198)
+        Me.BTN_DColocarTotal.Name = "BTN_DColocarTotal"
+        Me.BTN_DColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_DColocarTotal.TabIndex = 128
+        Me.BTN_DColocarTotal.Text = "Colorcar Total"
+        '
+        'BTN_RestanteTarjeta
+        '
+        Me.BTN_RestanteTarjeta.BorderRadius = 20
+        Me.BTN_RestanteTarjeta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteTarjeta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RestanteTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RestanteTarjeta.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_RestanteTarjeta.ForeColor = System.Drawing.Color.White
+        Me.BTN_RestanteTarjeta.Location = New System.Drawing.Point(15, 198)
+        Me.BTN_RestanteTarjeta.Name = "BTN_RestanteTarjeta"
+        Me.BTN_RestanteTarjeta.Size = New System.Drawing.Size(300, 52)
+        Me.BTN_RestanteTarjeta.TabIndex = 131
+        Me.BTN_RestanteTarjeta.Text = "Colorcar restante"
+        '
+        'BTN_RestanteEfectivo
+        '
+        Me.BTN_RestanteEfectivo.BorderRadius = 20
+        Me.BTN_RestanteEfectivo.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteEfectivo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RestanteEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RestanteEfectivo.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_RestanteEfectivo.ForeColor = System.Drawing.Color.White
+        Me.BTN_RestanteEfectivo.Location = New System.Drawing.Point(329, 198)
+        Me.BTN_RestanteEfectivo.Name = "BTN_RestanteEfectivo"
+        Me.BTN_RestanteEfectivo.Size = New System.Drawing.Size(300, 52)
+        Me.BTN_RestanteEfectivo.TabIndex = 132
+        Me.BTN_RestanteEfectivo.Text = "Colorcar restante"
+        '
         'P_TerminarVenta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1042,7 +1025,6 @@ Partial Class P_TerminarVenta
     Friend WithEvents Mixto As TabPage
     Friend WithEvents TXT_EVuelto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents TXT_ECliente As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_ETotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel4 As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -1054,9 +1036,6 @@ Partial Class P_TerminarVenta
     Friend WithEvents Guna2HtmlLabel5 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_TTotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel6 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents BTN_EColocarTotal As Guna.UI2.WinForms.Guna2CircleButton
-    Friend WithEvents BTN_TColocarTotal As Guna.UI2.WinForms.Guna2CircleButton
-    Friend WithEvents BTN_SColocarTotal As Guna.UI2.WinForms.Guna2CircleButton
     Friend WithEvents TXT_SVuelto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel7 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_SCliente As Guna.UI2.WinForms.Guna2TextBox
@@ -1064,7 +1043,6 @@ Partial Class P_TerminarVenta
     Friend WithEvents TXT_STotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel9 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents Guna2HtmlLabel11 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents BTN_DColocarTotal As Guna.UI2.WinForms.Guna2CircleButton
     Friend WithEvents TXT_DVuelto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel10 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_DCliente As Guna.UI2.WinForms.Guna2TextBox
@@ -1082,8 +1060,13 @@ Partial Class P_TerminarVenta
     Friend WithEvents Guna2HtmlLabel17 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents PrintDocument As Printing.PrintDocument
     Friend WithEvents PrintDialog As PrintDialog
-    Friend WithEvents BTN_RestanteEfectivo As Guna.UI2.WinForms.Guna2CircleButton
-    Friend WithEvents BTN_RestanteTarjeta As Guna.UI2.WinForms.Guna2CircleButton
     Friend WithEvents BTN_TVentaImp As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents TXT_ECliente As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents BTN_EColocarTotal As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_TColocarTotal As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_SColocarTotal As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_DColocarTotal As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_RestanteEfectivo As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_RestanteTarjeta As Guna.UI2.WinForms.Guna2TileButton
 End Class

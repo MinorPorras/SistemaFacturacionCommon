@@ -74,7 +74,11 @@ Partial Class P_CuentasCobrar
         Me.btn_Regresar.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.btn_Regresar.Size = New System.Drawing.Size(939, 55)
         Me.btn_Regresar.Style.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btn_Regresar.Style.FocusedBackColor = System.Drawing.Color.Maroon
+        Me.btn_Regresar.Style.FocusedForeColor = System.Drawing.Color.White
         Me.btn_Regresar.Style.ForeColor = System.Drawing.Color.White
+        Me.btn_Regresar.Style.HoverBackColor = System.Drawing.Color.Maroon
+        Me.btn_Regresar.Style.HoverForeColor = System.Drawing.Color.White
         Me.btn_Regresar.Style.Image = CType(resources.GetObject("resource.Image"), System.Drawing.Image)
         Me.btn_Regresar.TabIndex = 74
         Me.btn_Regresar.Text = "Regresar"

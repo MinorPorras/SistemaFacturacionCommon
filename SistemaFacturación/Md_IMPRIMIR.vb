@@ -24,7 +24,7 @@ Module Md_IMPRIMIR
     ' Genera el contenido de la factura para impresión o reimpresión
     ' id_factura: ID de la factura a imprimir
     ' reimprimir: True si es reimpresión, False si es impresión normal
-    Public Sub CREAR_FACTURA(id_factura As Integer, reimprimir As Boolean)
+    Public Sub GENERAR_FACTURA(id_factura As Integer, reimprimir As Boolean)
         ' Obtener datos principales de la factura, cliente y usuario
         T.Tables.Clear()
         SQL = "SELECT f.ID, f.fecha_emision, c.nombre, f.num_factura, f.total, f.efectivo_cliente, f.tarjeta_cliente, f.vuelto, f.tipo_venta, u.usuario" &

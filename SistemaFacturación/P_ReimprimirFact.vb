@@ -167,7 +167,7 @@ Public Class P_ReimprimirFact
         Cargar_Tabla(T, SQL)
         If T.Tables(0).Rows.Count > 0 Then
             Dim idFact As String = T.Tables(0).Rows(0).Item(0).ToString()
-            CREAR_FACTURA(idFact, True)
+            GENERAR_FACTURA(idFact, True)
             ImprimirFactura()
         End If
     End Sub
@@ -180,7 +180,7 @@ Public Class P_ReimprimirFact
         Next
 
         finFactura = ""
-        CREAR_FACTURA(DGV_ReimprimirFact.SelectedRows(0).Cells(0).Value.ToString(), True)
+        GENERAR_FACTURA(DGV_ReimprimirFact.SelectedRows(0).Cells(0).Value.ToString(), True)
         ImprimirFactura()
     End Sub
 

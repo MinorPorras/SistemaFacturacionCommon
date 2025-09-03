@@ -193,6 +193,7 @@ Partial Class P_Caja
         '
         Me.BTN_Reprint.BorderColor = System.Drawing.Color.White
         Me.BTN_Reprint.BorderThickness = 1
+        Me.BTN_Reprint.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Reprint.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Reprint.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Reprint.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -223,6 +224,7 @@ Partial Class P_Caja
         '
         Me.BTN_RegresarCliente.BorderColor = System.Drawing.Color.White
         Me.BTN_RegresarCliente.BorderThickness = 1
+        Me.BTN_RegresarCliente.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_RegresarCliente.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_RegresarCliente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_RegresarCliente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
@@ -242,6 +244,7 @@ Partial Class P_Caja
         '
         Me.BTN_DelFactura.BorderColor = System.Drawing.Color.White
         Me.BTN_DelFactura.BorderThickness = 1
+        Me.BTN_DelFactura.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_DelFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_DelFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_DelFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -272,6 +275,7 @@ Partial Class P_Caja
         '
         Me.BTN_TVenta.BorderColor = System.Drawing.Color.White
         Me.BTN_TVenta.BorderThickness = 1
+        Me.BTN_TVenta.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -302,6 +306,7 @@ Partial Class P_Caja
         '
         Me.BTN_CuentaCobrar.BorderColor = System.Drawing.Color.White
         Me.BTN_CuentaCobrar.BorderThickness = 1
+        Me.BTN_CuentaCobrar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_CuentaCobrar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_CuentaCobrar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_CuentaCobrar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -332,6 +337,7 @@ Partial Class P_Caja
         '
         Me.BTN_GuardarCuenta.BorderColor = System.Drawing.Color.White
         Me.BTN_GuardarCuenta.BorderThickness = 1
+        Me.BTN_GuardarCuenta.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_GuardarCuenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_GuardarCuenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_GuardarCuenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -362,6 +368,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav1.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav1.BorderRadius = 25
+        Me.BTN_Fav1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav1.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav1.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -380,6 +387,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav2.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav2.BorderRadius = 25
+        Me.BTN_Fav2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav2.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav2.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -398,6 +406,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav3.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav3.BorderRadius = 25
+        Me.BTN_Fav3.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav3.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav3.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -416,6 +425,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav4.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav4.BorderRadius = 25
+        Me.BTN_Fav4.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav4.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav4.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -434,6 +444,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav5.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav5.BorderRadius = 25
+        Me.BTN_Fav5.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav5.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav5.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -452,6 +463,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav6.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav6.BorderRadius = 25
+        Me.BTN_Fav6.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav6.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav6.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -470,6 +482,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav7.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav7.BorderRadius = 25
+        Me.BTN_Fav7.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav7.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav7.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav7.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -488,6 +501,7 @@ Partial Class P_Caja
         '
         Me.BTN_Fav8.BorderColor = System.Drawing.Color.White
         Me.BTN_Fav8.BorderRadius = 25
+        Me.BTN_Fav8.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_Fav8.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Fav8.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
@@ -547,6 +561,7 @@ Partial Class P_Caja
         '
         'BTN_NProd
         '
+        Me.BTN_NProd.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BTN_NProd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_NProd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_NProd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
