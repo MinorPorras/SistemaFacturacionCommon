@@ -42,7 +42,6 @@ Public Class M_Inicio
         Catch ex As Exception
             Console.WriteLine("No se encontró la imagen")
         End Try
-        LBL_Version.Text = "Ver. " + Application.ProductVersion
         Task.Run(Sub()
                      cargarCalProveedores("dia_pedido", "proveedor_diaPedido")
                  End Sub)

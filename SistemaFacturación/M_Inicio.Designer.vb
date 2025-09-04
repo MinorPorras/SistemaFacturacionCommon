@@ -36,7 +36,6 @@ Partial Class M_Inicio
         Me.Guna2PictureBox1 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.BTN_Mantenimiento = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_Reporte = New Guna.UI2.WinForms.Guna2Button()
-        Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.DGV_LRebPed = New Guna.UI2.WinForms.Guna2DataGridView()
         Me.LunesReb = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -51,7 +50,6 @@ Partial Class M_Inicio
         Me.LBL_Email = New System.Windows.Forms.Label()
         Me.BTN_CajaVenta = New Guna.UI2.WinForms.Guna2Button()
         Me.PIC_Logo = New Guna.UI2.WinForms.Guna2PictureBox()
-        Me.LBL_Version = New System.Windows.Forms.Label()
         Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.LBL_Usu = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -67,9 +65,10 @@ Partial Class M_Inicio
         Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
         Me.BTN_LogOut = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.BTN_Config = New Guna.UI2.WinForms.Guna2ImageButton()
-        Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Me.Guna2Panel3 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
+        Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DGV_LRebPed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,9 +85,9 @@ Partial Class M_Inicio
         '
         Me.Guna2PictureBox1.Image = CType(resources.GetObject("Guna2PictureBox1.Image"), System.Drawing.Image)
         Me.Guna2PictureBox1.ImageRotate = 0!
-        Me.Guna2PictureBox1.Location = New System.Drawing.Point(271, -21)
+        Me.Guna2PictureBox1.Location = New System.Drawing.Point(388, -3)
         Me.Guna2PictureBox1.Name = "Guna2PictureBox1"
-        Me.Guna2PictureBox1.Size = New System.Drawing.Size(539, 258)
+        Me.Guna2PictureBox1.Size = New System.Drawing.Size(415, 183)
         Me.Guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Guna2PictureBox1.TabIndex = 0
         Me.Guna2PictureBox1.TabStop = False
@@ -133,13 +132,6 @@ Partial Class M_Inicio
         Me.BTN_Reporte.TabIndex = 6
         Me.BTN_Reporte.Text = "2. Reportes"
         '
-        'Guna2BorderlessForm1
-        '
-        Me.Guna2BorderlessForm1.BorderRadius = 25
-        Me.Guna2BorderlessForm1.ContainerControl = Me
-        Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
-        Me.Guna2BorderlessForm1.TransparentWhileDrag = True
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.DGV_LRebPed)
@@ -178,7 +170,7 @@ Partial Class M_Inicio
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
@@ -269,7 +261,7 @@ Partial Class M_Inicio
         Me.LBL_Sucursal.AutoSize = True
         Me.LBL_Sucursal.Font = New System.Drawing.Font("Britannic Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_Sucursal.ForeColor = System.Drawing.Color.White
-        Me.LBL_Sucursal.Location = New System.Drawing.Point(12, 136)
+        Me.LBL_Sucursal.Location = New System.Drawing.Point(128, 12)
         Me.LBL_Sucursal.Name = "LBL_Sucursal"
         Me.LBL_Sucursal.Size = New System.Drawing.Size(69, 16)
         Me.LBL_Sucursal.TabIndex = 22
@@ -280,7 +272,7 @@ Partial Class M_Inicio
         Me.LBL_Telefono.AutoSize = True
         Me.LBL_Telefono.Font = New System.Drawing.Font("Britannic Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_Telefono.ForeColor = System.Drawing.Color.White
-        Me.LBL_Telefono.Location = New System.Drawing.Point(12, 162)
+        Me.LBL_Telefono.Location = New System.Drawing.Point(128, 38)
         Me.LBL_Telefono.Name = "LBL_Telefono"
         Me.LBL_Telefono.Size = New System.Drawing.Size(66, 16)
         Me.LBL_Telefono.TabIndex = 23
@@ -291,7 +283,7 @@ Partial Class M_Inicio
         Me.LBL_Email.AutoSize = True
         Me.LBL_Email.Font = New System.Drawing.Font("Britannic Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_Email.ForeColor = System.Drawing.Color.White
-        Me.LBL_Email.Location = New System.Drawing.Point(12, 187)
+        Me.LBL_Email.Location = New System.Drawing.Point(128, 63)
         Me.LBL_Email.Name = "LBL_Email"
         Me.LBL_Email.Size = New System.Drawing.Size(47, 16)
         Me.LBL_Email.TabIndex = 24
@@ -327,23 +319,12 @@ Partial Class M_Inicio
         Me.PIC_Logo.TabIndex = 28
         Me.PIC_Logo.TabStop = False
         '
-        'LBL_Version
-        '
-        Me.LBL_Version.AutoSize = True
-        Me.LBL_Version.Font = New System.Drawing.Font("Britannic Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_Version.ForeColor = System.Drawing.Color.White
-        Me.LBL_Version.Location = New System.Drawing.Point(125, 12)
-        Me.LBL_Version.Name = "LBL_Version"
-        Me.LBL_Version.Size = New System.Drawing.Size(84, 16)
-        Me.LBL_Version.TabIndex = 29
-        Me.LBL_Version.Text = "Ver. 1.0.0.2"
-        '
         'Guna2HtmlLabel6
         '
         Me.Guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel6.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Guna2HtmlLabel6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel6.Location = New System.Drawing.Point(785, 21)
+        Me.Guna2HtmlLabel6.Location = New System.Drawing.Point(15, 125)
         Me.Guna2HtmlLabel6.Name = "Guna2HtmlLabel6"
         Me.Guna2HtmlLabel6.Size = New System.Drawing.Size(66, 23)
         Me.Guna2HtmlLabel6.TabIndex = 116
@@ -355,7 +336,7 @@ Partial Class M_Inicio
         Me.LBL_Usu.BackColor = System.Drawing.Color.Transparent
         Me.LBL_Usu.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_Usu.ForeColor = System.Drawing.SystemColors.Control
-        Me.LBL_Usu.Location = New System.Drawing.Point(857, 21)
+        Me.LBL_Usu.Location = New System.Drawing.Point(87, 125)
         Me.LBL_Usu.Name = "LBL_Usu"
         Me.LBL_Usu.Size = New System.Drawing.Size(62, 23)
         Me.LBL_Usu.TabIndex = 115
@@ -388,7 +369,7 @@ Partial Class M_Inicio
         Me.DGV_LHacerPed.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -400,7 +381,7 @@ Partial Class M_Inicio
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
         DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
@@ -497,7 +478,7 @@ Partial Class M_Inicio
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 540.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox2, 0, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 228)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 199)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -546,22 +527,6 @@ Partial Class M_Inicio
         Me.BTN_Config.Size = New System.Drawing.Size(58, 54)
         Me.BTN_Config.TabIndex = 123
         '
-        'BTN_CerrarApp
-        '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
-        Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
-        Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
-        Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
-        Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
-        Me.BTN_CerrarApp.TabIndex = 122
-        '
         'Guna2Panel1
         '
         Me.Guna2Panel1.Controls.Add(Me.BTN_CajaVenta)
@@ -580,6 +545,29 @@ Partial Class M_Inicio
         Me.Guna2Panel3.Size = New System.Drawing.Size(1100, 90)
         Me.Guna2Panel3.TabIndex = 123
         '
+        'Guna2BorderlessForm1
+        '
+        Me.Guna2BorderlessForm1.BorderRadius = 25
+        Me.Guna2BorderlessForm1.ContainerControl = Me
+        Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
+        Me.Guna2BorderlessForm1.TransparentWhileDrag = True
+        '
+        'BTN_CerrarApp
+        '
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.ImageRotate = 0!
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
+        Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_CerrarApp.TabIndex = 122
+        '
         'M_Inicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -593,7 +581,6 @@ Partial Class M_Inicio
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.Guna2HtmlLabel6)
         Me.Controls.Add(Me.LBL_Usu)
-        Me.Controls.Add(Me.LBL_Version)
         Me.Controls.Add(Me.PIC_Logo)
         Me.Controls.Add(Me.LBL_Email)
         Me.Controls.Add(Me.LBL_Telefono)
@@ -622,14 +609,12 @@ Partial Class M_Inicio
     Friend WithEvents Guna2PictureBox1 As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents BTN_Mantenimiento As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_Reporte As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents LBL_Email As Label
     Friend WithEvents LBL_Telefono As Label
     Friend WithEvents LBL_Sucursal As Label
     Friend WithEvents BTN_CajaVenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents PIC_Logo As Guna.UI2.WinForms.Guna2PictureBox
-    Friend WithEvents LBL_Version As Label
     Friend WithEvents Guna2DataGridViewStyler1 As Guna.UI2.WinForms.Guna2DataGridViewStyler
     Friend WithEvents Guna2HtmlLabel6 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents LBL_Usu As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -652,10 +637,11 @@ Partial Class M_Inicio
     Friend WithEvents DomingoReb As DataGridViewTextBoxColumn
     Friend WithEvents Guna2DataGridViewStyler2 As Guna.UI2.WinForms.Guna2DataGridViewStyler
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents BTN_CerrarApp As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents Guna2Panel2 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents BTN_LogOut As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents BTN_Config As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents Guna2Panel3 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
+    Friend WithEvents BTN_CerrarApp As Guna.UI2.WinForms.Guna2ImageButton
 End Class
