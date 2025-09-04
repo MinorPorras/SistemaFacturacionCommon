@@ -43,7 +43,7 @@ Public Class P_SelectUsu
         P_Login.TXT_Clave.Select()
         P_Login.Show()
         P_Login.Select()
-        Me.Hide()
+        Me.Close()
     End Sub
 
     Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click

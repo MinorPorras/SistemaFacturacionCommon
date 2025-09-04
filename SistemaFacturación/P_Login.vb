@@ -1,4 +1,6 @@
-﻿Public Class P_Login
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
+
+Public Class P_Login
     Friend idUsu As Integer
 
     Private Sub BTN_Login_Click(sender As Object, e As EventArgs) Handles BTN_Login.Click
@@ -41,5 +43,23 @@
         P_SelectUsu.Show()
         P_SelectUsu.Select()
         Me.Close()
+    End Sub
+
+    Private Sub P_Login_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        CenterLoginGroupBox()
+    End Sub
+
+    Private Sub CenterLoginGroupBox()
+        ' Calcula la nueva posición X.
+        Dim x As Integer = (Me.ClientSize.Width / 2) - (GBX_Login.Width / 2)
+        ' Calcula la nueva posición Y.
+        Dim y As Integer = (Me.ClientSize.Height / 2) - (GBX_Login.Height / 2)
+
+        ' Establece la nueva ubicación del GroupBox.
+        GBX_Login.Location = New Point(x, y)
+    End Sub
+
+    Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
+        msgCerrarApp()
     End Sub
 End Class
