@@ -6,7 +6,7 @@ Public Class P_Productos
                           "CASE WHEN p.variable=1 THEN 'Si' ELSE 'No' END AS 'Var', " &
                           "c.ID_Categoria AS 'ID_cat', cat.nombre AS 'Categoría', " &
                           "pm.ID_Marca AS 'ID_Marca', m.Nombre AS 'Marca', pp.ID_Proveedor AS 'ID_Prov', " &
-                          "pr.nombre AS 'Proveedor', p.inventario AS 'Ex', p.favorito AS 'Fav', p.fechaAdd as 'Agregado' " &
+                          "pr.nombre AS 'Proveedor', p.inventario AS 'Ex', p.fechaAdd as 'Agregado' " &
                           "FROM producto p " &
                           "LEFT JOIN producto_categoria c ON p.ID = c.ID_Producto " &
                           "LEFT JOIN categoria cat ON c.ID_Categoria = cat.ID " &
@@ -164,8 +164,6 @@ Public Class P_Productos
                         DGV_Prods.Columns(i).Width = 70
                     Case 15
                         DGV_Prods.Columns(i).Width = 70
-                    Case 16
-                        DGV_Prods.Columns(i).Width = 30
 
                 End Select
             Next
@@ -238,11 +236,6 @@ Public Class P_Productos
             E_NuevoProducto.TXT_Marca.Text = DGV_Prods.SelectedRows(0).Cells(12).Value.ToString()
             E_NuevoProducto.LBL_Prov.Text = DGV_Prods.SelectedRows(0).Cells(13).Value.ToString()
             E_NuevoProducto.TXT_Proveedor.Text = DGV_Prods.SelectedRows(0).Cells(14).Value.ToString()
-            If DGV_Prods.SelectedRows(0).Cells(16).Value.ToString() = "Si" Then
-                E_NuevoProducto.SWT_Fav.Checked = True
-            Else
-                E_NuevoProducto.SWT_Fav.Checked = False
-            End If
             If Not String.IsNullOrEmpty(DGV_Prods.SelectedRows(0).Cells(15).Value.ToString()) Then
                 E_NuevoProducto.NUD_Inv.Value = DGV_Prods.SelectedRows(0).Cells(15).Value.ToString()
             Else

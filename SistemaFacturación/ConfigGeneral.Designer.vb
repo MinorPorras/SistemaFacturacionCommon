@@ -73,6 +73,7 @@ Partial Class ConfigGeneral
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabInfo = New System.Windows.Forms.TabPage()
+        Me.btn_RegInfoConfig = New Guna.UI2.WinForms.Guna2Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.BTN_CheckForUpdates = New Guna.UI2.WinForms.Guna2Button()
@@ -88,7 +89,6 @@ Partial Class ConfigGeneral
         Me.Guna2Panel3 = New Guna.UI2.WinForms.Guna2Panel()
         Me.CardLayout1 = New Syncfusion.Windows.Forms.Tools.CardLayout(Me.components)
         Me.Guna2Transition1 = New Guna.UI2.WinForms.Guna2Transition()
-        Me.btn_RegInfoConfig = New Guna.UI2.WinForms.Guna2Button()
         Me.TCO_Config.SuspendLayout()
         Me.tabDB.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -848,6 +848,27 @@ Partial Class ConfigGeneral
         Me.tabInfo.TabIndex = 3
         Me.tabInfo.Text = "Información"
         '
+        'btn_RegInfoConfig
+        '
+        Me.btn_RegInfoConfig.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.btn_RegInfoConfig, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.btn_RegInfoConfig.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn_RegInfoConfig.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btn_RegInfoConfig.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btn_RegInfoConfig.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btn_RegInfoConfig.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btn_RegInfoConfig.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btn_RegInfoConfig.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btn_RegInfoConfig.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.btn_RegInfoConfig.ForeColor = System.Drawing.Color.White
+        Me.btn_RegInfoConfig.Image = CType(resources.GetObject("btn_RegInfoConfig.Image"), System.Drawing.Image)
+        Me.btn_RegInfoConfig.ImageSize = New System.Drawing.Size(40, 40)
+        Me.btn_RegInfoConfig.Location = New System.Drawing.Point(3, 338)
+        Me.btn_RegInfoConfig.Name = "btn_RegInfoConfig"
+        Me.btn_RegInfoConfig.Size = New System.Drawing.Size(647, 65)
+        Me.btn_RegInfoConfig.TabIndex = 118
+        Me.btn_RegInfoConfig.Text = "Regresar"
+        '
         'Label17
         '
         Me.Label17.AutoSize = True
@@ -1039,27 +1060,6 @@ Partial Class ConfigGeneral
         Animation1.TimeCoeff = 0!
         Animation1.TransparencyCoeff = 0!
         Me.Guna2Transition1.DefaultAnimation = Animation1
-        '
-        'btn_RegInfoConfig
-        '
-        Me.btn_RegInfoConfig.BorderColor = System.Drawing.Color.Red
-        Me.Guna2Transition1.SetDecoration(Me.btn_RegInfoConfig, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.btn_RegInfoConfig.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn_RegInfoConfig.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.btn_RegInfoConfig.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.btn_RegInfoConfig.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.btn_RegInfoConfig.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.btn_RegInfoConfig.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btn_RegInfoConfig.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btn_RegInfoConfig.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.btn_RegInfoConfig.ForeColor = System.Drawing.Color.White
-        Me.btn_RegInfoConfig.Image = CType(resources.GetObject("btn_RegInfoConfig.Image"), System.Drawing.Image)
-        Me.btn_RegInfoConfig.ImageSize = New System.Drawing.Size(40, 40)
-        Me.btn_RegInfoConfig.Location = New System.Drawing.Point(3, 338)
-        Me.btn_RegInfoConfig.Name = "btn_RegInfoConfig"
-        Me.btn_RegInfoConfig.Size = New System.Drawing.Size(647, 65)
-        Me.btn_RegInfoConfig.TabIndex = 118
-        Me.btn_RegInfoConfig.Text = "Regresar"
         '
         'ConfigGeneral
         '

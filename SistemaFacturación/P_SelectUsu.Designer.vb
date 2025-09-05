@@ -26,22 +26,19 @@ Partial Class P_SelectUsu
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_SelectUsu))
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Guna2GroupBox2 = New Guna.UI2.WinForms.Guna2GroupBox()
-        Me.Guna2GroupBox1 = New Guna.UI2.WinForms.Guna2GroupBox()
+        Me.GRB_SelectUsuario = New Guna.UI2.WinForms.Guna2GroupBox()
         Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
-        Me.Guna2GroupBox1.SuspendLayout()
+        Me.GRB_SelectUsuario.SuspendLayout()
         Me.SuspendLayout()
         '
         'FlowLayoutPanel1
         '
-        Me.FlowLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutPanel1.AutoScroll = True
         Me.FlowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(62, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(62, Byte), Integer))
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 43)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(884, 427)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(845, 420)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Guna2GroupBox2
@@ -61,23 +58,27 @@ Partial Class P_SelectUsu
         Me.Guna2GroupBox2.TabIndex = 127
         Me.Guna2GroupBox2.Text = "Seleccione un usuario:"
         '
-        'Guna2GroupBox1
+        'GRB_SelectUsuario
         '
-        Me.Guna2GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.GRB_SelectUsuario.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Guna2GroupBox1.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Guna2GroupBox1.BorderRadius = 20
-        Me.Guna2GroupBox1.Controls.Add(Me.FlowLayoutPanel1)
-        Me.Guna2GroupBox1.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Guna2GroupBox1.FillColor = System.Drawing.Color.FromArgb(CType(CType(62, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(62, Byte), Integer))
-        Me.Guna2GroupBox1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Guna2GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.Guna2GroupBox1.Location = New System.Drawing.Point(44, 64)
-        Me.Guna2GroupBox1.Name = "Guna2GroupBox1"
-        Me.Guna2GroupBox1.Size = New System.Drawing.Size(890, 482)
-        Me.Guna2GroupBox1.TabIndex = 1
-        Me.Guna2GroupBox1.Text = "Seleccione un usuario:"
+        Me.GRB_SelectUsuario.BackColor = System.Drawing.Color.Transparent
+        Me.GRB_SelectUsuario.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.GRB_SelectUsuario.BorderRadius = 20
+        Me.GRB_SelectUsuario.Controls.Add(Me.FlowLayoutPanel1)
+        Me.GRB_SelectUsuario.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.GRB_SelectUsuario.FillColor = System.Drawing.Color.FromArgb(CType(CType(62, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(62, Byte), Integer))
+        Me.GRB_SelectUsuario.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GRB_SelectUsuario.ForeColor = System.Drawing.Color.White
+        Me.GRB_SelectUsuario.Location = New System.Drawing.Point(71, 85)
+        Me.GRB_SelectUsuario.Name = "GRB_SelectUsuario"
+        Me.GRB_SelectUsuario.ShadowDecoration.BorderRadius = 20
+        Me.GRB_SelectUsuario.ShadowDecoration.Color = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GRB_SelectUsuario.ShadowDecoration.Enabled = True
+        Me.GRB_SelectUsuario.Size = New System.Drawing.Size(851, 479)
+        Me.GRB_SelectUsuario.TabIndex = 1
+        Me.GRB_SelectUsuario.Text = "Seleccione un usuario:"
         '
         'BTN_CerrarApp
         '
@@ -108,20 +109,20 @@ Partial Class P_SelectUsu
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(984, 611)
+        Me.Controls.Add(Me.GRB_SelectUsuario)
         Me.Controls.Add(Me.BTN_CerrarApp)
-        Me.Controls.Add(Me.Guna2GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "P_SelectUsu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Selección de usuario"
-        Me.Guna2GroupBox1.ResumeLayout(False)
+        Me.GRB_SelectUsuario.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents Guna2GroupBox2 As Guna.UI2.WinForms.Guna2GroupBox
-    Friend WithEvents Guna2GroupBox1 As Guna.UI2.WinForms.Guna2GroupBox
+    Friend WithEvents GRB_SelectUsuario As Guna.UI2.WinForms.Guna2GroupBox
     Friend WithEvents BTN_CerrarApp As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
 End Class

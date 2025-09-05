@@ -109,6 +109,43 @@ Module Md_CONEXION
         End Using
     End Function
 
+    Public Function EJECUTAR_TRANSACCION(ByVal operaciones As Action(Of SQLiteConnection, SQLiteTransaction)) As Boolean
+        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
+        Using conn As New SQLiteConnection(stringConexion)
+            conn.Open()
+            Using transaction As SQLiteTransaction = conn.BeginTransaction()
+                Try
+                    ' Se ejecutan todas las operaciones pasadas como parámetro
+                    operaciones.Invoke(conn, transaction)
+
+                    ' Si no hay errores, se confirma la transacción
+                    transaction.Commit()
+                    Return True
+                Catch ex As Exception
+                    ' Si hay un error, se revierte la transacción
+                    transaction.Rollback()
+                    Console.WriteLine(ex.Message)
+                    Return False
+                End Try
+            End Using
+        End Using
+    End Function
+
+    Public Function EJECUTAR_PARAMETROS_TRANSACCION(ByVal sql As String, ByVal parametros As Dictionary(Of String, Object), ByVal conn As SQLiteConnection, ByVal transaction As SQLiteTransaction) As Boolean
+        Try
+            Using cmd As New SQLiteCommand(sql, conn, transaction)
+                For Each parametro As KeyValuePair(Of String, Object) In parametros
+                    cmd.Parameters.AddWithValue($"@{parametro.Key}", parametro.Value)
+                Next
+                cmd.ExecuteNonQuery()
+            End Using
+            Return True
+        Catch ex As Exception
+            Console.WriteLine("Error en la ejecución de parámetros con transacción: " & ex.Message)
+            Return False ' Esto causará que el Rollback se ejecute en el método principal.
+        End Try
+    End Function
+
     Friend Sub GenerarReporte(desde As Date, hasta As Date, t As DataSet)
         Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
 

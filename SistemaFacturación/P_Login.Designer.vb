@@ -149,6 +149,7 @@ Partial Class P_Login
         'GBX_Login
         '
         Me.GBX_Login.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.GBX_Login.BackColor = System.Drawing.Color.Transparent
         Me.GBX_Login.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.GBX_Login.BorderRadius = 20
         Me.GBX_Login.Controls.Add(Me.BTN_Login)
@@ -163,6 +164,9 @@ Partial Class P_Login
         Me.GBX_Login.ForeColor = System.Drawing.Color.White
         Me.GBX_Login.Location = New System.Drawing.Point(89, 68)
         Me.GBX_Login.Name = "GBX_Login"
+        Me.GBX_Login.ShadowDecoration.BorderRadius = 20
+        Me.GBX_Login.ShadowDecoration.Color = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GBX_Login.ShadowDecoration.Enabled = True
         Me.GBX_Login.Size = New System.Drawing.Size(539, 343)
         Me.GBX_Login.TabIndex = 122
         Me.GBX_Login.Text = "Iniciar sesión"

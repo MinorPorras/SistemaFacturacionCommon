@@ -4,8 +4,10 @@ Imports System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
 Imports System.Data.SQLite
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Guna.UI2.WinForms
+Imports Syncfusion.Windows.Forms.Diagram
 
 Public Class P_Caja
+#Region "Variables y constantes"
     Friend idCliente As Integer
     Private editingItem As ListViewItem
     Private editingSubItemIndex As Integer
@@ -19,6 +21,13 @@ Public Class P_Caja
     ' Este ID es para cuando se carga una factura desde cuentas por cobrar
     'Con esta se verifica que la cuenta que se está cargando no se vuelva a guardar
     Friend idFactura As Integer = 0
+
+    ' Variable del formulario a nivel de clase para mantener una sola instancia
+    'Permite la confuguración los productos favoritos
+    Private frmfavProd As P_ConfigFavProd
+#End Region
+
+#Region "Carga y validaciones"
     Private Sub P_Caja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Me.Bounds = Screen.PrimaryScreen.Bounds'
         Me.WindowState = FormWindowState.Maximized
@@ -29,7 +38,7 @@ Public Class P_Caja
         MNU_CONTX.Enabled = True
 
         'Se cargan los productos favoritos
-        CargarBTNFav()
+        'CargarBTNFav()
 
         'Se carga el último número de factura que se haya agregado, que va a ser el mas alto
         CargarNumFactura()
@@ -52,15 +61,8 @@ Public Class P_Caja
             DGV_Caja.Columns(5).Width = (DGV_Caja.Width * 0.11)
         End If
 
-        ' Añadir los manejadores de eventos para los botones de favoritos
-        AddHandler BTN_Fav1.Click, AddressOf AgregarProdFav
-        AddHandler BTN_Fav2.Click, AddressOf AgregarProdFav
-        AddHandler BTN_Fav3.Click, AddressOf AgregarProdFav
-        AddHandler BTN_Fav4.Click, AddressOf AgregarProdFav
-        AddHandler BTN_Fav5.Click, AddressOf AgregarProdFav
-        AddHandler BTN_Fav6.Click, AddressOf AgregarProdFav
-        AddHandler BTN_Fav7.Click, AddressOf AgregarProdFav
-        AddHandler BTN_Fav8.Click, AddressOf AgregarProdFav
+        ' Añadir los botones de productos favoritos de forma dinpamica
+        LoadBtnFav()
 
 
         'Se coloca la imagen y los datos de la fecha y el día y se inicia el contador para que los vaya actualizando
@@ -81,40 +83,81 @@ Public Class P_Caja
         TXT_BuscarProducto.SelectAll()
     End Sub
 
+    Friend Sub LoadBtnFav()
+        'Se limpian los controles que ya existan
+        PAN_FavProdBTNContainer.Controls.Clear()
 
-    Private Sub CargarBTNFav()
+        'Se restablecen algunas propiedades importantes
+        PAN_FavProdBTNContainer.AutoScroll = True
+        PAN_FavProdBTNContainer.Padding = New Padding(5)
+        PAN_FavProdBTNContainer.Margin = New Padding(5)
+
+        'Se cargan los productos favoritos
         T.Tables.Clear()
-        SQL = "SELECT ID, nombre FROM producto WHERE favorito = 'Si'"
+        SQL = "SELECT pf.ID_Producto as 'ID', p.nombre as 'Nombre', pf.BTN_Color as 'color'" &
+              " FROM producto_favorito pf" &
+              " JOIN producto p ON pf.ID_Producto = p.ID" &
+              " ORDER BY pf.Posicion ASC;"
         Cargar_Tabla(T, SQL)
         If T.Tables(0).Rows.Count > 0 Then
-            For i As Integer = 0 To T.Tables(0).Rows.Count - 1
-                Select Case i
-                    Case 0
-                        BTN_Fav1.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav1.Text = T.Tables(0).Rows(i).Item(1)
-                    Case 1
-                        BTN_Fav2.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav2.Text = T.Tables(0).Rows(i).Item(1)
-                    Case 2
-                        BTN_Fav3.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav3.Text = T.Tables(0).Rows(i).Item(1)
-                    Case 3
-                        BTN_Fav4.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav4.Text = T.Tables(0).Rows(i).Item(1)
-                    Case 4
-                        BTN_Fav5.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav5.Text = T.Tables(0).Rows(i).Item(1)
-                    Case 5
-                        BTN_Fav6.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav6.Text = T.Tables(0).Rows(i).Item(1)
-                    Case 6
-                        BTN_Fav7.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav7.Text = T.Tables(0).Rows(i).Item(1)
-                    Case 7
-                        BTN_Fav8.Tag = T.Tables(0).Rows(i).Item(0)
-                        BTN_Fav8.Text = T.Tables(0).Rows(i).Item(1)
-                End Select
+
+            'Por cada fila que exista en la tabla se crea un botón con las características deseadas
+            For Each row As DataRow In T.Tables(0).Rows
+                'Se recupera el color de la DB
+                Dim colorDb As String = Convert.ToInt32(row("color"))
+                Dim colorBtn As Color = Color.FromArgb(colorDb)
+
+                ' Para asegurar que el texto sea visible
+                Dim brightness As Single = colorBtn.GetBrightness()
+
+                Dim newFavBtn As New Guna2TileButton With {
+                    .Text = row("nombre").ToString(),
+                    .Tag = row("ID").ToString(),
+                    .Name = "BTN_Fav_" & row("ID").ToString(),
+                    .Size = New Size(200, 50),
+                    .Margin = New Padding(5),
+                    .FillColor = colorBtn,
+                    .ForeColor = If(brightness > 0.5F, Color.Black, Color.White),
+                    .Font = New Font("Segoe UI", 10, Drawing.FontStyle.Bold),
+                    .ImageAlign = HorizontalAlignment.Center,
+                    .Cursor = Cursors.Hand,
+                    .Animated = True,
+                    .BorderRadius = 10
+                }
+
+                AddHandler newFavBtn.Click, AddressOf AgregarProdFav
+                PAN_FavProdBTNContainer.Controls.Add(newFavBtn)
             Next
+        End If
+    End Sub
+
+    ' Subrutina única para manejar el clic de todos los botones de favoritos
+    Private Sub AgregarProdFav(sender As Object, e As EventArgs)
+        ' Obtener el botón que fue clickeado
+        Dim btnFav As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
+        If String.IsNullOrEmpty(btnFav.Tag) Then
+            ' El botón no tiene un ID de producto asignado
+            msgError("No se encontró el producto")
+            Return
+        End If
+        ' Buscar el producto en la base de datos usando el ID almacenado en la propiedad Tag del botón
+        T.Tables.Clear()
+        SQL = "SELECT p.codigo, p.variable, v.precio_venta FROM producto p LEFT JOIN producto_precioVenta v ON p.ID = v.ID_Producto" +
+                " WHERE p.ID = " + btnFav.Tag.ToString()
+        Cargar_Tabla(T, SQL)
+        ' Verificar si se encontró el producto
+        If T.Tables(0).Rows.Count <= 0 Then
+            msgError("No se encontró el producto")
+            Return
+        End If
+        ' Agregar el producto a la lista o manejar la variable según corresponda
+        If T.Tables(0).Rows(0).Item(1) = 0 Then
+            AgregarProd(btnFav.Tag.ToString(), T.Tables(0).Rows(0).Item(0), btnFav.Text, T.Tables(0).Rows(0).Item(2), 1)
+        Else
+            E_ProductoVariable.LBL_Cod.Text = T.Tables(0).Rows(0).Item(0)
+            E_ProductoVariable.LBL_Producto.Text = btnFav.Text
+            E_ProductoVariable.LBL_ID.Text = btnFav.Tag
+            E_ProductoVariable.Show()
         End If
     End Sub
 
@@ -142,24 +185,7 @@ Public Class P_Caja
         LBL_Fecha.Text = DateTime.Now.ToString("dd/MM/yyyy")
     End Sub
 
-    Private Sub BTN_RegresarCliente_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCliente.Click
-        Timer1.Stop()
-        M_Inicio.Show()
-        M_Inicio.Select()
-        Me.Close()
-    End Sub
-
-    Private Sub TXT_BuscarCliente_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarCliente.DoubleClick
-        B_Cliente.Show()
-        B_Cliente.Select()
-        B_Cliente.LIMPIAR()
-    End Sub
-
-    Private Sub TXT_BuscarProducto_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarProducto.DoubleClick
-        B_Producto.Show()
-        B_Producto.Select()
-        B_Producto.LIMPIAR()
-    End Sub
+#End Region
 
     Private Sub BTN_NProd_Click(sender As Object, e As EventArgs) Handles BTN_NProd.Click
         T.Tables.Clear()
@@ -225,76 +251,11 @@ Public Class P_Caja
         TXT_Total.Text = "₡ " + totalCaja.ToString()
     End Sub
 
-    ' Subrutina única para manejar el clic de todos los botones de favoritos
-    Private Sub AgregarProdFav(sender As Object, e As EventArgs)
-        ' Obtener el botón que fue clickeado
-        Dim btnFav As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
-        If String.IsNullOrEmpty(btnFav.Tag) Then
-            ' El botón no tiene un ID de producto asignado
-            msgError("No se encontró el producto")
-            Return
-        End If
-        ' Buscar el producto en la base de datos usando el ID almacenado en la propiedad Tag del botón
-        T.Tables.Clear()
-        SQL = "SELECT p.codigo, p.variable, v.precio_venta FROM producto p LEFT JOIN producto_precioVenta v ON p.ID = v.ID_Producto" +
-                " WHERE p.ID = " + btnFav.Tag.ToString()
-        Cargar_Tabla(T, SQL)
-        ' Verificar si se encontró el producto
-        If T.Tables(0).Rows.Count <= 0 Then
-            msgError("No se encontró el producto")
-            Return
-        End If
-        ' Agregar el producto a la lista o manejar la variable según corresponda
-        If T.Tables(0).Rows(0).Item(1) = 0 Then
-            AgregarProd(btnFav.Tag.ToString(), T.Tables(0).Rows(0).Item(0), btnFav.Text, T.Tables(0).Rows(0).Item(2), 1)
-        Else
-            E_ProductoVariable.LBL_Cod.Text = T.Tables(0).Rows(0).Item(0)
-            E_ProductoVariable.LBL_Producto.Text = btnFav.Text
-            E_ProductoVariable.LBL_ID.Text = btnFav.Tag
-            E_ProductoVariable.Show()
-        End If
-    End Sub
-
-    Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
-        DGV_Caja.Rows.Clear()
-        TXT_BuscarProducto.Clear()
-        TXT_BuscarProducto.SelectAll()
-        BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
-        ValidarListView()
-        CargarTotal()
-    End Sub
-
     Private Sub TXT_BuscarProducto_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarProducto.TextChanged
         If Not String.IsNullOrEmpty(TXT_BuscarProducto.Text) Then
             BTN_NProd.Enabled = True
         Else
             BTN_NProd.Enabled = False
-        End If
-    End Sub
-
-    Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
-        P_TerminarVenta.Owner = Me
-        P_TerminarVenta.LIMPIAR()
-        Dim precio As String() = TXT_Total.Text.Split(" "c)
-        'Si se está terminando la venta de una cuenta por cobrar se asigna el ID que ya existe
-        If idFactura <> 0 Then
-            P_TerminarVenta.idFactura = idFactura
-            P_TerminarVenta.isCuentaPorCobrar = True
-        End If
-        If DGV_Caja.Rows.Count > 1 Then
-            P_TerminarVenta.total = totalCaja
-            P_TerminarVenta.TXT_ETotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_TTotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_STotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_DTotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_MTotal.Text = TXT_Total.Text
-            P_TerminarVenta.NumFactura = NumFactura
-            P_TerminarVenta.idCLiente = idCliente
-            'Se pasa el datagrid completo para obtener los datos
-            P_TerminarVenta.dgvProductos = DGV_Caja
-            P_TerminarVenta.Show()
-            P_TerminarVenta.Select()
-            P_TerminarVenta.TXT_ECliente.SelectAll()
         End If
     End Sub
 
@@ -335,51 +296,6 @@ Public Class P_Caja
 
     End Sub
 
-    Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
-        B_Producto.ModProd = True
-        B_Producto.Show()
-        B_Producto.Select()
-        B_Producto.LBL_IDProd.Text = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
-        B_Producto.idModProd = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
-        B_Producto.TXT_BuscarProd.Text = DGV_Caja.SelectedRows(0).Cells(2).Value.ToString()
-        B_Producto.TXT_CantProd.Text = DGV_Caja.SelectedRows(0).Cells(4).Value.ToString()
-        ValidarListView()
-        CargarTotal()
-    End Sub
-
-    Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
-        DGV_Caja.Rows.RemoveAt(DGV_Caja.SelectedRows(0).Index)
-        ValidarListView()
-        CargarTotal()
-    End Sub
-
-    Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
-        ' Establece P_Caja (Me) como el dueño de frmReimprimirFact
-        Dim frmReimprimirFact As New P_ReimprimirFact With {
-            .Owner = Me
-        }
-        frmReimprimirFact.Show()
-        frmReimprimirFact.Select()
-        Me.Hide()
-    End Sub
-
-    Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        Select Case e.KeyCode
-            Case Keys.F3
-                BTN_RegresarCliente.PerformClick()
-            Case Keys.F4
-                BTN_TVenta.PerformClick()
-            Case Keys.F5
-                BTN_CuentaCobrar.PerformClick()
-            Case Keys.F6
-                BTN_GuardarCuenta.PerformClick()
-            Case Keys.F7
-                BTN_Reprint.PerformClick()
-            Case Keys.F8
-                BTN_DelFactura.PerformClick()
-        End Select
-    End Sub
-
     Private Sub DGV_Caja_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellValueChanged
         ' Se asegura de que no estamos en una fila de encabezado o de inserción
         If e.RowIndex >= 0 AndAlso DGV_Caja.Rows(e.RowIndex).Cells(4).Value IsNot Nothing Then
@@ -405,36 +321,6 @@ Public Class P_Caja
     End Sub
 
 #Region "Cuentas por cobrar"
-    Private Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
-        If DGV_Caja.Rows.Count <= 1 Then
-            msgError("No se puede Guardar una factura vacía")
-            Return
-        End If
-        Using dlg As New D_GuardarCuenta()
-            ' Establece el propietario del diálogo
-            dlg.Owner = Me
-            Dim actualizar_factura_cobrar As Boolean = Not String.IsNullOrEmpty(Comentario)
-            ' Si está vació sigifica que la cuenta no se ha guardado antes = false
-            ' Si no está vacio significa que la cuenta si se ha guardado antes, por lo que = true
-
-            If actualizar_factura_cobrar Then
-                ' Se trata de una cuenta por cobrar ya registrada
-                dlg.TXT_Comentario.Text = Comentario
-            End If
-            ' Muestra el diálogo
-            dlg.ShowDialog()
-
-            ' Verifica el resultado del dialogo
-            If dlg.ResultadoDelDialogo = DialogResult.OK Then
-                Console.WriteLine("Se presionó el botón OK")
-                Comentario = dlg.ComentarioIngresado
-                GuardarCuenta(Comentario, actualizar_factura_cobrar)
-            Else
-                Console.WriteLine("Se presionó el botón Cancel")
-                Return
-            End If
-        End Using
-    End Sub
 
     ' Modifica la función GuardarCuenta para usar la nueva función asíncrona
     Private Async Sub GuardarCuenta(comentarioRecibido As String, actualizar_factura_cobrar As Boolean)
@@ -560,15 +446,6 @@ Public Class P_Caja
                               End Function)
     End Function
 
-    Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
-        ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
-        Dim frmCuentasCobrar As New P_CuentasCobrar With {
-            .Owner = Me
-        }
-        ' Muestra el formulario de cuentas por cobrar
-        frmCuentasCobrar.Show()
-    End Sub
-
     ' En el formulario P_Caja (archivo P_Caja.vb)
     Public Sub CargarFacturaDesdeCuentas(productos As DataTable, num_factura As String, totalFactura As Double, idFactura As String, idCliente As String, comentario As String)
         ' 1. Limpia los datos de la venta actual
@@ -615,7 +492,165 @@ Public Class P_Caja
     End Sub
 #End Region
 
+#Region "Acciones de botones"
+
     Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs)
         msgCerrarApp()
     End Sub
+
+    Private Sub BTN_EditFavProd_Click(sender As Object, e As EventArgs) Handles BTN_EditFavProd.Click
+        ' Verifica si la instancia del formulario existe o si se ha cerrado
+        If frmfavProd Is Nothing OrElse frmfavProd.IsDisposed Then
+            ' Si no existe o se cerró, crea una nueva instancia
+            frmfavProd = New P_ConfigFavProd With {
+            .Owner = Me
+        }
+            frmfavProd.Show()
+        Else
+            ' Si ya existe, simplemente tráelo al frente
+            frmfavProd.BringToFront()
+        End If
+    End Sub
+
+    Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
+        DGV_Caja.Rows.Clear()
+        TXT_BuscarProducto.Clear()
+        TXT_BuscarProducto.SelectAll()
+        BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
+        ValidarListView()
+        CargarTotal()
+    End Sub
+
+    Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
+        P_TerminarVenta.Owner = Me
+        P_TerminarVenta.LIMPIAR()
+        Dim precio As String() = TXT_Total.Text.Split(" "c)
+        'Si se está terminando la venta de una cuenta por cobrar se asigna el ID que ya existe
+        If idFactura <> 0 Then
+            P_TerminarVenta.idFactura = idFactura
+            P_TerminarVenta.isCuentaPorCobrar = True
+        End If
+        If DGV_Caja.Rows.Count > 1 Then
+            P_TerminarVenta.total = totalCaja
+            P_TerminarVenta.TXT_ETotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_TTotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_STotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_DTotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_MTotal.Text = TXT_Total.Text
+            P_TerminarVenta.NumFactura = NumFactura
+            P_TerminarVenta.idCLiente = idCliente
+            'Se pasa el datagrid completo para obtener los datos
+            P_TerminarVenta.dgvProductos = DGV_Caja
+            P_TerminarVenta.Show()
+            P_TerminarVenta.Select()
+            P_TerminarVenta.TXT_ECliente.SelectAll()
+        End If
+    End Sub
+
+    Private Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
+        If DGV_Caja.Rows.Count <= 1 Then
+            msgError("No se puede Guardar una factura vacía")
+            Return
+        End If
+        Using dlg As New D_GuardarCuenta()
+            ' Establece el propietario del diálogo
+            dlg.Owner = Me
+            Dim actualizar_factura_cobrar As Boolean = Not String.IsNullOrEmpty(Comentario)
+            ' Si está vació sigifica que la cuenta no se ha guardado antes = false
+            ' Si no está vacio significa que la cuenta si se ha guardado antes, por lo que = true
+
+            If actualizar_factura_cobrar Then
+                ' Se trata de una cuenta por cobrar ya registrada
+                dlg.TXT_Comentario.Text = Comentario
+            End If
+            ' Muestra el diálogo
+            dlg.ShowDialog()
+
+            ' Verifica el resultado del dialogo
+            If dlg.ResultadoDelDialogo = DialogResult.OK Then
+                Console.WriteLine("Se presionó el botón OK")
+                Comentario = dlg.ComentarioIngresado
+                GuardarCuenta(Comentario, actualizar_factura_cobrar)
+            Else
+                Console.WriteLine("Se presionó el botón Cancel")
+                Return
+            End If
+        End Using
+    End Sub
+
+    Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
+        ' Establece P_Caja (Me) como el dueño de frmReimprimirFact
+        Dim frmReimprimirFact As New P_ReimprimirFact With {
+            .Owner = Me
+        }
+        frmReimprimirFact.Show()
+        frmReimprimirFact.Select()
+        Me.Hide()
+    End Sub
+
+    Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
+        ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
+        Dim frmCuentasCobrar As New P_CuentasCobrar With {
+            .Owner = Me
+        }
+        ' Muestra el formulario de cuentas por cobrar
+        frmCuentasCobrar.Show()
+    End Sub
+
+    Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
+        B_Producto.ModProd = True
+        B_Producto.Show()
+        B_Producto.Select()
+        B_Producto.LBL_IDProd.Text = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
+        B_Producto.idModProd = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
+        B_Producto.TXT_BuscarProd.Text = DGV_Caja.SelectedRows(0).Cells(2).Value.ToString()
+        B_Producto.TXT_CantProd.Text = DGV_Caja.SelectedRows(0).Cells(4).Value.ToString()
+        ValidarListView()
+        CargarTotal()
+    End Sub
+
+    Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
+        DGV_Caja.Rows.RemoveAt(DGV_Caja.SelectedRows(0).Index)
+        ValidarListView()
+        CargarTotal()
+    End Sub
+
+    Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.F3
+                BTN_RegresarCliente.PerformClick()
+            Case Keys.F4
+                BTN_TVenta.PerformClick()
+            Case Keys.F5
+                BTN_CuentaCobrar.PerformClick()
+            Case Keys.F6
+                BTN_GuardarCuenta.PerformClick()
+            Case Keys.F7
+                BTN_Reprint.PerformClick()
+            Case Keys.F8
+                BTN_DelFactura.PerformClick()
+        End Select
+    End Sub
+
+    Private Sub BTN_RegresarCliente_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCliente.Click
+        Timer1.Stop()
+        M_Inicio.Show()
+        M_Inicio.Select()
+        Me.Close()
+    End Sub
+#End Region
+
+#Region "Busquedas"
+    Private Sub TXT_BuscarCliente_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarCliente.DoubleClick
+        B_Cliente.Show()
+        B_Cliente.Select()
+        B_Cliente.LIMPIAR()
+    End Sub
+
+    Private Sub TXT_BuscarProducto_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarProducto.DoubleClick
+        B_Producto.Show()
+        B_Producto.Select()
+        B_Producto.LIMPIAR()
+    End Sub
+#End Region
 End Class

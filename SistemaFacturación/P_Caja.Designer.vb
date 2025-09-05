@@ -37,27 +37,11 @@ Partial Class P_Caja
         Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
         Me.MNU_MODIFICAR = New System.Windows.Forms.ToolStripMenuItem()
         Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_Reprint = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.BTN_RegresarCliente = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_DelFactura = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.BTN_CuentaCobrar = New Guna.UI2.WinForms.Guna2Button()
         Me.PIC_Logo = New Guna.UI2.WinForms.Guna2PictureBox()
-        Me.BTN_GuardarCuenta = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.BTN_Fav1 = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Fav2 = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Fav3 = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Fav4 = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Fav5 = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Fav6 = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Fav7 = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Fav8 = New Guna.UI2.WinForms.Guna2Button()
-        Me.Guna2GroupBox1 = New Guna.UI2.WinForms.Guna2GroupBox()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.BTN_NProd = New Guna.UI2.WinForms.Guna2CircleButton()
         Me.LBL_Usu = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -70,20 +54,30 @@ Partial Class P_Caja
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Guna2Panel4 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_GuardarCuenta = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_DelFactura = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_RegresarCliente = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_CuentaCobrar = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_Reprint = New Guna.UI2.WinForms.Guna2TileButton()
         Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TXT_Total = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.PAN_AddProd = New System.Windows.Forms.Panel()
         Me.TXT_BuscarProducto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.PAN_FavProd = New Guna.UI2.WinForms.Guna2Panel()
+        Me.PAN_FavProdBTNContainer = New Guna.UI2.WinForms.Guna2Panel()
+        Me.PAN_HeaderFavProd = New Guna.UI2.WinForms.Guna2Panel()
+        Me.BTN_EditFavProd = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.lbl_tituloProdFav = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.FLW_FavProdBtn = New Syncfusion.Windows.Forms.Tools.FlowLayout(Me.components)
         Me.MNU_CONTX.SuspendLayout()
         CType(Me.PIC_Logo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Guna2GroupBox1.SuspendLayout()
-        Me.TableLayoutPanel3.SuspendLayout()
         CType(Me.DGV_Caja, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -91,9 +85,12 @@ Partial Class P_Caja
         Me.TableLayoutPanel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Guna2Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
+        Me.PAN_AddProd.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
+        Me.PAN_FavProd.SuspendLayout()
+        Me.PAN_HeaderFavProd.SuspendLayout()
+        CType(Me.FLW_FavProdBtn, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Guna2BorderlessForm1
@@ -114,7 +111,7 @@ Partial Class P_Caja
         Me.LBL_Hora.BackColor = System.Drawing.Color.Transparent
         Me.LBL_Hora.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.LBL_Hora.ForeColor = System.Drawing.SystemColors.Control
-        Me.LBL_Hora.Location = New System.Drawing.Point(178, 63)
+        Me.LBL_Hora.Location = New System.Drawing.Point(176, 48)
         Me.LBL_Hora.Name = "LBL_Hora"
         Me.LBL_Hora.Size = New System.Drawing.Size(62, 32)
         Me.LBL_Hora.TabIndex = 102
@@ -188,25 +185,6 @@ Partial Class P_Caja
         Me.MNU_ELIMINAR.Text = "Eliminar"
         Me.MNU_ELIMINAR.Visible = False
         '
-        'BTN_Reprint
-        '
-        Me.BTN_Reprint.BorderColor = System.Drawing.Color.White
-        Me.BTN_Reprint.BorderThickness = 1
-        Me.BTN_Reprint.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Reprint.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Reprint.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Reprint.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Reprint.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Reprint.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Reprint.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.BTN_Reprint.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_Reprint.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Reprint.Location = New System.Drawing.Point(3, 62)
-        Me.BTN_Reprint.Name = "BTN_Reprint"
-        Me.BTN_Reprint.Size = New System.Drawing.Size(663, 55)
-        Me.BTN_Reprint.TabIndex = 104
-        Me.BTN_Reprint.Text = "[F7] Reimprimir factura"
-        '
         'Guna2HtmlLabel3
         '
         Me.Guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent
@@ -219,75 +197,17 @@ Partial Class P_Caja
         Me.Guna2HtmlLabel3.Text = "Cliente:"
         Me.Guna2HtmlLabel3.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
-        'BTN_RegresarCliente
-        '
-        Me.BTN_RegresarCliente.BorderColor = System.Drawing.Color.White
-        Me.BTN_RegresarCliente.BorderThickness = 1
-        Me.BTN_RegresarCliente.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_RegresarCliente.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_RegresarCliente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarCliente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RegresarCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RegresarCliente.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_RegresarCliente.FillColor = System.Drawing.Color.IndianRed
-        Me.BTN_RegresarCliente.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_RegresarCliente.ForeColor = System.Drawing.Color.Black
-        Me.BTN_RegresarCliente.Location = New System.Drawing.Point(3, 183)
-        Me.BTN_RegresarCliente.Name = "BTN_RegresarCliente"
-        Me.BTN_RegresarCliente.Size = New System.Drawing.Size(663, 56)
-        Me.BTN_RegresarCliente.TabIndex = 106
-        Me.BTN_RegresarCliente.Text = "[F3] Regresar"
-        '
-        'BTN_DelFactura
-        '
-        Me.BTN_DelFactura.BorderColor = System.Drawing.Color.White
-        Me.BTN_DelFactura.BorderThickness = 1
-        Me.BTN_DelFactura.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_DelFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DelFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DelFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_DelFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_DelFactura.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_DelFactura.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(174, Byte), Integer))
-        Me.BTN_DelFactura.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_DelFactura.ForeColor = System.Drawing.Color.Black
-        Me.BTN_DelFactura.Location = New System.Drawing.Point(672, 62)
-        Me.BTN_DelFactura.Name = "BTN_DelFactura"
-        Me.BTN_DelFactura.Size = New System.Drawing.Size(664, 55)
-        Me.BTN_DelFactura.TabIndex = 103
-        Me.BTN_DelFactura.Text = "[F8] Borrar Factura"
-        '
         'Guna2HtmlLabel2
         '
         Me.Guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel2.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel2.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel2.Location = New System.Drawing.Point(111, 63)
+        Me.Guna2HtmlLabel2.Location = New System.Drawing.Point(109, 48)
         Me.Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
         Me.Guna2HtmlLabel2.Size = New System.Drawing.Size(61, 32)
         Me.Guna2HtmlLabel2.TabIndex = 2
         Me.Guna2HtmlLabel2.Text = "Hora:"
         Me.Guna2HtmlLabel2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
-        '
-        'BTN_TVenta
-        '
-        Me.BTN_TVenta.BorderColor = System.Drawing.Color.White
-        Me.BTN_TVenta.BorderThickness = 1
-        Me.BTN_TVenta.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_TVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_TVenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_TVenta.ForeColor = System.Drawing.Color.Black
-        Me.BTN_TVenta.Location = New System.Drawing.Point(672, 183)
-        Me.BTN_TVenta.Name = "BTN_TVenta"
-        Me.BTN_TVenta.Size = New System.Drawing.Size(664, 56)
-        Me.BTN_TVenta.TabIndex = 107
-        Me.BTN_TVenta.Text = "[F4] Terminar venta"
         '
         'Guna2HtmlLabel1
         '
@@ -301,25 +221,6 @@ Partial Class P_Caja
         Me.Guna2HtmlLabel1.Text = "Fecha:"
         Me.Guna2HtmlLabel1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
-        'BTN_CuentaCobrar
-        '
-        Me.BTN_CuentaCobrar.BorderColor = System.Drawing.Color.White
-        Me.BTN_CuentaCobrar.BorderThickness = 1
-        Me.BTN_CuentaCobrar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_CuentaCobrar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CuentaCobrar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CuentaCobrar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_CuentaCobrar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_CuentaCobrar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_CuentaCobrar.FillColor = System.Drawing.Color.FromArgb(CType(CType(187, Byte), Integer), CType(CType(151, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.BTN_CuentaCobrar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_CuentaCobrar.ForeColor = System.Drawing.Color.Black
-        Me.BTN_CuentaCobrar.Location = New System.Drawing.Point(3, 123)
-        Me.BTN_CuentaCobrar.Name = "BTN_CuentaCobrar"
-        Me.BTN_CuentaCobrar.Size = New System.Drawing.Size(663, 54)
-        Me.BTN_CuentaCobrar.TabIndex = 108
-        Me.BTN_CuentaCobrar.Text = "[F5] Cuentas por cobrar"
-        '
         'PIC_Logo
         '
         Me.PIC_Logo.BackColor = System.Drawing.Color.Transparent
@@ -332,231 +233,17 @@ Partial Class P_Caja
         Me.PIC_Logo.TabIndex = 0
         Me.PIC_Logo.TabStop = False
         '
-        'BTN_GuardarCuenta
-        '
-        Me.BTN_GuardarCuenta.BorderColor = System.Drawing.Color.White
-        Me.BTN_GuardarCuenta.BorderThickness = 1
-        Me.BTN_GuardarCuenta.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_GuardarCuenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_GuardarCuenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_GuardarCuenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_GuardarCuenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_GuardarCuenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_GuardarCuenta.FillColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(136, Byte), Integer))
-        Me.BTN_GuardarCuenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_GuardarCuenta.ForeColor = System.Drawing.Color.Black
-        Me.BTN_GuardarCuenta.Location = New System.Drawing.Point(672, 123)
-        Me.BTN_GuardarCuenta.Name = "BTN_GuardarCuenta"
-        Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(664, 54)
-        Me.BTN_GuardarCuenta.TabIndex = 109
-        Me.BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
-        '
         'Guna2HtmlLabel4
         '
         Me.Guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel4.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(8, 59)
+        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(19, 16)
         Me.Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
         Me.Guna2HtmlLabel4.Size = New System.Drawing.Size(104, 32)
         Me.Guna2HtmlLabel4.TabIndex = 96
         Me.Guna2HtmlLabel4.Text = "Producto:"
         Me.Guna2HtmlLabel4.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
-        '
-        'BTN_Fav1
-        '
-        Me.BTN_Fav1.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav1.BorderRadius = 25
-        Me.BTN_Fav1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav1.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav1.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav1.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav1.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav1.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav1.Location = New System.Drawing.Point(8, 8)
-        Me.BTN_Fav1.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav1.Name = "BTN_Fav1"
-        Me.BTN_Fav1.Size = New System.Drawing.Size(296, 68)
-        Me.BTN_Fav1.TabIndex = 91
-        '
-        'BTN_Fav2
-        '
-        Me.BTN_Fav2.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav2.BorderRadius = 25
-        Me.BTN_Fav2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav2.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav2.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav2.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav2.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav2.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav2.Location = New System.Drawing.Point(320, 8)
-        Me.BTN_Fav2.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav2.Name = "BTN_Fav2"
-        Me.BTN_Fav2.Size = New System.Drawing.Size(297, 68)
-        Me.BTN_Fav2.TabIndex = 92
-        '
-        'BTN_Fav3
-        '
-        Me.BTN_Fav3.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav3.BorderRadius = 25
-        Me.BTN_Fav3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav3.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav3.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav3.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav3.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav3.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav3.Location = New System.Drawing.Point(8, 92)
-        Me.BTN_Fav3.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav3.Name = "BTN_Fav3"
-        Me.BTN_Fav3.Size = New System.Drawing.Size(296, 68)
-        Me.BTN_Fav3.TabIndex = 93
-        '
-        'BTN_Fav4
-        '
-        Me.BTN_Fav4.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav4.BorderRadius = 25
-        Me.BTN_Fav4.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav4.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav4.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav4.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav4.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav4.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav4.Location = New System.Drawing.Point(320, 92)
-        Me.BTN_Fav4.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav4.Name = "BTN_Fav4"
-        Me.BTN_Fav4.Size = New System.Drawing.Size(297, 68)
-        Me.BTN_Fav4.TabIndex = 94
-        '
-        'BTN_Fav5
-        '
-        Me.BTN_Fav5.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav5.BorderRadius = 25
-        Me.BTN_Fav5.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav5.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav5.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav5.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav5.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav5.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav5.Location = New System.Drawing.Point(8, 176)
-        Me.BTN_Fav5.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav5.Name = "BTN_Fav5"
-        Me.BTN_Fav5.Size = New System.Drawing.Size(296, 68)
-        Me.BTN_Fav5.TabIndex = 95
-        '
-        'BTN_Fav6
-        '
-        Me.BTN_Fav6.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav6.BorderRadius = 25
-        Me.BTN_Fav6.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav6.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav6.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav6.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav6.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav6.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav6.Location = New System.Drawing.Point(320, 176)
-        Me.BTN_Fav6.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav6.Name = "BTN_Fav6"
-        Me.BTN_Fav6.Size = New System.Drawing.Size(297, 68)
-        Me.BTN_Fav6.TabIndex = 96
-        '
-        'BTN_Fav7
-        '
-        Me.BTN_Fav7.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav7.BorderRadius = 25
-        Me.BTN_Fav7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav7.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav7.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav7.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav7.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav7.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav7.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav7.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav7.Location = New System.Drawing.Point(8, 260)
-        Me.BTN_Fav7.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav7.Name = "BTN_Fav7"
-        Me.BTN_Fav7.Size = New System.Drawing.Size(296, 70)
-        Me.BTN_Fav7.TabIndex = 97
-        '
-        'BTN_Fav8
-        '
-        Me.BTN_Fav8.BorderColor = System.Drawing.Color.White
-        Me.BTN_Fav8.BorderRadius = 25
-        Me.BTN_Fav8.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_Fav8.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Fav8.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Fav8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Fav8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Fav8.FillColor = System.Drawing.Color.Khaki
-        Me.BTN_Fav8.Font = New System.Drawing.Font("Ebrima", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_Fav8.ForeColor = System.Drawing.Color.Black
-        Me.BTN_Fav8.Location = New System.Drawing.Point(320, 260)
-        Me.BTN_Fav8.Margin = New System.Windows.Forms.Padding(8)
-        Me.BTN_Fav8.Name = "BTN_Fav8"
-        Me.BTN_Fav8.Size = New System.Drawing.Size(297, 70)
-        Me.BTN_Fav8.TabIndex = 98
-        '
-        'Guna2GroupBox1
-        '
-        Me.Guna2GroupBox1.BorderColor = System.Drawing.Color.Gray
-        Me.Guna2GroupBox1.Controls.Add(Me.TableLayoutPanel3)
-        Me.Guna2GroupBox1.CustomBorderColor = System.Drawing.Color.Gray
-        Me.Guna2GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Guna2GroupBox1.FillColor = System.Drawing.Color.Transparent
-        Me.Guna2GroupBox1.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Guna2GroupBox1.ForeColor = System.Drawing.Color.White
-        Me.Guna2GroupBox1.Location = New System.Drawing.Point(8, 119)
-        Me.Guna2GroupBox1.Margin = New System.Windows.Forms.Padding(8)
-        Me.Guna2GroupBox1.Name = "Guna2GroupBox1"
-        Me.Guna2GroupBox1.Padding = New System.Windows.Forms.Padding(8)
-        Me.Guna2GroupBox1.Size = New System.Drawing.Size(641, 394)
-        Me.Guna2GroupBox1.TabIndex = 93
-        Me.Guna2GroupBox1.Text = "Favoritos"
-        Me.Guna2GroupBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TableLayoutPanel3
-        '
-        Me.TableLayoutPanel3.ColumnCount = 2
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav1, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav7, 0, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav8, 1, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav2, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav3, 0, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav6, 1, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav4, 1, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.BTN_Fav5, 0, 2)
-        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(8, 48)
-        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(8)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 4
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(625, 338)
-        Me.TableLayoutPanel3.TabIndex = 99
         '
         'BTN_NProd
         '
@@ -569,7 +256,7 @@ Partial Class P_Caja
         Me.BTN_NProd.Font = New System.Drawing.Font("Snap ITC", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_NProd.ForeColor = System.Drawing.Color.White
         Me.BTN_NProd.ImageSize = New System.Drawing.Size(90, 90)
-        Me.BTN_NProd.Location = New System.Drawing.Point(611, 55)
+        Me.BTN_NProd.Location = New System.Drawing.Point(622, 10)
         Me.BTN_NProd.Name = "BTN_NProd"
         Me.BTN_NProd.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_NProd.Size = New System.Drawing.Size(44, 45)
@@ -709,14 +396,14 @@ Partial Class P_Caja
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarCliente, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel2, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 1, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_GuardarCuenta, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel4, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_Reprint, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_CuentaCobrar, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_DelFactura, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarCliente, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_CuentaCobrar, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_Reprint, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel2, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel4, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 521)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -727,6 +414,108 @@ Partial Class P_Caja
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1339, 242)
         Me.TableLayoutPanel1.TabIndex = 120
+        '
+        'BTN_TVenta
+        '
+        Me.BTN_TVenta.BorderRadius = 10
+        Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_TVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_TVenta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_TVenta.ForeColor = System.Drawing.Color.Black
+        Me.BTN_TVenta.Location = New System.Drawing.Point(672, 183)
+        Me.BTN_TVenta.Name = "BTN_TVenta"
+        Me.BTN_TVenta.Size = New System.Drawing.Size(664, 56)
+        Me.BTN_TVenta.TabIndex = 2
+        Me.BTN_TVenta.Text = "[F4] Terminar venta"
+        '
+        'BTN_GuardarCuenta
+        '
+        Me.BTN_GuardarCuenta.BorderRadius = 10
+        Me.BTN_GuardarCuenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_GuardarCuenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_GuardarCuenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_GuardarCuenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_GuardarCuenta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_GuardarCuenta.FillColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(136, Byte), Integer))
+        Me.BTN_GuardarCuenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_GuardarCuenta.ForeColor = System.Drawing.Color.Black
+        Me.BTN_GuardarCuenta.Location = New System.Drawing.Point(672, 123)
+        Me.BTN_GuardarCuenta.Name = "BTN_GuardarCuenta"
+        Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(664, 54)
+        Me.BTN_GuardarCuenta.TabIndex = 3
+        Me.BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
+        '
+        'BTN_DelFactura
+        '
+        Me.BTN_DelFactura.BorderRadius = 10
+        Me.BTN_DelFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DelFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DelFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_DelFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_DelFactura.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_DelFactura.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(174, Byte), Integer))
+        Me.BTN_DelFactura.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_DelFactura.ForeColor = System.Drawing.Color.Black
+        Me.BTN_DelFactura.Location = New System.Drawing.Point(672, 62)
+        Me.BTN_DelFactura.Name = "BTN_DelFactura"
+        Me.BTN_DelFactura.Size = New System.Drawing.Size(664, 55)
+        Me.BTN_DelFactura.TabIndex = 1
+        Me.BTN_DelFactura.Text = "[F8] Borrar Factura"
+        '
+        'BTN_RegresarCliente
+        '
+        Me.BTN_RegresarCliente.BorderRadius = 10
+        Me.BTN_RegresarCliente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarCliente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RegresarCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RegresarCliente.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_RegresarCliente.FillColor = System.Drawing.Color.IndianRed
+        Me.BTN_RegresarCliente.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_RegresarCliente.ForeColor = System.Drawing.Color.Black
+        Me.BTN_RegresarCliente.Location = New System.Drawing.Point(3, 183)
+        Me.BTN_RegresarCliente.Name = "BTN_RegresarCliente"
+        Me.BTN_RegresarCliente.Size = New System.Drawing.Size(663, 56)
+        Me.BTN_RegresarCliente.TabIndex = 2
+        Me.BTN_RegresarCliente.Text = "[F3] Regresar"
+        '
+        'BTN_CuentaCobrar
+        '
+        Me.BTN_CuentaCobrar.BorderRadius = 10
+        Me.BTN_CuentaCobrar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CuentaCobrar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CuentaCobrar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CuentaCobrar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CuentaCobrar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_CuentaCobrar.FillColor = System.Drawing.Color.FromArgb(CType(CType(187, Byte), Integer), CType(CType(151, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.BTN_CuentaCobrar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_CuentaCobrar.ForeColor = System.Drawing.Color.Black
+        Me.BTN_CuentaCobrar.Location = New System.Drawing.Point(3, 123)
+        Me.BTN_CuentaCobrar.Name = "BTN_CuentaCobrar"
+        Me.BTN_CuentaCobrar.Size = New System.Drawing.Size(663, 54)
+        Me.BTN_CuentaCobrar.TabIndex = 1
+        Me.BTN_CuentaCobrar.Text = "[F5] Cuentas por cobrar"
+        '
+        'BTN_Reprint
+        '
+        Me.BTN_Reprint.BorderRadius = 10
+        Me.BTN_Reprint.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Reprint.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Reprint.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_Reprint.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_Reprint.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_Reprint.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.BTN_Reprint.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_Reprint.ForeColor = System.Drawing.Color.Black
+        Me.BTN_Reprint.Location = New System.Drawing.Point(3, 62)
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(663, 55)
+        Me.BTN_Reprint.TabIndex = 0
+        Me.BTN_Reprint.Text = "[F7] Reimprimir factura"
         '
         'Guna2Panel2
         '
@@ -778,8 +567,8 @@ Partial Class P_Caja
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.93353!))
         Me.TableLayoutPanel2.Controls.Add(Me.Panel1, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Guna2Panel1, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Guna2GroupBox1, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.Panel3, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.PAN_FavProd, 0, 1)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -807,23 +596,23 @@ Partial Class P_Caja
         '
         'Guna2Panel1
         '
-        Me.Guna2Panel1.Controls.Add(Me.Panel2)
+        Me.Guna2Panel1.Controls.Add(Me.PAN_AddProd)
         Me.Guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Guna2Panel1.Location = New System.Drawing.Point(660, 3)
         Me.Guna2Panel1.Name = "Guna2Panel1"
         Me.Guna2Panel1.Size = New System.Drawing.Size(676, 105)
         Me.Guna2Panel1.TabIndex = 94
         '
-        'Panel2
+        'PAN_AddProd
         '
-        Me.Panel2.Controls.Add(Me.BTN_NProd)
-        Me.Panel2.Controls.Add(Me.TXT_BuscarProducto)
-        Me.Panel2.Controls.Add(Me.Guna2HtmlLabel4)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(676, 105)
-        Me.Panel2.TabIndex = 101
+        Me.PAN_AddProd.Controls.Add(Me.BTN_NProd)
+        Me.PAN_AddProd.Controls.Add(Me.TXT_BuscarProducto)
+        Me.PAN_AddProd.Controls.Add(Me.Guna2HtmlLabel4)
+        Me.PAN_AddProd.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_AddProd.Location = New System.Drawing.Point(0, 0)
+        Me.PAN_AddProd.Name = "PAN_AddProd"
+        Me.PAN_AddProd.Size = New System.Drawing.Size(676, 105)
+        Me.PAN_AddProd.TabIndex = 101
         '
         'TXT_BuscarProducto
         '
@@ -838,7 +627,7 @@ Partial Class P_Caja
         Me.TXT_BuscarProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarProducto.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarProducto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarProducto.Location = New System.Drawing.Point(118, 53)
+        Me.TXT_BuscarProducto.Location = New System.Drawing.Point(129, 9)
         Me.TXT_BuscarProducto.Name = "TXT_BuscarProducto"
         Me.TXT_BuscarProducto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_BuscarProducto.PlaceholderText = "Doble click para buscar"
@@ -870,6 +659,83 @@ Partial Class P_Caja
         Me.TableLayoutPanel4.Size = New System.Drawing.Size(658, 394)
         Me.TableLayoutPanel4.TabIndex = 116
         '
+        'PAN_FavProd
+        '
+        Me.PAN_FavProd.Controls.Add(Me.PAN_FavProdBTNContainer)
+        Me.PAN_FavProd.Controls.Add(Me.PAN_HeaderFavProd)
+        Me.PAN_FavProd.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_FavProd.Location = New System.Drawing.Point(3, 114)
+        Me.PAN_FavProd.Name = "PAN_FavProd"
+        Me.PAN_FavProd.Size = New System.Drawing.Size(651, 404)
+        Me.PAN_FavProd.TabIndex = 126
+        '
+        'PAN_FavProdBTNContainer
+        '
+        Me.PAN_FavProdBTNContainer.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PAN_FavProdBTNContainer.AutoScroll = True
+        Me.PAN_FavProdBTNContainer.BackColor = System.Drawing.Color.Transparent
+        Me.PAN_FavProdBTNContainer.Location = New System.Drawing.Point(12, 82)
+        Me.PAN_FavProdBTNContainer.Name = "PAN_FavProdBTNContainer"
+        Me.PAN_FavProdBTNContainer.Padding = New System.Windows.Forms.Padding(10)
+        Me.PAN_FavProdBTNContainer.Size = New System.Drawing.Size(623, 309)
+        Me.PAN_FavProdBTNContainer.TabIndex = 1
+        Me.PAN_FavProdBTNContainer.UseTransparentBackground = True
+        '
+        'PAN_HeaderFavProd
+        '
+        Me.PAN_HeaderFavProd.Controls.Add(Me.BTN_EditFavProd)
+        Me.PAN_HeaderFavProd.Controls.Add(Me.lbl_tituloProdFav)
+        Me.PAN_HeaderFavProd.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PAN_HeaderFavProd.Location = New System.Drawing.Point(0, 0)
+        Me.PAN_HeaderFavProd.Name = "PAN_HeaderFavProd"
+        Me.PAN_HeaderFavProd.Size = New System.Drawing.Size(651, 67)
+        Me.PAN_HeaderFavProd.TabIndex = 0
+        '
+        'BTN_EditFavProd
+        '
+        Me.BTN_EditFavProd.Animated = True
+        Me.BTN_EditFavProd.BorderRadius = 10
+        Me.BTN_EditFavProd.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_EditFavProd.CustomBorderThickness = New System.Windows.Forms.Padding(0, 0, 0, 25)
+        Me.BTN_EditFavProd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_EditFavProd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_EditFavProd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_EditFavProd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_EditFavProd.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_EditFavProd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_EditFavProd.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_EditFavProd.ForeColor = System.Drawing.Color.White
+        Me.BTN_EditFavProd.Image = CType(resources.GetObject("BTN_EditFavProd.Image"), System.Drawing.Image)
+        Me.BTN_EditFavProd.ImageOffset = New System.Drawing.Point(0, 15)
+        Me.BTN_EditFavProd.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_EditFavProd.Location = New System.Drawing.Point(515, 0)
+        Me.BTN_EditFavProd.Name = "BTN_EditFavProd"
+        Me.BTN_EditFavProd.Size = New System.Drawing.Size(136, 67)
+        Me.BTN_EditFavProd.TabIndex = 112
+        Me.BTN_EditFavProd.Text = "Editar"
+        Me.BTN_EditFavProd.TextOffset = New System.Drawing.Point(0, -5)
+        '
+        'lbl_tituloProdFav
+        '
+        Me.lbl_tituloProdFav.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_tituloProdFav.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_tituloProdFav.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
+        Me.lbl_tituloProdFav.ForeColor = System.Drawing.SystemColors.Control
+        Me.lbl_tituloProdFav.Location = New System.Drawing.Point(231, 13)
+        Me.lbl_tituloProdFav.Name = "lbl_tituloProdFav"
+        Me.lbl_tituloProdFav.Size = New System.Drawing.Size(206, 32)
+        Me.lbl_tituloProdFav.TabIndex = 111
+        Me.lbl_tituloProdFav.Text = "Productos favoritos"
+        Me.lbl_tituloProdFav.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'FLW_FavProdBtn
+        '
+        Me.FLW_FavProdBtn.ContainerControl = Me.PAN_FavProdBTNContainer
+        '
         'P_Caja
         '
         Me.AcceptButton = Me.BTN_NProd
@@ -889,8 +755,6 @@ Partial Class P_Caja
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MNU_CONTX.ResumeLayout(False)
         CType(Me.PIC_Logo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Guna2GroupBox1.ResumeLayout(False)
-        Me.TableLayoutPanel3.ResumeLayout(False)
         CType(Me.DGV_Caja, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Guna2Panel4.ResumeLayout(False)
         Me.Guna2Panel4.PerformLayout()
@@ -901,10 +765,14 @@ Partial Class P_Caja
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Guna2Panel1.ResumeLayout(False)
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
+        Me.PAN_AddProd.ResumeLayout(False)
+        Me.PAN_AddProd.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.PAN_FavProd.ResumeLayout(False)
+        Me.PAN_HeaderFavProd.ResumeLayout(False)
+        Me.PAN_HeaderFavProd.PerformLayout()
+        CType(Me.FLW_FavProdBtn, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -912,26 +780,11 @@ Partial Class P_Caja
     Friend WithEvents Timer1 As Timer
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents Guna2AnimateWindow1 As Guna.UI2.WinForms.Guna2AnimateWindow
-    Friend WithEvents BTN_GuardarCuenta As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_CuentaCobrar As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_RegresarCliente As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Reprint As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_DelFactura As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents LBL_Hora As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents LBL_Fecha As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents Guna2HtmlLabel4 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_BuscarCliente As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel3 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents Guna2GroupBox1 As Guna.UI2.WinForms.Guna2GroupBox
-    Friend WithEvents BTN_Fav8 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Fav7 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Fav6 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Fav5 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Fav4 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Fav3 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Fav2 As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_Fav1 As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents PIC_Logo As Guna.UI2.WinForms.Guna2PictureBox
@@ -946,10 +799,9 @@ Partial Class P_Caja
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
-    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents TXT_BuscarProducto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Panel2 As Panel
+    Friend WithEvents PAN_AddProd As Panel
     Friend WithEvents Panel3 As Panel
     Friend WithEvents TXT_Total As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel7 As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -961,4 +813,16 @@ Partial Class P_Caja
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
     Friend WithEvents Guna2Panel2 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_FavProd As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_HeaderFavProd As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents lbl_tituloProdFav As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents BTN_EditFavProd As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents PAN_FavProdBTNContainer As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents FLW_FavProdBtn As Syncfusion.Windows.Forms.Tools.FlowLayout
+    Friend WithEvents BTN_Reprint As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_CuentaCobrar As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_RegresarCliente As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_DelFactura As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_GuardarCuenta As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2TileButton
 End Class
