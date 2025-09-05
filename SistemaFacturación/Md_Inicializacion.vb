@@ -1,4 +1,5 @@
 ﻿Imports System.Configuration
+Imports System.Data.SQLite
 Imports System.IO
 Imports System.Net
 Imports Squirrel
@@ -9,6 +10,7 @@ Imports Squirrel
 ' -----------------------------------------------------------------------------
 Module Md_Inicializacion
 
+#Region "Actualizaciones"
     'Comprueba si hay conexión a internet intentando acceder a un sitio conocido
     Function HayConexionInternet() As Boolean
         Try
@@ -120,7 +122,9 @@ Module Md_Inicializacion
             ' Puedes agregar aquí una línea para registrar el error si lo necesitas.
         End Try
     End Sub
+#End Region
 
+#Region "Configuraciones"
     ' Establece o actualiza un valor en appSettings
     Sub SetAppSetting(key As String, value As String)
         Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
@@ -167,5 +171,100 @@ Module Md_Inicializacion
         ConfigGeneral.Select()
         ConfigGeneral.TCO_Config.SelectedIndex = index
     End Sub
+#End Region
 
+#Region "Migraciones"
+    Friend Sub CheckAndMigrateDatabase()
+        'Creación y actualización de tabla producto_favorito
+        Create_Producto_Favorito_IfNotExists()
+        'Creación y actualización de tabla CierreCaja
+        Update_cierre_caja()
+    End Sub
+
+    Private Sub Create_Producto_Favorito_IfNotExists()
+        Try
+            If TableExists("producto_favorito") Then
+                ' La tabla ya existe, no es necesario hacer nada
+                Return
+            End If
+            Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
+            Using db As New SQLiteConnection(stringConexion)
+                db.Open()
+                SQL = "CREATE TABLE IF NOT EXISTS producto_favorito(
+                            ID_Producto INTEGER PRIMARY KEY,
+                            Posicion INTEGER NOT NULL,
+                            BTN_Color INTEGER NOT NULL,
+                            FOREIGN KEY(ID_Producto) REFERENCES producto(ID))
+                        "
+                Dim cmd As New SQLiteCommand(SQL, db)
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            ' Maneja cualquier error que ocurra durante la verificación o migración
+            MessageBox.Show("Error al verificar o migrar la base de datos: " & ex.Message, "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub Update_cierre_caja()
+        Try
+            If TableExists("CierreCaja") Then
+                ' La tabla ya existe, no es necesario hacer nada
+                Return
+            End If
+            Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
+            Using db As New SQLiteConnection(stringConexion)
+                db.Open()
+                'Se elimina la tabla cierre_caja si existe (Esta es la vieja y no va a seguir siendo utilizada)
+                SQL = "DROP TABLE IF EXISTS cierre_caja"
+                Dim cmd As New SQLiteCommand(SQL, db)
+                cmd.ExecuteNonQuery()
+
+                'Se crea la nueva tabla cierre_caja si no existe
+                SQL = "CREATE TABLE IF NOT EXISTS CierreCaja (
+                        ID_Cierre INTEGER PRIMARY KEY,
+                        Fecha_Hora_Inicio TEXT NOT NULL,
+                        Fecha_Hora_Fin TEXT NOT NULL,
+                        ID_Usuario INTEGER NOT NULL,
+                        Saldo_Inicial REAL NOT NULL,
+                        Ingreso_Efectivo REAL NOT NULL,
+                        Ingreso_Tarjeta REAL NOT NULL,
+                        Salidas_Efectivo REAL NOT NULL,
+                        Efectivo_Contado REAL NOT NULL,
+                        Comentarios TEXT,
+                        FOREIGN KEY(ID_Usuario) REFERENCES Usuarios(ID_Usuario)
+                    );"
+                cmd = New SQLiteCommand(SQL, db)
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            ' Maneja cualquier error que ocurra durante la verificación o migración
+            MessageBox.Show("Error al actualizar la tabla de cierre de caja" & ex.Message, "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ' Función para verificar si una tabla existe en la base de datos
+    Private Function TableExists(tableName As String) As Boolean
+        Dim exists As Boolean = False
+        Dim dbPath As String = "Data Source=mi_base_de_datos.db;Version=3;"
+
+        Try
+            Using conn As New SQLiteConnection(dbPath)
+                conn.Open()
+                Dim sql As String = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{tableName}';"
+                Using cmd As New SQLiteCommand(sql, conn)
+                    Using reader As SQLiteDataReader = cmd.ExecuteReader()
+                        If reader.HasRows Then
+                            exists = True
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Puedes manejar el error o simplemente devolver False
+            MessageBox.Show("Error al verificar la existencia de la tabla: " & ex.Message)
+        End Try
+
+        Return exists
+    End Function
+#End Region
 End Module

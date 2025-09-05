@@ -1,5 +1,7 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+﻿Imports System.Data.SQLite
 Imports System.Globalization
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports Org.BouncyCastle.Crypto
 
 Public Class E_NuevoProducto
     Friend idProd As String
@@ -70,175 +72,189 @@ Public Class E_NuevoProducto
     End Sub
 
     Private Sub BTN_NProv_Click(sender As Object, e As EventArgs) Handles BTN_NProv.Click
-        If VALIDAR() Then
-            Try
-                PRG_Guardando.Visible = True
-                PRG_Guardando.Start()
-                T.Tables.Clear()
-                Dim codigo As String = TXT_Cod.Text
-                If ModProd = False Then
-                    If Not EXISTECOD("producto", "codigo", codigo) Then ' Si no se ha guardado la categoría
-                        Correcto = True
-                    Else
-                        Correcto = False
-                    End If
+        If Not VALIDAR() Then Return
+
+        PRG_Guardando.Visible = True
+        PRG_Guardando.Start()
+
+        Try
+            Dim codigo As String = TXT_Cod.Text
+            Dim correcto As Boolean = False
+            If ModProd = False Then
+                correcto = Not EXISTECOD("producto", "codigo", codigo)
+            Else
+                correcto = (codigo = CodigoPreMod OrElse Not EXISTECOD("producto", "codigo", codigo))
+            End If
+
+            If Not correcto Then
+                msgError("El código " & TXT_Cod.Text & " ya existe, coloque un código distinto")
+                TXT_Cod.SelectAll()
+                Return
+            End If
+
+            If msgGuardar() Then
+                ' Se define un delegado que contiene todas las operaciones
+                Dim operacionesDeGuardado As Action(Of SQLiteConnection, SQLiteTransaction) =
+                Sub(conn, transaction)
+                    CrearOActualizarProducto(conn, transaction)
+                    CrearOActualizarPrecioVenta(conn, transaction)
+                    CrearOActualizarDescripcion(conn, transaction)
+                    CrearOActualizarCategoria(conn, transaction)
+                    CrearOActualizarMarca(conn, transaction)
+                    CrearOActualizarProveedor(conn, transaction)
+                End Sub
+
+                ' Se llama al método para ejecutar la transacción de forma segura
+                If EJECUTAR_TRANSACCION(operacionesDeGuardado) Then
+                    LIMPIAR()
+                    msgDatoAlm()
+                    P_Productos.Show()
+                    P_Productos.Select()
+                    P_Productos.REFRESCAR()
+                    P_Productos.TXT_BuscarProd.SelectAll()
+                    Me.Close()
+                    ModProd = False
                 Else
-                    If codigo = CodigoPreMod Or Not EXISTECOD("producto", "codigo", codigo) Then
-                        Correcto = True
-                    Else
-                        Correcto = False
-                    End If
+                    msgError("Ocurrió un error al guardar los datos. La operación fue revertida.")
                 End If
-                Cargar_Tabla(T, SQL)
-                If Correcto Then
-                    ' Comprobación de que se quiere modificar la información en la base de datos por parte del usuario
-                    If msgGuardar() Then
-                        Try
-                            If ModProd = False Then
-                                ' Si la PK que esté guardada en IdCat no existe en la base de datos en esa tabla...
-                                If EXISTEPK("producto", "ID", idProd) = False Then ' Si no se ha guardado la categoría
-                                    ' Guarda la PK almacenada en IdCat dentro de la Base de datos en la tabla y PK indicado
-                                    GUARDAR_PK("producto", "ID", idProd)
-                                End If
-                                GUARDAR_TIMEACTUAL("producto", "fechaAdd", "ID", idProd)
-                            End If
-
-                            ' Actualizar los campos en la base de datos
-                            GUARDAR_TEXT("producto", "codigo", TXT_Cod.Text, "ID", idProd)
-
-                            GUARDAR_TEXT("producto", "nombre", TXT_Nombre.Text, "ID", idProd)
-
-                            If Not String.IsNullOrEmpty(TXT_PrecioBase.Text) Then
-                                Dim precioB = Replace(TXT_PrecioBase.Text, ",", ".")
-                                GUARDAR_NUMERIC("producto", "precio_base", precioB, "ID", idProd)
-                            Else
-                                GUARDAR_NUMERIC("producto", "precio_base", 0, "ID", idProd)
-                            End If
-
-                            If Not String.IsNullOrEmpty(TXT_Impuesto.Text) Then
-                                Dim impP = Replace(TXT_Impuesto.Text, ",", ".")
-                                GUARDAR_NUMERIC("producto", "porc_impuesto", impP, "ID", idProd)
-                            Else
-                                GUARDAR_NUMERIC("producto", "porc_impuesto", 0, "ID", idProd)
-                            End If
-
-                            If SWT_Var.Checked = True Then
-                                GUARDAR_INT("producto", "variable", 1, "ID", idProd)
-                            Else
-                                GUARDAR_INT("producto", "variable", 0, "ID", idProd)
-                            End If
-
-                            GUARDAR_INT("producto", "inventario", NUD_Inv.Value, "ID", idProd)
-
-                            Dim precioV As Double
-                            ' Reemplazar la coma por punto
-                            Dim precioTexto As String = TXT_PrecioVenta.Text.Replace(",", ".")
-                            ' Usar InvariantCulture para asegurar que el punto se interprete como separador decimal
-                            precioV = Double.Parse(precioTexto, CultureInfo.InvariantCulture)
-                            If Not EXISTECOD("producto_precioVenta", "ID_Producto", idProd) Then
-                                GUARDAR_VarCompNumeric("producto_precioVenta", idProd, precioV)
-                            Else
-                                GUARDAR_NUMERIC("producto_precioVenta", "precio_venta", precioV, "ID_Producto", idProd)
-                            End If
-
-                            If Not String.IsNullOrEmpty(TXT_Ganancia.Text) Then
-                                Dim ganancia As Double = Double.Parse(Replace(TXT_Ganancia.Text, ",", "."), CultureInfo.InvariantCulture)
-                                GUARDAR_NUMERIC("producto", "ganancia", ganancia, "ID", idProd)
-                            Else
-                                GUARDAR_NUMERIC("producto", "ganancia", 0, "ID", idProd)
-                            End If
-
-                            If SWT_Fav.Checked = True Then
-                                GUARDAR_TEXT("producto", "favorito", "Si", "ID", idProd)
-                            Else
-                                GUARDAR_TEXT("producto", "favorito", "No", "ID", idProd)
-                            End If
-                            'Se agregan los campos en las tablas relacionadas en caso de ser necesario
-
-                            If Not String.IsNullOrEmpty(TXT_Desc.Text) Then
-                                If EXISTECOD("producto_desc", "ID_Producto", idProd) Then
-                                    GUARDAR_VarCompuestas("producto_desc", idProd, TXT_Desc.Text)
-                                Else
-                                    GUARDAR_TEXT("producto_desc", "descripcion", TXT_Desc.Text, "ID_Producto", idProd)
-                                End If
-                            Else
-                                ELIMINAR("producto_desc", "ID_Producto", idProd)
-                            End If
-
-                            If Not String.IsNullOrEmpty(LBL_IDCat.Text) And LBL_IDCat.Text <> "idCat" Then
-                                If Not EXISTECOD("producto_categoria", "ID_Producto", idProd) Then
-                                    Dim idCat As Integer
-                                    If Integer.TryParse(LBL_IDCat.Text, idCat) Then
-                                        GUARDAR_VarCompuestas("producto_categoria", idProd, idCat)
-                                    Else
-                                        msgError("No se logró almacenar la categoría, vuelva a intentarlo")
-                                    End If
-                                Else
-                                    GUARDAR_TEXT("producto_categoria", "ID_Categoria", LBL_IDCat.Text, "ID_Producto", idProd)
-                                End If
-                            Else
-                                ELIMINAR("producto_categoria", "ID_Producto", idProd)
-                            End If
-
-
-                            If Not String.IsNullOrEmpty(LBL_IDMarca.Text) And LBL_IDMarca.Text <> "idMarca" Then
-                                If Not EXISTECOD("producto_marca", "ID_Producto", idProd) Then
-                                    Dim idMarca As Integer
-                                    If Integer.TryParse(LBL_IDMarca.Text, idMarca) Then
-                                        GUARDAR_VarCompuestasInt("producto_marca", idProd, idMarca)
-                                    Else
-                                        MsgBox("No se logró almacenar la marca, vuelva a intentarlo", vbInformation + vbOKOnly, "Marca no guardada")
-                                    End If
-                                Else
-                                    GUARDAR_TEXT("producto_marca", "ID_Marca", LBL_IDMarca.Text, "ID_Producto", idProd)
-                                End If
-                            Else
-                                ELIMINAR("producto_marca", "ID_Producto", idProd)
-                            End If
-
-                            If Not String.IsNullOrEmpty(LBL_Prov.Text) And LBL_Prov.Text <> "idProv" Then
-                                If Not EXISTECOD("producto_proveedor", "ID_Producto", idProd) Then
-                                    Dim idProv As Integer
-                                    If Integer.TryParse(LBL_Prov.Text, idProv) Then
-                                        GUARDAR_VarCompuestasInt("producto_proveedor", idProd, idProv)
-                                    Else
-                                        MsgBox("No se logró almacenar el proveedor, vuelva a intentarlo", vbInformation + vbOKOnly, "Proveedor no guardads")
-                                    End If
-                                Else
-                                    GUARDAR_TEXT("producto_proveedor", "ID_Proveedor", LBL_Prov.Text, "ID_Producto", idProd)
-                                End If
-                            Else
-                                ELIMINAR("producto_proveedor", "ID_Producto", idProd)
-                            End If
-                            LIMPIAR()
-                            msgDatoAlm()
-                            PRG_Guardando.Stop()
-                            PRG_Guardando.Visible = False
-                            ' Muestra y refresca la pantalla del list view de Sucursales y cierra esta
-                            P_Productos.Show()
-                            P_Productos.Select()
-                            P_Productos.REFRESCAR()
-                            P_Productos.TXT_BuscarProd.SelectAll()
-                            Me.Close()
-                            ModProd = False
-                        Catch ex As Exception
-                            msgError("Error al actualizar los datos: " & ex.Message)
-                            PRG_Guardando.Stop()
-                        End Try
-                    End If
-                Else
-                    msgError("El código " + TXT_Cod.Text + " ya existe, coloque un código distinto")
-                    TXT_Cod.SelectAll()
-                    PRG_Guardando.Stop()
-                End If
-            Catch ex As Exception
-                msgError("Error: " & ex.Message)
-                PRG_Guardando.Stop()
-            End Try
-        End If
-        PRG_Guardando.Stop()
-        PRG_Guardando.Visible = False
+            End If
+        Catch ex As Exception
+            msgError("Error: " & ex.Message)
+        Finally
+            PRG_Guardando.Stop()
+            PRG_Guardando.Visible = False
+        End Try
     End Sub
+
+#Region "Creación y actualización de datos en la DB"
+    Private Function CrearOActualizarProducto(ByVal conn As SQLiteConnection, ByVal transaction As SQLiteTransaction) As Boolean
+        Dim sql As String
+        Dim parametros As New Dictionary(Of String, Object)
+
+        If ModProd = False Then
+            sql = "INSERT INTO producto (ID, codigo, nombre, precio_base, porc_impuesto, variable, inventario, ganancia, fechaAdd) VALUES (@id, @codigo, @nombre, @precio_base, @porc_impuesto, @variable, @inventario, @ganancia, @fechaAdd)"
+            parametros.Add("fechaAdd", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+        Else
+            sql = "UPDATE producto SET codigo = @codigo, nombre = @nombre, precio_base = @precio_base, porc_impuesto = @porc_impuesto, variable = @variable, inventario = @inventario, ganancia = @ganancia WHERE ID = @id"
+        End If
+
+        parametros.Add("id", idProd)
+        parametros.Add("codigo", TXT_Cod.Text)
+        parametros.Add("nombre", TXT_Nombre.Text)
+        parametros.Add("precio_base", If(String.IsNullOrEmpty(TXT_PrecioBase.Text), 0, Double.Parse(TXT_PrecioBase.Text.Replace(",", "."), CultureInfo.InvariantCulture)))
+        parametros.Add("porc_impuesto", If(String.IsNullOrEmpty(TXT_Impuesto.Text), 0, Double.Parse(TXT_Impuesto.Text.Replace(",", "."), CultureInfo.InvariantCulture)))
+        parametros.Add("variable", If(SWT_Var.Checked, 1, 0))
+        parametros.Add("inventario", NUD_Inv.Value)
+        parametros.Add("ganancia", If(String.IsNullOrEmpty(TXT_Ganancia.Text), 0, Double.Parse(TXT_Ganancia.Text.Replace(",", "."), CultureInfo.InvariantCulture)))
+
+        ' Aquí está el cambio: se llama al nuevo método con la transacción
+        Return EJECUTAR_PARAMETROS_TRANSACCION(sql, parametros, conn, transaction)
+    End Function
+
+    Private Function CrearOActualizarPrecioVenta(ByVal conn As SQLiteConnection, ByVal transaction As SQLiteTransaction) As Boolean
+        Dim sql As String
+        Dim precioVenta As Double = Double.Parse(TXT_PrecioVenta.Text.Replace(",", "."), CultureInfo.InvariantCulture)
+        Dim parametros As New Dictionary(Of String, Object)
+
+        If Not EXISTECOD("producto_precioVenta", "ID_Producto", idProd) Then
+            sql = "INSERT INTO producto_precioVenta (ID_Producto, precio_venta) VALUES (@id_prod, @precio_venta)"
+            parametros.Add("id_prod", idProd)
+            parametros.Add("precio_venta", precioVenta)
+        Else
+            sql = "UPDATE producto_precioVenta SET precio_venta = @precio_venta WHERE ID_Producto = @id_prod"
+            parametros.Add("precio_venta", precioVenta)
+            parametros.Add("id_prod", idProd)
+        End If
+
+        ' Aquí está el cambio
+        Return EJECUTAR_PARAMETROS_TRANSACCION(sql, parametros, conn, transaction)
+    End Function
+
+    Private Sub CrearOActualizarDescripcion(ByVal conn As SQLiteConnection, ByVal transaction As SQLiteTransaction)
+        Dim sql As String
+        Dim parametros As New Dictionary(Of String, Object)
+
+        If Not String.IsNullOrEmpty(TXT_Desc.Text) Then
+            If Not EXISTECOD("producto_desc", "ID_Producto", idProd) Then
+                sql = "INSERT INTO producto_desc (ID_Producto, descripcion) VALUES (@id_prod, @desc)"
+                parametros.Add("id_prod", idProd)
+                parametros.Add("desc", TXT_Desc.Text)
+            Else
+                sql = "UPDATE producto_desc SET descripcion = @desc WHERE ID_Producto = @id_prod"
+                parametros.Add("desc", TXT_Desc.Text)
+                parametros.Add("id_prod", idProd)
+            End If
+        Else
+            sql = "DELETE FROM producto_desc WHERE ID_Producto = @id_prod"
+            parametros.Add("id_prod", idProd)
+        End If
+
+        EJECUTAR_PARAMETROS_TRANSACCION(sql, parametros, conn, transaction)
+    End Sub
+    Private Sub CrearOActualizarCategoria(ByVal conn As SQLiteConnection, ByVal transaction As SQLiteTransaction)
+        Dim sql As String
+        Dim parametros As New Dictionary(Of String, Object)
+
+        If Not String.IsNullOrEmpty(LBL_IDCat.Text) Then
+            If Not EXISTECOD("producto_categoria", "ID_Producto", idProd) Then
+                sql = "INSERT INTO producto_categoria (ID_Producto, ID_Categoria) VALUES (@id_prod, @id_cat)"
+                parametros.Add("id_prod", idProd)
+                parametros.Add("id_cat", LBL_IDCat.Text)
+            Else
+                sql = "UPDATE producto_categoria SET ID_Categoria = @id_cat WHERE ID_Producto = @id_prod"
+                parametros.Add("id_cat", LBL_IDCat.Text)
+                parametros.Add("id_prod", idProd)
+            End If
+        Else
+            sql = "DELETE FROM producto_categoria WHERE ID_Producto = @id_prod"
+            parametros.Add("id_prod", idProd)
+        End If
+
+        EJECUTAR_PARAMETROS_TRANSACCION(sql, parametros, conn, transaction)
+    End Sub
+    Private Sub CrearOActualizarMarca(ByVal conn As SQLiteConnection, ByVal transaction As SQLiteTransaction)
+        Dim sql As String
+        Dim parametros As New Dictionary(Of String, Object)
+
+        If Not String.IsNullOrEmpty(LBL_IDMarca.Text) Then
+            If Not EXISTECOD("producto_marca", "ID_Producto", idProd) Then
+                sql = "INSERT INTO producto_marca (ID_Producto, ID_Marca) VALUES (@id_prod, @id_marca)"
+                parametros.Add("id_prod", idProd)
+                parametros.Add("id_marca", LBL_IDMarca.Text)
+            Else
+                sql = "UPDATE producto_marca SET ID_Marca = @id_marca WHERE ID_Producto = @id_prod"
+                parametros.Add("id_marca", LBL_IDMarca.Text)
+                parametros.Add("id_prod", idProd)
+            End If
+        Else
+            sql = "DELETE FROM producto_marca WHERE ID_Producto = @id_prod"
+            parametros.Add("id_prod", idProd)
+        End If
+
+        EJECUTAR_PARAMETROS_TRANSACCION(sql, parametros, conn, transaction)
+    End Sub
+    Private Sub CrearOActualizarProveedor(ByVal conn As SQLiteConnection, ByVal transaction As SQLiteTransaction)
+        Dim sql As String
+        Dim parametros As New Dictionary(Of String, Object)
+
+        If Not String.IsNullOrEmpty(LBL_Prov.Text) Then
+            If Not EXISTECOD("producto_proveedor", "ID_Producto", idProd) Then
+                sql = "INSERT INTO producto_proveedor (ID_Producto, ID_Proveedor) VALUES (@id_prod, @id_prov)"
+                parametros.Add("id_prod", idProd)
+                parametros.Add("id_prov", LBL_Prov.Text)
+            Else
+                sql = "UPDATE producto_proveedor SET ID_Proveedor = @id_prov WHERE ID_Producto = @id_prod"
+                parametros.Add("id_prov", LBL_Prov.Text)
+                parametros.Add("id_prod", idProd)
+            End If
+        Else
+            sql = "DELETE FROM producto_proveedor WHERE ID_Producto = @id_prod"
+            parametros.Add("id_prod", idProd)
+        End If
+
+        EJECUTAR_PARAMETROS_TRANSACCION(sql, parametros, conn, transaction)
+    End Sub
+#End Region
 
 
     Private Sub LIMPIAR()
@@ -359,20 +375,7 @@ Public Class E_NuevoProducto
             actpVenta = True
         End If
     End Sub
-    Private Sub CKB_Fav_CheckedChanged(sender As Object, e As EventArgs)
-        If SWT_Fav.Checked = True Then
-            SQL = "SELECT COUNT(ID) FROM producto WHERE favorito = 'Si'"
-            If ModProd Then
-                SQL += " AND ID <> " + idProd
-            End If
-            T.Tables.Clear()
-            Cargar_Tabla(T, SQL)
-            If T.Tables(0).Rows(0).Item(0) >= 8 Then
-                MsgBox("Solo puede tener un máximo de 10 productos en favorito" + vbCrLf + "Elimine el favorito de otro producto para agregar este", vbCritical + vbOKOnly, "Limite de favoritos alcanzado")
-                SWT_Fav.Checked = False
-            End If
-        End If
-    End Sub
+
     Private Sub SWT_Var_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_Var.CheckedChanged
         If SWT_Var.Checked = True Then
             TXT_PrecioVenta.Enabled = False

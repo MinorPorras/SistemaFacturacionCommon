@@ -1,20 +1,22 @@
-﻿Imports Guna.UI2.WinForms
-Imports System.Deployment.Application
+﻿Imports System.Deployment.Application
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
+Imports Guna.UI2.WinForms
 Public Class P_SelectUsu
 
     Private Sub P_LoginCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Md_Inicializacion.AutoUpdate()
+        Md_Inicializacion.CheckAndMigrateDatabase()
         T.Tables.Clear()
         SQL = "SELECT ID, usuario, color FROM usuario"
         Cargar_Tabla(T, SQL)
         If T.Tables(0).Rows.Count > 0 Then
-            For i As Integer = 0 To T.Tables(0).Rows.Count - 1
-                agregarBoton(FlowLayoutPanel1, T.Tables(0).Rows(i).Item(1), T.Tables(0).Rows(i).Item(0), i + 1, T.Tables(0).Rows(i).Item(2))
+            For Each row As DataRow In T.Tables(0).Rows
+                agregarBoton(FlowLayoutPanel1, row.Item("usuario"), row.Item("ID"), row.Item("color"))
             Next
         End If
     End Sub
 
-    Private Sub agregarBoton(flowpanel As FlowLayoutPanel, nombre As String, tag As Integer, cont As Integer, colorT As String)
+    Private Sub agregarBoton(flowpanel As FlowLayoutPanel, nombre As String, tag As Integer, colorT As String)
         Dim splitRGB() As String = colorT.Split(","c)
         Dim r As Integer = Convert.ToInt32(splitRGB(0))
         Dim b As Integer = Convert.ToInt32(splitRGB(1))
@@ -22,13 +24,14 @@ Public Class P_SelectUsu
         Dim nuevoBTN As New Guna2Button With {
             .Size = New Drawing.Size(80, 60),
             .Font = New Font("Britannic Bold", 16),
-            .Name = "BTN_Usu" & cont,
+            .Name = "BTN_Usu" & tag,
             .Text = nombre,
             .Tag = tag,
             .AutoSize = True,
             .FillColor = Color.FromArgb(r, b, g),
             .Margin = New Padding(15, 15, 0, 0),
-            .Dock = DockStyle.Bottom
+            .Dock = DockStyle.Bottom,
+            .BorderRadius = 10
         }
 
         AddHandler nuevoBTN.Click, AddressOf BotonUsu_Click

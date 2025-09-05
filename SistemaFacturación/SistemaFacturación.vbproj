@@ -281,6 +281,12 @@
     <Compile Include="D_GuardarCuenta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="P_ConfigFavProd.Designer.vb">
+      <DependentUpon>P_ConfigFavProd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P_ConfigFavProd.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="P_CuentasCobrar.Designer.vb">
       <DependentUpon>P_CuentasCobrar.vb</DependentUpon>
     </Compile>
@@ -528,9 +534,11 @@
     <Compile Include="P_Usuarios.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Content Include="recursos\ICO_MoveDown.png" />
     <Content Include="recursos\ICO_BuscarBlanco.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="recursos\ICO_MoveUp.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -574,6 +582,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="P_Caja.resx">
       <DependentUpon>P_Caja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P_ConfigFavProd.resx">
+      <DependentUpon>P_ConfigFavProd.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="P_CuentasCobrar.resx">
       <DependentUpon>P_CuentasCobrar.vb</DependentUpon>

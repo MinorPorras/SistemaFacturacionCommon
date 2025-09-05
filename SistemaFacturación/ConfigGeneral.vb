@@ -201,6 +201,10 @@ Public Class ConfigGeneral
     Private Sub BTN_CheckForUpdates_Click(sender As Object, e As EventArgs) Handles BTN_CheckForUpdates.Click
         Md_Inicializacion.CheckForUpdates()
     End Sub
+
+    Private Sub btn_RegInfoConfig_Click(sender As Object, e As EventArgs) Handles btn_RegInfoConfig.Click
+        Me.Close()
+    End Sub
 #End Region
 
 End Class

@@ -35,7 +35,6 @@ Partial Class E_NuevoProducto
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.TXT_PrecioBase = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TXT_Impuesto = New Guna.UI2.WinForms.Guna2TextBox()
@@ -57,7 +56,6 @@ Partial Class E_NuevoProducto
         Me.Label13 = New System.Windows.Forms.Label()
         Me.NUD_Inv = New Guna.UI2.WinForms.Guna2NumericUpDown()
         Me.Guna2NotificationPaint1 = New Guna.UI2.WinForms.Guna2NotificationPaint(Me.components)
-        Me.SWT_Fav = New Guna.UI2.WinForms.Guna2ToggleSwitch()
         Me.SWT_Var = New Guna.UI2.WinForms.Guna2ToggleSwitch()
         Me.PRG_Guardando = New Guna.UI2.WinForms.Guna2WinProgressIndicator()
         Me.BTN_AutoCod = New Guna.UI2.WinForms.Guna2CircleButton()
@@ -216,17 +214,6 @@ Partial Class E_NuevoProducto
         Me.Label7.Size = New System.Drawing.Size(105, 23)
         Me.Label7.TabIndex = 76
         Me.Label7.Text = "Categoría:"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.ForeColor = System.Drawing.Color.White
-        Me.Label8.Location = New System.Drawing.Point(539, 185)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(90, 23)
-        Me.Label8.TabIndex = 77
-        Me.Label8.Text = "Favorito:"
         '
         'TXT_PrecioBase
         '
@@ -543,27 +530,11 @@ Partial Class E_NuevoProducto
         Me.NUD_Inv.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.NUD_Inv.Location = New System.Drawing.Point(800, 327)
         Me.NUD_Inv.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
-        Me.NUD_Inv.Minimum = New Decimal(New Integer() {1000, 0, 0, -2147483648})
+        Me.NUD_Inv.Minimum = New Decimal(New Integer() {100000, 0, 0, -2147483648})
         Me.NUD_Inv.Name = "NUD_Inv"
         Me.NUD_Inv.Size = New System.Drawing.Size(204, 31)
         Me.NUD_Inv.TabIndex = 100
         Me.NUD_Inv.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        '
-        'SWT_Fav
-        '
-        Me.SWT_Fav.Animated = True
-        Me.SWT_Fav.CheckedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.SWT_Fav.CheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.SWT_Fav.CheckedState.InnerBorderColor = System.Drawing.Color.White
-        Me.SWT_Fav.CheckedState.InnerColor = System.Drawing.Color.White
-        Me.SWT_Fav.Location = New System.Drawing.Point(629, 188)
-        Me.SWT_Fav.Name = "SWT_Fav"
-        Me.SWT_Fav.Size = New System.Drawing.Size(35, 20)
-        Me.SWT_Fav.TabIndex = 102
-        Me.SWT_Fav.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(125, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
-        Me.SWT_Fav.UncheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(125, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
-        Me.SWT_Fav.UncheckedState.InnerBorderColor = System.Drawing.Color.White
-        Me.SWT_Fav.UncheckedState.InnerColor = System.Drawing.Color.White
         '
         'SWT_Var
         '
@@ -629,7 +600,6 @@ Partial Class E_NuevoProducto
         Me.Controls.Add(Me.BTN_AutoCod)
         Me.Controls.Add(Me.PRG_Guardando)
         Me.Controls.Add(Me.SWT_Var)
-        Me.Controls.Add(Me.SWT_Fav)
         Me.Controls.Add(Me.NUD_Inv)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.LBL_IDImp)
@@ -648,7 +618,6 @@ Partial Class E_NuevoProducto
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.TXT_PrecioBase)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
@@ -684,7 +653,6 @@ Partial Class E_NuevoProducto
     Friend WithEvents Label7 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Label8 As Label
     Friend WithEvents TXT_Impuesto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents TXT_PrecioBase As Guna.UI2.WinForms.Guna2TextBox
@@ -705,7 +673,6 @@ Partial Class E_NuevoProducto
     Friend WithEvents LBL_IDImp As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents NUD_Inv As Guna.UI2.WinForms.Guna2NumericUpDown
-    Friend WithEvents SWT_Fav As Guna.UI2.WinForms.Guna2ToggleSwitch
     Friend WithEvents Guna2NotificationPaint1 As Guna.UI2.WinForms.Guna2NotificationPaint
     Friend WithEvents SWT_Var As Guna.UI2.WinForms.Guna2ToggleSwitch
     Friend WithEvents PRG_Guardando As Guna.UI2.WinForms.Guna2WinProgressIndicator
