@@ -145,46 +145,6 @@ Module Md_CONEXION
             Return False ' Esto causará que el Rollback se ejecute en el método principal.
         End Try
     End Function
-
-    Friend Sub GenerarReporte(desde As Date, hasta As Date, t As DataSet)
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-
-        Using db As New SQLiteConnection(stringConexion)
-            Try
-                db.Open()
-                Dim consulta As String = "SELECT f.num_factura As '# Fact', " &
-                                          "f.fecha_emision As 'Fecha de emisión', " &
-                                          "c.nombre As 'Nombre', " &
-                                          "total As 'Total', " &
-                                          "CASE f.tipo_venta " &
-                                          "WHEN 0 THEN 'Efectivo' " &
-                                          "WHEN 1 THEN 'Tarjeta' " &
-                                          "WHEN 2 THEN 'Sinpe' " &
-                                          "WHEN 3 THEN 'Depósito' " &
-                                          "WHEN 4 THEN 'Mixto' " &
-                                          "END AS tipo " &
-                                          "FROM factura f " &
-                                          "INNER JOIN clientes c ON c.ID = f.ID_Cliente " &
-                                          "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin AND cobrada != 0;"
-
-                Using cmd As New SQLiteCommand(consulta, db)
-                    cmd.Parameters.Add(New SQLiteParameter("@fechaInicio", desde.ToString("yyyy-MM-dd")))
-                    cmd.Parameters.Add(New SQLiteParameter("@fechaFin", hasta.AddDays(1).ToString("yyyy-MM-dd")))
-
-                    Using da As New SQLiteDataAdapter(cmd)
-                        ' Limpiar el DataSet antes de llenarlo
-                        If t.Tables.Count > 0 Then
-                            t.Tables(0).Clear()
-                        End If
-                        da.Fill(t)
-                    End Using
-                End Using
-            Catch ex As Exception
-                MsgBox("Error al generar el reporte: " & ex.Message, vbOKOnly, "Error")
-            End Try
-        End Using
-    End Sub
-
 #End Region
 
 #Region "Configuracion"
