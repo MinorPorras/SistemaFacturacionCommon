@@ -31,20 +31,13 @@ Partial Class ConfigGeneral
         Me.OFD_ModBackUpDir = New System.Windows.Forms.FolderBrowserDialog()
         Me.TCO_Config = New Guna.UI2.WinForms.Guna2TabControl()
         Me.tabDB = New System.Windows.Forms.TabPage()
-        Me.BTN_RegresarConfig = New Guna.UI2.WinForms.Guna2Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.LBL_BackUpDIr = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.LBL_DireccionConexionActual = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.BTN_ModConnDB = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_ModBackupDir = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Importar = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_RspaldoDB = New Guna.UI2.WinForms.Guna2Button()
         Me.tabCod = New System.Windows.Forms.TabPage()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.BTN_ActualizarCods = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_Regresar = New Guna.UI2.WinForms.Guna2Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.SWT_ModCod = New Guna.UI2.WinForms.Guna2ToggleSwitch()
@@ -64,8 +57,6 @@ Partial Class ConfigGeneral
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TabHablador = New System.Windows.Forms.TabPage()
         Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.BTN_ConfigRegHablador = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_ActualizarHablador = New Guna.UI2.WinForms.Guna2Button()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.SWT_ModHablador = New Guna.UI2.WinForms.Guna2ToggleSwitch()
         Me.NUD_SizePrecio = New Guna.UI2.WinForms.Guna2NumericUpDown()
@@ -73,10 +64,8 @@ Partial Class ConfigGeneral
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabInfo = New System.Windows.Forms.TabPage()
-        Me.btn_RegInfoConfig = New Guna.UI2.WinForms.Guna2Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.BTN_CheckForUpdates = New Guna.UI2.WinForms.Guna2Button()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.SWT_AutoUpdate = New Guna.UI2.WinForms.Guna2ToggleSwitch()
         Me.lbl_versionGeneralConfig = New System.Windows.Forms.Label()
@@ -84,11 +73,23 @@ Partial Class ConfigGeneral
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
-        Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.Guna2Panel3 = New Guna.UI2.WinForms.Guna2Panel()
         Me.CardLayout1 = New Syncfusion.Windows.Forms.Tools.CardLayout(Me.components)
         Me.Guna2Transition1 = New Guna.UI2.WinForms.Guna2Transition()
+        Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
+        Me.BTN_RegresarConfig = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_ModConnDB = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_ModBackupDir = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_Importar = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_RspaldoDB = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_ActualizarCods = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_Regresar = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_ConfigRegHablador = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_ActualizarHablador = New Guna.UI2.WinForms.Guna2Button()
+        Me.Guna2PictureBox1 = New Guna.UI2.WinForms.Guna2PictureBox()
+        Me.btn_RegInfoConfig = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_CheckForUpdates = New Guna.UI2.WinForms.Guna2Button()
+        Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.TCO_Config.SuspendLayout()
         Me.tabDB.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -107,9 +108,10 @@ Partial Class ConfigGeneral
         CType(Me.NUD_SizePrecio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_SizeProd, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabInfo.SuspendLayout()
-        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel3.SuspendLayout()
         CType(Me.CardLayout1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Guna2BorderlessForm1
@@ -176,27 +178,6 @@ Partial Class ConfigGeneral
         Me.tabDB.Size = New System.Drawing.Size(653, 406)
         Me.tabDB.TabIndex = 0
         Me.tabDB.Text = "Gestión base de datos"
-        '
-        'BTN_RegresarConfig
-        '
-        Me.BTN_RegresarConfig.BorderColor = System.Drawing.Color.Red
-        Me.Guna2Transition1.SetDecoration(Me.BTN_RegresarConfig, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_RegresarConfig.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_RegresarConfig.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarConfig.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarConfig.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RegresarConfig.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RegresarConfig.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BTN_RegresarConfig.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.BTN_RegresarConfig.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_RegresarConfig.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarConfig.Image = CType(resources.GetObject("BTN_RegresarConfig.Image"), System.Drawing.Image)
-        Me.BTN_RegresarConfig.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_RegresarConfig.Location = New System.Drawing.Point(0, 341)
-        Me.BTN_RegresarConfig.Name = "BTN_RegresarConfig"
-        Me.BTN_RegresarConfig.Size = New System.Drawing.Size(653, 65)
-        Me.BTN_RegresarConfig.TabIndex = 55
-        Me.BTN_RegresarConfig.Text = "Regresar"
         '
         'GroupBox1
         '
@@ -265,90 +246,6 @@ Partial Class ConfigGeneral
         Me.Label18.TabIndex = 117
         Me.Label18.Text = "Conexión actual:"
         '
-        'BTN_ModConnDB
-        '
-        Me.BTN_ModConnDB.BorderRadius = 25
-        Me.BTN_ModConnDB.BorderThickness = 2
-        Me.Guna2Transition1.SetDecoration(Me.BTN_ModConnDB, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_ModConnDB.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_ModConnDB.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ModConnDB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ModConnDB.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_ModConnDB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_ModConnDB.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_ModConnDB.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_ModConnDB.ForeColor = System.Drawing.Color.White
-        Me.BTN_ModConnDB.Image = CType(resources.GetObject("BTN_ModConnDB.Image"), System.Drawing.Image)
-        Me.BTN_ModConnDB.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_ModConnDB.Location = New System.Drawing.Point(6, 86)
-        Me.BTN_ModConnDB.Name = "BTN_ModConnDB"
-        Me.BTN_ModConnDB.Size = New System.Drawing.Size(578, 58)
-        Me.BTN_ModConnDB.TabIndex = 14
-        Me.BTN_ModConnDB.Text = "Modificar conexión base de datos"
-        '
-        'BTN_ModBackupDir
-        '
-        Me.BTN_ModBackupDir.BorderRadius = 25
-        Me.BTN_ModBackupDir.BorderThickness = 2
-        Me.Guna2Transition1.SetDecoration(Me.BTN_ModBackupDir, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_ModBackupDir.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_ModBackupDir.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ModBackupDir.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ModBackupDir.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_ModBackupDir.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_ModBackupDir.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_ModBackupDir.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_ModBackupDir.ForeColor = System.Drawing.Color.White
-        Me.BTN_ModBackupDir.Image = CType(resources.GetObject("BTN_ModBackupDir.Image"), System.Drawing.Image)
-        Me.BTN_ModBackupDir.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_ModBackupDir.Location = New System.Drawing.Point(6, 150)
-        Me.BTN_ModBackupDir.Name = "BTN_ModBackupDir"
-        Me.BTN_ModBackupDir.Size = New System.Drawing.Size(578, 58)
-        Me.BTN_ModBackupDir.TabIndex = 13
-        Me.BTN_ModBackupDir.Text = "Modificar carpeta de respaldo"
-        '
-        'BTN_Importar
-        '
-        Me.BTN_Importar.AutoRoundedCorners = True
-        Me.BTN_Importar.BorderRadius = 28
-        Me.BTN_Importar.BorderThickness = 2
-        Me.Guna2Transition1.SetDecoration(Me.BTN_Importar, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_Importar.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_Importar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Importar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Importar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Importar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Importar.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_Importar.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_Importar.ForeColor = System.Drawing.Color.White
-        Me.BTN_Importar.Image = CType(resources.GetObject("BTN_Importar.Image"), System.Drawing.Image)
-        Me.BTN_Importar.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Importar.Location = New System.Drawing.Point(6, 22)
-        Me.BTN_Importar.Name = "BTN_Importar"
-        Me.BTN_Importar.Size = New System.Drawing.Size(296, 58)
-        Me.BTN_Importar.TabIndex = 12
-        Me.BTN_Importar.Text = "Importar base de datos"
-        '
-        'BTN_RspaldoDB
-        '
-        Me.BTN_RspaldoDB.BorderRadius = 25
-        Me.BTN_RspaldoDB.BorderThickness = 2
-        Me.Guna2Transition1.SetDecoration(Me.BTN_RspaldoDB, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_RspaldoDB.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RspaldoDB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RspaldoDB.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RspaldoDB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RspaldoDB.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_RspaldoDB.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_RspaldoDB.ForeColor = System.Drawing.Color.White
-        Me.BTN_RspaldoDB.Image = CType(resources.GetObject("BTN_RspaldoDB.Image"), System.Drawing.Image)
-        Me.BTN_RspaldoDB.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_RspaldoDB.Location = New System.Drawing.Point(308, 22)
-        Me.BTN_RspaldoDB.Name = "BTN_RspaldoDB"
-        Me.BTN_RspaldoDB.Size = New System.Drawing.Size(276, 58)
-        Me.BTN_RspaldoDB.TabIndex = 11
-        Me.BTN_RspaldoDB.Text = "Respaldar base de datos"
-        '
         'tabCod
         '
         Me.tabCod.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
@@ -372,46 +269,6 @@ Partial Class ConfigGeneral
         Me.Guna2Panel1.Name = "Guna2Panel1"
         Me.Guna2Panel1.Size = New System.Drawing.Size(653, 78)
         Me.Guna2Panel1.TabIndex = 101
-        '
-        'BTN_ActualizarCods
-        '
-        Me.Guna2Transition1.SetDecoration(Me.BTN_ActualizarCods, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_ActualizarCods.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ActualizarCods.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ActualizarCods.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_ActualizarCods.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_ActualizarCods.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BTN_ActualizarCods.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_ActualizarCods.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_ActualizarCods.ForeColor = System.Drawing.Color.White
-        Me.BTN_ActualizarCods.Image = CType(resources.GetObject("BTN_ActualizarCods.Image"), System.Drawing.Image)
-        Me.BTN_ActualizarCods.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_ActualizarCods.Location = New System.Drawing.Point(319, 0)
-        Me.BTN_ActualizarCods.Name = "BTN_ActualizarCods"
-        Me.BTN_ActualizarCods.Size = New System.Drawing.Size(334, 78)
-        Me.BTN_ActualizarCods.TabIndex = 99
-        Me.BTN_ActualizarCods.Text = "Actualizar"
-        '
-        'BTN_Regresar
-        '
-        Me.BTN_Regresar.BorderColor = System.Drawing.Color.Red
-        Me.Guna2Transition1.SetDecoration(Me.BTN_Regresar, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_Regresar.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_Regresar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Regresar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Regresar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Regresar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Regresar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.BTN_Regresar.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.BTN_Regresar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_Regresar.ForeColor = System.Drawing.Color.White
-        Me.BTN_Regresar.Image = CType(resources.GetObject("BTN_Regresar.Image"), System.Drawing.Image)
-        Me.BTN_Regresar.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Regresar.Location = New System.Drawing.Point(0, 0)
-        Me.BTN_Regresar.Name = "BTN_Regresar"
-        Me.BTN_Regresar.Size = New System.Drawing.Size(322, 78)
-        Me.BTN_Regresar.TabIndex = 98
-        Me.BTN_Regresar.Text = "Regresar"
         '
         'GroupBox2
         '
@@ -700,46 +557,6 @@ Partial Class ConfigGeneral
         Me.Guna2Panel2.Size = New System.Drawing.Size(653, 69)
         Me.Guna2Panel2.TabIndex = 112
         '
-        'BTN_ConfigRegHablador
-        '
-        Me.BTN_ConfigRegHablador.BorderColor = System.Drawing.Color.Red
-        Me.Guna2Transition1.SetDecoration(Me.BTN_ConfigRegHablador, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_ConfigRegHablador.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_ConfigRegHablador.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ConfigRegHablador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ConfigRegHablador.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_ConfigRegHablador.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_ConfigRegHablador.Dock = System.Windows.Forms.DockStyle.Left
-        Me.BTN_ConfigRegHablador.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.BTN_ConfigRegHablador.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_ConfigRegHablador.ForeColor = System.Drawing.Color.White
-        Me.BTN_ConfigRegHablador.Image = CType(resources.GetObject("BTN_ConfigRegHablador.Image"), System.Drawing.Image)
-        Me.BTN_ConfigRegHablador.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_ConfigRegHablador.Location = New System.Drawing.Point(0, 0)
-        Me.BTN_ConfigRegHablador.Name = "BTN_ConfigRegHablador"
-        Me.BTN_ConfigRegHablador.Size = New System.Drawing.Size(325, 69)
-        Me.BTN_ConfigRegHablador.TabIndex = 100
-        Me.BTN_ConfigRegHablador.Text = "Regresar"
-        '
-        'BTN_ActualizarHablador
-        '
-        Me.Guna2Transition1.SetDecoration(Me.BTN_ActualizarHablador, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_ActualizarHablador.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ActualizarHablador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ActualizarHablador.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_ActualizarHablador.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_ActualizarHablador.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BTN_ActualizarHablador.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_ActualizarHablador.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_ActualizarHablador.ForeColor = System.Drawing.Color.White
-        Me.BTN_ActualizarHablador.Image = CType(resources.GetObject("BTN_ActualizarHablador.Image"), System.Drawing.Image)
-        Me.BTN_ActualizarHablador.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_ActualizarHablador.Location = New System.Drawing.Point(323, 0)
-        Me.BTN_ActualizarHablador.Name = "BTN_ActualizarHablador"
-        Me.BTN_ActualizarHablador.Size = New System.Drawing.Size(330, 69)
-        Me.BTN_ActualizarHablador.TabIndex = 101
-        Me.BTN_ActualizarHablador.Text = "Actualizar"
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -840,6 +657,7 @@ Partial Class ConfigGeneral
         Me.tabInfo.Controls.Add(Me.Label13)
         Me.tabInfo.Controls.Add(Me.Label12)
         Me.tabInfo.Controls.Add(Me.Label11)
+        Me.tabInfo.Controls.Add(Me.Guna2PictureBox1)
         Me.Guna2Transition1.SetDecoration(Me.tabInfo, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.tabInfo.Location = New System.Drawing.Point(4, 44)
         Me.tabInfo.Name = "tabInfo"
@@ -847,27 +665,6 @@ Partial Class ConfigGeneral
         Me.tabInfo.Size = New System.Drawing.Size(653, 406)
         Me.tabInfo.TabIndex = 3
         Me.tabInfo.Text = "Información"
-        '
-        'btn_RegInfoConfig
-        '
-        Me.btn_RegInfoConfig.BorderColor = System.Drawing.Color.Red
-        Me.Guna2Transition1.SetDecoration(Me.btn_RegInfoConfig, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.btn_RegInfoConfig.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn_RegInfoConfig.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.btn_RegInfoConfig.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.btn_RegInfoConfig.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.btn_RegInfoConfig.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.btn_RegInfoConfig.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btn_RegInfoConfig.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btn_RegInfoConfig.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.btn_RegInfoConfig.ForeColor = System.Drawing.Color.White
-        Me.btn_RegInfoConfig.Image = CType(resources.GetObject("btn_RegInfoConfig.Image"), System.Drawing.Image)
-        Me.btn_RegInfoConfig.ImageSize = New System.Drawing.Size(40, 40)
-        Me.btn_RegInfoConfig.Location = New System.Drawing.Point(3, 338)
-        Me.btn_RegInfoConfig.Name = "btn_RegInfoConfig"
-        Me.btn_RegInfoConfig.Size = New System.Drawing.Size(647, 65)
-        Me.btn_RegInfoConfig.TabIndex = 118
-        Me.btn_RegInfoConfig.Text = "Regresar"
         '
         'Label17
         '
@@ -892,27 +689,6 @@ Partial Class ConfigGeneral
         Me.Label16.Size = New System.Drawing.Size(52, 17)
         Me.Label16.TabIndex = 116
         Me.Label16.Text = "Autor:"
-        '
-        'BTN_CheckForUpdates
-        '
-        Me.BTN_CheckForUpdates.BorderRadius = 25
-        Me.BTN_CheckForUpdates.BorderThickness = 2
-        Me.Guna2Transition1.SetDecoration(Me.BTN_CheckForUpdates, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_CheckForUpdates.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_CheckForUpdates.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CheckForUpdates.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CheckForUpdates.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_CheckForUpdates.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_CheckForUpdates.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_CheckForUpdates.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_CheckForUpdates.ForeColor = System.Drawing.Color.White
-        Me.BTN_CheckForUpdates.Image = CType(resources.GetObject("BTN_CheckForUpdates.Image"), System.Drawing.Image)
-        Me.BTN_CheckForUpdates.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_CheckForUpdates.Location = New System.Drawing.Point(398, 249)
-        Me.BTN_CheckForUpdates.Name = "BTN_CheckForUpdates"
-        Me.BTN_CheckForUpdates.Size = New System.Drawing.Size(237, 59)
-        Me.BTN_CheckForUpdates.TabIndex = 115
-        Me.BTN_CheckForUpdates.Text = "Buscar nuevas versiones"
         '
         'Label15
         '
@@ -1002,35 +778,6 @@ Partial Class ConfigGeneral
         Me.Label11.TabIndex = 107
         Me.Label11.Text = "Información del producto"
         '
-        'Guna2PictureBox2
-        '
-        Me.Guna2Transition1.SetDecoration(Me.Guna2PictureBox2, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
-        Me.Guna2PictureBox2.ImageRotate = 0!
-        Me.Guna2PictureBox2.Location = New System.Drawing.Point(149, -85)
-        Me.Guna2PictureBox2.Name = "Guna2PictureBox2"
-        Me.Guna2PictureBox2.Size = New System.Drawing.Size(363, 310)
-        Me.Guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.Guna2PictureBox2.TabIndex = 55
-        Me.Guna2PictureBox2.TabStop = False
-        '
-        'BTN_CerrarApp
-        '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Firebrick
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.Guna2Transition1.SetDecoration(Me.BTN_CerrarApp, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
-        Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
-        Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(70, 70)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
-        Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
-        Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(51, 53)
-        Me.BTN_CerrarApp.TabIndex = 123
-        '
         'Guna2Panel3
         '
         Me.Guna2Panel3.Controls.Add(Me.BTN_CerrarApp)
@@ -1060,6 +807,274 @@ Partial Class ConfigGeneral
         Animation1.TimeCoeff = 0!
         Animation1.TransparencyCoeff = 0!
         Me.Guna2Transition1.DefaultAnimation = Animation1
+        '
+        'BTN_CerrarApp
+        '
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Firebrick
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.Guna2Transition1.SetDecoration(Me.BTN_CerrarApp, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.ImageRotate = 0!
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(70, 70)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
+        Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(51, 53)
+        Me.BTN_CerrarApp.TabIndex = 123
+        '
+        'BTN_RegresarConfig
+        '
+        Me.BTN_RegresarConfig.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.BTN_RegresarConfig, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_RegresarConfig.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_RegresarConfig.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarConfig.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarConfig.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RegresarConfig.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RegresarConfig.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.BTN_RegresarConfig.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BTN_RegresarConfig.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_RegresarConfig.ForeColor = System.Drawing.Color.White
+        Me.BTN_RegresarConfig.Image = CType(resources.GetObject("BTN_RegresarConfig.Image"), System.Drawing.Image)
+        Me.BTN_RegresarConfig.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_RegresarConfig.Location = New System.Drawing.Point(0, 341)
+        Me.BTN_RegresarConfig.Name = "BTN_RegresarConfig"
+        Me.BTN_RegresarConfig.Size = New System.Drawing.Size(653, 65)
+        Me.BTN_RegresarConfig.TabIndex = 55
+        Me.BTN_RegresarConfig.Text = "Regresar"
+        '
+        'BTN_ModConnDB
+        '
+        Me.BTN_ModConnDB.BorderRadius = 25
+        Me.BTN_ModConnDB.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ModConnDB, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_ModConnDB.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_ModConnDB.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ModConnDB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ModConnDB.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_ModConnDB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_ModConnDB.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_ModConnDB.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ModConnDB.ForeColor = System.Drawing.Color.White
+        Me.BTN_ModConnDB.Image = CType(resources.GetObject("BTN_ModConnDB.Image"), System.Drawing.Image)
+        Me.BTN_ModConnDB.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_ModConnDB.Location = New System.Drawing.Point(6, 86)
+        Me.BTN_ModConnDB.Name = "BTN_ModConnDB"
+        Me.BTN_ModConnDB.Size = New System.Drawing.Size(578, 58)
+        Me.BTN_ModConnDB.TabIndex = 14
+        Me.BTN_ModConnDB.Text = "Modificar conexión base de datos"
+        '
+        'BTN_ModBackupDir
+        '
+        Me.BTN_ModBackupDir.BorderRadius = 25
+        Me.BTN_ModBackupDir.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ModBackupDir, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_ModBackupDir.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_ModBackupDir.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ModBackupDir.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ModBackupDir.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_ModBackupDir.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_ModBackupDir.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_ModBackupDir.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_ModBackupDir.ForeColor = System.Drawing.Color.White
+        Me.BTN_ModBackupDir.Image = CType(resources.GetObject("BTN_ModBackupDir.Image"), System.Drawing.Image)
+        Me.BTN_ModBackupDir.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_ModBackupDir.Location = New System.Drawing.Point(6, 150)
+        Me.BTN_ModBackupDir.Name = "BTN_ModBackupDir"
+        Me.BTN_ModBackupDir.Size = New System.Drawing.Size(578, 58)
+        Me.BTN_ModBackupDir.TabIndex = 13
+        Me.BTN_ModBackupDir.Text = "Modificar carpeta de respaldo"
+        '
+        'BTN_Importar
+        '
+        Me.BTN_Importar.AutoRoundedCorners = True
+        Me.BTN_Importar.BorderRadius = 28
+        Me.BTN_Importar.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_Importar, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_Importar.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_Importar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Importar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Importar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_Importar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_Importar.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_Importar.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_Importar.ForeColor = System.Drawing.Color.White
+        Me.BTN_Importar.Image = CType(resources.GetObject("BTN_Importar.Image"), System.Drawing.Image)
+        Me.BTN_Importar.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Importar.Location = New System.Drawing.Point(6, 22)
+        Me.BTN_Importar.Name = "BTN_Importar"
+        Me.BTN_Importar.Size = New System.Drawing.Size(296, 58)
+        Me.BTN_Importar.TabIndex = 12
+        Me.BTN_Importar.Text = "Importar base de datos"
+        '
+        'BTN_RspaldoDB
+        '
+        Me.BTN_RspaldoDB.BorderRadius = 25
+        Me.BTN_RspaldoDB.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_RspaldoDB, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_RspaldoDB.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RspaldoDB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RspaldoDB.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RspaldoDB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RspaldoDB.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_RspaldoDB.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_RspaldoDB.ForeColor = System.Drawing.Color.White
+        Me.BTN_RspaldoDB.Image = CType(resources.GetObject("BTN_RspaldoDB.Image"), System.Drawing.Image)
+        Me.BTN_RspaldoDB.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_RspaldoDB.Location = New System.Drawing.Point(308, 22)
+        Me.BTN_RspaldoDB.Name = "BTN_RspaldoDB"
+        Me.BTN_RspaldoDB.Size = New System.Drawing.Size(276, 58)
+        Me.BTN_RspaldoDB.TabIndex = 11
+        Me.BTN_RspaldoDB.Text = "Respaldar base de datos"
+        '
+        'BTN_ActualizarCods
+        '
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ActualizarCods, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_ActualizarCods.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ActualizarCods.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ActualizarCods.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_ActualizarCods.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_ActualizarCods.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_ActualizarCods.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_ActualizarCods.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_ActualizarCods.ForeColor = System.Drawing.Color.White
+        Me.BTN_ActualizarCods.Image = CType(resources.GetObject("BTN_ActualizarCods.Image"), System.Drawing.Image)
+        Me.BTN_ActualizarCods.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_ActualizarCods.Location = New System.Drawing.Point(319, 0)
+        Me.BTN_ActualizarCods.Name = "BTN_ActualizarCods"
+        Me.BTN_ActualizarCods.Size = New System.Drawing.Size(334, 78)
+        Me.BTN_ActualizarCods.TabIndex = 99
+        Me.BTN_ActualizarCods.Text = "Actualizar"
+        '
+        'BTN_Regresar
+        '
+        Me.BTN_Regresar.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.BTN_Regresar, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_Regresar.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_Regresar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Regresar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Regresar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_Regresar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_Regresar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.BTN_Regresar.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BTN_Regresar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_Regresar.ForeColor = System.Drawing.Color.White
+        Me.BTN_Regresar.Image = CType(resources.GetObject("BTN_Regresar.Image"), System.Drawing.Image)
+        Me.BTN_Regresar.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Regresar.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_Regresar.Name = "BTN_Regresar"
+        Me.BTN_Regresar.Size = New System.Drawing.Size(322, 78)
+        Me.BTN_Regresar.TabIndex = 98
+        Me.BTN_Regresar.Text = "Regresar"
+        '
+        'BTN_ConfigRegHablador
+        '
+        Me.BTN_ConfigRegHablador.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ConfigRegHablador, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_ConfigRegHablador.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_ConfigRegHablador.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ConfigRegHablador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ConfigRegHablador.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_ConfigRegHablador.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_ConfigRegHablador.Dock = System.Windows.Forms.DockStyle.Left
+        Me.BTN_ConfigRegHablador.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BTN_ConfigRegHablador.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_ConfigRegHablador.ForeColor = System.Drawing.Color.White
+        Me.BTN_ConfigRegHablador.Image = CType(resources.GetObject("BTN_ConfigRegHablador.Image"), System.Drawing.Image)
+        Me.BTN_ConfigRegHablador.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_ConfigRegHablador.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_ConfigRegHablador.Name = "BTN_ConfigRegHablador"
+        Me.BTN_ConfigRegHablador.Size = New System.Drawing.Size(325, 69)
+        Me.BTN_ConfigRegHablador.TabIndex = 100
+        Me.BTN_ConfigRegHablador.Text = "Regresar"
+        '
+        'BTN_ActualizarHablador
+        '
+        Me.Guna2Transition1.SetDecoration(Me.BTN_ActualizarHablador, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_ActualizarHablador.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ActualizarHablador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_ActualizarHablador.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_ActualizarHablador.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_ActualizarHablador.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_ActualizarHablador.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_ActualizarHablador.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_ActualizarHablador.ForeColor = System.Drawing.Color.White
+        Me.BTN_ActualizarHablador.Image = CType(resources.GetObject("BTN_ActualizarHablador.Image"), System.Drawing.Image)
+        Me.BTN_ActualizarHablador.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_ActualizarHablador.Location = New System.Drawing.Point(323, 0)
+        Me.BTN_ActualizarHablador.Name = "BTN_ActualizarHablador"
+        Me.BTN_ActualizarHablador.Size = New System.Drawing.Size(330, 69)
+        Me.BTN_ActualizarHablador.TabIndex = 101
+        Me.BTN_ActualizarHablador.Text = "Actualizar"
+        '
+        'Guna2PictureBox1
+        '
+        Me.Guna2Transition1.SetDecoration(Me.Guna2PictureBox1, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Guna2PictureBox1.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.logoCompletoSFCommonTransparent
+        Me.Guna2PictureBox1.ImageRotate = 0!
+        Me.Guna2PictureBox1.Location = New System.Drawing.Point(320, -16)
+        Me.Guna2PictureBox1.Name = "Guna2PictureBox1"
+        Me.Guna2PictureBox1.Size = New System.Drawing.Size(315, 292)
+        Me.Guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Guna2PictureBox1.TabIndex = 119
+        Me.Guna2PictureBox1.TabStop = False
+        '
+        'btn_RegInfoConfig
+        '
+        Me.btn_RegInfoConfig.BorderColor = System.Drawing.Color.Red
+        Me.Guna2Transition1.SetDecoration(Me.btn_RegInfoConfig, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.btn_RegInfoConfig.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn_RegInfoConfig.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.btn_RegInfoConfig.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.btn_RegInfoConfig.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.btn_RegInfoConfig.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.btn_RegInfoConfig.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btn_RegInfoConfig.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btn_RegInfoConfig.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.btn_RegInfoConfig.ForeColor = System.Drawing.Color.White
+        Me.btn_RegInfoConfig.Image = CType(resources.GetObject("btn_RegInfoConfig.Image"), System.Drawing.Image)
+        Me.btn_RegInfoConfig.ImageSize = New System.Drawing.Size(40, 40)
+        Me.btn_RegInfoConfig.Location = New System.Drawing.Point(3, 338)
+        Me.btn_RegInfoConfig.Name = "btn_RegInfoConfig"
+        Me.btn_RegInfoConfig.Size = New System.Drawing.Size(647, 65)
+        Me.btn_RegInfoConfig.TabIndex = 118
+        Me.btn_RegInfoConfig.Text = "Regresar"
+        '
+        'BTN_CheckForUpdates
+        '
+        Me.BTN_CheckForUpdates.BorderRadius = 25
+        Me.BTN_CheckForUpdates.BorderThickness = 2
+        Me.Guna2Transition1.SetDecoration(Me.BTN_CheckForUpdates, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.BTN_CheckForUpdates.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_CheckForUpdates.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CheckForUpdates.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CheckForUpdates.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CheckForUpdates.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CheckForUpdates.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_CheckForUpdates.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_CheckForUpdates.ForeColor = System.Drawing.Color.White
+        Me.BTN_CheckForUpdates.Image = CType(resources.GetObject("BTN_CheckForUpdates.Image"), System.Drawing.Image)
+        Me.BTN_CheckForUpdates.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CheckForUpdates.Location = New System.Drawing.Point(398, 249)
+        Me.BTN_CheckForUpdates.Name = "BTN_CheckForUpdates"
+        Me.BTN_CheckForUpdates.Size = New System.Drawing.Size(237, 59)
+        Me.BTN_CheckForUpdates.TabIndex = 115
+        Me.BTN_CheckForUpdates.Text = "Buscar nuevas versiones"
+        '
+        'Guna2PictureBox2
+        '
+        Me.Guna2Transition1.SetDecoration(Me.Guna2PictureBox2, Guna.UI2.AnimatorNS.DecorationType.None)
+        Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
+        Me.Guna2PictureBox2.ImageRotate = 0!
+        Me.Guna2PictureBox2.Location = New System.Drawing.Point(149, -85)
+        Me.Guna2PictureBox2.Name = "Guna2PictureBox2"
+        Me.Guna2PictureBox2.Size = New System.Drawing.Size(363, 310)
+        Me.Guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Guna2PictureBox2.TabIndex = 55
+        Me.Guna2PictureBox2.TabStop = False
         '
         'ConfigGeneral
         '
@@ -1099,9 +1114,10 @@ Partial Class ConfigGeneral
         CType(Me.NUD_SizeProd, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabInfo.ResumeLayout(False)
         Me.tabInfo.PerformLayout()
-        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Guna2Panel3.ResumeLayout(False)
         CType(Me.CardLayout1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1170,4 +1186,5 @@ Partial Class ConfigGeneral
     Friend WithEvents Label19 As Label
     Friend WithEvents LBL_BackUpDIr As Label
     Friend WithEvents btn_RegInfoConfig As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents Guna2PictureBox1 As Guna.UI2.WinForms.Guna2PictureBox
 End Class

@@ -1,4 +1,6 @@
-﻿Module MSG
+﻿Imports System.Data.Entity.Core
+
+Module MSG
     Public Sub mensaje(texto As String, controles As MsgBoxStyle, Titulo As String)
         MsgBox(texto, controles, Titulo)
     End Sub
@@ -41,5 +43,13 @@
             Application.Restart()
         End If
     End Sub
+
+    Public Function msgGuardarCierre()
+        If MsgBox("Desea guardar el cierre de caja? ", vbOKCancel, "Guardar Cierre") = MsgBoxResult.Ok Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
 End Module

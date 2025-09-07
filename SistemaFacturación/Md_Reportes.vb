@@ -62,8 +62,8 @@ Module Md_Reportes
                                                                   "INNER JOIN clientes c ON c.ID = f.ID_Cliente " &
                                                                   "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin AND cobrada != 0;"
                                           Using cmd As New SQLiteCommand(consulta, db)
-                                              cmd.Parameters.Add(New SQLiteParameter("@fechaInicio", desde.ToString("yyyy-MM-dd")))
-                                              cmd.Parameters.Add(New SQLiteParameter("@fechaFin", hasta.AddDays(1).ToString("yyyy-MM-dd")))
+                                              cmd.Parameters.AddWithValue("@fechaInicio", desde)
+                                              cmd.Parameters.AddWithValue("@fechaFin", hasta)
 
                                               Using da As New SQLiteDataAdapter(cmd)
                                                   If t.Tables.Count > 0 Then
@@ -168,4 +168,112 @@ Module Md_Reportes
                                   Return listProductosMasVendidos
                               End Function)
     End Function
+
+#Region "Cierre de caja"
+
+    Public Async Function obtenerCierreCajaInicial(conn As String) As Task(Of Cls_CierreCaja)
+        'Se obtiene la información del cierre anterior
+        Dim infoCierreAnterior As DataTable = Await obtenerInfoCierreAnterior(conn)
+
+        'Se establecen los datos que se usan en caso de que no haya ningún cierre
+        Dim fechaHoy As Date = Date.Today
+        Dim fechaInicio As Date = New Date(fechaHoy.Year, fechaHoy.Month, fechaHoy.Day, 5, 0, 0)
+        Dim fechaFin As Date = DateTime.Now
+        Dim saldoTurnoAnterior As Integer = 0
+
+
+
+        If infoCierreAnterior.Rows.Count > 0 Then
+            'En caso de que ya exista un cierre anterior se obtiene la fecha de finalización de este
+            fechaInicio = infoCierreAnterior.Rows(0).Item("HoraFin")
+
+            'Se obtiene el saldo en caja del cierre anterior
+            saldoTurnoAnterior = infoCierreAnterior.Rows(0).Item("DineroSiguente")
+
+        End If
+
+        'Se obtiene la información relacionada con las ventas en la 
+        Dim listaVentas As List(Of Cls_Venta) = Await ObtenerListaVentas(conn, fechaInicio, fechaFin, T)
+        Dim ventasEfectivo As Decimal = 0
+        Dim ventasTarjeta As Decimal = 0
+        For Each venta As Cls_Venta In listaVentas
+            If venta.Tipo_venta = "Efectivo" Then
+                ventasEfectivo += venta.Total
+            ElseIf venta.Tipo_venta = "Mixto" Then
+                ventasEfectivo += venta.Efectivo
+                ventasTarjeta += venta.Tarjeta
+            Else
+                ventasTarjeta += venta.Total
+            End If
+        Next
+        Dim infoInicialCierre As New Cls_CierreCaja(fechaInicio, fechaFin, saldoTurnoAnterior, ventasEfectivo, ventasTarjeta)
+
+        Return infoInicialCierre
+    End Function
+
+    Private Async Function obtenerInfoCierreAnterior(conn As String) As Task(Of DataTable)
+        Return Await Task.Run(Function()
+                                  Dim T As New DataSet()
+                                  Using db As New SQLiteConnection(conn)
+                                      db.Open()
+                                      Dim consulta = "SELECT cc.Fecha_Hora_Fin As horaFin, cc.Saldo_Siguiente_Turno As dineroSiguente
+                            FROM CierreCaja cc
+                            ORDER BY cc.ID_Cierre DESC
+                            LIMIT 1;"
+                                      Using cmd As New SQLiteCommand(consulta, db)
+                                          Using da As New SQLiteDataAdapter(cmd)
+                                              da.Fill(T)
+                                          End Using
+                                      End Using
+                                  End Using
+
+                                  ' Verifica si la tabla 0 existe en el DataSet
+                                  If T.Tables.Count > 0 Then
+                                      ' Si existe, devuelve la tabla con los datos
+                                      Return T.Tables(0)
+                                  Else
+                                      ' Si no existe, devuelve una nueva DataTable vacía
+                                      Return New DataTable()
+                                  End If
+                              End Function)
+    End Function
+
+    Friend Async Function guardarNuevoCierre(conn As String, cierreInfo As Cls_CierreCaja) As Task(Of Boolean)
+        Return Await Task.Run(Function()
+                                  Try
+                                      Using db As New SQLiteConnection(conn)
+                                          db.Open()
+                                          Dim consulta = "INSERT INTO CierreCaja (Fecha_Hora_Inicio, Fecha_Hora_Fin, ID_Usuario, Saldo_Inicial, 
+                                 Ingreso_Efectivo, Ingreso_Tarjeta, Salidas_Efectivo, Efectivo_Contado, Saldo_Siguiente_Turno, Comentarios)
+                                 VALUES (@fecha_inicio, @fecha_fin, @idUsuario, @saldoInicial, @IngresoEfectivo, @ingresoTarjeta, 
+                                 @salidasEfectivo, @efectivoContado, @saldoSiguiente, @comentarios)"
+
+                                          Using cmd As New SQLiteCommand(consulta, db)
+                                              ' Se utiliza AddWithValue para que la librería maneje el tipo de dato
+                                              ' y se respeta el orden de los parámetros para evitar errores de mapeo
+                                              cmd.Parameters.AddWithValue("@fecha_inicio", cierreInfo.fecha_inicio)
+                                              cmd.Parameters.AddWithValue("@fecha_fin", cierreInfo.fecha_fin)
+                                              cmd.Parameters.AddWithValue("@idUsuario", idUsuActual)
+                                              cmd.Parameters.AddWithValue("@saldoInicial", cierreInfo.saldo_inicial)
+                                              cmd.Parameters.AddWithValue("@IngresoEfectivo", cierreInfo.ingresoEfectivo)
+                                              cmd.Parameters.AddWithValue("@ingresoTarjeta", cierreInfo.ingresoTarjeta)
+                                              cmd.Parameters.AddWithValue("@salidasEfectivo", cierreInfo.salidasEfectivo)
+                                              cmd.Parameters.AddWithValue("@efectivoContado", cierreInfo.efectivoContado)
+                                              cmd.Parameters.AddWithValue("@saldoSiguiente", cierreInfo.saldoSiguiente)
+                                              cmd.Parameters.AddWithValue("@comentarios", cierreInfo.comentarios)
+
+                                              If cmd.ExecuteNonQuery > 0 Then
+                                                  Return True
+                                              Else
+                                                  Return False
+                                              End If
+                                          End Using
+                                      End Using
+                                  Catch ex As Exception
+                                      Console.WriteLine("Error al guardar el cierre de caja: " & ex.Message)
+                                      Return False
+                                  End Try
+                              End Function)
+    End Function
+#End Region
 End Module

@@ -221,18 +221,19 @@ Module Md_Inicializacion
 
                 'Se crea la nueva tabla cierre_caja si no existe
                 SQL = "CREATE TABLE IF NOT EXISTS CierreCaja (
-                        ID_Cierre INTEGER PRIMARY KEY,
-                        Fecha_Hora_Inicio TEXT NOT NULL,
-                        Fecha_Hora_Fin TEXT NOT NULL,
-                        ID_Usuario INTEGER NOT NULL,
-                        Saldo_Inicial REAL NOT NULL,
-                        Ingreso_Efectivo REAL NOT NULL,
-                        Ingreso_Tarjeta REAL NOT NULL,
-                        Salidas_Efectivo REAL NOT NULL,
-                        Efectivo_Contado REAL NOT NULL,
-                        Comentarios TEXT,
-                        FOREIGN KEY(ID_Usuario) REFERENCES Usuarios(ID_Usuario)
-                    );"
+                            ID_Cierre INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Fecha_Hora_Inicio TEXT NOT NULL,
+                            Fecha_Hora_Fin TEXT NOT NULL,
+                            ID_Usuario INTEGER NOT NULL,
+                            Saldo_Inicial REAL NOT NULL,
+                            Ingreso_Efectivo REAL NOT NULL,
+                            Ingreso_Tarjeta REAL NOT NULL,
+                            Salidas_Efectivo REAL NOT NULL,
+                            Efectivo_Contado REAL NOT NULL,
+                            Saldo_Siguiente_Turno Real NOT NULL,
+                            Comentarios TEXT,
+                            FOREIGN KEY(ID_Usuario) REFERENCES Usuarios(ID_Usuario)
+                        );"
                 cmd = New SQLiteCommand(SQL, db)
                 cmd.ExecuteNonQuery()
             End Using
