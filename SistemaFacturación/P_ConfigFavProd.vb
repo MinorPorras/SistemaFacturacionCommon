@@ -213,7 +213,7 @@ Public Class P_ConfigFavProd
         End If
     End Sub
 
-    Private Sub BTN_Actualizar_Click(sender As Object, e As EventArgs)
+    Private Sub BTN_Actualizar_Click(sender As Object, e As EventArgs) Handles BTN_Actualizar.Click
         Dim cmd As New SQLiteCommand()
         ' Usa tu clase de conexión a la base de datos
         Dim conn As New SQLiteConnection(ConfigurationManager.ConnectionStrings("conexionString").ConnectionString)
@@ -255,9 +255,5 @@ Public Class P_ConfigFavProd
             End If
             P_Caja.LoadBtnFav()
         End Try
-    End Sub
-
-    Private Sub DGV_FavProd_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_FavProd.CellContentClick
-
     End Sub
 End Class

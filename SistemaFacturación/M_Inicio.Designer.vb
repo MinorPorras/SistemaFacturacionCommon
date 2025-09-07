@@ -65,10 +65,10 @@ Partial Class M_Inicio
         Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
         Me.BTN_LogOut = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.BTN_Config = New Guna.UI2.WinForms.Guna2ImageButton()
+        Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Me.Guna2Panel3 = New Guna.UI2.WinForms.Guna2Panel()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
-        Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DGV_LRebPed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -85,7 +85,7 @@ Partial Class M_Inicio
         '
         Me.Guna2PictureBox1.Image = CType(resources.GetObject("Guna2PictureBox1.Image"), System.Drawing.Image)
         Me.Guna2PictureBox1.ImageRotate = 0!
-        Me.Guna2PictureBox1.Location = New System.Drawing.Point(388, -3)
+        Me.Guna2PictureBox1.Location = New System.Drawing.Point(371, -3)
         Me.Guna2PictureBox1.Name = "Guna2PictureBox1"
         Me.Guna2PictureBox1.Size = New System.Drawing.Size(415, 183)
         Me.Guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -527,6 +527,22 @@ Partial Class M_Inicio
         Me.BTN_Config.Size = New System.Drawing.Size(58, 54)
         Me.BTN_Config.TabIndex = 123
         '
+        'BTN_CerrarApp
+        '
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.ImageRotate = 0!
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
+        Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_CerrarApp.TabIndex = 122
+        '
         'Guna2Panel1
         '
         Me.Guna2Panel1.Controls.Add(Me.BTN_CajaVenta)
@@ -551,22 +567,6 @@ Partial Class M_Inicio
         Me.Guna2BorderlessForm1.ContainerControl = Me
         Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
         Me.Guna2BorderlessForm1.TransparentWhileDrag = True
-        '
-        'BTN_CerrarApp
-        '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
-        Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
-        Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
-        Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
-        Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
-        Me.BTN_CerrarApp.TabIndex = 122
         '
         'M_Inicio
         '

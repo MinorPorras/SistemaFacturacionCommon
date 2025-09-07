@@ -74,6 +74,8 @@ Partial Class P_ReporteVentas
         Me.TXT_MejorProductoNombre = New Guna.UI2.WinForms.Guna2TextBox()
         Me.PAN_ReporteProductoInputContainer = New Guna.UI2.WinForms.Guna2Panel()
         Me.Guna2GroupBox3 = New Guna.UI2.WinForms.Guna2GroupBox()
+        Me.RDB_OrderByCant = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
+        Me.RDB_OrderByTotal = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
         Me.Guna2HtmlLabel15 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.BTN_GenReporteProductos = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel13 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -83,8 +85,80 @@ Partial Class P_ReporteVentas
         Me.NUD_LimitReporteProducto = New Guna.UI2.WinForms.Guna2NumericUpDown()
         Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TAB_CierreCaja = New System.Windows.Forms.TabPage()
-        Me.RDB_OrderByTotal = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
-        Me.RDB_OrderByCant = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
+        Me.TBL_DivCierreCaja = New System.Windows.Forms.TableLayoutPanel()
+        Me.PAN_EfectivoReal = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TBL_IngresoEfectivoReal = New System.Windows.Forms.TableLayoutPanel()
+        Me.PAN_Moneda5 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Moneda5 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel28 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Billete1 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Billete1 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel22 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Moneda10 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Moneda10 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel27 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Billete2 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Billete2 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel21 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Moneda25 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Moneda25 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel26 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Billete5 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Billete5 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel20 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.Guna2Panel6 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.PAN_Moneda50 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Moneda50 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel25 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Billete10 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Billete10 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel19 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Moneda100 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Moneda100 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel24 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Billete20 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Billete20 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel18 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Moneda500 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Moneda500 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel23 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Billete50 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.NUD_Billete50 = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel17 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_FooterEfectivoReal = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TXT_EfectivoReal = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel29 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_HeaderEfectivoReal = New Guna.UI2.WinForms.Guna2Panel()
+        Me.BTN_CCLimpiarCierre = New Guna.UI2.WinForms.Guna2Button()
+        Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PAN_Cell2InfoCierre = New Guna.UI2.WinForms.Guna2Panel()
+        Me.Guna2GroupBox5 = New Guna.UI2.WinForms.Guna2GroupBox()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Guna2Panel3 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TXT_CCDiferenciaAbsoluta = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel35 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.Guna2Panel4 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TXT_CCDiferenciaPorcentual = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel38 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.TXT_CCComentario = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel37 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.NUD_CCSaldoSiguienteTurno = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.Guna2HtmlLabel36 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.NUD_SalidasEfectivo = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.TXT_CCTotalEsperado = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel34 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Guna2Button3 = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_GenerarCierre = New Guna.UI2.WinForms.Guna2Button()
+        Me.Guna2HtmlLabel33 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.Guna2GroupBox4 = New Guna.UI2.WinForms.Guna2GroupBox()
+        Me.TXT_CCVentaTarjeta = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel32 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.TXT_CCVentaEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel31 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.TXT_CCSaldoInicial = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2HtmlLabel30 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TAB_Reportes.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -100,9 +174,50 @@ Partial Class P_ReporteVentas
         Me.DGV_MejorProducto.SuspendLayout()
         Me.PAN_ReporteProductoInputContainer.SuspendLayout()
         Me.Guna2GroupBox3.SuspendLayout()
-        CType(Me.NUD_LimitReporteProducto, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RDB_OrderByTotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RDB_OrderByCant, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RDB_OrderByTotal, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_LimitReporteProducto, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TAB_CierreCaja.SuspendLayout()
+        Me.TBL_DivCierreCaja.SuspendLayout()
+        Me.PAN_EfectivoReal.SuspendLayout()
+        Me.TBL_IngresoEfectivoReal.SuspendLayout()
+        Me.PAN_Moneda5.SuspendLayout()
+        CType(Me.NUD_Moneda5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Billete1.SuspendLayout()
+        CType(Me.NUD_Billete1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Moneda10.SuspendLayout()
+        CType(Me.NUD_Moneda10, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Billete2.SuspendLayout()
+        CType(Me.NUD_Billete2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Moneda25.SuspendLayout()
+        CType(Me.NUD_Moneda25, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Billete5.SuspendLayout()
+        CType(Me.NUD_Billete5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Guna2Panel6.SuspendLayout()
+        Me.PAN_Moneda50.SuspendLayout()
+        CType(Me.NUD_Moneda50, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Billete10.SuspendLayout()
+        CType(Me.NUD_Billete10, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Moneda100.SuspendLayout()
+        CType(Me.NUD_Moneda100, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Billete20.SuspendLayout()
+        CType(Me.NUD_Billete20, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Moneda500.SuspendLayout()
+        CType(Me.NUD_Moneda500, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_Billete50.SuspendLayout()
+        CType(Me.NUD_Billete50, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PAN_FooterEfectivoReal.SuspendLayout()
+        Me.PAN_HeaderEfectivoReal.SuspendLayout()
+        Me.PAN_Cell2InfoCierre.SuspendLayout()
+        Me.Guna2GroupBox5.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.Guna2Panel3.SuspendLayout()
+        Me.Guna2Panel4.SuspendLayout()
+        CType(Me.NUD_CCSaldoSiguienteTurno, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NUD_SalidasEfectivo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Guna2Panel2.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.Guna2GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'TAB_Reportes
@@ -982,6 +1097,34 @@ Partial Class P_ReporteVentas
         Me.Guna2GroupBox3.Text = "Ordenar por:"
         Me.Guna2GroupBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'RDB_OrderByCant
+        '
+        Me.RDB_OrderByCant.AccessibilityEnabled = True
+        Me.RDB_OrderByCant.BeforeTouchSize = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByCant.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.RDB_OrderByCant.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RDB_OrderByCant.ForeColor = System.Drawing.Color.White
+        Me.RDB_OrderByCant.Location = New System.Drawing.Point(0, 46)
+        Me.RDB_OrderByCant.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
+        Me.RDB_OrderByCant.Name = "RDB_OrderByCant"
+        Me.RDB_OrderByCant.Size = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByCant.TabIndex = 1
+        Me.RDB_OrderByCant.Text = "Cantidad"
+        '
+        'RDB_OrderByTotal
+        '
+        Me.RDB_OrderByTotal.AccessibilityEnabled = True
+        Me.RDB_OrderByTotal.BeforeTouchSize = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByTotal.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.RDB_OrderByTotal.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RDB_OrderByTotal.ForeColor = System.Drawing.Color.White
+        Me.RDB_OrderByTotal.Location = New System.Drawing.Point(0, 80)
+        Me.RDB_OrderByTotal.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
+        Me.RDB_OrderByTotal.Name = "RDB_OrderByTotal"
+        Me.RDB_OrderByTotal.Size = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByTotal.TabIndex = 0
+        Me.RDB_OrderByTotal.Text = "Total de ventas"
+        '
         'Guna2HtmlLabel15
         '
         Me.Guna2HtmlLabel15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1112,6 +1255,7 @@ Partial Class P_ReporteVentas
         'TAB_CierreCaja
         '
         Me.TAB_CierreCaja.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.TAB_CierreCaja.Controls.Add(Me.TBL_DivCierreCaja)
         Me.TAB_CierreCaja.Location = New System.Drawing.Point(4, 44)
         Me.TAB_CierreCaja.Name = "TAB_CierreCaja"
         Me.TAB_CierreCaja.Padding = New System.Windows.Forms.Padding(3)
@@ -1119,33 +1263,1107 @@ Partial Class P_ReporteVentas
         Me.TAB_CierreCaja.TabIndex = 2
         Me.TAB_CierreCaja.Text = "Cierre de caja"
         '
-        'RDB_OrderByTotal
+        'TBL_DivCierreCaja
         '
-        Me.RDB_OrderByTotal.AccessibilityEnabled = True
-        Me.RDB_OrderByTotal.BeforeTouchSize = New System.Drawing.Size(282, 34)
-        Me.RDB_OrderByTotal.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.RDB_OrderByTotal.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RDB_OrderByTotal.ForeColor = System.Drawing.Color.White
-        Me.RDB_OrderByTotal.Location = New System.Drawing.Point(0, 80)
-        Me.RDB_OrderByTotal.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
-        Me.RDB_OrderByTotal.Name = "RDB_OrderByTotal"
-        Me.RDB_OrderByTotal.Size = New System.Drawing.Size(282, 34)
-        Me.RDB_OrderByTotal.TabIndex = 0
-        Me.RDB_OrderByTotal.Text = "Total de ventas"
+        Me.TBL_DivCierreCaja.ColumnCount = 2
+        Me.TBL_DivCierreCaja.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TBL_DivCierreCaja.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TBL_DivCierreCaja.Controls.Add(Me.PAN_EfectivoReal, 0, 0)
+        Me.TBL_DivCierreCaja.Controls.Add(Me.PAN_Cell2InfoCierre, 1, 0)
+        Me.TBL_DivCierreCaja.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TBL_DivCierreCaja.Location = New System.Drawing.Point(3, 3)
+        Me.TBL_DivCierreCaja.Name = "TBL_DivCierreCaja"
+        Me.TBL_DivCierreCaja.RowCount = 1
+        Me.TBL_DivCierreCaja.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TBL_DivCierreCaja.Size = New System.Drawing.Size(1240, 700)
+        Me.TBL_DivCierreCaja.TabIndex = 0
         '
-        'RDB_OrderByCant
+        'PAN_EfectivoReal
         '
-        Me.RDB_OrderByCant.AccessibilityEnabled = True
-        Me.RDB_OrderByCant.BeforeTouchSize = New System.Drawing.Size(282, 34)
-        Me.RDB_OrderByCant.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.RDB_OrderByCant.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RDB_OrderByCant.ForeColor = System.Drawing.Color.White
-        Me.RDB_OrderByCant.Location = New System.Drawing.Point(0, 46)
-        Me.RDB_OrderByCant.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
-        Me.RDB_OrderByCant.Name = "RDB_OrderByCant"
-        Me.RDB_OrderByCant.Size = New System.Drawing.Size(282, 34)
-        Me.RDB_OrderByCant.TabIndex = 1
-        Me.RDB_OrderByCant.Text = "Cantidad"
+        Me.PAN_EfectivoReal.Controls.Add(Me.TBL_IngresoEfectivoReal)
+        Me.PAN_EfectivoReal.Controls.Add(Me.PAN_FooterEfectivoReal)
+        Me.PAN_EfectivoReal.Controls.Add(Me.PAN_HeaderEfectivoReal)
+        Me.PAN_EfectivoReal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_EfectivoReal.Location = New System.Drawing.Point(3, 3)
+        Me.PAN_EfectivoReal.Name = "PAN_EfectivoReal"
+        Me.PAN_EfectivoReal.Size = New System.Drawing.Size(614, 694)
+        Me.PAN_EfectivoReal.TabIndex = 0
+        '
+        'TBL_IngresoEfectivoReal
+        '
+        Me.TBL_IngresoEfectivoReal.ColumnCount = 2
+        Me.TBL_IngresoEfectivoReal.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TBL_IngresoEfectivoReal.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Moneda5, 1, 5)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Billete1, 0, 5)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Moneda10, 1, 4)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Billete2, 0, 4)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Moneda25, 1, 3)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Billete5, 0, 3)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.Guna2Panel6, 1, 2)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Billete10, 0, 2)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Moneda100, 1, 1)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Billete20, 0, 1)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Moneda500, 1, 0)
+        Me.TBL_IngresoEfectivoReal.Controls.Add(Me.PAN_Billete50, 0, 0)
+        Me.TBL_IngresoEfectivoReal.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TBL_IngresoEfectivoReal.Location = New System.Drawing.Point(0, 66)
+        Me.TBL_IngresoEfectivoReal.Name = "TBL_IngresoEfectivoReal"
+        Me.TBL_IngresoEfectivoReal.RowCount = 6
+        Me.TBL_IngresoEfectivoReal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TBL_IngresoEfectivoReal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TBL_IngresoEfectivoReal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TBL_IngresoEfectivoReal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TBL_IngresoEfectivoReal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TBL_IngresoEfectivoReal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TBL_IngresoEfectivoReal.Size = New System.Drawing.Size(614, 562)
+        Me.TBL_IngresoEfectivoReal.TabIndex = 10
+        '
+        'PAN_Moneda5
+        '
+        Me.PAN_Moneda5.Controls.Add(Me.NUD_Moneda5)
+        Me.PAN_Moneda5.Controls.Add(Me.Guna2HtmlLabel28)
+        Me.PAN_Moneda5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Moneda5.Location = New System.Drawing.Point(310, 468)
+        Me.PAN_Moneda5.Name = "PAN_Moneda5"
+        Me.PAN_Moneda5.Size = New System.Drawing.Size(301, 91)
+        Me.PAN_Moneda5.TabIndex = 11
+        '
+        'NUD_Moneda5
+        '
+        Me.NUD_Moneda5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Moneda5.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Moneda5.BorderRadius = 10
+        Me.NUD_Moneda5.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Moneda5.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Moneda5.Location = New System.Drawing.Point(19, 36)
+        Me.NUD_Moneda5.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Moneda5.Name = "NUD_Moneda5"
+        Me.NUD_Moneda5.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Moneda5.TabIndex = 153
+        Me.NUD_Moneda5.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel28
+        '
+        Me.Guna2HtmlLabel28.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel28.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel28.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel28.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel28.Location = New System.Drawing.Point(19, 7)
+        Me.Guna2HtmlLabel28.Name = "Guna2HtmlLabel28"
+        Me.Guna2HtmlLabel28.Size = New System.Drawing.Size(122, 23)
+        Me.Guna2HtmlLabel28.TabIndex = 152
+        Me.Guna2HtmlLabel28.Text = "Monedas de ₡5:"
+        Me.Guna2HtmlLabel28.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Billete1
+        '
+        Me.PAN_Billete1.Controls.Add(Me.NUD_Billete1)
+        Me.PAN_Billete1.Controls.Add(Me.Guna2HtmlLabel22)
+        Me.PAN_Billete1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Billete1.Location = New System.Drawing.Point(3, 468)
+        Me.PAN_Billete1.Name = "PAN_Billete1"
+        Me.PAN_Billete1.Size = New System.Drawing.Size(301, 91)
+        Me.PAN_Billete1.TabIndex = 10
+        '
+        'NUD_Billete1
+        '
+        Me.NUD_Billete1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Billete1.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Billete1.BorderRadius = 10
+        Me.NUD_Billete1.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Billete1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Billete1.Location = New System.Drawing.Point(19, 34)
+        Me.NUD_Billete1.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Billete1.Name = "NUD_Billete1"
+        Me.NUD_Billete1.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Billete1.TabIndex = 149
+        Me.NUD_Billete1.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel22
+        '
+        Me.Guna2HtmlLabel22.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel22.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel22.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel22.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel22.Location = New System.Drawing.Point(19, 5)
+        Me.Guna2HtmlLabel22.Name = "Guna2HtmlLabel22"
+        Me.Guna2HtmlLabel22.Size = New System.Drawing.Size(139, 23)
+        Me.Guna2HtmlLabel22.TabIndex = 148
+        Me.Guna2HtmlLabel22.Text = "Billetes de ₡1 000:"
+        Me.Guna2HtmlLabel22.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Moneda10
+        '
+        Me.PAN_Moneda10.Controls.Add(Me.NUD_Moneda10)
+        Me.PAN_Moneda10.Controls.Add(Me.Guna2HtmlLabel27)
+        Me.PAN_Moneda10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Moneda10.Location = New System.Drawing.Point(310, 375)
+        Me.PAN_Moneda10.Name = "PAN_Moneda10"
+        Me.PAN_Moneda10.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Moneda10.TabIndex = 9
+        '
+        'NUD_Moneda10
+        '
+        Me.NUD_Moneda10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Moneda10.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Moneda10.BorderRadius = 10
+        Me.NUD_Moneda10.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Moneda10.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Moneda10.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Moneda10.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Moneda10.Name = "NUD_Moneda10"
+        Me.NUD_Moneda10.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Moneda10.TabIndex = 153
+        Me.NUD_Moneda10.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel27
+        '
+        Me.Guna2HtmlLabel27.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel27.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel27.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel27.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel27.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel27.Name = "Guna2HtmlLabel27"
+        Me.Guna2HtmlLabel27.Size = New System.Drawing.Size(131, 23)
+        Me.Guna2HtmlLabel27.TabIndex = 152
+        Me.Guna2HtmlLabel27.Text = "Monedas de ₡10:"
+        Me.Guna2HtmlLabel27.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Billete2
+        '
+        Me.PAN_Billete2.Controls.Add(Me.NUD_Billete2)
+        Me.PAN_Billete2.Controls.Add(Me.Guna2HtmlLabel21)
+        Me.PAN_Billete2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Billete2.Location = New System.Drawing.Point(3, 375)
+        Me.PAN_Billete2.Name = "PAN_Billete2"
+        Me.PAN_Billete2.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Billete2.TabIndex = 8
+        '
+        'NUD_Billete2
+        '
+        Me.NUD_Billete2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Billete2.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Billete2.BorderRadius = 10
+        Me.NUD_Billete2.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Billete2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Billete2.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Billete2.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Billete2.Name = "NUD_Billete2"
+        Me.NUD_Billete2.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Billete2.TabIndex = 149
+        Me.NUD_Billete2.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel21
+        '
+        Me.Guna2HtmlLabel21.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel21.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel21.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel21.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel21.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel21.Name = "Guna2HtmlLabel21"
+        Me.Guna2HtmlLabel21.Size = New System.Drawing.Size(139, 23)
+        Me.Guna2HtmlLabel21.TabIndex = 148
+        Me.Guna2HtmlLabel21.Text = "Billetes de ₡2 000:"
+        Me.Guna2HtmlLabel21.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Moneda25
+        '
+        Me.PAN_Moneda25.Controls.Add(Me.NUD_Moneda25)
+        Me.PAN_Moneda25.Controls.Add(Me.Guna2HtmlLabel26)
+        Me.PAN_Moneda25.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Moneda25.Location = New System.Drawing.Point(310, 282)
+        Me.PAN_Moneda25.Name = "PAN_Moneda25"
+        Me.PAN_Moneda25.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Moneda25.TabIndex = 7
+        '
+        'NUD_Moneda25
+        '
+        Me.NUD_Moneda25.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Moneda25.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Moneda25.BorderRadius = 10
+        Me.NUD_Moneda25.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Moneda25.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Moneda25.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Moneda25.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Moneda25.Name = "NUD_Moneda25"
+        Me.NUD_Moneda25.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Moneda25.TabIndex = 153
+        Me.NUD_Moneda25.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel26
+        '
+        Me.Guna2HtmlLabel26.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel26.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel26.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel26.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel26.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel26.Name = "Guna2HtmlLabel26"
+        Me.Guna2HtmlLabel26.Size = New System.Drawing.Size(131, 23)
+        Me.Guna2HtmlLabel26.TabIndex = 152
+        Me.Guna2HtmlLabel26.Text = "Monedas de ₡25:"
+        Me.Guna2HtmlLabel26.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Billete5
+        '
+        Me.PAN_Billete5.Controls.Add(Me.NUD_Billete5)
+        Me.PAN_Billete5.Controls.Add(Me.Guna2HtmlLabel20)
+        Me.PAN_Billete5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Billete5.Location = New System.Drawing.Point(3, 282)
+        Me.PAN_Billete5.Name = "PAN_Billete5"
+        Me.PAN_Billete5.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Billete5.TabIndex = 6
+        '
+        'NUD_Billete5
+        '
+        Me.NUD_Billete5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Billete5.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Billete5.BorderRadius = 10
+        Me.NUD_Billete5.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Billete5.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Billete5.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Billete5.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Billete5.Name = "NUD_Billete5"
+        Me.NUD_Billete5.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Billete5.TabIndex = 149
+        Me.NUD_Billete5.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel20
+        '
+        Me.Guna2HtmlLabel20.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel20.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel20.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel20.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel20.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel20.Name = "Guna2HtmlLabel20"
+        Me.Guna2HtmlLabel20.Size = New System.Drawing.Size(139, 23)
+        Me.Guna2HtmlLabel20.TabIndex = 148
+        Me.Guna2HtmlLabel20.Text = "Billetes de ₡5 000:"
+        Me.Guna2HtmlLabel20.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'Guna2Panel6
+        '
+        Me.Guna2Panel6.Controls.Add(Me.PAN_Moneda50)
+        Me.Guna2Panel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Guna2Panel6.Location = New System.Drawing.Point(310, 189)
+        Me.Guna2Panel6.Name = "Guna2Panel6"
+        Me.Guna2Panel6.Size = New System.Drawing.Size(301, 87)
+        Me.Guna2Panel6.TabIndex = 5
+        '
+        'PAN_Moneda50
+        '
+        Me.PAN_Moneda50.Controls.Add(Me.NUD_Moneda50)
+        Me.PAN_Moneda50.Controls.Add(Me.Guna2HtmlLabel25)
+        Me.PAN_Moneda50.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Moneda50.Location = New System.Drawing.Point(0, 0)
+        Me.PAN_Moneda50.Name = "PAN_Moneda50"
+        Me.PAN_Moneda50.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Moneda50.TabIndex = 1
+        '
+        'NUD_Moneda50
+        '
+        Me.NUD_Moneda50.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Moneda50.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Moneda50.BorderRadius = 10
+        Me.NUD_Moneda50.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Moneda50.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Moneda50.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Moneda50.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Moneda50.Name = "NUD_Moneda50"
+        Me.NUD_Moneda50.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Moneda50.TabIndex = 153
+        Me.NUD_Moneda50.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel25
+        '
+        Me.Guna2HtmlLabel25.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel25.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel25.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel25.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel25.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel25.Name = "Guna2HtmlLabel25"
+        Me.Guna2HtmlLabel25.Size = New System.Drawing.Size(131, 23)
+        Me.Guna2HtmlLabel25.TabIndex = 152
+        Me.Guna2HtmlLabel25.Text = "Monedas de ₡50:"
+        Me.Guna2HtmlLabel25.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Billete10
+        '
+        Me.PAN_Billete10.Controls.Add(Me.NUD_Billete10)
+        Me.PAN_Billete10.Controls.Add(Me.Guna2HtmlLabel19)
+        Me.PAN_Billete10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Billete10.Location = New System.Drawing.Point(3, 189)
+        Me.PAN_Billete10.Name = "PAN_Billete10"
+        Me.PAN_Billete10.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Billete10.TabIndex = 4
+        '
+        'NUD_Billete10
+        '
+        Me.NUD_Billete10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Billete10.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Billete10.BorderRadius = 10
+        Me.NUD_Billete10.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Billete10.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Billete10.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Billete10.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Billete10.Name = "NUD_Billete10"
+        Me.NUD_Billete10.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Billete10.TabIndex = 149
+        Me.NUD_Billete10.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel19
+        '
+        Me.Guna2HtmlLabel19.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel19.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel19.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel19.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel19.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel19.Name = "Guna2HtmlLabel19"
+        Me.Guna2HtmlLabel19.Size = New System.Drawing.Size(148, 23)
+        Me.Guna2HtmlLabel19.TabIndex = 148
+        Me.Guna2HtmlLabel19.Text = "Billetes de ₡10 000:"
+        Me.Guna2HtmlLabel19.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Moneda100
+        '
+        Me.PAN_Moneda100.Controls.Add(Me.NUD_Moneda100)
+        Me.PAN_Moneda100.Controls.Add(Me.Guna2HtmlLabel24)
+        Me.PAN_Moneda100.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Moneda100.Location = New System.Drawing.Point(310, 96)
+        Me.PAN_Moneda100.Name = "PAN_Moneda100"
+        Me.PAN_Moneda100.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Moneda100.TabIndex = 3
+        '
+        'NUD_Moneda100
+        '
+        Me.NUD_Moneda100.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Moneda100.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Moneda100.BorderRadius = 10
+        Me.NUD_Moneda100.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Moneda100.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Moneda100.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Moneda100.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Moneda100.Name = "NUD_Moneda100"
+        Me.NUD_Moneda100.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Moneda100.TabIndex = 153
+        Me.NUD_Moneda100.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel24
+        '
+        Me.Guna2HtmlLabel24.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel24.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel24.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel24.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel24.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel24.Name = "Guna2HtmlLabel24"
+        Me.Guna2HtmlLabel24.Size = New System.Drawing.Size(140, 23)
+        Me.Guna2HtmlLabel24.TabIndex = 152
+        Me.Guna2HtmlLabel24.Text = "Monedas de ₡100:"
+        Me.Guna2HtmlLabel24.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Billete20
+        '
+        Me.PAN_Billete20.Controls.Add(Me.NUD_Billete20)
+        Me.PAN_Billete20.Controls.Add(Me.Guna2HtmlLabel18)
+        Me.PAN_Billete20.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Billete20.Location = New System.Drawing.Point(3, 96)
+        Me.PAN_Billete20.Name = "PAN_Billete20"
+        Me.PAN_Billete20.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Billete20.TabIndex = 2
+        '
+        'NUD_Billete20
+        '
+        Me.NUD_Billete20.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Billete20.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Billete20.BorderRadius = 10
+        Me.NUD_Billete20.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Billete20.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Billete20.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Billete20.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Billete20.Name = "NUD_Billete20"
+        Me.NUD_Billete20.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Billete20.TabIndex = 149
+        Me.NUD_Billete20.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel18
+        '
+        Me.Guna2HtmlLabel18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel18.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel18.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel18.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel18.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel18.Name = "Guna2HtmlLabel18"
+        Me.Guna2HtmlLabel18.Size = New System.Drawing.Size(148, 23)
+        Me.Guna2HtmlLabel18.TabIndex = 148
+        Me.Guna2HtmlLabel18.Text = "Billetes de ₡20 000:"
+        Me.Guna2HtmlLabel18.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Moneda500
+        '
+        Me.PAN_Moneda500.Controls.Add(Me.NUD_Moneda500)
+        Me.PAN_Moneda500.Controls.Add(Me.Guna2HtmlLabel23)
+        Me.PAN_Moneda500.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Moneda500.Location = New System.Drawing.Point(310, 3)
+        Me.PAN_Moneda500.Name = "PAN_Moneda500"
+        Me.PAN_Moneda500.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Moneda500.TabIndex = 1
+        '
+        'NUD_Moneda500
+        '
+        Me.NUD_Moneda500.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Moneda500.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Moneda500.BorderRadius = 10
+        Me.NUD_Moneda500.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Moneda500.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Moneda500.Location = New System.Drawing.Point(19, 32)
+        Me.NUD_Moneda500.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Moneda500.Name = "NUD_Moneda500"
+        Me.NUD_Moneda500.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Moneda500.TabIndex = 151
+        Me.NUD_Moneda500.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel23
+        '
+        Me.Guna2HtmlLabel23.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel23.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel23.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel23.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel23.Location = New System.Drawing.Point(19, 3)
+        Me.Guna2HtmlLabel23.Name = "Guna2HtmlLabel23"
+        Me.Guna2HtmlLabel23.Size = New System.Drawing.Size(140, 23)
+        Me.Guna2HtmlLabel23.TabIndex = 150
+        Me.Guna2HtmlLabel23.Text = "Monedas de ₡500:"
+        Me.Guna2HtmlLabel23.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Billete50
+        '
+        Me.PAN_Billete50.Controls.Add(Me.NUD_Billete50)
+        Me.PAN_Billete50.Controls.Add(Me.Guna2HtmlLabel17)
+        Me.PAN_Billete50.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Billete50.Location = New System.Drawing.Point(3, 3)
+        Me.PAN_Billete50.Name = "PAN_Billete50"
+        Me.PAN_Billete50.Size = New System.Drawing.Size(301, 87)
+        Me.PAN_Billete50.TabIndex = 0
+        '
+        'NUD_Billete50
+        '
+        Me.NUD_Billete50.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_Billete50.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_Billete50.BorderRadius = 10
+        Me.NUD_Billete50.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_Billete50.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_Billete50.Location = New System.Drawing.Point(17, 32)
+        Me.NUD_Billete50.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NUD_Billete50.Name = "NUD_Billete50"
+        Me.NUD_Billete50.Size = New System.Drawing.Size(263, 36)
+        Me.NUD_Billete50.TabIndex = 147
+        Me.NUD_Billete50.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel17
+        '
+        Me.Guna2HtmlLabel17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel17.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel17.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Guna2HtmlLabel17.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(17, 3)
+        Me.Guna2HtmlLabel17.Name = "Guna2HtmlLabel17"
+        Me.Guna2HtmlLabel17.Size = New System.Drawing.Size(148, 23)
+        Me.Guna2HtmlLabel17.TabIndex = 146
+        Me.Guna2HtmlLabel17.Text = "Billetes de ₡50 000:"
+        Me.Guna2HtmlLabel17.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_FooterEfectivoReal
+        '
+        Me.PAN_FooterEfectivoReal.Controls.Add(Me.TXT_EfectivoReal)
+        Me.PAN_FooterEfectivoReal.Controls.Add(Me.Guna2HtmlLabel29)
+        Me.PAN_FooterEfectivoReal.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.PAN_FooterEfectivoReal.Location = New System.Drawing.Point(0, 628)
+        Me.PAN_FooterEfectivoReal.Name = "PAN_FooterEfectivoReal"
+        Me.PAN_FooterEfectivoReal.Size = New System.Drawing.Size(614, 66)
+        Me.PAN_FooterEfectivoReal.TabIndex = 9
+        '
+        'TXT_EfectivoReal
+        '
+        Me.TXT_EfectivoReal.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TXT_EfectivoReal.BorderRadius = 10
+        Me.TXT_EfectivoReal.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_EfectivoReal.DefaultText = ""
+        Me.TXT_EfectivoReal.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_EfectivoReal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_EfectivoReal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_EfectivoReal.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_EfectivoReal.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_EfectivoReal.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_EfectivoReal.ForeColor = System.Drawing.Color.Black
+        Me.TXT_EfectivoReal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_EfectivoReal.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_EfectivoReal.Location = New System.Drawing.Point(278, 13)
+        Me.TXT_EfectivoReal.Name = "TXT_EfectivoReal"
+        Me.TXT_EfectivoReal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_EfectivoReal.PlaceholderText = ""
+        Me.TXT_EfectivoReal.ReadOnly = True
+        Me.TXT_EfectivoReal.SelectedText = ""
+        Me.TXT_EfectivoReal.Size = New System.Drawing.Size(314, 42)
+        Me.TXT_EfectivoReal.TabIndex = 143
+        '
+        'Guna2HtmlLabel29
+        '
+        Me.Guna2HtmlLabel29.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel29.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel29.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel29.Location = New System.Drawing.Point(34, 16)
+        Me.Guna2HtmlLabel29.Name = "Guna2HtmlLabel29"
+        Me.Guna2HtmlLabel29.Size = New System.Drawing.Size(238, 34)
+        Me.Guna2HtmlLabel29.TabIndex = 142
+        Me.Guna2HtmlLabel29.Text = "Efectivo real en caja:"
+        Me.Guna2HtmlLabel29.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_HeaderEfectivoReal
+        '
+        Me.PAN_HeaderEfectivoReal.Controls.Add(Me.BTN_CCLimpiarCierre)
+        Me.PAN_HeaderEfectivoReal.Controls.Add(Me.Guna2HtmlLabel16)
+        Me.PAN_HeaderEfectivoReal.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PAN_HeaderEfectivoReal.Location = New System.Drawing.Point(0, 0)
+        Me.PAN_HeaderEfectivoReal.Name = "PAN_HeaderEfectivoReal"
+        Me.PAN_HeaderEfectivoReal.Size = New System.Drawing.Size(614, 66)
+        Me.PAN_HeaderEfectivoReal.TabIndex = 0
+        '
+        'BTN_CCLimpiarCierre
+        '
+        Me.BTN_CCLimpiarCierre.BorderColor = System.Drawing.Color.IndianRed
+        Me.BTN_CCLimpiarCierre.BorderRadius = 10
+        Me.BTN_CCLimpiarCierre.BorderThickness = 2
+        Me.BTN_CCLimpiarCierre.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_CCLimpiarCierre.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CCLimpiarCierre.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CCLimpiarCierre.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CCLimpiarCierre.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CCLimpiarCierre.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_CCLimpiarCierre.FillColor = System.Drawing.Color.Transparent
+        Me.BTN_CCLimpiarCierre.FocusedColor = System.Drawing.Color.Silver
+        Me.BTN_CCLimpiarCierre.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_CCLimpiarCierre.ForeColor = System.Drawing.Color.White
+        Me.BTN_CCLimpiarCierre.Image = CType(resources.GetObject("BTN_CCLimpiarCierre.Image"), System.Drawing.Image)
+        Me.BTN_CCLimpiarCierre.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_CCLimpiarCierre.Location = New System.Drawing.Point(388, 0)
+        Me.BTN_CCLimpiarCierre.Name = "BTN_CCLimpiarCierre"
+        Me.BTN_CCLimpiarCierre.Size = New System.Drawing.Size(226, 66)
+        Me.BTN_CCLimpiarCierre.TabIndex = 153
+        Me.BTN_CCLimpiarCierre.Text = "Limpiar"
+        '
+        'Guna2HtmlLabel16
+        '
+        Me.Guna2HtmlLabel16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel16.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel16.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel16.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel16.Location = New System.Drawing.Point(22, 16)
+        Me.Guna2HtmlLabel16.Name = "Guna2HtmlLabel16"
+        Me.Guna2HtmlLabel16.Size = New System.Drawing.Size(231, 34)
+        Me.Guna2HtmlLabel16.TabIndex = 152
+        Me.Guna2HtmlLabel16.Text = "Efectivo real en caja"
+        Me.Guna2HtmlLabel16.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'PAN_Cell2InfoCierre
+        '
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2GroupBox5)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.TXT_CCComentario)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2HtmlLabel37)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.NUD_CCSaldoSiguienteTurno)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2HtmlLabel36)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.NUD_SalidasEfectivo)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.TXT_CCTotalEsperado)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2HtmlLabel34)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2Panel2)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2HtmlLabel33)
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2GroupBox4)
+        Me.PAN_Cell2InfoCierre.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PAN_Cell2InfoCierre.Location = New System.Drawing.Point(623, 3)
+        Me.PAN_Cell2InfoCierre.Name = "PAN_Cell2InfoCierre"
+        Me.PAN_Cell2InfoCierre.Size = New System.Drawing.Size(614, 694)
+        Me.PAN_Cell2InfoCierre.TabIndex = 1
+        '
+        'Guna2GroupBox5
+        '
+        Me.Guna2GroupBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2GroupBox5.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Guna2GroupBox5.BorderRadius = 20
+        Me.Guna2GroupBox5.Controls.Add(Me.TableLayoutPanel3)
+        Me.Guna2GroupBox5.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Guna2GroupBox5.FillColor = System.Drawing.Color.Transparent
+        Me.Guna2GroupBox5.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2GroupBox5.ForeColor = System.Drawing.Color.White
+        Me.Guna2GroupBox5.Location = New System.Drawing.Point(12, 266)
+        Me.Guna2GroupBox5.Name = "Guna2GroupBox5"
+        Me.Guna2GroupBox5.Size = New System.Drawing.Size(587, 98)
+        Me.Guna2GroupBox5.TabIndex = 154
+        Me.Guna2GroupBox5.Text = "Diferencia"
+        Me.Guna2GroupBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.Guna2Panel3, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Guna2Panel4, 1, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 40)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(587, 58)
+        Me.TableLayoutPanel3.TabIndex = 0
+        '
+        'Guna2Panel3
+        '
+        Me.Guna2Panel3.Controls.Add(Me.TXT_CCDiferenciaAbsoluta)
+        Me.Guna2Panel3.Controls.Add(Me.Guna2HtmlLabel35)
+        Me.Guna2Panel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Guna2Panel3.Location = New System.Drawing.Point(3, 3)
+        Me.Guna2Panel3.Name = "Guna2Panel3"
+        Me.Guna2Panel3.Size = New System.Drawing.Size(287, 52)
+        Me.Guna2Panel3.TabIndex = 0
+        '
+        'TXT_CCDiferenciaAbsoluta
+        '
+        Me.TXT_CCDiferenciaAbsoluta.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TXT_CCDiferenciaAbsoluta.BorderRadius = 10
+        Me.TXT_CCDiferenciaAbsoluta.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_CCDiferenciaAbsoluta.DefaultText = ""
+        Me.TXT_CCDiferenciaAbsoluta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_CCDiferenciaAbsoluta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_CCDiferenciaAbsoluta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCDiferenciaAbsoluta.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCDiferenciaAbsoluta.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCDiferenciaAbsoluta.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_CCDiferenciaAbsoluta.ForeColor = System.Drawing.Color.Black
+        Me.TXT_CCDiferenciaAbsoluta.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCDiferenciaAbsoluta.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_CCDiferenciaAbsoluta.Location = New System.Drawing.Point(108, 5)
+        Me.TXT_CCDiferenciaAbsoluta.Name = "TXT_CCDiferenciaAbsoluta"
+        Me.TXT_CCDiferenciaAbsoluta.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_CCDiferenciaAbsoluta.PlaceholderText = ""
+        Me.TXT_CCDiferenciaAbsoluta.ReadOnly = True
+        Me.TXT_CCDiferenciaAbsoluta.SelectedText = ""
+        Me.TXT_CCDiferenciaAbsoluta.Size = New System.Drawing.Size(167, 42)
+        Me.TXT_CCDiferenciaAbsoluta.TabIndex = 169
+        '
+        'Guna2HtmlLabel35
+        '
+        Me.Guna2HtmlLabel35.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel35.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel35.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel35.Location = New System.Drawing.Point(15, 12)
+        Me.Guna2HtmlLabel35.Name = "Guna2HtmlLabel35"
+        Me.Guna2HtmlLabel35.Size = New System.Drawing.Size(87, 27)
+        Me.Guna2HtmlLabel35.TabIndex = 168
+        Me.Guna2HtmlLabel35.Text = "Absoluta:"
+        Me.Guna2HtmlLabel35.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'Guna2Panel4
+        '
+        Me.Guna2Panel4.Controls.Add(Me.TXT_CCDiferenciaPorcentual)
+        Me.Guna2Panel4.Controls.Add(Me.Guna2HtmlLabel38)
+        Me.Guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Guna2Panel4.Location = New System.Drawing.Point(296, 3)
+        Me.Guna2Panel4.Name = "Guna2Panel4"
+        Me.Guna2Panel4.Size = New System.Drawing.Size(288, 52)
+        Me.Guna2Panel4.TabIndex = 1
+        '
+        'TXT_CCDiferenciaPorcentual
+        '
+        Me.TXT_CCDiferenciaPorcentual.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TXT_CCDiferenciaPorcentual.BorderRadius = 10
+        Me.TXT_CCDiferenciaPorcentual.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_CCDiferenciaPorcentual.DefaultText = ""
+        Me.TXT_CCDiferenciaPorcentual.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_CCDiferenciaPorcentual.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_CCDiferenciaPorcentual.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCDiferenciaPorcentual.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCDiferenciaPorcentual.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCDiferenciaPorcentual.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_CCDiferenciaPorcentual.ForeColor = System.Drawing.Color.Black
+        Me.TXT_CCDiferenciaPorcentual.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCDiferenciaPorcentual.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_CCDiferenciaPorcentual.Location = New System.Drawing.Point(115, 5)
+        Me.TXT_CCDiferenciaPorcentual.Name = "TXT_CCDiferenciaPorcentual"
+        Me.TXT_CCDiferenciaPorcentual.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_CCDiferenciaPorcentual.PlaceholderText = ""
+        Me.TXT_CCDiferenciaPorcentual.ReadOnly = True
+        Me.TXT_CCDiferenciaPorcentual.SelectedText = ""
+        Me.TXT_CCDiferenciaPorcentual.Size = New System.Drawing.Size(170, 42)
+        Me.TXT_CCDiferenciaPorcentual.TabIndex = 171
+        '
+        'Guna2HtmlLabel38
+        '
+        Me.Guna2HtmlLabel38.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel38.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel38.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel38.Location = New System.Drawing.Point(6, 12)
+        Me.Guna2HtmlLabel38.Name = "Guna2HtmlLabel38"
+        Me.Guna2HtmlLabel38.Size = New System.Drawing.Size(103, 27)
+        Me.Guna2HtmlLabel38.TabIndex = 170
+        Me.Guna2HtmlLabel38.Text = "Porcentaje:"
+        Me.Guna2HtmlLabel38.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'TXT_CCComentario
+        '
+        Me.TXT_CCComentario.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TXT_CCComentario.BorderRadius = 10
+        Me.TXT_CCComentario.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_CCComentario.DefaultText = ""
+        Me.TXT_CCComentario.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_CCComentario.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_CCComentario.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCComentario.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCComentario.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCComentario.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_CCComentario.ForeColor = System.Drawing.Color.Black
+        Me.TXT_CCComentario.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCComentario.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_CCComentario.Location = New System.Drawing.Point(170, 425)
+        Me.TXT_CCComentario.Multiline = True
+        Me.TXT_CCComentario.Name = "TXT_CCComentario"
+        Me.TXT_CCComentario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_CCComentario.PlaceholderText = ""
+        Me.TXT_CCComentario.SelectedText = ""
+        Me.TXT_CCComentario.Size = New System.Drawing.Size(429, 84)
+        Me.TXT_CCComentario.TabIndex = 165
+        '
+        'Guna2HtmlLabel37
+        '
+        Me.Guna2HtmlLabel37.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel37.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel37.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel37.Location = New System.Drawing.Point(20, 447)
+        Me.Guna2HtmlLabel37.Name = "Guna2HtmlLabel37"
+        Me.Guna2HtmlLabel37.Size = New System.Drawing.Size(113, 27)
+        Me.Guna2HtmlLabel37.TabIndex = 164
+        Me.Guna2HtmlLabel37.Text = "Comentario:"
+        Me.Guna2HtmlLabel37.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'NUD_CCSaldoSiguienteTurno
+        '
+        Me.NUD_CCSaldoSiguienteTurno.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_CCSaldoSiguienteTurno.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_CCSaldoSiguienteTurno.BorderRadius = 10
+        Me.NUD_CCSaldoSiguienteTurno.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_CCSaldoSiguienteTurno.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_CCSaldoSiguienteTurno.Location = New System.Drawing.Point(235, 372)
+        Me.NUD_CCSaldoSiguienteTurno.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
+        Me.NUD_CCSaldoSiguienteTurno.Name = "NUD_CCSaldoSiguienteTurno"
+        Me.NUD_CCSaldoSiguienteTurno.Size = New System.Drawing.Size(364, 36)
+        Me.NUD_CCSaldoSiguienteTurno.TabIndex = 163
+        Me.NUD_CCSaldoSiguienteTurno.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'Guna2HtmlLabel36
+        '
+        Me.Guna2HtmlLabel36.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel36.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel36.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel36.Location = New System.Drawing.Point(20, 377)
+        Me.Guna2HtmlLabel36.Name = "Guna2HtmlLabel36"
+        Me.Guna2HtmlLabel36.Size = New System.Drawing.Size(200, 27)
+        Me.Guna2HtmlLabel36.TabIndex = 162
+        Me.Guna2HtmlLabel36.Text = "Saldo siguiente turno:"
+        Me.Guna2HtmlLabel36.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'NUD_SalidasEfectivo
+        '
+        Me.NUD_SalidasEfectivo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NUD_SalidasEfectivo.BackColor = System.Drawing.Color.Transparent
+        Me.NUD_SalidasEfectivo.BorderRadius = 10
+        Me.NUD_SalidasEfectivo.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.NUD_SalidasEfectivo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.NUD_SalidasEfectivo.Location = New System.Drawing.Point(27, 218)
+        Me.NUD_SalidasEfectivo.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
+        Me.NUD_SalidasEfectivo.Name = "NUD_SalidasEfectivo"
+        Me.NUD_SalidasEfectivo.Size = New System.Drawing.Size(171, 36)
+        Me.NUD_SalidasEfectivo.TabIndex = 161
+        Me.NUD_SalidasEfectivo.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'TXT_CCTotalEsperado
+        '
+        Me.TXT_CCTotalEsperado.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TXT_CCTotalEsperado.BorderRadius = 10
+        Me.TXT_CCTotalEsperado.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_CCTotalEsperado.DefaultText = ""
+        Me.TXT_CCTotalEsperado.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_CCTotalEsperado.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_CCTotalEsperado.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCTotalEsperado.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCTotalEsperado.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCTotalEsperado.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_CCTotalEsperado.ForeColor = System.Drawing.Color.Black
+        Me.TXT_CCTotalEsperado.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCTotalEsperado.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_CCTotalEsperado.Location = New System.Drawing.Point(235, 218)
+        Me.TXT_CCTotalEsperado.Name = "TXT_CCTotalEsperado"
+        Me.TXT_CCTotalEsperado.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_CCTotalEsperado.PlaceholderText = ""
+        Me.TXT_CCTotalEsperado.ReadOnly = True
+        Me.TXT_CCTotalEsperado.SelectedText = ""
+        Me.TXT_CCTotalEsperado.Size = New System.Drawing.Size(356, 36)
+        Me.TXT_CCTotalEsperado.TabIndex = 158
+        '
+        'Guna2HtmlLabel34
+        '
+        Me.Guna2HtmlLabel34.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel34.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel34.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel34.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel34.Location = New System.Drawing.Point(338, 187)
+        Me.Guna2HtmlLabel34.Name = "Guna2HtmlLabel34"
+        Me.Guna2HtmlLabel34.Size = New System.Drawing.Size(140, 27)
+        Me.Guna2HtmlLabel34.TabIndex = 157
+        Me.Guna2HtmlLabel34.Text = "Total esperado:"
+        Me.Guna2HtmlLabel34.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'Guna2Panel2
+        '
+        Me.Guna2Panel2.Controls.Add(Me.TableLayoutPanel2)
+        Me.Guna2Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Guna2Panel2.Location = New System.Drawing.Point(0, 628)
+        Me.Guna2Panel2.Name = "Guna2Panel2"
+        Me.Guna2Panel2.Size = New System.Drawing.Size(614, 66)
+        Me.Guna2Panel2.TabIndex = 156
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.Controls.Add(Me.Guna2Button3, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.BTN_GenerarCierre, 1, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(614, 66)
+        Me.TableLayoutPanel2.TabIndex = 0
+        '
+        'Guna2Button3
+        '
+        Me.Guna2Button3.BorderRadius = 10
+        Me.Guna2Button3.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.Guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.Guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.Guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.Guna2Button3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Guna2Button3.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Guna2Button3.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.Guna2Button3.ForeColor = System.Drawing.Color.White
+        Me.Guna2Button3.Image = CType(resources.GetObject("Guna2Button3.Image"), System.Drawing.Image)
+        Me.Guna2Button3.ImageSize = New System.Drawing.Size(60, 60)
+        Me.Guna2Button3.Location = New System.Drawing.Point(3, 3)
+        Me.Guna2Button3.Name = "Guna2Button3"
+        Me.Guna2Button3.Size = New System.Drawing.Size(301, 60)
+        Me.Guna2Button3.TabIndex = 152
+        Me.Guna2Button3.Text = "Regresar"
+        '
+        'BTN_GenerarCierre
+        '
+        Me.BTN_GenerarCierre.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_GenerarCierre.BorderColor = System.Drawing.Color.Red
+        Me.BTN_GenerarCierre.BorderRadius = 10
+        Me.BTN_GenerarCierre.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_GenerarCierre.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_GenerarCierre.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_GenerarCierre.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_GenerarCierre.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_GenerarCierre.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_GenerarCierre.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_GenerarCierre.ForeColor = System.Drawing.Color.White
+        Me.BTN_GenerarCierre.Image = CType(resources.GetObject("BTN_GenerarCierre.Image"), System.Drawing.Image)
+        Me.BTN_GenerarCierre.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_GenerarCierre.Location = New System.Drawing.Point(310, 3)
+        Me.BTN_GenerarCierre.Name = "BTN_GenerarCierre"
+        Me.BTN_GenerarCierre.Size = New System.Drawing.Size(301, 60)
+        Me.BTN_GenerarCierre.TabIndex = 151
+        Me.BTN_GenerarCierre.Text = "Generar Cierre"
+        '
+        'Guna2HtmlLabel33
+        '
+        Me.Guna2HtmlLabel33.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel33.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel33.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel33.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel33.Location = New System.Drawing.Point(27, 185)
+        Me.Guna2HtmlLabel33.Name = "Guna2HtmlLabel33"
+        Me.Guna2HtmlLabel33.Size = New System.Drawing.Size(171, 27)
+        Me.Guna2HtmlLabel33.TabIndex = 154
+        Me.Guna2HtmlLabel33.Text = "Salidas en efectivo:"
+        Me.Guna2HtmlLabel33.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'Guna2GroupBox4
+        '
+        Me.Guna2GroupBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2GroupBox4.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Guna2GroupBox4.BorderRadius = 20
+        Me.Guna2GroupBox4.Controls.Add(Me.TXT_CCVentaTarjeta)
+        Me.Guna2GroupBox4.Controls.Add(Me.Guna2HtmlLabel32)
+        Me.Guna2GroupBox4.Controls.Add(Me.TXT_CCVentaEfectivo)
+        Me.Guna2GroupBox4.Controls.Add(Me.Guna2HtmlLabel31)
+        Me.Guna2GroupBox4.Controls.Add(Me.TXT_CCSaldoInicial)
+        Me.Guna2GroupBox4.Controls.Add(Me.Guna2HtmlLabel30)
+        Me.Guna2GroupBox4.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Guna2GroupBox4.FillColor = System.Drawing.Color.Transparent
+        Me.Guna2GroupBox4.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2GroupBox4.ForeColor = System.Drawing.Color.White
+        Me.Guna2GroupBox4.Location = New System.Drawing.Point(12, 16)
+        Me.Guna2GroupBox4.Name = "Guna2GroupBox4"
+        Me.Guna2GroupBox4.Size = New System.Drawing.Size(587, 163)
+        Me.Guna2GroupBox4.TabIndex = 153
+        Me.Guna2GroupBox4.Text = "Datos del cierre anterior"
+        Me.Guna2GroupBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TXT_CCVentaTarjeta
+        '
+        Me.TXT_CCVentaTarjeta.BorderRadius = 10
+        Me.TXT_CCVentaTarjeta.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_CCVentaTarjeta.DefaultText = ""
+        Me.TXT_CCVentaTarjeta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_CCVentaTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_CCVentaTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCVentaTarjeta.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCVentaTarjeta.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCVentaTarjeta.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_CCVentaTarjeta.ForeColor = System.Drawing.Color.Black
+        Me.TXT_CCVentaTarjeta.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCVentaTarjeta.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_CCVentaTarjeta.Location = New System.Drawing.Point(140, 106)
+        Me.TXT_CCVentaTarjeta.Name = "TXT_CCVentaTarjeta"
+        Me.TXT_CCVentaTarjeta.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_CCVentaTarjeta.PlaceholderText = ""
+        Me.TXT_CCVentaTarjeta.ReadOnly = True
+        Me.TXT_CCVentaTarjeta.SelectedText = ""
+        Me.TXT_CCVentaTarjeta.Size = New System.Drawing.Size(152, 42)
+        Me.TXT_CCVentaTarjeta.TabIndex = 147
+        '
+        'Guna2HtmlLabel32
+        '
+        Me.Guna2HtmlLabel32.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel32.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel32.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel32.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel32.Location = New System.Drawing.Point(15, 106)
+        Me.Guna2HtmlLabel32.Name = "Guna2HtmlLabel32"
+        Me.Guna2HtmlLabel32.Size = New System.Drawing.Size(119, 34)
+        Me.Guna2HtmlLabel32.TabIndex = 146
+        Me.Guna2HtmlLabel32.Text = "En tarjeta:"
+        Me.Guna2HtmlLabel32.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'TXT_CCVentaEfectivo
+        '
+        Me.TXT_CCVentaEfectivo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TXT_CCVentaEfectivo.BorderRadius = 10
+        Me.TXT_CCVentaEfectivo.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_CCVentaEfectivo.DefaultText = ""
+        Me.TXT_CCVentaEfectivo.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_CCVentaEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_CCVentaEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCVentaEfectivo.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCVentaEfectivo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCVentaEfectivo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_CCVentaEfectivo.ForeColor = System.Drawing.Color.Black
+        Me.TXT_CCVentaEfectivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCVentaEfectivo.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_CCVentaEfectivo.Location = New System.Drawing.Point(440, 106)
+        Me.TXT_CCVentaEfectivo.Name = "TXT_CCVentaEfectivo"
+        Me.TXT_CCVentaEfectivo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_CCVentaEfectivo.PlaceholderText = ""
+        Me.TXT_CCVentaEfectivo.ReadOnly = True
+        Me.TXT_CCVentaEfectivo.SelectedText = ""
+        Me.TXT_CCVentaEfectivo.Size = New System.Drawing.Size(139, 42)
+        Me.TXT_CCVentaEfectivo.TabIndex = 145
+        '
+        'Guna2HtmlLabel31
+        '
+        Me.Guna2HtmlLabel31.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel31.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel31.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel31.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel31.Location = New System.Drawing.Point(298, 111)
+        Me.Guna2HtmlLabel31.Name = "Guna2HtmlLabel31"
+        Me.Guna2HtmlLabel31.Size = New System.Drawing.Size(136, 34)
+        Me.Guna2HtmlLabel31.TabIndex = 144
+        Me.Guna2HtmlLabel31.Text = "En efectivo:"
+        Me.Guna2HtmlLabel31.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'TXT_CCSaldoInicial
+        '
+        Me.TXT_CCSaldoInicial.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TXT_CCSaldoInicial.BorderRadius = 10
+        Me.TXT_CCSaldoInicial.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_CCSaldoInicial.DefaultText = ""
+        Me.TXT_CCSaldoInicial.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_CCSaldoInicial.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_CCSaldoInicial.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCSaldoInicial.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_CCSaldoInicial.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCSaldoInicial.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.TXT_CCSaldoInicial.ForeColor = System.Drawing.Color.Black
+        Me.TXT_CCSaldoInicial.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_CCSaldoInicial.IconRightSize = New System.Drawing.Size(40, 40)
+        Me.TXT_CCSaldoInicial.Location = New System.Drawing.Point(168, 53)
+        Me.TXT_CCSaldoInicial.Name = "TXT_CCSaldoInicial"
+        Me.TXT_CCSaldoInicial.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_CCSaldoInicial.PlaceholderText = ""
+        Me.TXT_CCSaldoInicial.ReadOnly = True
+        Me.TXT_CCSaldoInicial.SelectedText = ""
+        Me.TXT_CCSaldoInicial.Size = New System.Drawing.Size(411, 42)
+        Me.TXT_CCSaldoInicial.TabIndex = 143
+        '
+        'Guna2HtmlLabel30
+        '
+        Me.Guna2HtmlLabel30.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel30.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel30.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel30.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel30.Location = New System.Drawing.Point(15, 53)
+        Me.Guna2HtmlLabel30.Name = "Guna2HtmlLabel30"
+        Me.Guna2HtmlLabel30.Size = New System.Drawing.Size(148, 34)
+        Me.Guna2HtmlLabel30.TabIndex = 142
+        Me.Guna2HtmlLabel30.Text = "Saldo inicial:"
+        Me.Guna2HtmlLabel30.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
         'P_ReporteVentas
         '
@@ -1157,7 +2375,7 @@ Partial Class P_ReporteVentas
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "P_ReporteVentas"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "P_ReporteVentas"
+        Me.Text = "Reportes"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TAB_Reportes.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
@@ -1179,9 +2397,68 @@ Partial Class P_ReporteVentas
         Me.PAN_ReporteProductoInputContainer.ResumeLayout(False)
         Me.PAN_ReporteProductoInputContainer.PerformLayout()
         Me.Guna2GroupBox3.ResumeLayout(False)
-        CType(Me.NUD_LimitReporteProducto, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RDB_OrderByTotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RDB_OrderByCant, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RDB_OrderByTotal, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_LimitReporteProducto, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TAB_CierreCaja.ResumeLayout(False)
+        Me.TBL_DivCierreCaja.ResumeLayout(False)
+        Me.PAN_EfectivoReal.ResumeLayout(False)
+        Me.TBL_IngresoEfectivoReal.ResumeLayout(False)
+        Me.PAN_Moneda5.ResumeLayout(False)
+        Me.PAN_Moneda5.PerformLayout()
+        CType(Me.NUD_Moneda5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Billete1.ResumeLayout(False)
+        Me.PAN_Billete1.PerformLayout()
+        CType(Me.NUD_Billete1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Moneda10.ResumeLayout(False)
+        Me.PAN_Moneda10.PerformLayout()
+        CType(Me.NUD_Moneda10, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Billete2.ResumeLayout(False)
+        Me.PAN_Billete2.PerformLayout()
+        CType(Me.NUD_Billete2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Moneda25.ResumeLayout(False)
+        Me.PAN_Moneda25.PerformLayout()
+        CType(Me.NUD_Moneda25, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Billete5.ResumeLayout(False)
+        Me.PAN_Billete5.PerformLayout()
+        CType(Me.NUD_Billete5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Guna2Panel6.ResumeLayout(False)
+        Me.PAN_Moneda50.ResumeLayout(False)
+        Me.PAN_Moneda50.PerformLayout()
+        CType(Me.NUD_Moneda50, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Billete10.ResumeLayout(False)
+        Me.PAN_Billete10.PerformLayout()
+        CType(Me.NUD_Billete10, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Moneda100.ResumeLayout(False)
+        Me.PAN_Moneda100.PerformLayout()
+        CType(Me.NUD_Moneda100, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Billete20.ResumeLayout(False)
+        Me.PAN_Billete20.PerformLayout()
+        CType(Me.NUD_Billete20, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Moneda500.ResumeLayout(False)
+        Me.PAN_Moneda500.PerformLayout()
+        CType(Me.NUD_Moneda500, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_Billete50.ResumeLayout(False)
+        Me.PAN_Billete50.PerformLayout()
+        CType(Me.NUD_Billete50, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PAN_FooterEfectivoReal.ResumeLayout(False)
+        Me.PAN_FooterEfectivoReal.PerformLayout()
+        Me.PAN_HeaderEfectivoReal.ResumeLayout(False)
+        Me.PAN_HeaderEfectivoReal.PerformLayout()
+        Me.PAN_Cell2InfoCierre.ResumeLayout(False)
+        Me.PAN_Cell2InfoCierre.PerformLayout()
+        Me.Guna2GroupBox5.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.Guna2Panel3.ResumeLayout(False)
+        Me.Guna2Panel3.PerformLayout()
+        Me.Guna2Panel4.ResumeLayout(False)
+        Me.Guna2Panel4.PerformLayout()
+        CType(Me.NUD_CCSaldoSiguienteTurno, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NUD_SalidasEfectivo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Guna2Panel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.Guna2GroupBox4.ResumeLayout(False)
+        Me.Guna2GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1239,4 +2516,78 @@ Partial Class P_ReporteVentas
     Friend WithEvents Guna2GroupBox3 As Guna.UI2.WinForms.Guna2GroupBox
     Friend WithEvents RDB_OrderByTotal As Syncfusion.Windows.Forms.Tools.RadioButtonAdv
     Friend WithEvents RDB_OrderByCant As Syncfusion.Windows.Forms.Tools.RadioButtonAdv
+    Friend WithEvents TBL_DivCierreCaja As TableLayoutPanel
+    Friend WithEvents PAN_EfectivoReal As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_HeaderEfectivoReal As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents Guna2HtmlLabel16 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents PAN_FooterEfectivoReal As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents TBL_IngresoEfectivoReal As TableLayoutPanel
+    Friend WithEvents PAN_Moneda5 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Billete1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Moneda10 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Billete2 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Moneda25 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Billete5 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents Guna2Panel6 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Moneda50 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Billete10 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Moneda100 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Billete20 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Moneda500 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents PAN_Billete50 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents NUD_Billete50 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel17 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Billete1 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel22 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Billete2 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel21 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Billete5 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel20 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Billete10 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel19 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Billete20 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel18 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Moneda500 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel23 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Moneda5 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel28 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Moneda10 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel27 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Moneda25 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel26 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Moneda50 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel25 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents NUD_Moneda100 As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel24 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents TXT_EfectivoReal As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel29 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents PAN_Cell2InfoCierre As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents Guna2GroupBox4 As Guna.UI2.WinForms.Guna2GroupBox
+    Friend WithEvents TXT_CCSaldoInicial As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel30 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents TXT_CCVentaEfectivo As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel31 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents TXT_CCVentaTarjeta As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel32 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents Guna2Panel2 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents BTN_GenerarCierre As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents Guna2HtmlLabel33 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents Guna2Button3 As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents TXT_CCTotalEsperado As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel34 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents NUD_SalidasEfectivo As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents NUD_CCSaldoSiguienteTurno As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents Guna2HtmlLabel36 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents TXT_CCComentario As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel37 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents Guna2GroupBox5 As Guna.UI2.WinForms.Guna2GroupBox
+    Friend WithEvents BTN_CCLimpiarCierre As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents Guna2Panel3 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents TXT_CCDiferenciaPorcentual As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel38 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents Guna2HtmlLabel35 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents TXT_CCDiferenciaAbsoluta As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2Panel4 As Guna.UI2.WinForms.Guna2Panel
 End Class

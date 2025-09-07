@@ -75,7 +75,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>recursos\logoApp.ico</ApplicationIcon>
+    <ApplicationIcon>logoSFCommonSimple.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>64BC42BEA3A50124A9044B89A5AFFFBE2EBAB2CF</ManifestCertificateThumbprint>
@@ -254,6 +254,7 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Cls_AtrFactura.vb" />
+    <Compile Include="Cls_CierreCaja.vb" />
     <Compile Include="Cls_ProductoCaja.vb" />
     <Compile Include="Cls_ProductosMasVendidos.vb" />
     <Compile Include="Cls_ReporteVentas.vb" />
@@ -517,11 +518,26 @@
     <Compile Include="P_Usuarios.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Content Include="recursos\ICO_MoveDown.png" />
+    <Content Include="logoSFCommonSimple.ico" />
+    <Content Include="recursos\ICO_MoveDown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="recursos\ICO_BuscarBlanco.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="recursos\ICO_MoveUp.png" />
+    <Content Include="recursos\ICO_MoveUp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="recursos\logoCompletoSFCommon.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="recursos\logoSFCommonSimple.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="recursos\logoSFCommonSimple.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\logoCompletoSFCommonTransparent.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

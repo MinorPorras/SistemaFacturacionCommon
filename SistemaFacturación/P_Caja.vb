@@ -37,9 +37,6 @@ Public Class P_Caja
         BTN_GuardarCuenta.Enabled = False
         MNU_CONTX.Enabled = True
 
-        'Se cargan los productos favoritos
-        'CargarBTNFav()
-
         'Se carga el último número de factura que se haya agregado, que va a ser el mas alto
         CargarNumFactura()
 

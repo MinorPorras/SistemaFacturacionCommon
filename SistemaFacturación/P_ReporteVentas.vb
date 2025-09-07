@@ -1,6 +1,8 @@
 ﻿Imports System.Configuration
+Imports System.Data.SQLite
 Imports System.Globalization
 Imports System.Windows.Forms
+Imports Guna.UI2.WinForms
 
 Public Class P_ReporteVentas
 
@@ -12,6 +14,16 @@ Public Class P_ReporteVentas
         AplicarEstiloDataGridView(DGV_FactReporte)
         AplicarEstiloDataGridView(DGV_ListProductosMasVendidos)
         RDB_OrderByCant.Checked = True
+
+        'Se carga la lista de denominaciones del cierre de caja
+        inicializarListaTxtDenominaciones()
+
+        'Se carga la información del cierre de caja
+        ObtenerDatosCierreDeCaja()
+
+        AddHandler TXT_EfectivoReal.TextChanged, AddressOf CargarTotalEsperadoYDiferencia
+        AddHandler NUD_SalidasEfectivo.ValueChanged, AddressOf CargarTotalEsperadoYDiferencia
+
     End Sub
     Private Sub Regresar()
         M_Inicio.Show()
@@ -123,9 +135,9 @@ Public Class P_ReporteVentas
 
             'Se agregan los datos de producto más vendido
             If reporte.ProductoMasVendido IsNot Nothing Then
-                TXT_NombreProdMasVendido.Text = reporte.ProductoMasVendido.nombre
-                TXT_CantProdMasVendido.Text = reporte.ProductoMasVendido.cantidad.ToString("N0")
-                TXT_TotalProdMasVendido.Text = reporte.ProductoMasVendido.total.ToString("C", New CultureInfo("es-CR"))
+                TXT_NombreProdMasVendido.Text = reporte.ProductoMasVendido.Nombre
+                TXT_CantProdMasVendido.Text = reporte.ProductoMasVendido.Cantidad.ToString("N0")
+                TXT_TotalProdMasVendido.Text = reporte.ProductoMasVendido.Total.ToString("C", New CultureInfo("es-CR"))
             Else
                 TXT_NombreProdMasVendido.Text = "Sin datos"
                 TXT_CantProdMasVendido.Text = "Sin datos"
@@ -175,9 +187,9 @@ Public Class P_ReporteVentas
             Return
         End If
 
-        TXT_MejorProductoNombre.Text = listaProd(0).nombre
-        TXT_MejorProductoCant.Text = listaProd(0).cantidad.ToString("N0")
-        TXT_MejorProductoTotal.Text = listaProd(0).total.ToString("C", New CultureInfo("es-CR"))
+        TXT_MejorProductoNombre.Text = listaProd(0).Nombre
+        TXT_MejorProductoCant.Text = listaProd(0).Cantidad.ToString("N0")
+        TXT_MejorProductoTotal.Text = listaProd(0).Total.ToString("C", New CultureInfo("es-CR"))
 
         'Se añaden los datos de la lista de productos más vendidos al data grid
         Dim bin As New BindingSource With {
@@ -229,5 +241,142 @@ Public Class P_ReporteVentas
         DGV_ListProductosMasVendidos.Columns("cantidad").DisplayIndex = 1
         DGV_ListProductosMasVendidos.Columns("total").DisplayIndex = 2
     End Sub
+#End Region
+
+#Region "Cierre de caja"
+
+    Dim totalCajaReal As Integer
+    Dim listTxtDenominaciones As New Dictionary(Of Integer, Guna2NumericUpDown)
+    Dim nuevoCierre As Cls_CierreCaja
+
+    Private Sub inicializarListaTxtDenominaciones()
+        ' Añadir cada NumericUpDown de denominación a la lista
+        listTxtDenominaciones.Add(5, NUD_Moneda5)
+        listTxtDenominaciones.Add(10, NUD_Moneda10)
+        listTxtDenominaciones.Add(25, NUD_Moneda25)
+        listTxtDenominaciones.Add(50, NUD_Moneda50)
+        listTxtDenominaciones.Add(100, NUD_Moneda100)
+        listTxtDenominaciones.Add(500, NUD_Moneda500)
+        listTxtDenominaciones.Add(1000, NUD_Billete1)
+        listTxtDenominaciones.Add(2000, NUD_Billete2)
+        listTxtDenominaciones.Add(5000, NUD_Billete5)
+        listTxtDenominaciones.Add(10000, NUD_Billete10)
+        listTxtDenominaciones.Add(20000, NUD_Billete20)
+        listTxtDenominaciones.Add(50000, NUD_Billete50)
+
+        ' Asignar el evento a cada control en la lista
+        For Each nud In listTxtDenominaciones.Values
+            AddHandler nud.ValueChanged, AddressOf NUD_ValueChanged
+        Next
+    End Sub
+
+    Private Sub CalcularMontoEfectivoCajaReal()
+        ' Reinicia el totalCajaReal a cero antes de cada cálculo
+        totalCajaReal = 0
+        For Each denominacion In listTxtDenominaciones
+            Dim valorContado As Decimal = denominacion.Value.Value
+            Dim valorDenominacion As Integer = denominacion.Key
+
+            ' Multiplica el valor del billete o la moneda por la cantidad contada
+            totalCajaReal += valorDenominacion * valorContado
+        Next
+
+        TXT_EfectivoReal.Text = totalCajaReal.ToString("C", New CultureInfo("es-CR"))
+    End Sub
+
+    'Al cambiar el valor del NUD se actualiza el total
+    Private Sub NUD_ValueChanged(sender As Object, e As EventArgs)
+        CalcularMontoEfectivoCajaReal()
+    End Sub
+
+    Private Sub Guna2Button3_Click(sender As Object, e As EventArgs) Handles Guna2Button3.Click
+        Regresar()
+    End Sub
+
+    Private Async Sub ObtenerDatosCierreDeCaja()
+        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
+        nuevoCierre = Await obtenerCierreCajaInicial(stringConexion)
+
+        TXT_CCSaldoInicial.Text = nuevoCierre.saldo_inicial
+        TXT_CCVentaEfectivo.Text = nuevoCierre.ingresoEfectivo
+        TXT_CCVentaTarjeta.Text = nuevoCierre.ingresoTarjeta
+    End Sub
+
+    Private Sub CargarTotalEsperadoYDiferencia()
+        'Se obtienen los datos de saldo inicial, ventas en efectivo
+        Dim saldoInicial As Decimal
+        Dim ventaEfectivo As Decimal
+        If Not Decimal.TryParse(TXT_CCSaldoInicial.Text, saldoInicial) Then
+            msgError("El formato de las ventas en efectivo no es correcta")
+        End If
+        If Not Decimal.TryParse(TXT_CCVentaEfectivo.Text, ventaEfectivo) Then
+            msgError("El formato de las ventas en efectivo no es correcto")
+        End If
+
+        'Salidas
+        Dim Salidas As Decimal = NUD_SalidasEfectivo.Value
+
+        'Saldo esperado = saldoInicial + Ventas - salidas
+        Dim saldoEsperado = saldoInicial + ventaEfectivo - Salidas
+
+        'Se obtiene el valor del saldo real contado de la caja
+        Dim saldoReal As Decimal
+        If Not Decimal.TryParse(TXT_EfectivoReal.Text.Replace("₡", "").Replace(" ", ""), saldoReal) Then
+            msgError("El formato del efectivo real en caja no es correcto")
+        End If
+        'Diferencia absoluta = saldoEsperado - saldoReal
+        Dim diffAbsoluta As Decimal = saldoReal - saldoEsperado
+        'Diferencia porcentual = saldoReal * 100 / saldoEsperado
+        Dim diffPorc As Decimal = 0
+        If saldoEsperado <> 0 Then
+            diffPorc = (diffAbsoluta / Math.Abs(saldoEsperado)) * 100
+        End If
+
+        'Se asignan los datos a los campos de texto necesarios
+        TXT_CCTotalEsperado.Text = saldoEsperado.ToString("0.00")
+        TXT_CCDiferenciaAbsoluta.Text = diffAbsoluta.ToString("0.00")
+        TXT_CCDiferenciaPorcentual.Text = diffPorc.ToString("0.00")
+    End Sub
+
+    Private Async Sub BTN_GenerarCierre_Click(sender As Object, e As EventArgs) Handles BTN_GenerarCierre.Click
+        If Not msgGuardarCierre() Then
+            'Si no desea guardarlo no hace nada
+            Return
+        End If
+        'Se agrega a la información que ya se le agrega al objeto los datos restantes
+        nuevoCierre.comentarios = TXT_CCComentario.Text
+        nuevoCierre.saldoSiguiente = NUD_CCSaldoSiguienteTurno.Value
+        nuevoCierre.efectivoContado = Convert.ToDecimal(TXT_EfectivoReal.Text.Replace("₡", "").Replace(" ", ""))
+        nuevoCierre.salidasEfectivo = NUD_SalidasEfectivo.Value
+
+        'Se guarda la info en la DB
+        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
+        'Si no se logra guardar correctamente devuel el mensaje de error
+        If Not Await guardarNuevoCierre(stringConexion, nuevoCierre) Then
+            msgError("Error al generar el cierre de la caja")
+            Return
+        End If
+
+        'Se limpia la caja
+        LIMPIAR_CIERRE_CAJA()
+    End Sub
+
+    Private Sub LIMPIAR_CIERRE_CAJA()
+        'Se limpian todas las caja de texto de los billetes
+        For Each txt In listTxtDenominaciones
+            txt.Value.Text = 0
+        Next
+
+        TXT_CCComentario.Text = ""
+        NUD_CCSaldoSiguienteTurno.Value = 0
+        NUD_CCSaldoSiguienteTurno.Value = 0
+
+        ObtenerDatosCierreDeCaja()
+    End Sub
+
+    Private Sub BTN_CCLimpiarCierre_Click(sender As Object, e As EventArgs) Handles BTN_CCLimpiarCierre.Click
+        LIMPIAR_CIERRE_CAJA()
+    End Sub
+
 #End Region
 End Class

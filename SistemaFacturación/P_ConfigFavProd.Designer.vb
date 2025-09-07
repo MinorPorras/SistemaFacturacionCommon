@@ -59,10 +59,10 @@ Partial Class P_ConfigFavProd
         Me.PAN_HeaderPageInfoTitle = New Guna.UI2.WinForms.Guna2Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PAN_BtnContainer = New Guna.UI2.WinForms.Guna2Panel()
+        Me.BTN_Actualizar = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_RegresarConfig = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.Guna2DragControl1 = New Guna.UI2.WinForms.Guna2DragControl(Me.components)
-        Me.BTN_Actualizar = New Guna.UI2.WinForms.Guna2Button()
         Me.MNU_CONTX_BUSCAR.SuspendLayout()
         Me.MNU_CONTX_FAV.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -526,6 +526,26 @@ Partial Class P_ConfigFavProd
         Me.PAN_BtnContainer.Size = New System.Drawing.Size(1192, 53)
         Me.PAN_BtnContainer.TabIndex = 2
         '
+        'BTN_Actualizar
+        '
+        Me.BTN_Actualizar.BorderColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_Actualizar.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_Actualizar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Actualizar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Actualizar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_Actualizar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_Actualizar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.BTN_Actualizar.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_Actualizar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_Actualizar.ForeColor = System.Drawing.Color.White
+        Me.BTN_Actualizar.Image = CType(resources.GetObject("BTN_Actualizar.Image"), System.Drawing.Image)
+        Me.BTN_Actualizar.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Actualizar.Location = New System.Drawing.Point(593, 0)
+        Me.BTN_Actualizar.Name = "BTN_Actualizar"
+        Me.BTN_Actualizar.Size = New System.Drawing.Size(593, 53)
+        Me.BTN_Actualizar.TabIndex = 57
+        Me.BTN_Actualizar.Text = "Actualizar"
+        '
         'BTN_RegresarConfig
         '
         Me.BTN_RegresarConfig.BorderColor = System.Drawing.Color.Red
@@ -557,26 +577,6 @@ Partial Class P_ConfigFavProd
         '
         Me.Guna2DragControl1.DockIndicatorTransparencyValue = 0.6R
         Me.Guna2DragControl1.UseTransparentDrag = True
-        '
-        'BTN_Actualizar
-        '
-        Me.BTN_Actualizar.BorderColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_Actualizar.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_Actualizar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Actualizar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Actualizar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Actualizar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Actualizar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.BTN_Actualizar.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_Actualizar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_Actualizar.ForeColor = System.Drawing.Color.White
-        Me.BTN_Actualizar.Image = CType(resources.GetObject("BTN_Actualizar.Image"), System.Drawing.Image)
-        Me.BTN_Actualizar.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Actualizar.Location = New System.Drawing.Point(593, 0)
-        Me.BTN_Actualizar.Name = "BTN_Actualizar"
-        Me.BTN_Actualizar.Size = New System.Drawing.Size(593, 53)
-        Me.BTN_Actualizar.TabIndex = 57
-        Me.BTN_Actualizar.Text = "Actualizar"
         '
         'P_ConfigFavProd
         '

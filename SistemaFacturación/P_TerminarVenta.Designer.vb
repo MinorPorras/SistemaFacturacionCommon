@@ -27,12 +27,15 @@ Partial Class P_TerminarVenta
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.TabControlTVenta = New Guna.UI2.WinForms.Guna2TabControl()
         Me.Efectivo = New System.Windows.Forms.TabPage()
+        Me.TXT_ECliente = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.BTN_EColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_EVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_ETotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Tarjeta = New System.Windows.Forms.TabPage()
+        Me.BTN_TColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_TVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_TCliente = New Guna.UI2.WinForms.Guna2TextBox()
@@ -40,6 +43,7 @@ Partial Class P_TerminarVenta
         Me.TXT_TTotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Sinpe = New System.Windows.Forms.TabPage()
+        Me.BTN_SColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_SVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_SCliente = New Guna.UI2.WinForms.Guna2TextBox()
@@ -47,6 +51,7 @@ Partial Class P_TerminarVenta
         Me.TXT_STotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel9 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.deposito = New System.Windows.Forms.TabPage()
+        Me.BTN_DColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.Guna2HtmlLabel11 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_DVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel10 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -54,6 +59,8 @@ Partial Class P_TerminarVenta
         Me.TXT_DTotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Mixto = New System.Windows.Forms.TabPage()
+        Me.BTN_RestanteEfectivo = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_RestanteTarjeta = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_PagoEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_MVuelto = New Guna.UI2.WinForms.Guna2TextBox()
@@ -70,13 +77,6 @@ Partial Class P_TerminarVenta
         Me.PrintDialog = New System.Windows.Forms.PrintDialog()
         Me.BTN_TVentaImp = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.TXT_ECliente = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.BTN_EColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_TColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_SColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_DColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_RestanteTarjeta = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_RestanteEfectivo = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TabControlTVenta.SuspendLayout()
         Me.Efectivo.SuspendLayout()
         Me.Tarjeta.SuspendLayout()
@@ -144,6 +144,45 @@ Partial Class P_TerminarVenta
         Me.Efectivo.Size = New System.Drawing.Size(641, 381)
         Me.Efectivo.TabIndex = 0
         Me.Efectivo.Text = "Efectivo"
+        '
+        'TXT_ECliente
+        '
+        Me.TXT_ECliente.BackColor = System.Drawing.Color.Transparent
+        Me.TXT_ECliente.BorderRadius = 20
+        Me.TXT_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_ECliente.DefaultText = ""
+        Me.TXT_ECliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_ECliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_ECliente.ForeColor = System.Drawing.Color.Black
+        Me.TXT_ECliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_ECliente.Location = New System.Drawing.Point(103, 144)
+        Me.TXT_ECliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_ECliente.Name = "TXT_ECliente"
+        Me.TXT_ECliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TXT_ECliente.PlaceholderText = ""
+        Me.TXT_ECliente.SelectedText = ""
+        Me.TXT_ECliente.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_ECliente.TabIndex = 105
+        Me.TXT_ECliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'BTN_EColocarTotal
+        '
+        Me.BTN_EColocarTotal.BorderRadius = 20
+        Me.BTN_EColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_EColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_EColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_EColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_EColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_EColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_EColocarTotal.Location = New System.Drawing.Point(103, 194)
+        Me.BTN_EColocarTotal.Name = "BTN_EColocarTotal"
+        Me.BTN_EColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_EColocarTotal.TabIndex = 106
+        Me.BTN_EColocarTotal.Text = "Colorcar Total"
         '
         'TXT_EVuelto
         '
@@ -245,6 +284,21 @@ Partial Class P_TerminarVenta
         Me.Tarjeta.Size = New System.Drawing.Size(641, 381)
         Me.Tarjeta.TabIndex = 1
         Me.Tarjeta.Text = "Tarjeta"
+        '
+        'BTN_TColocarTotal
+        '
+        Me.BTN_TColocarTotal.BorderRadius = 20
+        Me.BTN_TColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_TColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_TColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_TColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_TColocarTotal.Location = New System.Drawing.Point(101, 206)
+        Me.BTN_TColocarTotal.Name = "BTN_TColocarTotal"
+        Me.BTN_TColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_TColocarTotal.TabIndex = 113
+        Me.BTN_TColocarTotal.Text = "Colorcar Total"
         '
         'TXT_TVuelto
         '
@@ -370,6 +424,21 @@ Partial Class P_TerminarVenta
         Me.Sinpe.TabIndex = 2
         Me.Sinpe.Text = "Sinpe"
         '
+        'BTN_SColocarTotal
+        '
+        Me.BTN_SColocarTotal.BorderRadius = 20
+        Me.BTN_SColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_SColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_SColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_SColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_SColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_SColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_SColocarTotal.Location = New System.Drawing.Point(101, 200)
+        Me.BTN_SColocarTotal.Name = "BTN_SColocarTotal"
+        Me.BTN_SColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_SColocarTotal.TabIndex = 119
+        Me.BTN_SColocarTotal.Text = "Colorcar Total"
+        '
         'TXT_SVuelto
         '
         Me.TXT_SVuelto.BorderRadius = 20
@@ -493,6 +562,21 @@ Partial Class P_TerminarVenta
         Me.deposito.Size = New System.Drawing.Size(641, 381)
         Me.deposito.TabIndex = 3
         Me.deposito.Text = "Depósito"
+        '
+        'BTN_DColocarTotal
+        '
+        Me.BTN_DColocarTotal.BorderRadius = 20
+        Me.BTN_DColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_DColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_DColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_DColocarTotal.ForeColor = System.Drawing.Color.White
+        Me.BTN_DColocarTotal.Location = New System.Drawing.Point(101, 198)
+        Me.BTN_DColocarTotal.Name = "BTN_DColocarTotal"
+        Me.BTN_DColocarTotal.Size = New System.Drawing.Size(439, 52)
+        Me.BTN_DColocarTotal.TabIndex = 128
+        Me.BTN_DColocarTotal.Text = "Colorcar Total"
         '
         'Guna2HtmlLabel11
         '
@@ -620,6 +704,36 @@ Partial Class P_TerminarVenta
         Me.Mixto.Size = New System.Drawing.Size(641, 381)
         Me.Mixto.TabIndex = 4
         Me.Mixto.Text = "Mixto"
+        '
+        'BTN_RestanteEfectivo
+        '
+        Me.BTN_RestanteEfectivo.BorderRadius = 20
+        Me.BTN_RestanteEfectivo.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteEfectivo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RestanteEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RestanteEfectivo.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_RestanteEfectivo.ForeColor = System.Drawing.Color.White
+        Me.BTN_RestanteEfectivo.Location = New System.Drawing.Point(329, 198)
+        Me.BTN_RestanteEfectivo.Name = "BTN_RestanteEfectivo"
+        Me.BTN_RestanteEfectivo.Size = New System.Drawing.Size(300, 52)
+        Me.BTN_RestanteEfectivo.TabIndex = 132
+        Me.BTN_RestanteEfectivo.Text = "Colorcar restante"
+        '
+        'BTN_RestanteTarjeta
+        '
+        Me.BTN_RestanteTarjeta.BorderRadius = 20
+        Me.BTN_RestanteTarjeta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteTarjeta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RestanteTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RestanteTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RestanteTarjeta.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_RestanteTarjeta.ForeColor = System.Drawing.Color.White
+        Me.BTN_RestanteTarjeta.Location = New System.Drawing.Point(15, 198)
+        Me.BTN_RestanteTarjeta.Name = "BTN_RestanteTarjeta"
+        Me.BTN_RestanteTarjeta.Size = New System.Drawing.Size(300, 52)
+        Me.BTN_RestanteTarjeta.TabIndex = 131
+        Me.BTN_RestanteTarjeta.Text = "Colorcar restante"
         '
         'TXT_PagoEfectivo
         '
@@ -868,120 +982,6 @@ Partial Class P_TerminarVenta
         Me.Guna2Panel1.Name = "Guna2Panel1"
         Me.Guna2Panel1.Size = New System.Drawing.Size(908, 69)
         Me.Guna2Panel1.TabIndex = 131
-        '
-        'TXT_ECliente
-        '
-        Me.TXT_ECliente.BackColor = System.Drawing.Color.Transparent
-        Me.TXT_ECliente.BorderRadius = 20
-        Me.TXT_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.TXT_ECliente.DefaultText = ""
-        Me.TXT_ECliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-        Me.TXT_ECliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-        Me.TXT_ECliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.TXT_ECliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.TXT_ECliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TXT_ECliente.ForeColor = System.Drawing.Color.Black
-        Me.TXT_ECliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_ECliente.Location = New System.Drawing.Point(103, 144)
-        Me.TXT_ECliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-        Me.TXT_ECliente.Name = "TXT_ECliente"
-        Me.TXT_ECliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TXT_ECliente.PlaceholderText = ""
-        Me.TXT_ECliente.SelectedText = ""
-        Me.TXT_ECliente.Size = New System.Drawing.Size(439, 42)
-        Me.TXT_ECliente.TabIndex = 105
-        Me.TXT_ECliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'BTN_EColocarTotal
-        '
-        Me.BTN_EColocarTotal.BorderRadius = 20
-        Me.BTN_EColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_EColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_EColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_EColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_EColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_EColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_EColocarTotal.Location = New System.Drawing.Point(103, 194)
-        Me.BTN_EColocarTotal.Name = "BTN_EColocarTotal"
-        Me.BTN_EColocarTotal.Size = New System.Drawing.Size(439, 52)
-        Me.BTN_EColocarTotal.TabIndex = 106
-        Me.BTN_EColocarTotal.Text = "Colorcar Total"
-        '
-        'BTN_TColocarTotal
-        '
-        Me.BTN_TColocarTotal.BorderRadius = 20
-        Me.BTN_TColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_TColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_TColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_TColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_TColocarTotal.Location = New System.Drawing.Point(101, 206)
-        Me.BTN_TColocarTotal.Name = "BTN_TColocarTotal"
-        Me.BTN_TColocarTotal.Size = New System.Drawing.Size(439, 52)
-        Me.BTN_TColocarTotal.TabIndex = 113
-        Me.BTN_TColocarTotal.Text = "Colorcar Total"
-        '
-        'BTN_SColocarTotal
-        '
-        Me.BTN_SColocarTotal.BorderRadius = 20
-        Me.BTN_SColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_SColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_SColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_SColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_SColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_SColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_SColocarTotal.Location = New System.Drawing.Point(101, 200)
-        Me.BTN_SColocarTotal.Name = "BTN_SColocarTotal"
-        Me.BTN_SColocarTotal.Size = New System.Drawing.Size(439, 52)
-        Me.BTN_SColocarTotal.TabIndex = 119
-        Me.BTN_SColocarTotal.Text = "Colorcar Total"
-        '
-        'BTN_DColocarTotal
-        '
-        Me.BTN_DColocarTotal.BorderRadius = 20
-        Me.BTN_DColocarTotal.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DColocarTotal.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DColocarTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_DColocarTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_DColocarTotal.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_DColocarTotal.ForeColor = System.Drawing.Color.White
-        Me.BTN_DColocarTotal.Location = New System.Drawing.Point(101, 198)
-        Me.BTN_DColocarTotal.Name = "BTN_DColocarTotal"
-        Me.BTN_DColocarTotal.Size = New System.Drawing.Size(439, 52)
-        Me.BTN_DColocarTotal.TabIndex = 128
-        Me.BTN_DColocarTotal.Text = "Colorcar Total"
-        '
-        'BTN_RestanteTarjeta
-        '
-        Me.BTN_RestanteTarjeta.BorderRadius = 20
-        Me.BTN_RestanteTarjeta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteTarjeta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RestanteTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RestanteTarjeta.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_RestanteTarjeta.ForeColor = System.Drawing.Color.White
-        Me.BTN_RestanteTarjeta.Location = New System.Drawing.Point(15, 198)
-        Me.BTN_RestanteTarjeta.Name = "BTN_RestanteTarjeta"
-        Me.BTN_RestanteTarjeta.Size = New System.Drawing.Size(300, 52)
-        Me.BTN_RestanteTarjeta.TabIndex = 131
-        Me.BTN_RestanteTarjeta.Text = "Colorcar restante"
-        '
-        'BTN_RestanteEfectivo
-        '
-        Me.BTN_RestanteEfectivo.BorderRadius = 20
-        Me.BTN_RestanteEfectivo.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteEfectivo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RestanteEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RestanteEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RestanteEfectivo.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_RestanteEfectivo.ForeColor = System.Drawing.Color.White
-        Me.BTN_RestanteEfectivo.Location = New System.Drawing.Point(329, 198)
-        Me.BTN_RestanteEfectivo.Name = "BTN_RestanteEfectivo"
-        Me.BTN_RestanteEfectivo.Size = New System.Drawing.Size(300, 52)
-        Me.BTN_RestanteEfectivo.TabIndex = 132
-        Me.BTN_RestanteEfectivo.Text = "Colorcar restante"
         '
         'P_TerminarVenta
         '
