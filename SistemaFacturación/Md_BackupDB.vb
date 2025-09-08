@@ -17,9 +17,31 @@ Module Md_BackupDB
         End If
 
         Try
+            Dim conexionSetting As System.Configuration.ConnectionStringSettings = ConfigurationManager.ConnectionStrings("conexionString")
+            If conexionSetting Is Nothing Then
+                msgError("No se pudo encontrar la conexión")
+            End If
             ' Obtener la ruta de la base de datos actual
-            Dim strsplit As String() = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString.Split("=")
-            DBActual = strsplit(1).Trim()
+            Dim strConexion As String = conexionSetting.ConnectionString
+
+            If strConexion.Contains("|DataDirectory|") Then
+                ' Obtener la ruta completa del ejecutable
+                Dim appPath As String = System.Reflection.Assembly.GetExecutingAssembly().Location
+                ' Obtener solo el directorio de esa ruta
+                Dim appDir As String = System.IO.Path.GetDirectoryName(appPath)
+                ' Reemplazar la cadena por la ruta del directorio
+                DBActual = strConexion.Replace("Data Source=|DataDirectory|", appDir)
+
+            Else
+                ' Si no tiene |DataDirectory|, asumimos que es una ruta completa.
+                Dim strsplit As String() = strConexion.Split("=")
+                If strsplit.Length <= 1 Then
+                    MsgBox("Error en el formato de la cadena de conexión.", MsgBoxStyle.Exclamation, "Error")
+                    Return
+                End If
+                DBActual = strsplit(1).Trim()
+
+            End If
 
             ' Se copia la base de datos a un nuevo archivo
             File.Copy(DBActual, respaldo, True)
@@ -35,9 +57,31 @@ Module Md_BackupDB
 #Region "importar"
     Friend Sub ImportarDB(respaldo As String)
         Try
+            Dim conexionSetting As System.Configuration.ConnectionStringSettings = ConfigurationManager.ConnectionStrings("conexionString")
+            If conexionSetting Is Nothing Then
+                msgError("No se pudo encontrar la conexión")
+            End If
             ' Obtener la ruta de la base de datos actual
-            Dim strsplit As String() = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString.Split("=")
-            DBActual = strsplit(1).Trim()
+            Dim strConexion As String = conexionSetting.ConnectionString
+
+            If strConexion.Contains("|DataDirectory|") Then
+                ' Obtener la ruta completa del ejecutable
+                Dim appPath As String = System.Reflection.Assembly.GetExecutingAssembly().Location
+                ' Obtener solo el directorio de esa ruta
+                Dim appDir As String = System.IO.Path.GetDirectoryName(appPath)
+                ' Reemplazar la cadena por la ruta del directorio
+                DBActual = strConexion.Replace("Data Source=|DataDirectory|", appDir)
+
+            Else
+                ' Si no tiene |DataDirectory|, asumimos que es una ruta completa.
+                Dim strsplit As String() = strConexion.Split("=")
+                If strsplit.Length <= 1 Then
+                    MsgBox("Error en el formato de la cadena de conexión.", MsgBoxStyle.Exclamation, "Error")
+                    Return
+                End If
+                DBActual = strsplit(1).Trim()
+
+            End If
 
             ' Se copia el respaldo en la base de datos que se encuentra en la posición actual
             File.Copy(respaldo, DBActual, True)
