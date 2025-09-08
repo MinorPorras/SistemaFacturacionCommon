@@ -61,8 +61,8 @@
         End Try
     End Sub
     Private Sub BTN_RegresarImpuesto_Click(sender As Object, e As EventArgs) Handles BTN_RegresarImpuesto.Click
-        M_Mantenimiento.Show()
-        M_Mantenimiento.Select()
+        M_MantenimientoMenu.Show()
+        M_MantenimientoMenu.Select()
         Me.Close()
     End Sub
 

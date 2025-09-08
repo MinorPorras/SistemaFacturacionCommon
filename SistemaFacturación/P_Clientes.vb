@@ -99,8 +99,8 @@ Public Class P_Clientes
     End Sub
 
     Private Sub BTN_RegresarCliente_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCliente.Click
-        M_Mantenimiento.Show()
-        M_Mantenimiento.Select()
+        M_MantenimientoMenu.Show()
+        M_MantenimientoMenu.Select()
         Me.Close()
     End Sub
 

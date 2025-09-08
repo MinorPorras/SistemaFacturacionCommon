@@ -52,8 +52,8 @@
     End Sub
 
     Private Sub BTN_RegresarNSuc_Click(sender As Object, e As EventArgs) Handles BTN_RegresarNSuc.Click
-        M_Mantenimiento.Show()
-        M_Mantenimiento.Select()
+        M_MantenimientoMenu.Show()
+        M_MantenimientoMenu.Select()
         Me.Close()
     End Sub
 

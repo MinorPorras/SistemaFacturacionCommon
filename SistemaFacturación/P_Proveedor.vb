@@ -19,8 +19,8 @@ Public Class P_Proveedor
     End Sub
 
     Private Sub BTN_RegresarCat_Click(sender As Object, e As EventArgs) Handles BTN_RegresarProv.Click
-        M_Mantenimiento.Show()
-        M_Mantenimiento.Select()
+        M_MantenimientoMenu.Show()
+        M_MantenimientoMenu.Select()
         Me.Close()
     End Sub
 

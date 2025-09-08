@@ -79,5 +79,15 @@ Namespace My.Resources
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        '''</summary>
+        Friend ReadOnly Property logoSFCommonSimple_1_() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("logoSFCommonSimple_1_", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
     End Module
 End Namespace

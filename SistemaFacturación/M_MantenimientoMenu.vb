@@ -1,4 +1,4 @@
-﻿Public Class M_Mantenimiento
+﻿Public Class M_MantenimientoMenu
     Private Sub Guna2Button9_Click(sender As Object, e As EventArgs) Handles BTN_RegresarMant.Click
         M_Inicio.Show()
         Me.Close()
@@ -86,5 +86,9 @@
         P_SelectUsu.Show()
         P_SelectUsu.Select()
         Me.Close()
+    End Sub
+
+    Private Sub M_Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class
