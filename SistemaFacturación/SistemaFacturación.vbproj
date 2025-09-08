@@ -75,7 +75,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logoSFCommonSimple.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\logoSFCommonSimple_1_.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>64BC42BEA3A50124A9044B89A5AFFFBE2EBAB2CF</ManifestCertificateThumbprint>
@@ -481,10 +481,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="M_Mantenimiento.Designer.vb">
-      <DependentUpon>M_Mantenimiento.vb</DependentUpon>
+    <Compile Include="M_MantenimientoMenu.Designer.vb">
+      <DependentUpon>M_MantenimientoMenu.vb</DependentUpon>
     </Compile>
-    <Compile Include="M_Mantenimiento.vb">
+    <Compile Include="M_MantenimientoMenu.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Md_PROCESOS_BD.vb" />
@@ -539,6 +539,8 @@
     </Content>
     <None Include="bd\backupDB\dbSistemaFacturacionInicial.db" />
     <None Include="Resources\logoCompletoSFCommonTransparent.png" />
+    <None Include="Resources\logoSFCommonSimple.ico" />
+    <None Include="Resources\logoSFCommonSimple_1_.ico" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -649,8 +651,8 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="M_Mantenimiento.resx">
-      <DependentUpon>M_Mantenimiento.vb</DependentUpon>
+    <EmbeddedResource Include="M_MantenimientoMenu.resx">
+      <DependentUpon>M_MantenimientoMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="P_Impuestos.resx">
       <DependentUpon>P_Impuestos.vb</DependentUpon>
