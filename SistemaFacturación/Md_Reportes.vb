@@ -45,12 +45,21 @@ Module Md_Reportes
 
 
     Private Async Function ObtenerListaVentas(stringConexion As String, desde As Date, hasta As Date, t As DataSet) As Task(Of List(Of Cls_Venta))
-        ' ... El código interno de este método no necesita cambios ya que no realiza operaciones I/O asíncronas
-        ' El uso de un DataAdapter es síncrono por naturaleza, pero puedes envolverlo en un Task.Run
-        ' para que se ejecute en un hilo secundario y no bloquee el hilo principal de la UI.
         Return Await Task.Run(Function()
+                                  Dim fechaInicioFiltrada As Date
+                                  Dim fechaFinFiltrada As Date
+
+                                  ' Valida si las fechas 'desde' y 'hasta' son el mismo día.
+                                  If desde.Date = hasta.Date Then
+                                      ' Si es el mismo día, ajusta el rango para cubrir el día completo.
+                                      fechaInicioFiltrada = desde.Date
+                                      fechaFinFiltrada = hasta.Date.AddDays(1)
+                                  Else
+                                      ' Si es un rango de días, usa las fechas originales sin modificar las horas.
+                                      fechaInicioFiltrada = desde
+                                      fechaFinFiltrada = hasta
+                                  End If
                                   Using db As New SQLiteConnection(stringConexion)
-                                      ' ... Resto del código original
                                       Try
                                           db.Open()
                                           Dim consulta As String = "SELECT f.num_factura As '# Fact', " &
@@ -62,8 +71,8 @@ Module Md_Reportes
                                                                   "INNER JOIN clientes c ON c.ID = f.ID_Cliente " &
                                                                   "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin AND cobrada != 0;"
                                           Using cmd As New SQLiteCommand(consulta, db)
-                                              cmd.Parameters.AddWithValue("@fechaInicio", desde)
-                                              cmd.Parameters.AddWithValue("@fechaFin", hasta)
+                                              cmd.Parameters.AddWithValue("@fechaInicio", fechaInicioFiltrada)
+                                              cmd.Parameters.AddWithValue("@fechaFin", fechaFinFiltrada)
 
                                               Using da As New SQLiteDataAdapter(cmd)
                                                   If t.Tables.Count > 0 Then
