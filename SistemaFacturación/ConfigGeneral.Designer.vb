@@ -23,7 +23,7 @@ Partial Class ConfigGeneral
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Animation3 As Guna.UI2.AnimatorNS.Animation = New Guna.UI2.AnimatorNS.Animation()
+        Dim Animation2 As Guna.UI2.AnimatorNS.Animation = New Guna.UI2.AnimatorNS.Animation()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ConfigGeneral))
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.OFD_ImportarDB = New System.Windows.Forms.OpenFileDialog()
@@ -35,9 +35,6 @@ Partial Class ConfigGeneral
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.LBL_BackUpDIr = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.LBL_DireccionConexionActual = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.BTN_ModConnDB = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_ModBackupDir = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_Importar = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_RspaldoDB = New Guna.UI2.WinForms.Guna2Button()
@@ -204,9 +201,6 @@ Partial Class ConfigGeneral
         '
         Me.GroupBox1.Controls.Add(Me.LBL_BackUpDIr)
         Me.GroupBox1.Controls.Add(Me.Label19)
-        Me.GroupBox1.Controls.Add(Me.LBL_DireccionConexionActual)
-        Me.GroupBox1.Controls.Add(Me.Label18)
-        Me.GroupBox1.Controls.Add(Me.BTN_ModConnDB)
         Me.GroupBox1.Controls.Add(Me.BTN_ModBackupDir)
         Me.GroupBox1.Controls.Add(Me.BTN_Importar)
         Me.GroupBox1.Controls.Add(Me.BTN_RspaldoDB)
@@ -221,13 +215,13 @@ Partial Class ConfigGeneral
         '
         'LBL_BackUpDIr
         '
-        Me.LBL_BackUpDIr.AutoSize = True
+        Me.LBL_BackUpDIr.AutoEllipsis = True
         Me.Guna2Transition1.SetDecoration(Me.LBL_BackUpDIr, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.LBL_BackUpDIr.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_BackUpDIr.ForeColor = System.Drawing.Color.White
-        Me.LBL_BackUpDIr.Location = New System.Drawing.Point(183, 280)
+        Me.LBL_BackUpDIr.Location = New System.Drawing.Point(179, 234)
         Me.LBL_BackUpDIr.Name = "LBL_BackUpDIr"
-        Me.LBL_BackUpDIr.Size = New System.Drawing.Size(76, 19)
+        Me.LBL_BackUpDIr.Size = New System.Drawing.Size(405, 83)
         Me.LBL_BackUpDIr.TabIndex = 120
         Me.LBL_BackUpDIr.Text = "backUpDir"
         '
@@ -237,60 +231,15 @@ Partial Class ConfigGeneral
         Me.Guna2Transition1.SetDecoration(Me.Label19, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.Label19.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.Color.White
-        Me.Label19.Location = New System.Drawing.Point(3, 280)
+        Me.Label19.Location = New System.Drawing.Point(-1, 234)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(174, 17)
         Me.Label19.TabIndex = 119
         Me.Label19.Text = "Directorio de respaldo:"
         '
-        'LBL_DireccionConexionActual
-        '
-        Me.LBL_DireccionConexionActual.AutoEllipsis = True
-        Me.Guna2Transition1.SetDecoration(Me.LBL_DireccionConexionActual, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.LBL_DireccionConexionActual.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LBL_DireccionConexionActual.ForeColor = System.Drawing.Color.White
-        Me.LBL_DireccionConexionActual.Location = New System.Drawing.Point(135, 227)
-        Me.LBL_DireccionConexionActual.MaximumSize = New System.Drawing.Size(449, 53)
-        Me.LBL_DireccionConexionActual.Name = "LBL_DireccionConexionActual"
-        Me.LBL_DireccionConexionActual.Size = New System.Drawing.Size(449, 53)
-        Me.LBL_DireccionConexionActual.TabIndex = 118
-        Me.LBL_DireccionConexionActual.Text = "Dirección"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Guna2Transition1.SetDecoration(Me.Label18, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.Label18.Font = New System.Drawing.Font("Britannic Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.ForeColor = System.Drawing.Color.White
-        Me.Label18.Location = New System.Drawing.Point(3, 229)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(126, 17)
-        Me.Label18.TabIndex = 117
-        Me.Label18.Text = "Conexión actual:"
-        '
-        'BTN_ModConnDB
-        '
-        Me.BTN_ModConnDB.BorderRadius = 25
-        Me.BTN_ModConnDB.BorderThickness = 2
-        Me.Guna2Transition1.SetDecoration(Me.BTN_ModConnDB, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_ModConnDB.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_ModConnDB.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ModConnDB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_ModConnDB.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_ModConnDB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_ModConnDB.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_ModConnDB.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_ModConnDB.ForeColor = System.Drawing.Color.White
-        Me.BTN_ModConnDB.Image = CType(resources.GetObject("BTN_ModConnDB.Image"), System.Drawing.Image)
-        Me.BTN_ModConnDB.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_ModConnDB.Location = New System.Drawing.Point(6, 86)
-        Me.BTN_ModConnDB.Name = "BTN_ModConnDB"
-        Me.BTN_ModConnDB.Size = New System.Drawing.Size(578, 58)
-        Me.BTN_ModConnDB.TabIndex = 14
-        Me.BTN_ModConnDB.Text = "Modificar conexión base de datos"
-        '
         'BTN_ModBackupDir
         '
+        Me.BTN_ModBackupDir.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_ModBackupDir.BorderRadius = 25
         Me.BTN_ModBackupDir.BorderThickness = 2
         Me.Guna2Transition1.SetDecoration(Me.BTN_ModBackupDir, Guna.UI2.AnimatorNS.DecorationType.None)
@@ -313,6 +262,7 @@ Partial Class ConfigGeneral
         'BTN_Importar
         '
         Me.BTN_Importar.AutoRoundedCorners = True
+        Me.BTN_Importar.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_Importar.BorderRadius = 28
         Me.BTN_Importar.BorderThickness = 2
         Me.Guna2Transition1.SetDecoration(Me.BTN_Importar, Guna.UI2.AnimatorNS.DecorationType.None)
@@ -326,14 +276,15 @@ Partial Class ConfigGeneral
         Me.BTN_Importar.ForeColor = System.Drawing.Color.White
         Me.BTN_Importar.Image = CType(resources.GetObject("BTN_Importar.Image"), System.Drawing.Image)
         Me.BTN_Importar.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Importar.Location = New System.Drawing.Point(6, 22)
+        Me.BTN_Importar.Location = New System.Drawing.Point(6, 86)
         Me.BTN_Importar.Name = "BTN_Importar"
-        Me.BTN_Importar.Size = New System.Drawing.Size(296, 58)
+        Me.BTN_Importar.Size = New System.Drawing.Size(578, 58)
         Me.BTN_Importar.TabIndex = 12
         Me.BTN_Importar.Text = "Importar base de datos"
         '
         'BTN_RspaldoDB
         '
+        Me.BTN_RspaldoDB.BorderColor = System.Drawing.Color.Lime
         Me.BTN_RspaldoDB.BorderRadius = 25
         Me.BTN_RspaldoDB.BorderThickness = 2
         Me.Guna2Transition1.SetDecoration(Me.BTN_RspaldoDB, Guna.UI2.AnimatorNS.DecorationType.None)
@@ -346,9 +297,9 @@ Partial Class ConfigGeneral
         Me.BTN_RspaldoDB.ForeColor = System.Drawing.Color.White
         Me.BTN_RspaldoDB.Image = CType(resources.GetObject("BTN_RspaldoDB.Image"), System.Drawing.Image)
         Me.BTN_RspaldoDB.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_RspaldoDB.Location = New System.Drawing.Point(308, 22)
+        Me.BTN_RspaldoDB.Location = New System.Drawing.Point(6, 22)
         Me.BTN_RspaldoDB.Name = "BTN_RspaldoDB"
-        Me.BTN_RspaldoDB.Size = New System.Drawing.Size(276, 58)
+        Me.BTN_RspaldoDB.Size = New System.Drawing.Size(578, 58)
         Me.BTN_RspaldoDB.TabIndex = 11
         Me.BTN_RspaldoDB.Text = "Respaldar base de datos"
         '
@@ -1048,22 +999,22 @@ Partial Class ConfigGeneral
         '
         Me.Guna2Transition1.AnimationType = Guna.UI2.AnimatorNS.AnimationType.Scale
         Me.Guna2Transition1.Cursor = Nothing
-        Animation3.AnimateOnlyDifferences = True
-        Animation3.BlindCoeff = CType(resources.GetObject("Animation3.BlindCoeff"), System.Drawing.PointF)
-        Animation3.LeafCoeff = 0!
-        Animation3.MaxTime = 1.0!
-        Animation3.MinTime = 0!
-        Animation3.MosaicCoeff = CType(resources.GetObject("Animation3.MosaicCoeff"), System.Drawing.PointF)
-        Animation3.MosaicShift = CType(resources.GetObject("Animation3.MosaicShift"), System.Drawing.PointF)
-        Animation3.MosaicSize = 0
-        Animation3.Padding = New System.Windows.Forms.Padding(0)
-        Animation3.RotateCoeff = 0!
-        Animation3.RotateLimit = 0!
-        Animation3.ScaleCoeff = CType(resources.GetObject("Animation3.ScaleCoeff"), System.Drawing.PointF)
-        Animation3.SlideCoeff = CType(resources.GetObject("Animation3.SlideCoeff"), System.Drawing.PointF)
-        Animation3.TimeCoeff = 0!
-        Animation3.TransparencyCoeff = 0!
-        Me.Guna2Transition1.DefaultAnimation = Animation3
+        Animation2.AnimateOnlyDifferences = True
+        Animation2.BlindCoeff = CType(resources.GetObject("Animation2.BlindCoeff"), System.Drawing.PointF)
+        Animation2.LeafCoeff = 0!
+        Animation2.MaxTime = 1.0!
+        Animation2.MinTime = 0!
+        Animation2.MosaicCoeff = CType(resources.GetObject("Animation2.MosaicCoeff"), System.Drawing.PointF)
+        Animation2.MosaicShift = CType(resources.GetObject("Animation2.MosaicShift"), System.Drawing.PointF)
+        Animation2.MosaicSize = 0
+        Animation2.Padding = New System.Windows.Forms.Padding(0)
+        Animation2.RotateCoeff = 0!
+        Animation2.RotateLimit = 0!
+        Animation2.ScaleCoeff = CType(resources.GetObject("Animation2.ScaleCoeff"), System.Drawing.PointF)
+        Animation2.SlideCoeff = CType(resources.GetObject("Animation2.SlideCoeff"), System.Drawing.PointF)
+        Animation2.TimeCoeff = 0!
+        Animation2.TransparencyCoeff = 0!
+        Me.Guna2Transition1.DefaultAnimation = Animation2
         '
         'Guna2PictureBox2
         '
@@ -1133,7 +1084,6 @@ Partial Class ConfigGeneral
     Friend WithEvents Guna2PictureBox2 As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents BTN_RegresarConfig As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents BTN_ModConnDB As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_ModBackupDir As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_Importar As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_RspaldoDB As Guna.UI2.WinForms.Guna2Button
@@ -1182,8 +1132,6 @@ Partial Class ConfigGeneral
     Friend WithEvents BTN_CheckForUpdates As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Label16 As Label
     Friend WithEvents Label17 As Label
-    Friend WithEvents Label18 As Label
-    Friend WithEvents LBL_DireccionConexionActual As Label
     Friend WithEvents Label19 As Label
     Friend WithEvents LBL_BackUpDIr As Label
     Friend WithEvents btn_RegInfoConfig As Guna.UI2.WinForms.Guna2Button
