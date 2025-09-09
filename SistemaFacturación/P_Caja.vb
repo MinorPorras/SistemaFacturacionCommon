@@ -233,11 +233,12 @@ Public Class P_Caja
         Dim Subtotal As Double = cant * Convert.ToInt32(precioVenta)
         Dim row As String() = {ID, codigo, nombre, precioVenta, cant, Subtotal}
         DGV_Caja.Columns(0).Visible = False
-        DGV_Caja.Rows.Add(row)
+        Dim filaNueva As Integer = DGV_Caja.Rows.Add(row)
         TXT_BuscarProducto.Clear()
         ValidarListView()
-        TXT_BuscarProducto.Focus()
         CargarTotal()
+        DGV_Caja.CurrentCell = DGV_Caja.Rows(filaNueva).Cells(4)
+        DGV_Caja.BeginEdit(True)
     End Sub
 
     Friend Sub CargarTotal()
@@ -309,6 +310,7 @@ Public Class P_Caja
 
         ' Recalcula el total de la factura
         CargarTotal()
+        TXT_BuscarProducto.Focus()
     End Sub
 
     Private Sub P_Caja_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
