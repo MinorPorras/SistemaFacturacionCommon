@@ -226,9 +226,8 @@ Public Class P_TerminarVenta
     ' Esta función es la nueva encargada de toda la lógica de la base de datos.
     Private Async Function GuardarFacturaDB(idFactura As Integer, NumFactura As Integer, idCliente As Integer, idUsu As Integer, total As Double, efectivo As Double, tarjeta As Double, vuelto As Double, TipoPago As Integer, comentario As String, esCuentaPorCobrar As Boolean) As Task(Of String)
         Return Await Task.Run(Function()
-                                  Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
 
-                                  Using db As New SQLiteConnection(stringConexion)
+                                  Using db As New SQLiteConnection(GetConnectionString())
                                       db.Open()
                                       Dim transaction As SQLiteTransaction = db.BeginTransaction()
 
