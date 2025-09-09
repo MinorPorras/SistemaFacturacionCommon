@@ -340,7 +340,7 @@ Public Class P_Caja
     Private Async Function GuardarOActualizarCuenta(comentarioRecibido As String, actualizar_factura_cobrar As Boolean) As Task(Of String)
         Return Await Task.Run(Function()
                                   ' Iniciar una transacción de base de datos
-                                  Dim dbConnection As New SQLiteConnection(ConfigurationManager.ConnectionStrings("conexionString").ConnectionString)
+                                  Dim dbConnection As New SQLiteConnection(GetConnectionString())
                                   dbConnection.Open()
                                   Dim transaction As SQLiteTransaction = dbConnection.BeginTransaction()
 
