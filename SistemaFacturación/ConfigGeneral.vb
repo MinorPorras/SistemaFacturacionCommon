@@ -15,7 +15,7 @@ Public Class ConfigGeneral
 
     Private Sub cargarDBConfigInfo()
         ' Cargar información de la conexión actual
-        LBL_DireccionConexionActual.Text = GetDbPath()
+        'LBL_DireccionConexionActual.Text = GetDbPath()
         'Dim strConn As String = ObtenerConnectionString("DbConnectionString")
         'If Not String.IsNullOrEmpty(strConn) Then
         '    Dim strConnParts As String() = strConn.Split("="c)
