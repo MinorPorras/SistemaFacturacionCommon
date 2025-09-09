@@ -107,9 +107,8 @@ Module Md_PROCESOS_BD
     Friend Async Function ELIMINAR_FACT(ByVal ID As Integer) As Task(Of Boolean)
         Return Await Task.Run(Function()
                                   Dim resultado As Boolean = False
-                                  Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
 
-                                  Using db As New SQLiteConnection(stringConexion)
+                                  Using db As New SQLiteConnection(GetConnectionString())
                                       ' Se inicia un proceso de transacción
                                       db.Open()
                                       Dim transaction As SQLiteTransaction = db.BeginTransaction()
