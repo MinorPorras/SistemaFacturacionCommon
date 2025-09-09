@@ -15,13 +15,14 @@ Public Class ConfigGeneral
 
     Private Sub cargarDBConfigInfo()
         ' Cargar información de la conexión actual
-        Dim strConn As String = ObtenerConnectionString("DbConnectionString")
-        If Not String.IsNullOrEmpty(strConn) Then
-            Dim strConnParts As String() = strConn.Split("="c)
-            If strConnParts.Length > 1 Then
-                LBL_DireccionConexionActual.Text = strConnParts(1)
-            End If
-        End If
+        LBL_DireccionConexionActual.Text = GetDbPath()
+        'Dim strConn As String = ObtenerConnectionString("DbConnectionString")
+        'If Not String.IsNullOrEmpty(strConn) Then
+        '    Dim strConnParts As String() = strConn.Split("="c)
+        '    If strConnParts.Length > 1 Then
+        '        LBL_DireccionConexionActual.Text = strConnParts(1)
+        '    End If
+        'End If
 
         ' Cargar información del directorio de respaldo
         Dim backupDir As String = ConfigurationManager.AppSettings("DirectorioRespaldo")

@@ -20,7 +20,7 @@ Public Class P_CuentasCobrar
         Cargar_Tabla(T1, SQL)
         If T.Tables(0).Rows.Count <= 0 Then
             MsgBox("No hay facturas por cobrar", MsgBoxStyle.Information, "Aviso")
-            Me.Close()
+            Return
         End If
 
         For i = 0 To T1.Tables(0).Rows.Count - 1

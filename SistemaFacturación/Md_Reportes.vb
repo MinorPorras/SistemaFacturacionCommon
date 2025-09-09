@@ -4,9 +4,7 @@ Imports System.Data.SQLite
 Module Md_Reportes
     Friend Async Function GenerarReporte(desde As Date, hasta As Date, t As DataSet) As Task(Of Cls_ReporteVentas)
         Try
-            Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-
-            Dim listaVentas As List(Of Cls_Venta) = Await ObtenerListaVentas(stringConexion, desde, hasta, t)
+            Dim listaVentas As List(Of Cls_Venta) = Await ObtenerListaVentas(desde, hasta, t)
 
             Dim totalVentas As Decimal = 0D
             Dim ventasEfectivo As Decimal = 0D
@@ -27,7 +25,7 @@ Module Md_Reportes
             Dim numVentas As Integer = listaVentas.Count
 
             ' Se obtiene el producto más vendido dentro del rango especificado
-            Dim producto = Await getProductosMasVendido(stringConexion, 1, desde, hasta, 1)
+            Dim producto = Await getProductosMasVendido(1, desde, hasta, 1)
 
             Dim productoMasVendido As Cls_ProductosMasVendidos = Nothing
             If producto IsNot Nothing AndAlso producto.Count > 0 Then
@@ -44,7 +42,7 @@ Module Md_Reportes
     End Function
 
 
-    Private Async Function ObtenerListaVentas(stringConexion As String, desde As Date, hasta As Date, t As DataSet) As Task(Of List(Of Cls_Venta))
+    Private Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet) As Task(Of List(Of Cls_Venta))
         Return Await Task.Run(Function()
                                   Dim fechaInicioFiltrada As Date
                                   Dim fechaFinFiltrada As Date
@@ -59,7 +57,7 @@ Module Md_Reportes
                                       fechaInicioFiltrada = desde
                                       fechaFinFiltrada = hasta
                                   End If
-                                  Using db As New SQLiteConnection(stringConexion)
+                                  Using db As New SQLiteConnection(GetConnectionString())
                                       Try
                                           db.Open()
                                           Dim consulta As String = "SELECT f.num_factura As '# Fact', " &
@@ -122,11 +120,11 @@ Module Md_Reportes
                               End Function)
     End Function
 
-    Friend Async Function getProductosMasVendido(stringConexion As String, LIMIT As Integer, desde As Date, hasta As Date, orderBy As Integer) As Task(Of List(Of Cls_ProductosMasVendidos))
+    Friend Async Function getProductosMasVendido(LIMIT As Integer, desde As Date, hasta As Date, orderBy As Integer) As Task(Of List(Of Cls_ProductosMasVendidos))
         Return Await Task.Run(Function()
                                   Dim listProductosMasVendidos As New List(Of Cls_ProductosMasVendidos)
                                   Try
-                                      Using db As New SQLiteConnection(stringConexion)
+                                      Using db As New SQLiteConnection(GetConnectionString())
                                           db.Open()
                                           Dim orderByProperty As String
                                           If orderBy = 1 Then
@@ -180,9 +178,9 @@ Module Md_Reportes
 
 #Region "Cierre de caja"
 
-    Public Async Function obtenerCierreCajaInicial(conn As String) As Task(Of Cls_CierreCaja)
+    Public Async Function obtenerCierreCajaInicial() As Task(Of Cls_CierreCaja)
         'Se obtiene la información del cierre anterior
-        Dim infoCierreAnterior As DataTable = Await obtenerInfoCierreAnterior(conn)
+        Dim infoCierreAnterior As DataTable = Await obtenerInfoCierreAnterior()
 
         'Se establecen los datos que se usan en caso de que no haya ningún cierre
         Dim fechaHoy As Date = Date.Today
@@ -202,7 +200,7 @@ Module Md_Reportes
         End If
 
         'Se obtiene la información relacionada con las ventas en la 
-        Dim listaVentas As List(Of Cls_Venta) = Await ObtenerListaVentas(conn, fechaInicio, fechaFin, T)
+        Dim listaVentas As List(Of Cls_Venta) = Await ObtenerListaVentas(fechaInicio, fechaFin, T)
         Dim ventasEfectivo As Decimal = 0
         Dim ventasTarjeta As Decimal = 0
         For Each venta As Cls_Venta In listaVentas
@@ -220,10 +218,10 @@ Module Md_Reportes
         Return infoInicialCierre
     End Function
 
-    Private Async Function obtenerInfoCierreAnterior(conn As String) As Task(Of DataTable)
+    Private Async Function obtenerInfoCierreAnterior() As Task(Of DataTable)
         Return Await Task.Run(Function()
                                   Dim T As New DataSet()
-                                  Using db As New SQLiteConnection(conn)
+                                  Using db As New SQLiteConnection(GetConnectionString())
                                       db.Open()
                                       Dim consulta = "SELECT cc.Fecha_Hora_Fin As horaFin, cc.Saldo_Siguiente_Turno As dineroSiguente
                             FROM CierreCaja cc

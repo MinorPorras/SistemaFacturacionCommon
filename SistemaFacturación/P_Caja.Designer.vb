@@ -464,7 +464,7 @@ Partial Class P_Caja
         Me.BTN_DelFactura.Name = "BTN_DelFactura"
         Me.BTN_DelFactura.Size = New System.Drawing.Size(664, 55)
         Me.BTN_DelFactura.TabIndex = 1
-        Me.BTN_DelFactura.Text = "[F8] Borrar Factura"
+        Me.BTN_DelFactura.Text = "[F8] Limpiar caja"
         '
         'BTN_RegresarCliente
         '

@@ -1,11 +1,13 @@
 ﻿Imports System.Deployment.Application
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
 Imports Guna.UI2.WinForms
+Imports SistemaFacturaciónCommon.Md_Inicializacion
 Public Class P_SelectUsu
 
     Private Sub P_LoginCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Md_Inicializacion.AutoUpdate()
-        Md_Inicializacion.CheckAndMigrateDatabase()
+        inicializarDB()
+        AutoUpdate()
+        CheckAndMigrateDatabase()
         T.Tables.Clear()
         SQL = "SELECT ID, usuario, color FROM usuario"
         Cargar_Tabla(T, SQL)

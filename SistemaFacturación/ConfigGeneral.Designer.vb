@@ -23,7 +23,7 @@ Partial Class ConfigGeneral
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Animation1 As Guna.UI2.AnimatorNS.Animation = New Guna.UI2.AnimatorNS.Animation()
+        Dim Animation3 As Guna.UI2.AnimatorNS.Animation = New Guna.UI2.AnimatorNS.Animation()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ConfigGeneral))
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.OFD_ImportarDB = New System.Windows.Forms.OpenFileDialog()
@@ -245,13 +245,14 @@ Partial Class ConfigGeneral
         '
         'LBL_DireccionConexionActual
         '
-        Me.LBL_DireccionConexionActual.AutoSize = True
+        Me.LBL_DireccionConexionActual.AutoEllipsis = True
         Me.Guna2Transition1.SetDecoration(Me.LBL_DireccionConexionActual, Guna.UI2.AnimatorNS.DecorationType.None)
         Me.LBL_DireccionConexionActual.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_DireccionConexionActual.ForeColor = System.Drawing.Color.White
         Me.LBL_DireccionConexionActual.Location = New System.Drawing.Point(135, 227)
+        Me.LBL_DireccionConexionActual.MaximumSize = New System.Drawing.Size(449, 53)
         Me.LBL_DireccionConexionActual.Name = "LBL_DireccionConexionActual"
-        Me.LBL_DireccionConexionActual.Size = New System.Drawing.Size(70, 19)
+        Me.LBL_DireccionConexionActual.Size = New System.Drawing.Size(449, 53)
         Me.LBL_DireccionConexionActual.TabIndex = 118
         Me.LBL_DireccionConexionActual.Text = "Dirección"
         '
@@ -1047,22 +1048,22 @@ Partial Class ConfigGeneral
         '
         Me.Guna2Transition1.AnimationType = Guna.UI2.AnimatorNS.AnimationType.Scale
         Me.Guna2Transition1.Cursor = Nothing
-        Animation1.AnimateOnlyDifferences = True
-        Animation1.BlindCoeff = CType(resources.GetObject("Animation1.BlindCoeff"), System.Drawing.PointF)
-        Animation1.LeafCoeff = 0!
-        Animation1.MaxTime = 1.0!
-        Animation1.MinTime = 0!
-        Animation1.MosaicCoeff = CType(resources.GetObject("Animation1.MosaicCoeff"), System.Drawing.PointF)
-        Animation1.MosaicShift = CType(resources.GetObject("Animation1.MosaicShift"), System.Drawing.PointF)
-        Animation1.MosaicSize = 0
-        Animation1.Padding = New System.Windows.Forms.Padding(0)
-        Animation1.RotateCoeff = 0!
-        Animation1.RotateLimit = 0!
-        Animation1.ScaleCoeff = CType(resources.GetObject("Animation1.ScaleCoeff"), System.Drawing.PointF)
-        Animation1.SlideCoeff = CType(resources.GetObject("Animation1.SlideCoeff"), System.Drawing.PointF)
-        Animation1.TimeCoeff = 0!
-        Animation1.TransparencyCoeff = 0!
-        Me.Guna2Transition1.DefaultAnimation = Animation1
+        Animation3.AnimateOnlyDifferences = True
+        Animation3.BlindCoeff = CType(resources.GetObject("Animation3.BlindCoeff"), System.Drawing.PointF)
+        Animation3.LeafCoeff = 0!
+        Animation3.MaxTime = 1.0!
+        Animation3.MinTime = 0!
+        Animation3.MosaicCoeff = CType(resources.GetObject("Animation3.MosaicCoeff"), System.Drawing.PointF)
+        Animation3.MosaicShift = CType(resources.GetObject("Animation3.MosaicShift"), System.Drawing.PointF)
+        Animation3.MosaicSize = 0
+        Animation3.Padding = New System.Windows.Forms.Padding(0)
+        Animation3.RotateCoeff = 0!
+        Animation3.RotateLimit = 0!
+        Animation3.ScaleCoeff = CType(resources.GetObject("Animation3.ScaleCoeff"), System.Drawing.PointF)
+        Animation3.SlideCoeff = CType(resources.GetObject("Animation3.SlideCoeff"), System.Drawing.PointF)
+        Animation3.TimeCoeff = 0!
+        Animation3.TransparencyCoeff = 0!
+        Me.Guna2Transition1.DefaultAnimation = Animation3
         '
         'Guna2PictureBox2
         '

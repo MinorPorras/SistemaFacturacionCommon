@@ -173,7 +173,22 @@ Module Md_Inicializacion
     End Sub
 #End Region
 
-#Region "Migraciones"
+#Region "Migraciones e inicialización de base de datos"
+    Friend Sub inicializarDB()
+        Dim dbPersistentePath As String = GetDbPath()
+
+        If Not File.Exists(dbPersistentePath) Then
+            Try
+                ' Si no existe, copia la base de datos inicial desde la carpeta 'bd'
+                Dim dbInicialPath As String = Path.Combine(Application.StartupPath, "bd\dbSistemaFacturacion.db")
+                File.Copy(dbInicialPath, dbPersistentePath)
+            Catch ex As Exception
+                MsgBox("Error al inicializar la base de datos: " & ex.Message, MsgBoxStyle.Exclamation, "Error")
+            End Try
+        End If
+    End Sub
+
+
     Friend Sub CheckAndMigrateDatabase()
         'Creación y actualización de tabla producto_favorito
         Create_Producto_Favorito_IfNotExists()
