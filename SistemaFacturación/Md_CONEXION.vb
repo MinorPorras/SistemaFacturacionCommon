@@ -5,6 +5,7 @@
 Imports System.Configuration
 Imports System.Data.OleDb
 Imports System.Data.SQLite
+Imports System.IO
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
 
@@ -26,11 +27,42 @@ Module Md_CONEXION
     ' Variables globales para consultas y cadena de conexión
     Public SQL As String
 
+    ' Método privado para obtener la cadena de conexión segura y persistente
+    Friend Function GetConnectionString() As String
+        Dim appDataPath As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        Dim appDirectory As String = Path.Combine(appDataPath, "SistemaDeFacturacion")
+        Dim dbPath As String = Path.Combine(appDirectory, "dbSistemaFacturacion.db")
+
+        If Not Directory.Exists(appDirectory) Then
+            Directory.CreateDirectory(appDirectory)
+        End If
+
+        Return $"Data Source={dbPath}"
+    End Function
+
+    ' Este método es el que genera la ruta persistente para tu base de datos.
+    Friend Function GetDbPath() As String
+        ' 1. Obtiene la ruta del directorio de datos de la aplicación del usuario.
+        Dim appDataPath As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+
+        ' 2. Combina la ruta para crear una carpeta específica para tu aplicación.
+        Dim appDirectory As String = Path.Combine(appDataPath, "SistemaDeFacturacion")
+
+        ' 3. Combina la ruta de la carpeta con el nombre de tu base de datos.
+        Dim dbPath As String = Path.Combine(appDirectory, "dbSistemaFacturacion.db")
+
+        ' 4. Asegura que el directorio exista. Si no, lo crea.
+        If Not Directory.Exists(appDirectory) Then
+            Directory.CreateDirectory(appDirectory)
+        End If
+
+        Return dbPath
+    End Function
+
 #Region "Interaccion"
     ' Carga datos en un DataSet usando parámetros en la consulta SQL
     Public Sub CargarTablaParam(ByVal t As DataSet, ByVal consulta As String, ByVal parametros As List(Of SQLiteParameter))
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-        Using db As New SQLiteConnection(stringConexion)
+        Using db As New SQLiteConnection(GetConnectionString())
             Try
                 db.Open()
                 Using cmd As New SQLiteCommand(consulta, db)
@@ -54,8 +86,7 @@ Module Md_CONEXION
 
     ' Carga datos en un DataSet usando una consulta SQL simple
     Public Sub Cargar_Tabla(ByVal t As DataSet, ByVal consulta As String)
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-        Using db As New SQLiteConnection(stringConexion)
+        Using db As New SQLiteConnection(GetConnectionString())
             Try
                 db.Open()
                 Using cmd As New SQLiteCommand(consulta, db)
@@ -74,8 +105,7 @@ Module Md_CONEXION
 
     ' Ejecuta una consulta SQL que no retorna resultados (INSERT, UPDATE, DELETE)
     Public Function EJECUTAR(ByVal SQL As String) As Boolean
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-        Using db As New SQLiteConnection(stringConexion)
+        Using db As New SQLiteConnection(GetConnectionString())
             Try
                 db.Open()
                 Using cmd As New SQLiteCommand(SQL, db)
@@ -91,8 +121,7 @@ Module Md_CONEXION
 
     ' Agregado el nuevo método que creamos juntos
     Public Function EJECUTAR_PARAMETROS(ByVal sql As String, ByVal parametros As Dictionary(Of String, Object)) As Boolean
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-        Using db As New SQLiteConnection(stringConexion)
+        Using db As New SQLiteConnection(GetConnectionString())
             Try
                 db.Open()
                 Using cmd As New SQLiteCommand(sql, db)
@@ -110,13 +139,12 @@ Module Md_CONEXION
     End Function
 
     Public Function EJECUTAR_TRANSACCION(ByVal operaciones As Action(Of SQLiteConnection, SQLiteTransaction)) As Boolean
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-        Using conn As New SQLiteConnection(stringConexion)
-            conn.Open()
-            Using transaction As SQLiteTransaction = conn.BeginTransaction()
+        Using db As New SQLiteConnection(GetConnectionString())
+            db.Open()
+            Using transaction As SQLiteTransaction = db.BeginTransaction()
                 Try
                     ' Se ejecutan todas las operaciones pasadas como parámetro
-                    operaciones.Invoke(conn, transaction)
+                    operaciones.Invoke(db, transaction)
 
                     ' Si no hay errores, se confirma la transacción
                     transaction.Commit()

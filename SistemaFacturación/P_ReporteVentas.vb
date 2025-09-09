@@ -6,24 +6,67 @@ Imports Guna.UI2.WinForms
 
 Public Class P_ReporteVentas
 
+    ' Declaración de un diccionario para rastrear el estado de carga de cada pestaña.
+    Private _tabLoaded As New Dictionary(Of String, Boolean) From {
+    {"PAG_ReporteVentas", False},
+    {"PAG_ReporteProd", False},
+    {"PAG_CierreCaja", False}
+}
+
 #Region "Metodos compartidos"
     Private Sub P_ReporteVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Se carag la fecha actual
-        CargarFechaActual()
-        'Se aplican los estilos a los Data grid view
-        AplicarEstiloDataGridView(DGV_FactReporte)
-        AplicarEstiloDataGridView(DGV_ListProductosMasVendidos)
-        RDB_OrderByCant.Checked = True
+        'Se carga la primera pestaña por defecto
+        If TAB_Reportes.SelectedTab IsNot Nothing Then
+            LoadData(TAB_Reportes.SelectedTab.Name)
+        End If
+    End Sub
 
-        'Se carga la lista de denominaciones del cierre de caja
-        inicializarListaTxtDenominaciones()
+    Private Sub TAB_Reportes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TAB_Reportes.SelectedIndexChanged
+        If TAB_Reportes.SelectedTab IsNot Nothing Then
+            Dim tabName As String = TAB_Reportes.SelectedTab.Name
 
-        'Se carga la información del cierre de caja
-        ObtenerDatosCierreDeCaja()
+            ' Verifica si la pestaña ya ha sido cargada usando su nombre.
+            If _tabLoaded.ContainsKey(tabName) AndAlso Not _tabLoaded(tabName) Then
+                LoadData(tabName)
+            End If
+        End If
+    End Sub
 
-        AddHandler TXT_EfectivoReal.TextChanged, AddressOf CargarTotalEsperadoYDiferencia
-        AddHandler NUD_SalidasEfectivo.ValueChanged, AddressOf CargarTotalEsperadoYDiferencia
+    ' Método único para cargar los datos basado en el nombre de la pestaña.
+    Private Sub LoadData(tabName As String)
+        Select Case tabName
+            Case "PAG_ReporteVentas"
+                ' Lógica para cargar los datos de la pestaña de Ventas.
+                'Se carga la fecha actual
+                CargarFechaActual()
+                'Se aplican los estilos a los Data grid view
+                AplicarEstiloDataGridView(DGV_FactReporte)
 
+                ' Actualiza el estado de carga para evitar recargas.
+                _tabLoaded("PAG_ReporteVentas") = True
+
+            Case "PAG_ReporteProd"
+                ' Lógica para cargar los datos de la pestaña de Reportes.
+                AplicarEstiloDataGridView(DGV_ListProductosMasVendidos)
+                RDB_OrderByCant.Checked = True
+
+                ' Actualiza el estado de carga para evitar recargas.
+                _tabLoaded("PAG_ReporteProd") = True
+
+            Case "PAG_CierreCaja"
+                ' Lógica para cargar los datos de la pestaña de Configuración.
+                'Se carga la lista de denominaciones del cierre de caja
+                inicializarListaTxtDenominaciones()
+
+                'Se carga la información del cierre de caja
+                ObtenerDatosCierreDeCaja()
+
+                AddHandler TXT_EfectivoReal.TextChanged, AddressOf CargarTotalEsperadoYDiferencia
+                AddHandler NUD_SalidasEfectivo.ValueChanged, AddressOf CargarTotalEsperadoYDiferencia
+
+                ' Actualiza el estado de carga para evitar recargas.
+                _tabLoaded("PAG_CierreCaja") = True
+        End Select
     End Sub
     Private Sub Regresar()
         M_Inicio.Show()
@@ -168,22 +211,25 @@ Public Class P_ReporteVentas
         'Se desabilta el botón durante la creación del reporte
         BTN_GenReporteProductos.Enabled = False
         BTN_GenReporteProductos.Text = "Generando reporte..."
-        BTN_GenReporteProductos.BackColor = Color.FromKnownColor(KnownColor.Gray)
+        BTN_GenReporteProductos.FillColor = Color.FromKnownColor(KnownColor.Gray)
 
         'Se obtiene el valor del límite
         Dim limit As Integer = Convert.ToInt32(NUD_LimitReporteProducto.Value)
 
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
         Dim orderBy As Integer
         If RDB_OrderByCant.Checked = True Then
             orderBy = 1
         Else
             orderBy = 2
         End If
-        Dim listaProd = Await getProductosMasVendido(stringConexion, limit, DTP_DesdeReporteProducto.Value, DTP_HastaReporteProducto.Value, orderBy)
+        Dim listaProd = Await getProductosMasVendido(limit, DTP_DesdeReporteProducto.Value, DTP_HastaReporteProducto.Value, orderBy)
 
         If listaProd.Count <= 0 Then
             msgError("No hay productos que mostrar en este rango")
+            'Se vuelve a activar el botón al terminar de generar el reporte
+            BTN_GenReporteProductos.Enabled = True
+            BTN_GenReporteProductos.Text = "Generar reporte"
+            BTN_GenReporteProductos.FillColor = Color.FromKnownColor(KnownColor.MediumSeaGreen)
             Return
         End If
 
@@ -201,7 +247,7 @@ Public Class P_ReporteVentas
         'Se vuelve a activar el botón al terminar de generar el reporte
         BTN_GenReporteProductos.Enabled = True
         BTN_GenReporteProductos.Text = "Generar reporte"
-        BTN_GenReporteProductos.BackColor = Color.FromKnownColor(KnownColor.MediumSeaGreen)
+        BTN_GenReporteProductos.FillColor = Color.FromKnownColor(KnownColor.MediumSeaGreen)
     End Sub
 
     Private Sub DGV_ListProductosMasVendidos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DGV_ListProductosMasVendidos.ColumnHeaderMouseClick
@@ -294,8 +340,7 @@ Public Class P_ReporteVentas
     End Sub
 
     Private Async Sub ObtenerDatosCierreDeCaja()
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-        nuevoCierre = Await obtenerCierreCajaInicial(stringConexion)
+        nuevoCierre = Await obtenerCierreCajaInicial()
 
         TXT_CCSaldoInicial.Text = nuevoCierre.saldo_inicial
         TXT_CCVentaEfectivo.Text = nuevoCierre.ingresoEfectivo
@@ -350,9 +395,8 @@ Public Class P_ReporteVentas
         nuevoCierre.salidasEfectivo = NUD_SalidasEfectivo.Value
 
         'Se guarda la info en la DB
-        Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
         'Si no se logra guardar correctamente devuel el mensaje de error
-        If Not Await guardarNuevoCierre(stringConexion, nuevoCierre) Then
+        If Not Await guardarNuevoCierre(GetConnectionString(), nuevoCierre) Then
             msgError("Error al generar el cierre de la caja")
             Return
         End If

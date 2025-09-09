@@ -15,13 +15,14 @@ Public Class ConfigGeneral
 
     Private Sub cargarDBConfigInfo()
         ' Cargar información de la conexión actual
-        Dim strConn As String = ObtenerConnectionString("DbConnectionString")
-        If Not String.IsNullOrEmpty(strConn) Then
-            Dim strConnParts As String() = strConn.Split("="c)
-            If strConnParts.Length > 1 Then
-                LBL_DireccionConexionActual.Text = strConnParts(1)
-            End If
-        End If
+        LBL_DireccionConexionActual.Text = GetDbPath()
+        'Dim strConn As String = ObtenerConnectionString("DbConnectionString")
+        'If Not String.IsNullOrEmpty(strConn) Then
+        '    Dim strConnParts As String() = strConn.Split("="c)
+        '    If strConnParts.Length > 1 Then
+        '        LBL_DireccionConexionActual.Text = strConnParts(1)
+        '    End If
+        'End If
 
         ' Cargar información del directorio de respaldo
         Dim backupDir As String = ConfigurationManager.AppSettings("DirectorioRespaldo")
@@ -72,7 +73,7 @@ Public Class ConfigGeneral
         End If
     End Sub
 
-    Private Sub BTN_ModConnDB_Click(sender As Object, e As EventArgs) Handles BTN_ModConnDB.Click
+    Private Sub BTN_ModConnDB_Click(sender As Object, e As EventArgs)
         If MsgBox("¿Esta seguro de querer importar la base de datos? Se cambiará la información de la bd y no se podrá recuperar si hay un error", vbOKCancel + vbQuestion, "Confirmación") = MsgBoxResult.Ok Then
             If MsgBox("Asegurate de hacer un respaldo antes de realizar esta acción", vbOKCancel + vbQuestion, "Confirmación") = MsgBoxResult.Ok Then
                 If MsgBox("Ultima comprobación, si presionas OK la base de datos será actualizada a la que se seleccione", vbOKCancel + vbQuestion, "Confirmación") = MsgBoxResult.Ok Then

@@ -14,7 +14,8 @@
             E_NuevaSucursal.TXT_DireccionSucursal.Text = TXT_DireccionSucursal.Text
             E_NuevaSucursal.TXT_TelefonoSucursal.Text = TXT_TelefonoSucursal.Text
             E_NuevaSucursal.TXT_EmailSucursal.Text = TXT_EmailSucursal.Text
-            If Not String.IsNullOrEmpty(logo) Then
+
+            If Not String.IsNullOrEmpty(logo) And IO.File.Exists(logo) Then
                 E_NuevaSucursal.OFD_LogoSucursal.FileName = logo
                 E_NuevaSucursal.BTN_LogoSucursal.Image = Image.FromFile(logo)
                 E_NuevaSucursal.RutaLogo = logo
@@ -45,7 +46,12 @@
             TXT_TelefonoSucursal.Text = T.Tables(0).Rows(0).Item(5)
             TXT_EmailSucursal.Text = T.Tables(0).Rows(0).Item(6)
             logo = T.Tables(0).Rows(0).Item(7)
-            PIC_Logo.Image = Image.FromFile(logo)
+            If Not String.IsNullOrEmpty(logo) And IO.File.Exists(logo) Then
+                PIC_Logo.Image = Image.FromFile(logo)
+            Else
+                PIC_Logo.Image = Nothing
+            End If
+
         Catch ex As Exception
             msgError("Error: " & ex.Message)
         End Try

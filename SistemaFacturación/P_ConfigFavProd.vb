@@ -88,10 +88,10 @@ Public Class P_ConfigFavProd
                                             .DataSource = T.Tables(0)
                                         }
                                         DGV_BProd.DataSource = bin
+                                        DGV_BProd.Columns(0).Visible = False
                                     Else ' Limpiar la fuente de datos si no se cargaron datos
                                         DGV_BProd.DataSource = Nothing
                                     End If
-                                    DGV_BProd.Columns(0).Visible = False
                                     TXT_BuscarProd.Select()
                                 End Sub)
                      Catch ex As Exception
