@@ -230,15 +230,44 @@ Public Class P_Caja
 
 
     Friend Sub AgregarProd(ID As String, codigo As String, nombre As String, precioVenta As String, cant As String)
-        Dim Subtotal As Double = cant * Convert.ToInt32(precioVenta)
-        Dim row As String() = {ID, codigo, nombre, precioVenta, cant, Subtotal}
-        DGV_Caja.Columns(0).Visible = False
-        Dim filaNueva As Integer = DGV_Caja.Rows.Add(row)
+        Dim filaExistente As DataGridViewRow = Nothing
+
+        ' 1. Busca si el producto ya existe en el DataGridView por su ID
+        For Each fila As DataGridViewRow In DGV_Caja.Rows
+            If fila.Cells(0).Value IsNot Nothing AndAlso fila.Cells(0).Value.ToString() = ID Then
+                filaExistente = fila
+                Exit For ' Sal del bucle tan pronto como encuentres la fila
+            End If
+        Next
+
+        If filaExistente IsNot Nothing Then
+            ' 2. Si el producto ya existe, aumenta la cantidad y recalcula el subtotal
+            Dim cantidadActual As Integer = 0
+            If Integer.TryParse(filaExistente.Cells(4).Value.ToString(), cantidadActual) Then
+                cantidadActual += Integer.Parse(cant)
+                filaExistente.Cells(4).Value = cantidadActual.ToString()
+
+                Dim subtotalActual As Double = Convert.ToDouble(filaExistente.Cells(3).Value) * cantidadActual
+                filaExistente.Cells(5).Value = subtotalActual
+            End If
+
+            ' Se coloca la celda de la cantidad para que pueda ser editada en caso de ser necesario
+            DGV_Caja.CurrentCell = filaExistente.Cells(4)
+            DGV_Caja.BeginEdit(True)
+        Else
+            ' 3. Si el producto no existe, agrega una nueva fila como lo hacías antes
+            Dim Subtotal As Double = Convert.ToInt32(cant) * Convert.ToInt32(precioVenta)
+            Dim row As String() = {ID, codigo, nombre, precioVenta, cant, Subtotal.ToString()}
+
+            Dim filaNueva As Integer = DGV_Caja.Rows.Add(row)
+            DGV_Caja.CurrentCell = DGV_Caja.Rows(filaNueva).Cells(4)
+            DGV_Caja.BeginEdit(True)
+        End If
+
+        ' Acciones que se ejecutan en ambos casos
         TXT_BuscarProducto.Clear()
         ValidarListView()
         CargarTotal()
-        DGV_Caja.CurrentCell = DGV_Caja.Rows(filaNueva).Cells(4)
-        DGV_Caja.BeginEdit(True)
     End Sub
 
     Friend Sub CargarTotal()
@@ -294,7 +323,7 @@ Public Class P_Caja
 
     End Sub
 
-    Private Sub DGV_Caja_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellValueChanged
+    Private Sub DGV_Caja_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellEndEdit
         ' Se asegura de que no estamos en una fila de encabezado o de inserción
         If e.RowIndex >= 0 AndAlso DGV_Caja.Rows(e.RowIndex).Cells(4).Value IsNot Nothing Then
             ' Obtiene los valores de la cantidad y el precio de la fila que se está editando

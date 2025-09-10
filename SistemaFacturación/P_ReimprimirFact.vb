@@ -185,21 +185,29 @@ Public Class P_ReimprimirFact
     End Sub
 
     Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
-        P_DatosFactura.idFact = DGV_ReimprimirFact.SelectedRows(0).Cells(0).Value.ToString()
-        P_DatosFactura.TXT_NumFact.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(1).Value.ToString()
-        P_DatosFactura.TXT_FechaEmision.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(2).Value.ToString()
-        P_DatosFactura.TXT_Cliente.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(3).Value.ToString()
-        P_DatosFactura.TXT_Cajero.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(4).Value.ToString()
-        P_DatosFactura.TXT_Comentario.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(5).Value.ToString()
-        P_DatosFactura.TXT_Total.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(6).Value.ToString()
-        P_DatosFactura.TXT_Efectivo.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(7).Value.ToString()
-        P_DatosFactura.TXT_Tarjeta.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(8).Value.ToString()
-        P_DatosFactura.TXT_Vuelto.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(9).Value.ToString()
-        P_DatosFactura.TXT_TipoPago.Text = DGV_ReimprimirFact.SelectedRows(0).Cells(10).Value.ToString()
-        P_DatosFactura.Show()
-        P_DatosFactura.Select()
-        P_DatosFactura.cargarProds()
-        Me.Close()
+        Dim datosFactura As New Cls_DatosFactura With {
+            .IdFactura = DGV_ReimprimirFact.SelectedRows(0).Cells(0).Value.ToString(),
+            .NumFactura = DGV_ReimprimirFact.SelectedRows(0).Cells(1).Value.ToString(),
+            .Fecha = DGV_ReimprimirFact.SelectedRows(0).Cells(2).Value.ToString(),
+            .Cliente = DGV_ReimprimirFact.SelectedRows(0).Cells(3).Value.ToString(),
+            .Cajero = DGV_ReimprimirFact.SelectedRows(0).Cells(4).Value.ToString(),
+            .Comentario = DGV_ReimprimirFact.SelectedRows(0).Cells(5).Value.ToString(),
+            .TotalCaja = DGV_ReimprimirFact.SelectedRows(0).Cells(6).Value.ToString(),
+            .Efectivo = DGV_ReimprimirFact.SelectedRows(0).Cells(7).Value.ToString(),
+            .Tarjeta = DGV_ReimprimirFact.SelectedRows(0).Cells(8).Value.ToString(),
+            .Vuelto = DGV_ReimprimirFact.SelectedRows(0).Cells(9).Value.ToString(),
+            .TipoPago = DGV_ReimprimirFact.SelectedRows(0).Cells(10).Value.ToString()
+        }
+        ' Crea la instancia del formulario
+        Dim frmDatosFactura As New P_DatosFactura With {
+            .Owner = Me
+        }
+
+        ' Llama a la nueva subrutina para cargar los datos en el formulario
+        frmDatosFactura.CargarDatos(datosFactura)
+
+        ' Muestra el formulario
+        frmDatosFactura.Show()
     End Sub
 
 

@@ -255,6 +255,7 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Cls_AtrFactura.vb" />
     <Compile Include="Cls_CierreCaja.vb" />
+    <Compile Include="Cls_DatosFactura.vb" />
     <Compile Include="Cls_ProductoCaja.vb" />
     <Compile Include="Cls_ProductosMasVendidos.vb" />
     <Compile Include="Cls_ReporteVentas.vb" />

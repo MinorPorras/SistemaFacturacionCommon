@@ -4,21 +4,21 @@ Imports System.Data.SQLite
 Module Md_Reportes
     Friend Async Function GenerarReporte(desde As Date, hasta As Date, t As DataSet) As Task(Of Cls_ReporteVentas)
         Try
-            Dim listaVentas As List(Of Cls_Venta) = Await ObtenerListaVentas(desde, hasta, t)
+            Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(desde, hasta, t)
 
             Dim totalVentas As Decimal = 0D
             Dim ventasEfectivo As Decimal = 0D
             Dim ventasTarjeta As Decimal = 0D
 
-            For Each venta As Cls_Venta In listaVentas
-                totalVentas += venta.Total
-                If venta.Tipo_venta = "Efectivo" Then
-                    ventasEfectivo += venta.Total
-                ElseIf venta.Tipo_venta = "Mixto" Then
+            For Each venta As Cls_DatosFactura In listaVentas
+                totalVentas += venta.TotalCaja
+                If venta.TipoPago = "Efectivo" Then
+                    ventasEfectivo += venta.TotalCaja
+                ElseIf venta.TipoPago = "Mixto" Then
                     ventasEfectivo += venta.Efectivo
                     ventasTarjeta += venta.Tarjeta
                 Else
-                    ventasTarjeta += venta.Total
+                    ventasTarjeta += venta.TotalCaja
                 End If
             Next
 
@@ -42,7 +42,7 @@ Module Md_Reportes
     End Function
 
 
-    Private Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet) As Task(Of List(Of Cls_Venta))
+    Private Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet) As Task(Of List(Of Cls_DatosFactura))
         Return Await Task.Run(Function()
                                   Dim fechaInicioFiltrada As Date
                                   Dim fechaFinFiltrada As Date
@@ -60,14 +60,30 @@ Module Md_Reportes
                                   Using db As New SQLiteConnection(GetConnectionString())
                                       Try
                                           db.Open()
-                                          Dim consulta As String = "SELECT f.num_factura As '# Fact', " &
-                                                                  "f.fecha_emision As 'Fecha de emisión', " &
-                                                                  "c.nombre As 'Nombre', f.efectivo_cliente as 'Efectivo', " &
-                                                                  "f.tarjeta_cliente as 'Tarjeta', f.total As 'Total', " &
-                                                                  "f.tipo_venta As 'tipo' " &
-                                                                  "FROM factura f " &
-                                                                  "INNER JOIN clientes c ON c.ID = f.ID_Cliente " &
-                                                                  "WHERE fecha_emision >= @fechaInicio AND fecha_emision < @fechaFin AND cobrada != 0;"
+                                          Dim consulta As String = "SELECT 
+                                                                        f.ID,
+                                                                        f.num_factura AS '# Fact',
+                                                                        f.fecha_emision AS 'Fecha de emisión',
+                                                                        c.nombre AS 'Cliente',
+                                                                        u.usuario As 'Cajero',
+                                                                        fc.comentario  As 'Comentario',
+                                                                        f.efectivo_cliente AS 'Efectivo',
+                                                                        f.tarjeta_cliente AS 'Tarjeta',
+                                                                        f.total AS 'Total',
+                                                                        f.tipo_venta AS 'tipo',
+                                                                        f.vuelto  As Vuelto
+                                                                    FROM 
+                                                                        factura f
+                                                                    INNER JOIN 
+                                                                        clientes c ON c.ID = f.ID_Cliente
+                                                                    INNER JOIN
+	                                                                    usuario u  ON u.ID = f.ID_Usuario 
+                                                                    LEFT JOIN 
+	                                                                    factura_comentario fc  ON fc.ID_Factura  =f.ID 
+                                                                    WHERE 
+                                                                        f.fecha_emision >= @fechaInicio
+                                                                        AND f.fecha_emision <  @fechaFin
+                                                                        AND f.cobrada != 0;"
                                           Using cmd As New SQLiteCommand(consulta, db)
                                               cmd.Parameters.AddWithValue("@fechaInicio", fechaInicioFiltrada)
                                               cmd.Parameters.AddWithValue("@fechaFin", fechaFinFiltrada)
@@ -84,17 +100,24 @@ Module Md_Reportes
                                       End Try
                                   End Using
 
-                                  Dim listaVentas As New List(Of Cls_Venta)
+                                  Dim listaVentas As New List(Of Cls_DatosFactura)
                                   If t.Tables.Count > 0 Then
                                       For Each row As DataRow In t.Tables(0).Rows
-                                          Dim numFactura As String = row.Item("# Fact").ToString()
-                                          Dim fecha As Date = Convert.ToDateTime(row.Item("Fecha de emisión"))
-                                          Dim cliente As String = row.Item("Nombre").ToString()
-                                          Dim efectivo As Decimal = Convert.ToDecimal(row.Item("Efectivo"))
-                                          Dim tarjeta As Decimal = Convert.ToDecimal(row.Item("Tarjeta"))
-                                          Dim total As Decimal = Convert.ToDecimal(row.Item("Total"))
+                                          Dim factura As New Cls_DatosFactura With {
+                                            .IdFactura = row.Item("ID").ToString(),
+                                            .NumFactura = row.Item("# Fact").ToString(),
+                                            .Fecha = Convert.ToDateTime(row.Item("Fecha de emisión")),
+                                            .Cliente = row.Item("Cliente").ToString(),
+                                            .Cajero = row.Item("Cajero").ToString(),
+                                            .Comentario = row.Item("Comentario").ToString(),
+                                            .Efectivo = Convert.ToDecimal(row.Item("Efectivo")),
+                                            .Tarjeta = Convert.ToDecimal(row.Item("Tarjeta")),
+                                            .TotalCaja = Convert.ToDecimal(row.Item("Total")),
+                                            .Vuelto = Convert.ToDecimal(row.Item("Vuelto"))
+                                          }
 
-                                          Dim tipoVentaNum As Integer = Convert.ToInt32(row.Item("tipo")) ' <--- OJO: OBTIENES EL NÚMERO
+                                          'Se obtiene el número del tipo de venta
+                                          Dim tipoVentaNum As Integer = Convert.ToInt32(row.Item("tipo"))
                                           Dim tipoVenta As String
 
                                           Select Case tipoVentaNum
@@ -111,9 +134,9 @@ Module Md_Reportes
                                               Case Else
                                                   tipoVenta = "Desconocido"
                                           End Select
-
-                                          Dim venta As New Cls_Venta(numFactura, fecha, cliente, total, tipoVenta, efectivo, tarjeta)
-                                          listaVentas.Add(venta)
+                                          factura.TipoPago = tipoVenta
+                                          'Se añade la factura a la lista
+                                          listaVentas.Add(factura)
                                       Next
                                   End If
                                   Return listaVentas
@@ -200,17 +223,17 @@ Module Md_Reportes
         End If
 
         'Se obtiene la información relacionada con las ventas en la 
-        Dim listaVentas As List(Of Cls_Venta) = Await ObtenerListaVentas(fechaInicio, fechaFin, T)
+        Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(fechaInicio, fechaFin, T)
         Dim ventasEfectivo As Decimal = 0
         Dim ventasTarjeta As Decimal = 0
-        For Each venta As Cls_Venta In listaVentas
-            If venta.Tipo_venta = "Efectivo" Then
-                ventasEfectivo += venta.Total
-            ElseIf venta.Tipo_venta = "Mixto" Then
+        For Each venta As Cls_DatosFactura In listaVentas
+            If venta.TipoPago = "Efectivo" Then
+                ventasEfectivo += venta.TotalCaja
+            ElseIf venta.TipoPago = "Mixto" Then
                 ventasEfectivo += venta.Efectivo
                 ventasTarjeta += venta.Tarjeta
             Else
-                ventasTarjeta += venta.Total
+                ventasTarjeta += venta.TotalCaja
             End If
         Next
         Dim infoInicialCierre As New Cls_CierreCaja(fechaInicio, fechaFin, saldoTurnoAnterior, ventasEfectivo, ventasTarjeta)
