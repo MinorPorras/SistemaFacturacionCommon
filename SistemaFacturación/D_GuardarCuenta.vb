@@ -8,7 +8,6 @@
     End Property
 
     Private Sub BTN_ConfirmGuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_ConfirmGuardarCuenta.Click
-        ' La validación que ya tienes
         If TXT_Comentario.Text.Length > 200 Then
             MessageBox.Show("El comentario no puede exceder los 200 caracteres.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         ElseIf TXT_Comentario.Text.Length < 5 Then

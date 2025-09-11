@@ -414,6 +414,7 @@ Public Class P_ReporteVentas
     Dim totalCajaReal As Integer
     Dim listTxtDenominaciones As New Dictionary(Of Integer, Guna2NumericUpDown)
     Dim nuevoCierre As Cls_CierreCaja
+    Dim saldoSiguiente As Cls_SaldoCaja
 
     Private Sub inicializarListaTxtDenominaciones()
         ' Añadir cada NumericUpDown de denominación a la lista
@@ -540,6 +541,32 @@ Public Class P_ReporteVentas
 
     Private Sub BTN_CCLimpiarCierre_Click(sender As Object, e As EventArgs) Handles BTN_CCLimpiarCierre.Click
         LIMPIAR_CIERRE_CAJA()
+    End Sub
+
+    Private Sub BTN_CalcularSaldoSiguiente_Click(sender As Object, e As EventArgs) Handles BTN_CalcularSaldoSiguiente.Click
+        ' Lógica para asegurar que el objeto no esté vacío la primera vez que se usa
+        If saldoSiguiente Is Nothing Then
+            ' Si es la primera vez que se abre, crea un objeto vacío
+            saldoSiguiente = New Cls_SaldoCaja()
+        End If
+
+        ' Clonar el objeto *antes* de abrir el formulario de diálogo
+        Dim saldoParaDialogo As Cls_SaldoCaja = saldoSiguiente.Clonar(saldoSiguiente)
+
+        Using frmCalcularSaldo As New D_CalcularSaldoSiguiente(saldoParaDialogo)
+            frmCalcularSaldo.Owner = Me
+
+            frmCalcularSaldo.ShowDialog()
+
+            ' Verifica el resultado del dialogo
+            If frmCalcularSaldo.ResultadoDelDialogo = DialogResult.OK Then
+                ' El formulario de diálogo ahora devuelve el objeto modificado
+                saldoSiguiente = frmCalcularSaldo.saldoSiguiente
+                NUD_CCSaldoSiguienteTurno.Value = saldoSiguiente.Total
+            Else
+                Return
+            End If
+        End Using
     End Sub
 
 #End Region

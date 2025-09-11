@@ -165,6 +165,7 @@ Partial Class P_ReporteVentas
         Me.Guna2HtmlLabel30 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.PrintDocument = New System.Drawing.Printing.PrintDocument()
         Me.PrintDialog = New System.Windows.Forms.PrintDialog()
+        Me.BTN_CalcularSaldoSiguiente = New Guna.UI2.WinForms.Guna2Button()
         Me.TAB_Reportes.SuspendLayout()
         Me.PAG_ReporteVentas.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -803,7 +804,7 @@ Partial Class P_ReporteVentas
         Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
+        Me.MNU_CONTX.Size = New System.Drawing.Size(146, 56)
         '
         'MNU_REIMPRIMIR
         '
@@ -812,7 +813,7 @@ Partial Class P_ReporteVentas
         Me.MNU_REIMPRIMIR.ForeColor = System.Drawing.SystemColors.Control
         Me.MNU_REIMPRIMIR.Image = CType(resources.GetObject("MNU_REIMPRIMIR.Image"), System.Drawing.Image)
         Me.MNU_REIMPRIMIR.Name = "MNU_REIMPRIMIR"
-        Me.MNU_REIMPRIMIR.Size = New System.Drawing.Size(184, 26)
+        Me.MNU_REIMPRIMIR.Size = New System.Drawing.Size(145, 26)
         Me.MNU_REIMPRIMIR.Text = "Reimprimir"
         '
         'MNU_Datos
@@ -822,7 +823,7 @@ Partial Class P_ReporteVentas
         Me.MNU_Datos.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.MNU_Datos.Image = CType(resources.GetObject("MNU_Datos.Image"), System.Drawing.Image)
         Me.MNU_Datos.Name = "MNU_Datos"
-        Me.MNU_Datos.Size = New System.Drawing.Size(184, 26)
+        Me.MNU_Datos.Size = New System.Drawing.Size(145, 26)
         Me.MNU_Datos.Text = "Ver datos"
         '
         'PAG_ReporteProd
@@ -1937,6 +1938,7 @@ Partial Class P_ReporteVentas
         '
         'PAN_Cell2InfoCierre
         '
+        Me.PAN_Cell2InfoCierre.Controls.Add(Me.BTN_CalcularSaldoSiguiente)
         Me.PAN_Cell2InfoCierre.Controls.Add(Me.TableLayoutPanel4)
         Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2GroupBox5)
         Me.PAN_Cell2InfoCierre.Controls.Add(Me.TXT_CCComentario)
@@ -2214,7 +2216,7 @@ Partial Class P_ReporteVentas
         Me.NUD_CCSaldoSiguienteTurno.Location = New System.Drawing.Point(235, 384)
         Me.NUD_CCSaldoSiguienteTurno.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.NUD_CCSaldoSiguienteTurno.Name = "NUD_CCSaldoSiguienteTurno"
-        Me.NUD_CCSaldoSiguienteTurno.Size = New System.Drawing.Size(364, 36)
+        Me.NUD_CCSaldoSiguienteTurno.Size = New System.Drawing.Size(194, 36)
         Me.NUD_CCSaldoSiguienteTurno.TabIndex = 163
         Me.NUD_CCSaldoSiguienteTurno.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         '
@@ -2251,6 +2253,7 @@ Partial Class P_ReporteVentas
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(614, 66)
         Me.TableLayoutPanel2.TabIndex = 0
         '
@@ -2436,6 +2439,26 @@ Partial Class P_ReporteVentas
         'PrintDialog
         '
         Me.PrintDialog.UseEXDialog = True
+        '
+        'BTN_CalcularSaldoSiguiente
+        '
+        Me.BTN_CalcularSaldoSiguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_CalcularSaldoSiguiente.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CalcularSaldoSiguiente.BorderColor = System.Drawing.Color.Red
+        Me.BTN_CalcularSaldoSiguiente.BorderRadius = 10
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CalcularSaldoSiguiente.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_CalcularSaldoSiguiente.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_CalcularSaldoSiguiente.ForeColor = System.Drawing.Color.White
+        Me.BTN_CalcularSaldoSiguiente.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_CalcularSaldoSiguiente.Location = New System.Drawing.Point(435, 384)
+        Me.BTN_CalcularSaldoSiguiente.Name = "BTN_CalcularSaldoSiguiente"
+        Me.BTN_CalcularSaldoSiguiente.Size = New System.Drawing.Size(164, 36)
+        Me.BTN_CalcularSaldoSiguiente.TabIndex = 167
+        Me.BTN_CalcularSaldoSiguiente.Text = "Calcular"
         '
         'P_ReporteVentas
         '
@@ -2670,4 +2693,5 @@ Partial Class P_ReporteVentas
     Friend WithEvents MNU_Datos As ToolStripMenuItem
     Friend WithEvents PrintDocument As Printing.PrintDocument
     Friend WithEvents PrintDialog As PrintDialog
+    Friend WithEvents BTN_CalcularSaldoSiguiente As Guna.UI2.WinForms.Guna2Button
 End Class
