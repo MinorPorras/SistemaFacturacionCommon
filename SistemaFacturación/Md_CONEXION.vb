@@ -68,7 +68,7 @@ Module Md_CONEXION
                 Using cmd As New SQLiteCommand(consulta, db)
                     If parametros IsNot Nothing Then
                         For Each param As SQLiteParameter In parametros
-                            cmd.Parameters.Add(param)
+                            cmd.Parameters.AddWithValue(param.ParameterName, param.Value)
                             Console.WriteLine("Parámetro añadido: " & param.ParameterName & " = " & param.Value)
                         Next
                     End If

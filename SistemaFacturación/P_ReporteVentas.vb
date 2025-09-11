@@ -569,5 +569,13 @@ Public Class P_ReporteVentas
         End Using
     End Sub
 
+    Private Sub BTN_VerCierres_Click(sender As Object, e As EventArgs) Handles BTN_VerCierres.Click
+        Using frmVerCiere As New P_VerCierre
+            frmVerCiere.Owner = Me
+            frmVerCiere.ShowDialog()
+        End Using
+    End Sub
+
+
 #End Region
 End Class
