@@ -267,6 +267,13 @@
     <Compile Include="Cls_ProductoCaja.vb" />
     <Compile Include="Cls_ProductosMasVendidos.vb" />
     <Compile Include="Cls_ReporteVentas.vb" />
+    <Compile Include="Cls_SaldoCaja.vb" />
+    <Compile Include="D_CalcularSaldoSiguiente.Designer.vb">
+      <DependentUpon>D_CalcularSaldoSiguiente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="D_CalcularSaldoSiguiente.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="D_GuardarCuenta.Designer.vb">
       <DependentUpon>D_GuardarCuenta.vb</DependentUpon>
     </Compile>
@@ -577,6 +584,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigGeneral.resx">
       <DependentUpon>ConfigGeneral.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="D_CalcularSaldoSiguiente.resx">
+      <DependentUpon>D_CalcularSaldoSiguiente.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="D_GuardarCuenta.resx">
       <DependentUpon>D_GuardarCuenta.vb</DependentUpon>
