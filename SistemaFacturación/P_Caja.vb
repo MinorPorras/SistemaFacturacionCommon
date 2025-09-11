@@ -626,6 +626,12 @@ Public Class P_Caja
     End Sub
 
     Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
+        'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
+        If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
+            msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
+            Return
+        End If
+
         B_Producto.ModProd = True
         B_Producto.Show()
         B_Producto.Select()
@@ -638,7 +644,16 @@ Public Class P_Caja
     End Sub
 
     Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
+        'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
+        If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
+            msgError("Se debe de seleccionar un producto, no se puede eliminar una fila vacía")
+            Return
+        End If
+
+        'Se remuevela fila en el indice seleccionado
         DGV_Caja.Rows.RemoveAt(DGV_Caja.SelectedRows(0).Index)
+
+        'Se valida la información de datagrid y se actualiza elt otal de la factura
         ValidarListView()
         CargarTotal()
     End Sub
