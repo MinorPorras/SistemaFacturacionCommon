@@ -1,5 +1,7 @@
 ﻿Imports System.Configuration
 Imports System.Data.SQLite
+Imports Syncfusion.Pdf
+Imports Syncfusion.Pdf.Graphics
 
 Module Md_Reportes
     Friend Async Function GenerarReporte(desde As Date, hasta As Date, t As DataSet) As Task(Of Cls_ReporteVentas)
@@ -198,6 +200,30 @@ Module Md_Reportes
                                   Return listProductosMasVendidos
                               End Function)
     End Function
+
+    Private Async Sub Crear_PDF_ReporteVentas(desde As Date, hasta As Date)
+        'Se obtiene la información relevante de la base de datos
+        Dim reporte As Cls_ReporteVentas = Await GenerarReporte(desde, hasta, T1)
+
+        ' 1. Define diferentes estilos de fuente
+        Dim fontTitulo As New PdfStandardFont(PdfFontFamily.Courier, 18, PdfFontStyle.Bold)
+        Dim fontNormal As New PdfStandardFont(PdfFontFamily.Courier, 10)
+        Dim fontNormalNegrita As New PdfStandardFont(PdfFontFamily.Courier, 10, PdfFontStyle.Bold)
+
+        '2. Se define el punto de incio de nuestros elementos en el documento
+        Dim yPoint As Single = 20
+
+        ' Se crea un elemento PdfTextElement para los elementos que necesitamos mostrar como texto
+        'Titulo
+        Dim tituloElement As New PdfTextElement("REPORTE DE VENTAS", fontTitulo, PdfBrushes.Black)
+        'Fecha de emisión
+        Dim FechaEmisionElement As New PdfTextElement($"Fecha de emisión {desde.Date.ToLongDateString()} - {hasta.Date.ToLongDateString()}")
+
+        Using reportePDF As New PdfDocument()
+            ' Se pinta el título del reporte al documento
+
+        End Using
+    End Sub
 
 #Region "Cierre de caja"
 

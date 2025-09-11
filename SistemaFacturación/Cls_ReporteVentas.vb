@@ -1,4 +1,4 @@
-﻿Imports SistemaFacturaciónCommon.Cls_Venta
+﻿
 Public Class Cls_ReporteVentas
     Public ListaVentas As New List(Of Cls_DatosFactura)
     Public total_ventas As Decimal

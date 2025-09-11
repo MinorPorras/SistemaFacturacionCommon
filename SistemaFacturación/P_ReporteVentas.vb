@@ -4,6 +4,8 @@ Imports System.Drawing.Printing
 Imports System.Globalization
 Imports System.Windows.Forms
 Imports Guna.UI2.WinForms
+Imports Syncfusion.Pdf
+Imports Syncfusion.Pdf.Graphics
 
 Public Class P_ReporteVentas
 
@@ -246,7 +248,9 @@ Public Class P_ReporteVentas
     End Sub
 
     Private Sub BTN_GenerarReporteVentaPDF_Click(sender As Object, e As EventArgs) Handles BTN_GenerarReporteVentaPDF.Click
-
+        'If MsgBox("Desea generar el reporte con la información indicada?") = DialogResult.OK Then
+        '    Md_Reportes.Crear_PDF_ReporteVentas(DTP_Desde.Value, DTP_Hasta.Value)
+        'End If
     End Sub
 
     Private Sub PrintDocument_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument.PrintPage
