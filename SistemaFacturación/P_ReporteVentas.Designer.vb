@@ -23,14 +23,14 @@ Partial Class P_ReporteVentas
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ReporteVentas))
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TAB_Reportes = New Guna.UI2.WinForms.Guna2TabControl()
         Me.PAG_ReporteVentas = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -132,9 +132,12 @@ Partial Class P_ReporteVentas
         Me.TXT_EfectivoReal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel29 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.PAN_HeaderEfectivoReal = New Guna.UI2.WinForms.Guna2Panel()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.BTN_VerCierres = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_CCLimpiarCierre = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.PAN_Cell2InfoCierre = New Guna.UI2.WinForms.Guna2Panel()
+        Me.BTN_CalcularSaldoSiguiente = New Guna.UI2.WinForms.Guna2Button()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.Guna2HtmlLabel39 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Guna2HtmlLabel33 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -165,7 +168,6 @@ Partial Class P_ReporteVentas
         Me.Guna2HtmlLabel30 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.PrintDocument = New System.Drawing.Printing.PrintDocument()
         Me.PrintDialog = New System.Windows.Forms.PrintDialog()
-        Me.BTN_CalcularSaldoSiguiente = New Guna.UI2.WinForms.Guna2Button()
         Me.TAB_Reportes.SuspendLayout()
         Me.PAG_ReporteVentas.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -216,6 +218,7 @@ Partial Class P_ReporteVentas
         CType(Me.NUD_Billete50, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PAN_FooterEfectivoReal.SuspendLayout()
         Me.PAN_HeaderEfectivoReal.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
         Me.PAN_Cell2InfoCierre.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.NUD_SalidasEfectivo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -575,7 +578,7 @@ Partial Class P_ReporteVentas
         Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Guna2HtmlLabel1.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(937, 504)
+        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(937, 364)
         Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
         Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(50, 23)
         Me.Guna2HtmlLabel1.TabIndex = 127
@@ -588,7 +591,7 @@ Partial Class P_ReporteVentas
         Me.LBL_Usu.BackColor = System.Drawing.Color.Transparent
         Me.LBL_Usu.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LBL_Usu.ForeColor = System.Drawing.SystemColors.Control
-        Me.LBL_Usu.Location = New System.Drawing.Point(937, 385)
+        Me.LBL_Usu.Location = New System.Drawing.Point(937, 245)
         Me.LBL_Usu.Name = "LBL_Usu"
         Me.LBL_Usu.Size = New System.Drawing.Size(54, 23)
         Me.LBL_Usu.TabIndex = 126
@@ -695,7 +698,7 @@ Partial Class P_ReporteVentas
         Me.DTP_Hasta.FillColor = System.Drawing.Color.White
         Me.DTP_Hasta.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.DTP_Hasta.Format = System.Windows.Forms.DateTimePickerFormat.[Long]
-        Me.DTP_Hasta.Location = New System.Drawing.Point(937, 533)
+        Me.DTP_Hasta.Location = New System.Drawing.Point(937, 393)
         Me.DTP_Hasta.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.DTP_Hasta.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.DTP_Hasta.Name = "DTP_Hasta"
@@ -711,7 +714,7 @@ Partial Class P_ReporteVentas
         Me.DTP_Desde.FillColor = System.Drawing.Color.White
         Me.DTP_Desde.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.DTP_Desde.Format = System.Windows.Forms.DateTimePickerFormat.[Long]
-        Me.DTP_Desde.Location = New System.Drawing.Point(937, 414)
+        Me.DTP_Desde.Location = New System.Drawing.Point(937, 274)
         Me.DTP_Desde.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.DTP_Desde.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.DTP_Desde.Name = "DTP_Desde"
@@ -724,49 +727,49 @@ Partial Class P_ReporteVentas
         Me.DGV_FactReporte.AllowUserToAddRows = False
         Me.DGV_FactReporte.AllowUserToDeleteRows = False
         Me.DGV_FactReporte.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.DGV_FactReporte.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.DGV_FactReporte.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
         Me.DGV_FactReporte.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGV_FactReporte.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGV_FactReporte.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.DGV_FactReporte.ColumnHeadersHeight = 20
         Me.DGV_FactReporte.ContextMenuStrip = Me.MNU_CONTX
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DGV_FactReporte.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGV_FactReporte.DefaultCellStyle = DataGridViewCellStyle11
         Me.DGV_FactReporte.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.DGV_FactReporte.Location = New System.Drawing.Point(22, 188)
         Me.DGV_FactReporte.MultiSelect = False
         Me.DGV_FactReporte.Name = "DGV_FactReporte"
         Me.DGV_FactReporte.ReadOnly = True
         Me.DGV_FactReporte.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGV_FactReporte.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGV_FactReporte.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.DGV_FactReporte.RowHeadersVisible = False
-        Me.DGV_FactReporte.Size = New System.Drawing.Size(898, 409)
+        Me.DGV_FactReporte.Size = New System.Drawing.Size(898, 269)
         Me.DGV_FactReporte.TabIndex = 121
         Me.DGV_FactReporte.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
         Me.DGV_FactReporte.ThemeStyle.AlternatingRowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -855,7 +858,7 @@ Partial Class P_ReporteVentas
         'TBL_ResultContainer
         '
         Me.TBL_ResultContainer.ColumnCount = 1
-        Me.TBL_ResultContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TBL_ResultContainer.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TBL_ResultContainer.Controls.Add(Me.BTN_RegresarReporteProducto, 0, 2)
         Me.TBL_ResultContainer.Controls.Add(Me.GBX_ListaProductoCompleta, 0, 0)
         Me.TBL_ResultContainer.Controls.Add(Me.DGV_MejorProducto, 0, 1)
@@ -863,8 +866,8 @@ Partial Class P_ReporteVentas
         Me.TBL_ResultContainer.Location = New System.Drawing.Point(3, 3)
         Me.TBL_ResultContainer.Name = "TBL_ResultContainer"
         Me.TBL_ResultContainer.RowCount = 3
-        Me.TBL_ResultContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.87228!))
-        Me.TBL_ResultContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.12773!))
+        Me.TBL_ResultContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TBL_ResultContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
         Me.TBL_ResultContainer.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51.0!))
         Me.TBL_ResultContainer.Size = New System.Drawing.Size(843, 694)
         Me.TBL_ResultContainer.TabIndex = 0
@@ -883,9 +886,9 @@ Partial Class P_ReporteVentas
         Me.BTN_RegresarReporteProducto.ForeColor = System.Drawing.Color.White
         Me.BTN_RegresarReporteProducto.Image = CType(resources.GetObject("BTN_RegresarReporteProducto.Image"), System.Drawing.Image)
         Me.BTN_RegresarReporteProducto.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_RegresarReporteProducto.Location = New System.Drawing.Point(3, 645)
+        Me.BTN_RegresarReporteProducto.Location = New System.Drawing.Point(3, 646)
         Me.BTN_RegresarReporteProducto.Name = "BTN_RegresarReporteProducto"
-        Me.BTN_RegresarReporteProducto.Size = New System.Drawing.Size(837, 46)
+        Me.BTN_RegresarReporteProducto.Size = New System.Drawing.Size(837, 45)
         Me.BTN_RegresarReporteProducto.TabIndex = 144
         Me.BTN_RegresarReporteProducto.Text = "Regresar"
         '
@@ -903,7 +906,7 @@ Partial Class P_ReporteVentas
         Me.GBX_ListaProductoCompleta.Location = New System.Drawing.Point(3, 3)
         Me.GBX_ListaProductoCompleta.Name = "GBX_ListaProductoCompleta"
         Me.GBX_ListaProductoCompleta.ShadowDecoration.Color = System.Drawing.Color.IndianRed
-        Me.GBX_ListaProductoCompleta.Size = New System.Drawing.Size(837, 449)
+        Me.GBX_ListaProductoCompleta.Size = New System.Drawing.Size(837, 457)
         Me.GBX_ListaProductoCompleta.TabIndex = 143
         Me.GBX_ListaProductoCompleta.Text = "Lista completa"
         Me.GBX_ListaProductoCompleta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -913,29 +916,29 @@ Partial Class P_ReporteVentas
         Me.DGV_ListProductosMasVendidos.AllowUserToAddRows = False
         Me.DGV_ListProductosMasVendidos.AllowUserToDeleteRows = False
         Me.DGV_ListProductosMasVendidos.AllowUserToResizeRows = False
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.DGV_ListProductosMasVendidos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGV_ListProductosMasVendidos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.DGV_ListProductosMasVendidos.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGV_ListProductosMasVendidos.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DGV_ListProductosMasVendidos.ColumnHeadersHeight = 20
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DGV_ListProductosMasVendidos.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGV_ListProductosMasVendidos.DefaultCellStyle = DataGridViewCellStyle3
         Me.DGV_ListProductosMasVendidos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGV_ListProductosMasVendidos.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.DGV_ListProductosMasVendidos.Location = New System.Drawing.Point(0, 40)
@@ -943,16 +946,16 @@ Partial Class P_ReporteVentas
         Me.DGV_ListProductosMasVendidos.Name = "DGV_ListProductosMasVendidos"
         Me.DGV_ListProductosMasVendidos.ReadOnly = True
         Me.DGV_ListProductosMasVendidos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGV_ListProductosMasVendidos.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGV_ListProductosMasVendidos.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.DGV_ListProductosMasVendidos.RowHeadersVisible = False
-        Me.DGV_ListProductosMasVendidos.Size = New System.Drawing.Size(837, 409)
+        Me.DGV_ListProductosMasVendidos.Size = New System.Drawing.Size(837, 417)
         Me.DGV_ListProductosMasVendidos.TabIndex = 122
         Me.DGV_ListProductosMasVendidos.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
         Me.DGV_ListProductosMasVendidos.ThemeStyle.AlternatingRowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -991,9 +994,9 @@ Partial Class P_ReporteVentas
         Me.DGV_MejorProducto.FillColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.DGV_MejorProducto.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DGV_MejorProducto.ForeColor = System.Drawing.Color.White
-        Me.DGV_MejorProducto.Location = New System.Drawing.Point(3, 458)
+        Me.DGV_MejorProducto.Location = New System.Drawing.Point(3, 466)
         Me.DGV_MejorProducto.Name = "DGV_MejorProducto"
-        Me.DGV_MejorProducto.Size = New System.Drawing.Size(837, 181)
+        Me.DGV_MejorProducto.Size = New System.Drawing.Size(837, 174)
         Me.DGV_MejorProducto.TabIndex = 138
         Me.DGV_MejorProducto.Text = "Producto más vendido:"
         Me.DGV_MejorProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1138,6 +1141,7 @@ Partial Class P_ReporteVentas
         Me.Guna2GroupBox3.ForeColor = System.Drawing.Color.White
         Me.Guna2GroupBox3.Location = New System.Drawing.Point(55, 469)
         Me.Guna2GroupBox3.Name = "Guna2GroupBox3"
+        Me.Guna2GroupBox3.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
         Me.Guna2GroupBox3.Size = New System.Drawing.Size(282, 114)
         Me.Guna2GroupBox3.TabIndex = 152
         Me.Guna2GroupBox3.Text = "Ordenar por:"
@@ -1146,28 +1150,28 @@ Partial Class P_ReporteVentas
         'RDB_OrderByCant
         '
         Me.RDB_OrderByCant.AccessibilityEnabled = True
-        Me.RDB_OrderByCant.BeforeTouchSize = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByCant.BeforeTouchSize = New System.Drawing.Size(262, 34)
         Me.RDB_OrderByCant.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.RDB_OrderByCant.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RDB_OrderByCant.ForeColor = System.Drawing.Color.White
-        Me.RDB_OrderByCant.Location = New System.Drawing.Point(0, 46)
+        Me.RDB_OrderByCant.Location = New System.Drawing.Point(10, 41)
         Me.RDB_OrderByCant.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
         Me.RDB_OrderByCant.Name = "RDB_OrderByCant"
-        Me.RDB_OrderByCant.Size = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByCant.Size = New System.Drawing.Size(262, 34)
         Me.RDB_OrderByCant.TabIndex = 1
         Me.RDB_OrderByCant.Text = "Cantidad"
         '
         'RDB_OrderByTotal
         '
         Me.RDB_OrderByTotal.AccessibilityEnabled = True
-        Me.RDB_OrderByTotal.BeforeTouchSize = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByTotal.BeforeTouchSize = New System.Drawing.Size(262, 34)
         Me.RDB_OrderByTotal.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.RDB_OrderByTotal.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RDB_OrderByTotal.ForeColor = System.Drawing.Color.White
-        Me.RDB_OrderByTotal.Location = New System.Drawing.Point(0, 80)
+        Me.RDB_OrderByTotal.Location = New System.Drawing.Point(10, 75)
         Me.RDB_OrderByTotal.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
         Me.RDB_OrderByTotal.Name = "RDB_OrderByTotal"
-        Me.RDB_OrderByTotal.Size = New System.Drawing.Size(282, 34)
+        Me.RDB_OrderByTotal.Size = New System.Drawing.Size(262, 34)
         Me.RDB_OrderByTotal.TabIndex = 0
         Me.RDB_OrderByTotal.Text = "Total de ventas"
         '
@@ -1891,13 +1895,52 @@ Partial Class P_ReporteVentas
         '
         'PAN_HeaderEfectivoReal
         '
-        Me.PAN_HeaderEfectivoReal.Controls.Add(Me.BTN_CCLimpiarCierre)
-        Me.PAN_HeaderEfectivoReal.Controls.Add(Me.Guna2HtmlLabel16)
+        Me.PAN_HeaderEfectivoReal.Controls.Add(Me.TableLayoutPanel5)
         Me.PAN_HeaderEfectivoReal.Dock = System.Windows.Forms.DockStyle.Top
         Me.PAN_HeaderEfectivoReal.Location = New System.Drawing.Point(0, 0)
         Me.PAN_HeaderEfectivoReal.Name = "PAN_HeaderEfectivoReal"
         Me.PAN_HeaderEfectivoReal.Size = New System.Drawing.Size(614, 66)
         Me.PAN_HeaderEfectivoReal.TabIndex = 0
+        '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.ColumnCount = 3
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.94157!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.52921!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.52921!))
+        Me.TableLayoutPanel5.Controls.Add(Me.BTN_VerCierres, 1, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.BTN_CCLimpiarCierre, 2, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.Guna2HtmlLabel16, 0, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(614, 66)
+        Me.TableLayoutPanel5.TabIndex = 0
+        '
+        'BTN_VerCierres
+        '
+        Me.BTN_VerCierres.BorderColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.BTN_VerCierres.BorderRadius = 10
+        Me.BTN_VerCierres.BorderThickness = 2
+        Me.BTN_VerCierres.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_VerCierres.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_VerCierres.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_VerCierres.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_VerCierres.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_VerCierres.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_VerCierres.FillColor = System.Drawing.Color.Transparent
+        Me.BTN_VerCierres.FocusedColor = System.Drawing.Color.Silver
+        Me.BTN_VerCierres.Font = New System.Drawing.Font("Ebrima", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_VerCierres.ForeColor = System.Drawing.Color.White
+        Me.BTN_VerCierres.Image = CType(resources.GetObject("BTN_VerCierres.Image"), System.Drawing.Image)
+        Me.BTN_VerCierres.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_VerCierres.Location = New System.Drawing.Point(192, 3)
+        Me.BTN_VerCierres.Name = "BTN_VerCierres"
+        Me.BTN_VerCierres.Size = New System.Drawing.Size(206, 60)
+        Me.BTN_VerCierres.TabIndex = 154
+        Me.BTN_VerCierres.Text = "Ver cierres"
         '
         'BTN_CCLimpiarCierre
         '
@@ -1909,31 +1952,32 @@ Partial Class P_ReporteVentas
         Me.BTN_CCLimpiarCierre.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_CCLimpiarCierre.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_CCLimpiarCierre.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_CCLimpiarCierre.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_CCLimpiarCierre.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BTN_CCLimpiarCierre.FillColor = System.Drawing.Color.Transparent
         Me.BTN_CCLimpiarCierre.FocusedColor = System.Drawing.Color.Silver
-        Me.BTN_CCLimpiarCierre.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_CCLimpiarCierre.Font = New System.Drawing.Font("Ebrima", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_CCLimpiarCierre.ForeColor = System.Drawing.Color.White
         Me.BTN_CCLimpiarCierre.Image = CType(resources.GetObject("BTN_CCLimpiarCierre.Image"), System.Drawing.Image)
-        Me.BTN_CCLimpiarCierre.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CCLimpiarCierre.Location = New System.Drawing.Point(388, 0)
+        Me.BTN_CCLimpiarCierre.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_CCLimpiarCierre.Location = New System.Drawing.Point(404, 3)
         Me.BTN_CCLimpiarCierre.Name = "BTN_CCLimpiarCierre"
-        Me.BTN_CCLimpiarCierre.Size = New System.Drawing.Size(226, 66)
+        Me.BTN_CCLimpiarCierre.Size = New System.Drawing.Size(207, 60)
         Me.BTN_CCLimpiarCierre.TabIndex = 153
         Me.BTN_CCLimpiarCierre.Text = "Limpiar"
         '
         'Guna2HtmlLabel16
         '
-        Me.Guna2HtmlLabel16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Guna2HtmlLabel16.AutoSize = False
         Me.Guna2HtmlLabel16.BackColor = System.Drawing.Color.Transparent
-        Me.Guna2HtmlLabel16.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel16.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Guna2HtmlLabel16.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Guna2HtmlLabel16.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel16.Location = New System.Drawing.Point(22, 16)
+        Me.Guna2HtmlLabel16.Location = New System.Drawing.Point(3, 3)
         Me.Guna2HtmlLabel16.Name = "Guna2HtmlLabel16"
-        Me.Guna2HtmlLabel16.Size = New System.Drawing.Size(231, 34)
+        Me.Guna2HtmlLabel16.Size = New System.Drawing.Size(183, 60)
         Me.Guna2HtmlLabel16.TabIndex = 152
         Me.Guna2HtmlLabel16.Text = "Efectivo real en caja"
+        Me.Guna2HtmlLabel16.TextAlignment = System.Drawing.ContentAlignment.TopCenter
         Me.Guna2HtmlLabel16.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
         'PAN_Cell2InfoCierre
@@ -1952,6 +1996,27 @@ Partial Class P_ReporteVentas
         Me.PAN_Cell2InfoCierre.Name = "PAN_Cell2InfoCierre"
         Me.PAN_Cell2InfoCierre.Size = New System.Drawing.Size(614, 694)
         Me.PAN_Cell2InfoCierre.TabIndex = 1
+        '
+        'BTN_CalcularSaldoSiguiente
+        '
+        Me.BTN_CalcularSaldoSiguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_CalcularSaldoSiguiente.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CalcularSaldoSiguiente.BorderColor = System.Drawing.Color.Red
+        Me.BTN_CalcularSaldoSiguiente.BorderRadius = 10
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CalcularSaldoSiguiente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CalcularSaldoSiguiente.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_CalcularSaldoSiguiente.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_CalcularSaldoSiguiente.ForeColor = System.Drawing.Color.White
+        Me.BTN_CalcularSaldoSiguiente.Image = CType(resources.GetObject("BTN_CalcularSaldoSiguiente.Image"), System.Drawing.Image)
+        Me.BTN_CalcularSaldoSiguiente.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CalcularSaldoSiguiente.Location = New System.Drawing.Point(435, 384)
+        Me.BTN_CalcularSaldoSiguiente.Name = "BTN_CalcularSaldoSiguiente"
+        Me.BTN_CalcularSaldoSiguiente.Size = New System.Drawing.Size(164, 36)
+        Me.BTN_CalcularSaldoSiguiente.TabIndex = 167
+        Me.BTN_CalcularSaldoSiguiente.Text = "Calcular"
         '
         'TableLayoutPanel4
         '
@@ -2253,7 +2318,7 @@ Partial Class P_ReporteVentas
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(614, 66)
         Me.TableLayoutPanel2.TabIndex = 0
         '
@@ -2440,26 +2505,6 @@ Partial Class P_ReporteVentas
         '
         Me.PrintDialog.UseEXDialog = True
         '
-        'BTN_CalcularSaldoSiguiente
-        '
-        Me.BTN_CalcularSaldoSiguiente.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BTN_CalcularSaldoSiguiente.BackColor = System.Drawing.Color.Transparent
-        Me.BTN_CalcularSaldoSiguiente.BorderColor = System.Drawing.Color.Red
-        Me.BTN_CalcularSaldoSiguiente.BorderRadius = 10
-        Me.BTN_CalcularSaldoSiguiente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CalcularSaldoSiguiente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CalcularSaldoSiguiente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_CalcularSaldoSiguiente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_CalcularSaldoSiguiente.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_CalcularSaldoSiguiente.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_CalcularSaldoSiguiente.ForeColor = System.Drawing.Color.White
-        Me.BTN_CalcularSaldoSiguiente.ImageSize = New System.Drawing.Size(50, 50)
-        Me.BTN_CalcularSaldoSiguiente.Location = New System.Drawing.Point(435, 384)
-        Me.BTN_CalcularSaldoSiguiente.Name = "BTN_CalcularSaldoSiguiente"
-        Me.BTN_CalcularSaldoSiguiente.Size = New System.Drawing.Size(164, 36)
-        Me.BTN_CalcularSaldoSiguiente.TabIndex = 167
-        Me.BTN_CalcularSaldoSiguiente.Text = "Calcular"
-        '
         'P_ReporteVentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2540,7 +2585,7 @@ Partial Class P_ReporteVentas
         Me.PAN_FooterEfectivoReal.ResumeLayout(False)
         Me.PAN_FooterEfectivoReal.PerformLayout()
         Me.PAN_HeaderEfectivoReal.ResumeLayout(False)
-        Me.PAN_HeaderEfectivoReal.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
         Me.PAN_Cell2InfoCierre.ResumeLayout(False)
         Me.PAN_Cell2InfoCierre.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
@@ -2694,4 +2739,6 @@ Partial Class P_ReporteVentas
     Friend WithEvents PrintDocument As Printing.PrintDocument
     Friend WithEvents PrintDialog As PrintDialog
     Friend WithEvents BTN_CalcularSaldoSiguiente As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
+    Friend WithEvents BTN_VerCierres As Guna.UI2.WinForms.Guna2Button
 End Class

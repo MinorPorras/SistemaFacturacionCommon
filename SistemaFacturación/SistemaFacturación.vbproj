@@ -280,6 +280,12 @@
     <Compile Include="D_GuardarCuenta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="D_VerDatosCierre.Designer.vb">
+      <DependentUpon>D_VerDatosCierre.vb</DependentUpon>
+    </Compile>
+    <Compile Include="D_VerDatosCierre.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Md_Reportes.vb" />
     <Compile Include="P_ConfigFavProd.Designer.vb">
       <DependentUpon>P_ConfigFavProd.vb</DependentUpon>
@@ -303,6 +309,12 @@
       <DependentUpon>P_ReporteVentas.vb</DependentUpon>
     </Compile>
     <Compile Include="P_ReporteVentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="P_VerCierre.Designer.vb">
+      <DependentUpon>P_VerCierre.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P_VerCierre.vb">
       <SubType>Form</SubType>
     </Compile>
     <Content Include="bd\dbSistemaFacturacion.db">
@@ -591,6 +603,9 @@
     <EmbeddedResource Include="D_GuardarCuenta.resx">
       <DependentUpon>D_GuardarCuenta.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="D_VerDatosCierre.resx">
+      <DependentUpon>D_VerDatosCierre.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="E_NuevoProducto.resx">
       <DependentUpon>E_NuevoProducto.vb</DependentUpon>
     </EmbeddedResource>
@@ -686,6 +701,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="P_Usuarios.resx">
       <DependentUpon>P_Usuarios.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P_VerCierre.resx">
+      <DependentUpon>P_VerCierre.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
