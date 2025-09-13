@@ -1,12 +1,9 @@
-﻿Imports System.Drawing.Printing
+﻿Imports System.Data.SQLite
+Imports System.Drawing.Printing
 Imports System.Threading.Tasks
 
 
 Public Class P_ReimprimirFact
-    Friend encabezadoFactura As String
-    Friend encabezadoProds As String
-    Friend facturaContenido As New List(Of String)()
-    Friend finFactura As String
     Private searchTimer As Timer
 
     ' Método para inicializar el temporizador y otros componentes necesarios
@@ -37,69 +34,89 @@ Public Class P_ReimprimirFact
     End Sub
 
     Friend Sub REFRESCAR()
+        ' Ejecutar la tarea en un hilo de fondo
         Task.Run(Sub()
                      Try
-                         T.Tables.Clear()
-                         Dim busqueda As String = TXT_BuscarFact.Text.Trim()
+                         ' Crear la consulta SQL de forma segura
+                         Dim consulta As String = "SELECT f.ID, printf('%015d', CAST(f.num_factura AS INTEGER)) AS 'Num factura', f.fecha_emision AS 'Fecha de emisión', " &
+                                     "c.nombre AS 'Cliente', u.usuario AS 'Cajero', fc.comentario AS 'Comentario', f.total AS 'Total', " &
+                                     "f.efectivo_cliente AS 'Pago efectivo', f.tarjeta_cliente AS 'Pago tarjeta', f.vuelto AS 'Vuelto', " &
+                                     "CASE WHEN f.tipo_venta = 0 THEN 'Efectivo' " &
+                                     "WHEN f.tipo_venta = 1 THEN 'Tarjeta' " &
+                                     "WHEN f.tipo_venta = 2 THEN 'Sinpe' " &
+                                     "WHEN f.tipo_venta = 3 THEN 'Depósito' " &
+                                     "WHEN f.tipo_venta = 4 THEN 'Mixto' " &
+                                     "ELSE 'Efectivo' END AS 'Tipo venta', " &
+                                     "f.cobrada AS 'Cobrada' " &
+                                     "FROM factura f " &
+                                     "LEFT JOIN clientes c ON c.ID = f.ID_CLIENTE " &
+                                     "LEFT JOIN usuario u ON u.ID = f.ID_USUARIO " &
+                                     "LEFT JOIN factura_comentario fc ON fc.ID_Factura = f.ID "
+
+                         Dim parametros As New List(Of SQLiteParameter)()
+                         Dim busqueda As String = ""
+
+                         ' Usamos Invoke para acceder al control TXT_BuscarFact en el hilo de la UI
+                         Invoke(Sub()
+                                    busqueda = TXT_BuscarFact.Text.Trim()
+                                End Sub)
+
+                         ' Construir la cláusula WHERE y añadir el parámetro de búsqueda
                          Dim condicionBusqueda As String
-                         If busqueda = "" Then
-                             condicionBusqueda = "1 = 1" ' Esto siempre será verdadero, mostrando todos los registros
+                         If Not String.IsNullOrWhiteSpace(busqueda) Then
+                             condicionBusqueda = "WHERE f.cobrada = 1 AND printf('%015d', CAST(f.num_factura AS INTEGER)) LIKE @busqueda "
+                             parametros.Add(New SQLiteParameter("@busqueda", "%" & busqueda & "%"))
                          Else
-                             condicionBusqueda = $"(printf('%015d', CAST(f.num_factura AS INTEGER)) LIKE '%{busqueda}%')"
+                             condicionBusqueda = "WHERE f.cobrada = 1 "
                          End If
 
+                         ' Añadir el ORDER BY y el LIMIT
                          Dim cant As String = ""
-                         If RDB_200.Checked Then
-                             cant = "LIMIT 200"
-                         ElseIf RDB_100.Checked Then
-                             cant = "LIMIT 100"
-                         ElseIf RDB_All.Checked Then
-                             cant = "" ' Sin límite
-                         Else
-                             cant = "LIMIT 50"
-                         End If
+                         Invoke(Sub()
+                                    If RDB_200.Checked Then
+                                        cant = "LIMIT 200"
+                                    ElseIf RDB_100.Checked Then
+                                        cant = "LIMIT 100"
+                                    ElseIf RDB_All.Checked Then
+                                        cant = "" ' Sin límite
+                                    Else
+                                        cant = "LIMIT 50"
+                                    End If
+                                End Sub)
 
-                         SQL = "SELECT f.ID, printf('%015d', CAST(f.num_factura AS INTEGER)) AS 'Num factura', f.fecha_emision AS 'Fecha de emisión', " &
-                                  "c.nombre AS 'Cliente', u.usuario AS 'Cajero', fc.comentario AS 'Comentario', f.total AS 'Total', " &
-                                  "f.efectivo_cliente AS 'Pago efectivo', f.tarjeta_cliente AS 'Pago tarjeta', f.vuelto AS 'Vuelto', " &
-                                  "CASE WHEN f.tipo_venta = 0 THEN 'Efectivo' " &
-                                       "WHEN f.tipo_venta = 1 THEN 'Tarjeta' " &
-                                       "WHEN f.tipo_venta = 2 THEN 'Sinpe' " &
-                                       "WHEN f.tipo_venta = 3 THEN 'Depósito' " &
-                                       "WHEN f.tipo_venta = 4 THEN 'Mixto' " &
-                                       "ELSE 'Efectivo' END AS 'Tipo venta', " &
-                                  "f.cobrada AS 'Cobrada' " &
-                                  "FROM factura f " &
-                                  "LEFT JOIN clientes c ON c.ID = f.ID_CLIENTE " &
-                                  "LEFT JOIN usuario u ON u.ID = f.ID_USUARIO " &
-                                  "LEFT JOIN factura_comentario fc ON fc.ID_Factura = f.ID " &
-                                  "WHERE f.cobrada = 1 AND " & condicionBusqueda & " " &
-                                  "ORDER BY CAST(f.num_factura AS INTEGER) DESC " & cant & ";"
+                         ' Unir todas las partes de la consulta
+                         consulta &= condicionBusqueda & "ORDER BY CAST(f.num_factura AS INTEGER) DESC " & cant & ";"
+
+                         ' Limpiar la tabla antes de cargar nuevos datos
+                         T.Tables.Clear()
+
+                         ' Cargar los datos de forma segura usando el método CargarTablaParam
+                         CargarTablaParam(T, consulta, parametros)
+
+                         ' Invocar al hilo de la UI para actualizar el DataGridView
                          Invoke(Sub()
                                     MNU_REIMPRIMIR.Visible = False
                                     MNU_Datos.Visible = False
-                                    Cargar_Tabla(T, SQL)
                                     If T.Tables.Count > 0 AndAlso T.Tables(0).Rows.Count > 0 Then
-                                        Dim bin As New BindingSource With {
-                                            .DataSource = T.Tables(0)
-                                        }
+                                        Dim bin As New BindingSource With {.DataSource = T.Tables(0)}
                                         DGV_ReimprimirFact.DataSource = bin
                                         MNU_REIMPRIMIR.Visible = True
                                         MNU_Datos.Visible = True
-                                    Else ' Limpiar la fuente de datos si no se cargaron datos
+                                    Else
                                         DGV_ReimprimirFact.DataSource = Nothing
                                     End If
                                     TXT_BuscarFact.Select()
                                 End Sub)
+
                      Catch ex As Exception
+                         ' Manejar la excepción en el hilo de la UI
                          Invoke(Sub()
                                     If DGV_ReimprimirFact.IsHandleCreated Then
+                                        ' Ignorar el error específico de índice
                                         If ex.Message <> "InvalidArgument=El valor de '0' no es válido para 'index'." & vbCrLf & "Nombre del parámetro: index" Then
-                                            ' Mostrar un mensaje de error genérico
                                             msgError("Error al cargar la lista de facturas: " & ex.Message)
                                         End If
                                     End If
-
                                 End Sub)
                      End Try
                  End Sub)
@@ -154,34 +171,40 @@ Public Class P_ReimprimirFact
                                          End Sub))
     End Sub
 
+    Private Function ObtenerIdFacturaReciente() As Integer
+        Dim idFactura As Integer = -1
+        Try
+            Using conn As New SQLiteConnection("Data Source=tu_basededatos.db;Version=3;")
+                conn.Open()
+                Using cmd As New SQLiteCommand("SELECT MAX(ID) FROM factura WHERE cobrada = 1;", conn)
+                    Dim result = cmd.ExecuteScalar()
+                    If result IsNot DBNull.Value Then
+                        idFactura = Convert.ToInt32(result)
+                    End If
+                End Using
+            End Using
+        Catch ex As Exception
+            msgError("Error al obtener la factura más reciente: " & ex.Message)
+        End Try
+        Return idFactura
+    End Function
 
     Private Sub BTN_ImpReciente_Click(sender As Object, e As EventArgs) Handles BTN_ImpReciente.Click
-        encabezadoFactura = ""
-        For i As Integer = facturaContenido.Count - 1 To 0 Step -1
-            facturaContenido.RemoveAt(i)
-        Next
-
-        finFactura = ""
-        T.Tables.Clear()
-        SQL = "SELECT ID FROM factura ORDER BY cast(num_factura as integer) DESC LIMIT 1;"
-        Cargar_Tabla(T, SQL)
-        If T.Tables(0).Rows.Count > 0 Then
-            Dim idFact As String = T.Tables(0).Rows(0).Item(0).ToString()
-            GENERAR_FACTURA(idFact, True)
-            ImprimirFactura()
+        Dim idFact As Integer = ObtenerIdFacturaReciente()
+        If idFact = -1 Then
+            msgError("No se encontró ninguna factura reciente.")
         End If
+
+        Md_IMPRIMIR.GENERAR_FACTURA(idFact)
     End Sub
 
     Private Sub MNU_REIMPRIMIR_Click(sender As Object, e As EventArgs) Handles MNU_REIMPRIMIR.Click
-        encabezadoFactura = ""
-        'Se limpia la lista de productos
-        For Each line As String In facturaContenido.ToList()
-            facturaContenido.Remove(line)
-        Next
-
-        finFactura = ""
-        GENERAR_FACTURA(DGV_ReimprimirFact.SelectedRows(0).Cells(0).Value.ToString(), True)
-        ImprimirFactura()
+        ' Asume que tienes un DataGridView llamado DGV_Facturas
+        If DGV_ReimprimirFact.CurrentRow IsNot Nothing Then
+            Dim idFactura As Integer = Convert.ToInt32(DGV_ReimprimirFact.CurrentRow.Cells("ID").Value)
+            ' Llamada directa a la función del módulo
+            Md_IMPRIMIR.GENERAR_FACTURA(idFactura)
+        End If
     End Sub
 
     Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
@@ -215,73 +238,6 @@ Public Class P_ReimprimirFact
         msgCerrarApp()
     End Sub
 
-    Private Sub PrintDocument_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument.PrintPage
-        Dim font As New Font("Arial", 12)
-        Dim fontProds As New Font("Segoe UI", 9)
-        Dim brush As New SolidBrush(Color.Black)
-        Dim stringFormat As New StringFormat() With {
-        .Alignment = StringAlignment.Near,
-        .LineAlignment = StringAlignment.Near
-    }
-
-        Dim totalWidth As Single = 72 * 3.78
-        Dim cellWidth As Single = totalWidth / 4
-        Dim leftMargin As Single = e.MarginBounds.Left
-        Dim topMargin As Single = e.MarginBounds.Top
-        Dim yPos As Single = topMargin
-
-        ' Dibujar el encabezado
-        e.Graphics.DrawString(encabezadoFactura, font, brush, leftMargin, yPos, stringFormat)
-        yPos += e.Graphics.MeasureString(encabezadoFactura, font).Height + 10 ' Espacio adicional después del encabezado
-
-        ' Dibujar el encabezado de la tabla de productos
-        e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos, stringFormat)
-        yPos += e.Graphics.MeasureString(encabezadoProds, fontProds).Height + 10 ' Espacio adicional después del encabezado
-
-        ' Dibujar los productos
-        For Each line As String In facturaContenido
-            Dim columns() As String = line.Split(New Char() {"."c}, StringSplitOptions.RemoveEmptyEntries) ' Cambiar el delimitador si es necesario
-
-            Dim maxHeight As Single = 0
-
-            For colIndex As Integer = 0 To columns.Length - 1
-                Dim rect As New RectangleF(leftMargin + (colIndex * cellWidth), yPos, cellWidth, 0)
-                Dim size As SizeF = e.Graphics.MeasureString(columns(colIndex), fontProds, rect.Size, stringFormat)
-
-                If size.Height > maxHeight Then
-                    maxHeight = size.Height
-                End If
-
-                rect.Height = maxHeight
-                e.Graphics.DrawString(columns(colIndex), fontProds, brush, rect, stringFormat)
-            Next
-
-            yPos += maxHeight + 5 ' Asegurar que el yPos se incremente para cada línea de productos
-        Next
-
-        yPos += 10 ' Espacio adicional después de los productos
-        e.Graphics.DrawString(finFactura, font, brush, leftMargin, yPos, stringFormat)
-    End Sub
-
-
-    ' Método para iniciar la impresión
-    Private Sub ImprimirFactura()
-        Dim printDoc As New PrintDocument()
-        AddHandler printDoc.PrintPage, AddressOf printDocument_PrintPage
-        ' Configurar el tamaño de papel personalizado en pulgadas
-        Dim customPaperSize As New PaperSize("Custom", CInt(72 * 3.937), CInt(297 * 3.937))
-        printDoc.DefaultPageSettings.PaperSize = customPaperSize
-
-        ' Configurar márgenes a cero
-        printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
-
-        Dim printPreview As New PrintPreviewDialog With {
-            .Document = printDoc
-        }
-        printDoc.Print()
-
-    End Sub
-
     Private Sub BTN_RegresarFact_Click(sender As Object, e As EventArgs) Handles BTN_RegresarFact.Click
         P_Caja.Show()
         P_Caja.Select()
@@ -289,46 +245,35 @@ Public Class P_ReimprimirFact
         Me.Close()
     End Sub
 
-    Private Sub TXT_BuscarFact_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarFact.TextChanged
+    Private Sub reiniciarTimer()
         If searchTimer IsNot Nothing Then
             searchTimer.Stop()
             searchTimer.Start()
         End If
+    End Sub
+
+    Private Sub TXT_BuscarFact_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarFact.TextChanged
+        reiniciarTimer()
     End Sub
 
     Private Sub RDB_50_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_50.CheckedChanged
-        If searchTimer IsNot Nothing Then
-            searchTimer.Stop()
-            searchTimer.Start()
-        End If
+        reiniciarTimer()
     End Sub
 
     Private Sub RDB_100_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_100.CheckedChanged
-        If searchTimer IsNot Nothing Then
-            searchTimer.Stop()
-            searchTimer.Start()
-        End If
+        reiniciarTimer()
     End Sub
 
     Private Sub RDB_200_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_200.CheckedChanged
-        If searchTimer IsNot Nothing Then
-            searchTimer.Stop()
-            searchTimer.Start()
-        End If
+        reiniciarTimer()
     End Sub
 
     Private Sub RDB_All_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_All.CheckedChanged
-        If searchTimer IsNot Nothing Then
-            searchTimer.Stop()
-            searchTimer.Start()
-        End If
+        reiniciarTimer()
     End Sub
 
     Private Sub DTP_Fecha_ValueChanged(sender As Object, e As EventArgs)
-        If searchTimer IsNot Nothing Then
-            searchTimer.Stop()
-            searchTimer.Start()
-        End If
+        reiniciarTimer()
     End Sub
 
     Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click

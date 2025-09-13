@@ -243,29 +243,29 @@ Public Class P_Caja
         If filaExistente IsNot Nothing Then
             ' 2. Si el producto ya existe, aumenta la cantidad y recalcula el subtotal
             Dim cantidadActual As Integer = 0
-            If Integer.TryParse(filaExistente.Cells(4).Value.ToString(), cantidadActual) Then
-                cantidadActual += Integer.Parse(cant)
-                filaExistente.Cells(4).Value = cantidadActual.ToString()
-
-                Dim subtotalActual As Double = Convert.ToDouble(filaExistente.Cells(3).Value) * cantidadActual
-                filaExistente.Cells(5).Value = subtotalActual
+            If Not Integer.TryParse(filaExistente.Cells(4).Value.ToString(), cantidadActual) Then
+                msgError("Error al leer la cantidad actual del producto.")
+                Return
             End If
 
-            ' Se coloca la celda de la cantidad para que pueda ser editada en caso de ser necesario
-            DGV_Caja.CurrentCell = filaExistente.Cells(4)
-            DGV_Caja.BeginEdit(True)
+            'Se suma a la cantidad actual la nueva cantidad que se está agregando
+            cantidadActual += Integer.Parse(cant)
+            filaExistente.Cells(4).Value = cantidadActual.ToString()
+
+            'Se actualiza el subtotal
+            Dim subtotalActual As Double = Convert.ToDouble(filaExistente.Cells(3).Value) * cantidadActual
+            filaExistente.Cells(5).Value = subtotalActual
         Else
             ' 3. Si el producto no existe, agrega una nueva fila como lo hacías antes
             Dim Subtotal As Double = Convert.ToInt32(cant) * Convert.ToInt32(precioVenta)
             Dim row As String() = {ID, codigo, nombre, precioVenta, cant, Subtotal.ToString()}
 
-            Dim filaNueva As Integer = DGV_Caja.Rows.Add(row)
-            DGV_Caja.CurrentCell = DGV_Caja.Rows(filaNueva).Cells(4)
-            DGV_Caja.BeginEdit(True)
+            DGV_Caja.Rows.Add(row)
         End If
 
         ' Acciones que se ejecutan en ambos casos
         TXT_BuscarProducto.Clear()
+        TXT_BuscarProducto.Focus()
         ValidarListView()
         CargarTotal()
     End Sub
@@ -340,6 +340,24 @@ Public Class P_Caja
         ' Recalcula el total de la factura
         CargarTotal()
         TXT_BuscarProducto.Focus()
+    End Sub
+
+    Private Sub DGV_Caja_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellClick
+        ' Validar que el clic no fue en el encabezado de las columnas
+        If e.RowIndex >= 0 Then
+            ' Obtener la fila en la que se hizo clic
+            Dim filaSeleccionada As DataGridViewRow = DGV_Caja.Rows(e.RowIndex)
+
+            ' Asegurar que la celda 4 exista en la fila
+            If filaSeleccionada.Cells.Count > 4 Then
+                ' Seleccionar la celda en la columna 4
+                filaSeleccionada.Cells(4).Selected = True
+
+                ' Poner el DGV en modo de edición y activar la celda 4
+                DGV_Caja.CurrentCell = filaSeleccionada.Cells(4)
+                DGV_Caja.BeginEdit(True)
+            End If
+        End If
     End Sub
 
     Private Sub P_Caja_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown

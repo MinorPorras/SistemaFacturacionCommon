@@ -78,10 +78,15 @@ Public Class P_ReporteVentas
     End Sub
 
     Private Sub CargarFechaActual()
-        DTP_Desde.Value = Date.Now
-        DTP_Hasta.Value = Date.Now
-        DTP_DesdeReporteProducto.Value = Date.Now
-        DTP_HastaReporteProducto.Value = Date.Now
+        ' Establece la fecha de inicio al inicio del día (00:00:00)
+        DTP_Desde.Value = Date.Now.Date
+
+        ' Establece la fecha de fin al final del día (23:59:59)
+        DTP_Hasta.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
+
+        ' Se aplica la misma lógica
+        DTP_DesdeReporteProducto.Value = Date.Now.Date
+        DTP_HastaReporteProducto.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
     End Sub
 
     ' Este método puede estar en un módulo o en tu clase del formulario
@@ -210,15 +215,12 @@ Public Class P_ReporteVentas
     End Sub
 
     Private Sub MNU_REIMPRIMIR_Click(sender As Object, e As EventArgs) Handles MNU_REIMPRIMIR.Click
-        encabezadoFactura = ""
-        'Se limpia la lista de productos
-        For Each line As String In facturaContenido.ToList()
-            facturaContenido.Remove(line)
-        Next
-
-        finFactura = ""
-        GENERAR_FACTURA(DGV_FactReporte.SelectedRows(0).Cells(0).Value.ToString(), True)
-        ImprimirFactura()
+        ' Asume que tienes un DataGridView llamado DGV_Facturas
+        If DGV_FactReporte.CurrentRow IsNot Nothing Then
+            Dim idFactura As Integer = Convert.ToInt32(DGV_FactReporte.CurrentRow.Cells("IdFactura").Value)
+            ' Llamada directa a la función del módulo
+            Md_IMPRIMIR.GENERAR_FACTURA(idFactura)
+        End If
     End Sub
 
     Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
@@ -253,72 +255,6 @@ Public Class P_ReporteVentas
         'End If
     End Sub
 
-    Private Sub PrintDocument_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument.PrintPage
-        Dim font As New Font("Arial", 12)
-        Dim fontProds As New Font("Segoe UI", 9)
-        Dim brush As New SolidBrush(Color.Black)
-        Dim stringFormat As New StringFormat() With {
-        .Alignment = StringAlignment.Near,
-        .LineAlignment = StringAlignment.Near
-        }
-
-        Dim totalWidth As Single = 72 * 3.78
-        Dim cellWidth As Single = totalWidth / 4
-        Dim leftMargin As Single = e.MarginBounds.Left
-        Dim topMargin As Single = e.MarginBounds.Top
-        Dim yPos As Single = topMargin
-
-        ' Dibujar el encabezado
-        e.Graphics.DrawString(encabezadoFactura, font, brush, leftMargin, yPos, stringFormat)
-        yPos += e.Graphics.MeasureString(encabezadoFactura, font).Height + 10 ' Espacio adicional después del encabezado
-
-        ' Dibujar el encabezado de la tabla de productos
-        e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos, stringFormat)
-        yPos += e.Graphics.MeasureString(encabezadoProds, fontProds).Height + 10 ' Espacio adicional después del encabezado
-
-        ' Dibujar los productos
-        For Each line As String In facturaContenido
-            Dim columns() As String = line.Split(New Char() {"."c}, StringSplitOptions.RemoveEmptyEntries) ' Cambiar el delimitador si es necesario
-
-            Dim maxHeight As Single = 0
-
-            For colIndex As Integer = 0 To columns.Length - 1
-                Dim rect As New RectangleF(leftMargin + (colIndex * cellWidth), yPos, cellWidth, 0)
-                Dim size As SizeF = e.Graphics.MeasureString(columns(colIndex), fontProds, rect.Size, stringFormat)
-
-                If size.Height > maxHeight Then
-                    maxHeight = size.Height
-                End If
-
-                rect.Height = maxHeight
-                e.Graphics.DrawString(columns(colIndex), fontProds, brush, rect, stringFormat)
-            Next
-
-            yPos += maxHeight + 5 ' Asegurar que el yPos se incremente para cada línea de productos
-        Next
-
-        yPos += 10 ' Espacio adicional después de los productos
-        e.Graphics.DrawString(finFactura, font, brush, leftMargin, yPos, stringFormat)
-    End Sub
-
-
-    ' Método para iniciar la impresión
-    Private Sub ImprimirFactura()
-        Dim printDoc As New PrintDocument()
-        AddHandler printDoc.PrintPage, AddressOf PrintDocument_PrintPage
-        ' Configurar el tamaño de papel personalizado en pulgadas
-        Dim customPaperSize As New PaperSize("Custom", CInt(72 * 3.937), CInt(297 * 3.937))
-        printDoc.DefaultPageSettings.PaperSize = customPaperSize
-
-        ' Configurar márgenes a cero
-        printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
-
-        Dim printPreview As New PrintPreviewDialog With {
-            .Document = printDoc
-        }
-        printDoc.Print()
-
-    End Sub
 #End Region
 
 #Region "Reporte productos"
