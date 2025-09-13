@@ -46,19 +46,6 @@ Module Md_Reportes
 
     Private Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet) As Task(Of List(Of Cls_DatosFactura))
         Return Await Task.Run(Function()
-                                  Dim fechaInicioFiltrada As Date
-                                  Dim fechaFinFiltrada As Date
-
-                                  ' Valida si las fechas 'desde' y 'hasta' son el mismo día.
-                                  If desde.Date = hasta.Date Then
-                                      ' Si es el mismo día, ajusta el rango para cubrir el día completo.
-                                      fechaInicioFiltrada = desde.Date
-                                      fechaFinFiltrada = hasta.Date.AddDays(1)
-                                  Else
-                                      ' Si es un rango de días, usa las fechas originales sin modificar las horas.
-                                      fechaInicioFiltrada = desde
-                                      fechaFinFiltrada = hasta
-                                  End If
                                   Using db As New SQLiteConnection(GetConnectionString())
                                       Try
                                           db.Open()
@@ -87,8 +74,8 @@ Module Md_Reportes
                                                                         AND f.fecha_emision <  @fechaFin
                                                                         AND f.cobrada != 0;"
                                           Using cmd As New SQLiteCommand(consulta, db)
-                                              cmd.Parameters.AddWithValue("@fechaInicio", fechaInicioFiltrada)
-                                              cmd.Parameters.AddWithValue("@fechaFin", fechaFinFiltrada)
+                                              cmd.Parameters.AddWithValue("@fechaInicio", desde)
+                                              cmd.Parameters.AddWithValue("@fechaFin", hasta)
 
                                               Using da As New SQLiteDataAdapter(cmd)
                                                   If t.Tables.Count > 0 Then
@@ -167,18 +154,9 @@ Module Md_Reportes
                                                                "LIMIT @limite;"
 
                                           Using cmd As New SQLiteCommand(consulta, db)
-                                              ' Se establecen los parámetros de fecha correctamente para cubrir el día completo.
-                                              ' Esto asegura que si 'desde' y 'hasta' son el mismo día, se cubra desde las 00:00:00 del 'desde' hasta las 23:59:59 del 'hasta'.
-                                              Dim fechaFin As Date
-                                              If desde.Date = hasta.Date Then
-                                                  ' Si es el mismo día, se busca desde el inicio del día hasta el final
-                                                  fechaFin = hasta.Date.AddDays(1)
-                                              Else
-                                                  fechaFin = hasta.AddDays(1).Date
-                                              End If
 
-                                              cmd.Parameters.Add(New SQLiteParameter("@fecha_inicio", desde.Date.ToString("yyyy-MM-dd HH:mm:ss")))
-                                              cmd.Parameters.Add(New SQLiteParameter("@fecha_fin", fechaFin.ToString("yyyy-MM-dd HH:mm:ss")))
+                                              cmd.Parameters.Add(New SQLiteParameter("@fecha_inicio", desde.ToString("yyyy-MM-dd HH:mm:ss")))
+                                              cmd.Parameters.Add(New SQLiteParameter("@fecha_fin", hasta.ToString("yyyy-MM-dd HH:mm:ss")))
                                               cmd.Parameters.Add(New SQLiteParameter("@limite", LIMIT))
 
                                               Using da As New SQLiteDataAdapter(cmd)

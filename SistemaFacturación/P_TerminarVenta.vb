@@ -391,8 +391,7 @@ Public Class P_TerminarVenta
 
             ' Si se seleccionó la opción de imprimir, genera e imprime la factura
             If imprimir Then
-                GENERAR_FACTURA(idFactura, False)
-                ImprimirFactura()
+                GENERAR_FACTURA(idFactura)
             End If
 
             ' Limpia la interfaz de la caja y la prepara para una nueva venta
@@ -434,77 +433,6 @@ Public Class P_TerminarVenta
 
     Private Sub BTN_TVentaImp_Click(sender As Object, e As EventArgs) Handles BTN_TVentaImp.Click
         TerminarVenta(True)
-    End Sub
-
-    ' Manejador del evento PrintPage para la impresión de la factura
-    Private Sub PrintDocument_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument.PrintPage
-        ' Configuración de fuentes y formatos para el texto
-        Dim font As New Font("Arial", 12)
-        Dim fontProds As New Font("Segoe UI", 9)
-        Dim brush As New SolidBrush(Color.Black)
-        Dim stringFormat As New StringFormat() With {
-        .Alignment = StringAlignment.Near,
-        .LineAlignment = StringAlignment.Near
-    }
-
-        ' Configuración del área de impresión
-        Dim totalWidth As Single = 72 * 3.78
-        Dim cellWidth As Single = totalWidth / 4
-        Dim leftMargin As Single = e.MarginBounds.Left
-        Dim topMargin As Single = e.MarginBounds.Top
-        Dim yPos As Single = topMargin
-
-        ' Dibuja el encabezado de la factura
-        e.Graphics.DrawString(encabezadoFactura, font, brush, leftMargin, yPos, stringFormat)
-        yPos += e.Graphics.MeasureString(encabezadoFactura, font).Height + 10 ' Espacio adicional
-
-        ' Dibuja el encabezado de la tabla de productos
-        e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos, stringFormat)
-        yPos += e.Graphics.MeasureString(encabezadoProds, fontProds).Height + 10 ' Espacio adicional
-
-        ' Dibuja los productos línea por línea
-        For Each line As String In facturaContenido
-            Dim columns() As String = line.Split(New Char() {"."c}, StringSplitOptions.RemoveEmptyEntries) ' Divide la línea en columnas
-
-            Dim maxHeight As Single = 0
-
-            For colIndex As Integer = 0 To columns.Length - 1
-                Dim rect As New RectangleF(leftMargin + (colIndex * cellWidth), yPos, cellWidth, 0)
-                Dim size As SizeF = e.Graphics.MeasureString(columns(colIndex), fontProds, rect.Size, stringFormat)
-
-                If size.Height > maxHeight Then
-                    maxHeight = size.Height
-                End If
-
-                rect.Height = maxHeight
-                e.Graphics.DrawString(columns(colIndex), fontProds, brush, rect, stringFormat)
-            Next
-
-            yPos += maxHeight + 5 ' Incrementa la posición Y para la siguiente línea
-        Next
-
-        yPos += 10 ' Espacio adicional después de los productos
-        e.Graphics.DrawString(finFactura, font, brush, leftMargin, yPos, stringFormat)
-    End Sub
-
-
-    ' Método para iniciar el proceso de impresión
-    Private Sub ImprimirFactura()
-        Dim printDoc As New PrintDocument()
-        AddHandler printDoc.PrintPage, AddressOf PrintDocument_PrintPage
-
-        ' Configura el tamaño del papel y los márgenes a 0
-        Dim customPaperSize As New PaperSize("Custom", CInt(72 * 3.937), CInt(297 * 3.937))
-        printDoc.DefaultPageSettings.PaperSize = customPaperSize
-        printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
-
-        Dim printPreview As New PrintPreviewDialog With {
-            .Document = printDoc
-        }
-
-        If PrintDialog.ShowDialog() = DialogResult.OK Then ' Muestra el diálogo de impresión
-            printDoc.Print()
-        End If
     End Sub
 #End Region
 

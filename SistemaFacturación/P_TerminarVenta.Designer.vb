@@ -73,8 +73,6 @@ Partial Class P_TerminarVenta
         Me.BTN_RegresarVenta = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel17 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_Comentario = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.PrintDocument = New System.Drawing.Printing.PrintDocument()
-        Me.PrintDialog = New System.Windows.Forms.PrintDialog()
         Me.BTN_TVentaImp = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TabControlTVenta.SuspendLayout()
@@ -947,13 +945,6 @@ Partial Class P_TerminarVenta
         Me.TXT_Comentario.Size = New System.Drawing.Size(745, 86)
         Me.TXT_Comentario.TabIndex = 129
         '
-        'PrintDocument
-        '
-        '
-        'PrintDialog
-        '
-        Me.PrintDialog.UseEXDialog = True
-        '
         'BTN_TVentaImp
         '
         Me.BTN_TVentaImp.BorderColor = System.Drawing.Color.Red
@@ -1058,8 +1049,6 @@ Partial Class P_TerminarVenta
     Friend WithEvents Guna2HtmlLabel15 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_Comentario As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel17 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents PrintDocument As Printing.PrintDocument
-    Friend WithEvents PrintDialog As PrintDialog
     Friend WithEvents BTN_TVentaImp As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents TXT_ECliente As Guna.UI2.WinForms.Guna2TextBox

@@ -36,8 +36,6 @@ Partial Class P_ReimprimirFact
         Me.BTN_ImpReciente = New Guna.UI2.WinForms.Guna2Button()
         Me.TXT_BuscarFact = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2PictureBox1 = New Guna.UI2.WinForms.Guna2PictureBox()
-        Me.PrintDocument = New System.Drawing.Printing.PrintDocument()
-        Me.PrintDialog = New System.Windows.Forms.PrintDialog()
         Me.DGV_ReimprimirFact = New Guna.UI2.WinForms.Guna2DataGridView()
         Me.RDB_50 = New Guna.UI2.WinForms.Guna2RadioButton()
         Me.GRB_Filtro = New System.Windows.Forms.GroupBox()
@@ -170,13 +168,6 @@ Partial Class P_ReimprimirFact
         Me.Guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Guna2PictureBox1.TabIndex = 48
         Me.Guna2PictureBox1.TabStop = False
-        '
-        'PrintDocument
-        '
-        '
-        'PrintDialog
-        '
-        Me.PrintDialog.UseEXDialog = True
         '
         'DGV_ReimprimirFact
         '
@@ -403,8 +394,6 @@ Partial Class P_ReimprimirFact
     Friend WithEvents Guna2PictureBox1 As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents MNU_CONTX As Guna.UI2.WinForms.Guna2ContextMenuStrip
     Friend WithEvents MNU_REIMPRIMIR As ToolStripMenuItem
-    Friend WithEvents PrintDocument As Printing.PrintDocument
-    Friend WithEvents PrintDialog As PrintDialog
     Friend WithEvents DGV_ReimprimirFact As Guna.UI2.WinForms.Guna2DataGridView
     Friend WithEvents GRB_Filtro As GroupBox
     Friend WithEvents RDB_100 As Guna.UI2.WinForms.Guna2RadioButton

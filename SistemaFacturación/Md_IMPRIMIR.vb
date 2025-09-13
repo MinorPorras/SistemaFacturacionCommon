@@ -3,44 +3,26 @@
 ' Obtiene los datos de la factura, cliente, sucursal y productos para mostrar
 ' en la vista previa de impresión o reimpresión.
 ' -----------------------------------------------------------------------------
+Imports System.Drawing.Printing
+
 Module Md_IMPRIMIR
-    ' Variables para almacenar datos de la factura y sucursal
-    Dim sucursal As String
-    Dim numFact As String
-    Dim nomCajero As String
-    Dim ced_juridica As String
-    Dim direccion As String
-    Dim telefono As String
-    Dim email As String
-    Dim fecha As String
-    Dim cliente As String
-    Dim comentario As String
-    Dim total As String
-    Dim eCliente As String
-    Dim tCliente As String
-    Dim vuelto As String
-    Dim tventa As String
+    ' Variables para el contenido de la factura (impresión)
+    Friend encabezadoFactura As String
+    Friend encabezadoProds As String = "Cant     Descripción        Precio       Total" & vbCrLf &
+                                                    "--------------------------------------------------" & vbCrLf
+    Friend facturaContenido As New List(Of String)()
+    Friend finFactura As String
 
     ' Genera el contenido de la factura para impresión o reimpresión
     ' id_factura: ID de la factura a imprimir
     ' reimprimir: True si es reimpresión, False si es impresión normal
-    Public Sub GENERAR_FACTURA(id_factura As Integer, reimprimir As Boolean)
-        ' Obtener datos principales de la factura, cliente y usuario
-        T.Tables.Clear()
-        SQL = "SELECT f.ID, f.fecha_emision, c.nombre, f.num_factura, f.total, f.efectivo_cliente, f.tarjeta_cliente, f.vuelto, f.tipo_venta, u.usuario" &
-            " FROM (factura f LEFT JOIN clientes c ON c.ID =f.ID_Cliente) LEFT JOIN usuario u ON u.ID = f.ID_Usuario WHERE f.ID = " & id_factura
-        Cargar_Tabla(T, SQL)
-        fecha = If(IsDBNull(T.Tables(0).Rows(0).Item(1)), " ", T.Tables(0).Rows(0).Item(1))
-        cliente = If(IsDBNull(T.Tables(0).Rows(0).Item(2)), " ", T.Tables(0).Rows(0).Item(2))
-        numFact = If(IsDBNull(T.Tables(0).Rows(0).Item(3)), " ", CInt(T.Tables(0).Rows(0).Item(3)).ToString("D15"))
-        total = If(IsDBNull(T.Tables(0).Rows(0).Item(4)), " ", T.Tables(0).Rows(0).Item(4))
-        eCliente = If(IsDBNull(T.Tables(0).Rows(0).Item(5)), " ", T.Tables(0).Rows(0).Item(5))
-        tCliente = If(IsDBNull(T.Tables(0).Rows(0).Item(6)), " ", T.Tables(0).Rows(0).Item(6))
-        vuelto = If(IsDBNull(T.Tables(0).Rows(0).Item(7)), " ", T.Tables(0).Rows(0).Item(7))
-        tventa = If(IsDBNull(T.Tables(0).Rows(0).Item(8)), " ", T.Tables(0).Rows(0).Item(8))
+    Public Sub GENERAR_FACTURA(id_factura As Integer)
+        Dim factura As New Cls_DatosFactura()
+        factura = ObtenerDatosGeneralesFactura(id_factura)
+
         Dim strVenta As String
         ' Determinar el tipo de venta en texto
-        Select Case tventa
+        Select Case factura.TipoPago
             Case 0
                 strVenta = "Efectivo"
             Case 1
@@ -54,142 +36,186 @@ Module Md_IMPRIMIR
             Case Else
                 strVenta = "Efectivo"
         End Select
-        nomCajero = If(IsDBNull(T.Tables(0).Rows(0).Item(9)), " ", T.Tables(0).Rows(0).Item(9))
 
-        ' Obtener comentario de la factura si existe
-        T1.Tables.Clear()
-        SQL = "SELECT comentario FROM factura_comentario WHERE ID_Factura = " & id_factura
-        Cargar_Tabla(T1, SQL)
-        If T1.Tables(0).Rows.Count > 0 Then
-            comentario = If(IsDBNull(T1.Tables(0).Rows(0).Item(0)), " ", T1.Tables(0).Rows(0).Item(0))
-        End If
+        Dim comentario As String = ObtenerComentario(id_factura)
 
         ' Obtener datos de la sucursal
-        T2.Tables.Clear()
-        SQL = "SELECT nombre, direccion, ced_juridica, telefono, email FROM sucursal"
-        Cargar_Tabla(T2, SQL)
-        sucursal = If(IsDBNull(T2.Tables(0).Rows(0).Item(0)), " ", T2.Tables(0).Rows(0).Item(0))
-        direccion = If(IsDBNull(T2.Tables(0).Rows(0).Item(1)), " ", T2.Tables(0).Rows(0).Item(1))
-        ced_juridica = If(IsDBNull(T2.Tables(0).Rows(0).Item(2)), " ", T2.Tables(0).Rows(0).Item(2))
-        telefono = If(IsDBNull(T2.Tables(0).Rows(0).Item(3)), " ", T2.Tables(0).Rows(0).Item(3))
-        email = If(IsDBNull(T2.Tables(0).Rows(0).Item(4)), " ", T2.Tables(0).Rows(0).Item(4))
+        Dim sucursal As New Cls_Sucursal()
+        sucursal = ObtenerDatosSucursal()
 
         ' Formatear la dirección para impresión
-        Dim direccionsplit() As String = direccion.Split(","c)
-        direccion = ""
+        Dim direccionsplit() As String = sucursal.Direccion.Split(","c)
+        sucursal.Direccion = ""
         For i As Integer = 0 To direccionsplit.Length - 1
             If i <> 1 Then
-                direccion = direccion & direccionsplit(i) & ","
+                sucursal.Direccion = sucursal.Direccion & direccionsplit(i) & ","
             Else
-                direccion = direccion & vbCrLf & direccionsplit(i)
+                sucursal.Direccion = sucursal.Direccion & vbCrLf & direccionsplit(i)
             End If
         Next
 
-        ' Armar el contenido de la factura según si es impresión o reimpresión
-        If Not reimprimir Then
-            ' Definir el contenido de la factura para impresión normal
-            P_TerminarVenta.encabezadoFactura = "-------------------------------------------" & vbCrLf &
+        ' Definir el contenido de la factura para impresión normal
+        encabezadoFactura = crearEncabezadoFactura(factura, sucursal)
+
+        CargarProds(id_factura)
+
+        finFactura = crearFinFactura(factura)
+
+        ImprimirFactura(encabezadoFactura, facturaContenido, finFactura)
+    End Sub
+
+    Private Function ObtenerDatosGeneralesFactura(id_factura As Integer) As Cls_DatosFactura
+        ' Obtener datos principales de la factura, cliente y usuario
+        T.Tables.Clear()
+        SQL = "SELECT f.ID, f.fecha_emision, c.nombre, f.num_factura, f.total, f.efectivo_cliente, f.tarjeta_cliente, f.vuelto, f.tipo_venta, u.usuario" &
+            " FROM (factura f LEFT JOIN clientes c ON c.ID =f.ID_Cliente) LEFT JOIN usuario u ON u.ID = f.ID_Usuario WHERE f.ID = " & id_factura
+        Cargar_Tabla(T, SQL)
+        Dim factura As New Cls_DatosFactura With {
+            .Fecha = If(IsDBNull(T.Tables(0).Rows(0).Item(1)), " ", T.Tables(0).Rows(0).Item(1)),
+            .Cliente = If(IsDBNull(T.Tables(0).Rows(0).Item(2)), " ", T.Tables(0).Rows(0).Item(2)),
+            .NumFactura = If(IsDBNull(T.Tables(0).Rows(0).Item(3)), " ", CInt(T.Tables(0).Rows(0).Item(3)).ToString("D15")),
+            .TotalCaja = If(IsDBNull(T.Tables(0).Rows(0).Item(4)), " ", T.Tables(0).Rows(0).Item(4)),
+            .Efectivo = If(IsDBNull(T.Tables(0).Rows(0).Item(5)), " ", T.Tables(0).Rows(0).Item(5)),
+            .Tarjeta = If(IsDBNull(T.Tables(0).Rows(0).Item(6)), " ", T.Tables(0).Rows(0).Item(6)),
+            .Vuelto = If(IsDBNull(T.Tables(0).Rows(0).Item(7)), " ", T.Tables(0).Rows(0).Item(7)),
+            .TipoPago = If(IsDBNull(T.Tables(0).Rows(0).Item(8)), " ", T.Tables(0).Rows(0).Item(8)),
+            .Cajero = If(IsDBNull(T.Tables(0).Rows(0).Item(9)), " ", T.Tables(0).Rows(0).Item(9))
+        }
+
+        Return factura
+
+    End Function
+
+    Private Function ObtenerComentario(id_factura As Integer) As String
+        ' Obtener comentario asociado a la factura
+        T.Tables.Clear()
+        SQL = "SELECT comentario FROM factura WHERE ID = " & id_factura
+        Cargar_Tabla(T, SQL)
+        'Se retorna el comntario o una cadena vacía si no existe
+        Return If(IsDBNull(T.Tables(0).Rows(0).Item(0)), "", T.Tables(0).Rows(0).Item(0))
+    End Function
+
+    Private Function ObtenerDatosSucursal() As Cls_Sucursal
+        ' Obtener datos de la sucursal desde la base de datos
+        T.Tables.Clear()
+        SQL = "SELECT nombre, direccion, telefono, email, cedula FROM sucursal WHERE ID = 1"
+        Cargar_Tabla(T, SQL)
+        Dim sucursal As New Cls_Sucursal With {
+            .Nombre = If(IsDBNull(T.Tables(0).Rows(0).Item(0)), " ", T.Tables(0).Rows(0).Item(0)),
+            .Direccion = If(IsDBNull(T.Tables(0).Rows(0).Item(1)), " ", T.Tables(0).Rows(0).Item(1)),
+            .Telefono = If(IsDBNull(T.Tables(0).Rows(0).Item(2)), " ", T.Tables(0).Rows(0).Item(2)),
+            .Email = If(IsDBNull(T.Tables(0).Rows(0).Item(3)), " ", T.Tables(0).Rows(0).Item(3)),
+            .Cedula = If(IsDBNull(T.Tables(0).Rows(0).Item(4)), " ", T.Tables(0).Rows(0).Item(4))
+        }
+        Return sucursal
+    End Function
+
+    Private Function crearEncabezadoFactura(factura As Cls_DatosFactura, sucursal As Cls_Sucursal) As String
+        Return "-------------------------------------------" & vbCrLf &
                                 "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
-                                "------------ " & sucursal & " -------------" & vbCrLf & vbCrLf &
-                                "Nº de Factura: " & numFact & vbCrLf &
-                                "Cajero: " & nomCajero & vbCrLf &
-                                "Ced. Jurídica:" & ced_juridica & vbCrLf &
-                                "Dirección:" & direccion & vbCrLf &
-                                "Teléfono: " & telefono & vbCrLf &
-                                "Email: " & email & vbCrLf &
-                                "Fecha: " & fecha & vbCrLf &
+                                "------------ " & sucursal.Direccion & " -------------" & vbCrLf & vbCrLf &
+                                "Nº de Factura: " & factura.NumFactura & vbCrLf &
+                                "Cajero: " & factura.Cajero & vbCrLf &
+                                "Ced. Jurídica:" & sucursal.Cedula & vbCrLf &
+                                "Dirección:" & sucursal.Direccion & vbCrLf &
+                                "Teléfono: " & sucursal.Telefono & vbCrLf &
+                                "Email: " & sucursal.Email & vbCrLf &
+                                "Fecha: " & factura.Fecha & vbCrLf &
                                 vbCrLf &
-                                "Cliente:" & cliente & vbCrLf &
+                                "Cliente:" & factura.Cliente & vbCrLf &
                                 vbCrLf &
                                 "-------------------------------------------" & vbCrLf &
                                 "Descripción de Productos" & vbCrLf &
                                 "-------------------------------------------" & vbCrLf
-            P_TerminarVenta.encabezadoProds = "Cant     Descripción        Precio       Total" & vbCrLf &
-                                                     "--------------------------------------------------" & vbCrLf
-            CargarProds(id_factura, reimprimir)
+    End Function
 
-            P_TerminarVenta.finFactura = "-------------------------------------------" & vbCrLf &
-                      "Total de la venta: ₡ " & total & vbCrLf &
+    Private Function crearFinFactura(factura As Cls_DatosFactura) As String
+        Dim finFcatura As String = "-------------------------------------------" & vbCrLf &
+                      "Total de la venta: ₡ " & factura.TotalCaja & vbCrLf &
                       vbCrLf
-            If tventa <> 4 Then
-                P_TerminarVenta.finFactura += "Pago del cliente: ₡ " & eCliente & vbCrLf &
-                      vbCrLf &
-                      "Vuelto: ₡ " & vuelto & vbCrLf &
-                      vbCrLf &
-                      "Tipo de pago: " & strVenta & vbCrLf &
-                      vbCrLf &
-                      "Comentario: " & comentario & vbCrLf & " " & vbCrLf &
-                      "-------------------------------------------" & vbCrLf
+        If factura.TipoPago = 1 Then
+            finFcatura += "Pago del cliente: ₡ " & factura.Efectivo
 
-            Else
-                P_TerminarVenta.finFactura += "Pago en efectivo: ₡ " & eCliente & vbCrLf &
-                    vbCrLf &
-                     "Pago en tarjeta: ₡ " & tCliente & vbCrLf &
-                      vbCrLf &
-                      "Vuelto: ₡ " & vuelto &
-                      vbCrLf &
-                      "Tipo de pago: " & strVenta & vbCrLf &
-                      vbCrLf &
-                      "Comentario: " & comentario & vbCrLf & " " & vbCrLf &
-                      "-------------------------------------------" & vbCrLf
-            End If
+        ElseIf factura.TipoPago = 4 Then
+            finFcatura += "Pago en efectivo: ₡ " & factura.Efectivo & vbCrLf &
+                vbCrLf &
+                 "Pago en tarjeta: ₡ " & factura.Tarjeta
         Else
-            ' Definir el contenido de la factura para reimpresión
-            P_ReimprimirFact.encabezadoFactura = "-------------------------------------------" & vbCrLf &
-                                "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
-                                "------------ " & sucursal & " -------------" & vbCrLf & vbCrLf &
-                                "Nº de Factura: " & numFact & vbCrLf &
-                                "Cajero: " & nomCajero & vbCrLf &
-                                "Ced. Jurídica:" & ced_juridica & vbCrLf &
-                                "Dirección:" & direccion & vbCrLf &
-                                "Teléfono: " & telefono & vbCrLf &
-                                "Email: " & email & vbCrLf &
-                                "Fecha: " & fecha & vbCrLf &
-                                vbCrLf &
-                                "Cliente:" & cliente & vbCrLf &
-                                vbCrLf &
-                                "-------------------------------------------" & vbCrLf &
-                                "Descripción de Productos" & vbCrLf &
-                                "-------------------------------------------" & vbCrLf
-            P_ReimprimirFact.encabezadoProds = "Cant  Descripción            Precio       Total" & vbCrLf &
-                                                     "--------------------------------------------------" & vbCrLf
-            CargarProds(id_factura, reimprimir)
-
-            P_ReimprimirFact.finFactura = "-------------------------------------------" & vbCrLf &
-                      "Total de la venta: ₡ " & total & vbCrLf &
-                      vbCrLf
-
-            If tventa <> 4 Then
-                P_ReimprimirFact.finFactura += "Pago del cliente: ₡ " & eCliente & vbCrLf &
-                      vbCrLf &
-                      "Vuelto: ₡ " & vuelto & vbCrLf &
-                      vbCrLf &
-                      "Tipo de pago: " & strVenta & vbCrLf &
-                      vbCrLf &
-                      "Comentario: " & comentario & vbCrLf & " " & vbCrLf &
-                      "-------------------------------------------" & vbCrLf
-
-            Else
-                P_ReimprimirFact.finFactura += "Pago en efectivo: ₡ " & eCliente & vbCrLf &
-                     "Pago en tarjeta: ₡ " & tCliente & vbCrLf &
-                      vbCrLf &
-                      "Vuelto: ₡ " & vuelto &
-                      vbCrLf &
-                      "Tipo de pago: " & strVenta & vbCrLf &
-                      vbCrLf &
-                      "Comentario: " & comentario & vbCrLf & " " & vbCrLf &
-                      "-------------------------------------------" & vbCrLf
-            End If
+            finFcatura += "Pago en tarjeta: ₡ " & factura.Tarjeta
         End If
 
-        ' Limpiar comentario para futuras impresiones
-        comentario = String.Empty
+        Return finFcatura
+    End Function
+
+    Public Sub ImprimirFactura(encabezado As String, productos As List(Of String), fin As String)
+        Dim printDoc As New PrintDocument()
+
+        ' Usamos AddHandler para pasar los parámetros de la factura al controlador de eventos
+        AddHandler printDoc.PrintPage, Sub(sender, e)
+                                           printDocument_PrintPage(sender, e, encabezado, productos, fin)
+                                       End Sub
+        ' Configurar tamaño de papel personalizado (72 puntos por pulgada, 3.937 pulgadas de ancho, 297 mm de alto)
+        Dim customPaperSize As New PaperSize("Custom", CInt(72 * 3.937), CInt(297 * 3.937))
+        printDoc.DefaultPageSettings.PaperSize = customPaperSize
+        printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
+
+        Dim printPreview As New PrintPreviewDialog With {
+            .Document = printDoc
+        }
+
+        ' printPreview.ShowDialog() ' Para vista previa
+        printDoc.Print()
+    End Sub
+
+    ' Manejador del evento PrintPage que ahora recibe los parámetros de la factura
+    Private Sub printDocument_PrintPage(sender As Object, e As Printing.PrintPageEventArgs, encabezado As String, productos As List(Of String), fin As String)
+        Dim font As New Font("Arial", 12)
+        Dim fontProds As New Font("Segoe UI", 9)
+        Dim brush As New SolidBrush(Color.Black)
+        Dim stringFormat As New StringFormat() With {
+            .Alignment = StringAlignment.Near,
+            .LineAlignment = StringAlignment.Near
+        }
+
+        Dim totalWidth As Single = 72 * 3.78
+        Dim cellWidth As Single = totalWidth / 4
+        Dim leftMargin As Single = e.MarginBounds.Left
+        Dim topMargin As Single = e.MarginBounds.Top
+        Dim yPos As Single = topMargin
+
+        ' Dibuja el encabezado de la factura
+        e.Graphics.DrawString(encabezado, font, brush, leftMargin, yPos, stringFormat)
+        yPos += e.Graphics.MeasureString(encabezado, font).Height + 10
+
+        ' Dibuja el encabezado de la tabla de productos
+        e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos, stringFormat) ' Nota: usa la variable global
+        yPos += e.Graphics.MeasureString(encabezadoProds, fontProds).Height + 10
+
+        ' Dibuja los productos línea por línea
+        For Each line As String In productos ' Recorre la lista de productos
+            Dim columns() As String = line.Split(New Char() {"."c}, StringSplitOptions.RemoveEmptyEntries)
+
+            Dim maxHeight As Single = 0
+            For colIndex As Integer = 0 To columns.Length - 1
+                Dim rect As New RectangleF(leftMargin + (colIndex * cellWidth), yPos, cellWidth, 0)
+                Dim size As SizeF = e.Graphics.MeasureString(columns(colIndex), fontProds, rect.Size, stringFormat)
+                If size.Height > maxHeight Then
+                    maxHeight = size.Height
+                End If
+                rect.Height = maxHeight
+                e.Graphics.DrawString(columns(colIndex), fontProds, brush, rect, stringFormat)
+            Next
+            yPos += maxHeight + 5
+        Next
+
+        yPos += 10
+        e.Graphics.DrawString(fin, font, brush, leftMargin, yPos, stringFormat)
     End Sub
 
     ' Carga los productos de la factura y los agrega al contenido de impresión
     ' idfact: ID de la factura
     ' reimprimir: True si es reimpresión, False si es impresión normal
-    Private Sub CargarProds(idfact As Integer, reimprimir As Boolean)
+    Private Sub CargarProds(idfact As Integer)
         T.Tables.Clear()
         SQL = "SELECT f.cant, p.nombre, f.precio_venta FROM ((factura_producto f LEFT JOIN producto p ON p.ID = f.ID_Producto)" &
             " LEFT JOIN Producto_precioVenta v ON p.ID = v.ID_Producto) WHERE ID_Factura = " & idfact
@@ -201,11 +227,7 @@ Module Md_IMPRIMIR
                                   T.Tables(0).Rows(i).Item(1) & "." &
                                   T.Tables(0).Rows(i).Item(2) & "." &
                                   Convert.ToDouble(T.Tables(0).Rows(i).Item(0)) * Convert.ToDouble(T.Tables(0).Rows(i).Item(2)) & vbCrLf
-                If Not reimprimir Then
-                    P_TerminarVenta.facturaContenido.Add(prods)
-                Else
-                    P_ReimprimirFact.facturaContenido.Add(prods)
-                End If
+                facturaContenido.Add(prods)
             Next
         End If
     End Sub
