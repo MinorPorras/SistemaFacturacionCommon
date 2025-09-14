@@ -28,35 +28,17 @@ Module Md_CONEXION
     Public SQL As String
 
     ' Método privado para obtener la cadena de conexión segura y persistente
+    ' Centraliza la obtención de la cadena de conexión
     Friend Function GetConnectionString() As String
-        Dim appDataPath As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-        Dim appDirectory As String = Path.Combine(appDataPath, "SistemaDeFacturacion")
-        Dim dbPath As String = Path.Combine(appDirectory, "dbSistemaFacturacion.db")
-
-        If Not Directory.Exists(appDirectory) Then
-            Directory.CreateDirectory(appDirectory)
-        End If
-
-        Return $"Data Source={dbPath}"
+        Return $"Data Source={GetDbPath()};Version=3;"
     End Function
 
     ' Este método es el que genera la ruta persistente para tu base de datos.
+    ' Centraliza la obtención de la ruta de la base de datos
     Friend Function GetDbPath() As String
-        ' 1. Obtiene la ruta del directorio de datos de la aplicación del usuario.
-        Dim appDataPath As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-
-        ' 2. Combina la ruta para crear una carpeta específica para tu aplicación.
-        Dim appDirectory As String = Path.Combine(appDataPath, "SistemaDeFacturacion")
-
-        ' 3. Combina la ruta de la carpeta con el nombre de tu base de datos.
-        Dim dbPath As String = Path.Combine(appDirectory, "dbSistemaFacturacion.db")
-
-        ' 4. Asegura que el directorio exista. Si no, lo crea.
-        If Not Directory.Exists(appDirectory) Then
-            Directory.CreateDirectory(appDirectory)
-        End If
-
-        Return dbPath
+        EnsureAppDirectoryExists()
+        Dim appDir = GetAppDirectory()
+        Return Path.Combine(appDir, "DB", "dbSistemaFacturacion.db")
     End Function
 
 #Region "Interaccion"
@@ -175,27 +157,5 @@ Module Md_CONEXION
             Return False ' Esto causará que el Rollback se ejecute en el método principal.
         End Try
     End Function
-#End Region
-
-#Region "Configuracion"
-    ' Los métodos que manejan App.config no necesitan refactorización, ya que no abren conexiones de base de datos.
-    ' Se mantienen como están.
-    Friend Sub modConexionString(rutaNueva As String)
-        Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
-        config.ConnectionStrings.ConnectionStrings("DbConnectionString").ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & rutaNueva
-        config.Save(ConfigurationSaveMode.Modified)
-        ConfigurationManager.RefreshSection("connectionStrings")
-    End Sub
-
-    Public Sub ActConfig(key As String, value As String)
-        Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
-        If config.AppSettings.Settings(key) IsNot Nothing Then
-            config.AppSettings.Settings(key).Value = value
-        Else
-            config.AppSettings.Settings.Add(key, value)
-        End If
-        config.Save(ConfigurationSaveMode.Modified)
-        ConfigurationManager.RefreshSection("appSettings")
-    End Sub
 #End Region
 End Module

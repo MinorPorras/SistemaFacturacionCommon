@@ -2,14 +2,12 @@
 Imports System.Configuration
 
 Module Md_BackupDB
-    Dim DBActual As String
-
 #Region "exportar"
     Friend Sub ExportarDB()
         ' Definición de la ruta de acceso del respaldo
         Dim fechaActual As String = Now.ToString("yyyyMMdd_HHmmss")
-        Dim backupDir As String = ConfigurationManager.AppSettings("DirectorioRespaldo") & "RespaldosSF"
-        Dim respaldo As String = Path.Combine(backupDir, "DBSistemaFact_" & fechaActual & ".db")
+        Dim backupDir As String = GetAppSetting("DirectorioRespaldo")
+        Dim respaldo As String = Path.Combine(backupDir, "DBCommonBackup_" & fechaActual & ".db")
 
         ' Se crea el directorio en caso de que no exista
         If Not Directory.Exists(backupDir) Then
@@ -17,9 +15,8 @@ Module Md_BackupDB
         End If
 
         Try
-            DBActual = GetDbPath()
             ' Se copia la base de datos a un nuevo archivo
-            File.Copy(DBActual, respaldo, True)
+            File.Copy(GetDbPath(), respaldo, True)
             Console.WriteLine("Copia de seguridad creada exitosamente: " & respaldo)
             MsgBox("Archivo de respaldo de la base de datos generado correctamente en la ruta: " & vbCrLf & vbCrLf & respaldo, vbOK, "Respaldo generado")
         Catch ex As Exception
@@ -32,10 +29,9 @@ Module Md_BackupDB
 #Region "importar"
     Friend Sub ImportarDB(respaldo As String)
         Try
-            DBActual = GetDbPath()
 
             ' Se copia el respaldo en la base de datos que se encuentra en la posición actual
-            File.Copy(respaldo, DBActual, True)
+            File.Copy(respaldo, GetDbPath(), True)
             Console.WriteLine("Importación de la base de datos realizada correctamente: " & respaldo)
             MsgBox("Importación de la base de datos realizada correctamente desde la ruta: " & vbCrLf & vbCrLf & respaldo, vbOK, "Importación generada")
         Catch ex As Exception

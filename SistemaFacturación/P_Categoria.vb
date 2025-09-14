@@ -191,6 +191,6 @@ Public Class P_Categoria
     End Sub
 
     Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
-        entrarConfig(1)
+        entrarConfig(2)
     End Sub
 End Class

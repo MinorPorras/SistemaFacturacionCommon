@@ -223,8 +223,7 @@ Module Md_Reportes
         Dim logo As New PdfBitmap(sucursal.logo)
 
         'Se establecen las variables necesarias para guardar el archivo
-        Dim rutaPerfil As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
-        Dim rutaDescargas As String = Path.Combine(rutaPerfil, "Downloads")
+        Dim rutaDescargas As String = GetAppSetting("DirectorioDescargaReportes")
         Dim rutaCompleta As String = Path.Combine(rutaDescargas, $"ReporteDeVentas{Date.Now:yyyyMMddHHmmss}.pdf")
 
         ' 1. Define diferentes estilos de fuente
