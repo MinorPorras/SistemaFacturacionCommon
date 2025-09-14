@@ -160,8 +160,8 @@ Module Md_PROCESOS_BD
                 T.Clear()
                 SQL = "SELECT MAX(" & PK & ") FROM " & TABLA
                 Cargar_Tabla(T, SQL)
-                If T.Tables(0).Rows.Count > 0 AndAlso Not IsDBNull(T.Tables(0).Rows(0).Item(1)) Then
-                    OBTENERPK = T.Tables(0).Rows(0).Item(1) + 1
+                If T.Tables(0).Rows.Count > 0 AndAlso Not IsDBNull(T.Tables(0).Rows(0).Item(0)) Then
+                    OBTENERPK = T.Tables(0).Rows(0).Item(0) + 1
                 Else
                     OBTENERPK = 1
                 End If

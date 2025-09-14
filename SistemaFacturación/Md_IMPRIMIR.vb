@@ -13,10 +13,17 @@ Module Md_IMPRIMIR
     Friend facturaContenido As New List(Of String)()
     Friend finFactura As String
 
+    Private Sub LIMPIAR()
+        encabezadoFactura = ""
+        facturaContenido.Clear()
+        finFactura = ""
+    End Sub
+
     ' Genera el contenido de la factura para impresión o reimpresión
     ' id_factura: ID de la factura a imprimir
     ' reimprimir: True si es reimpresión, False si es impresión normal
     Public Sub GENERAR_FACTURA(id_factura As Integer)
+        LIMPIAR()
         Dim factura As New Cls_DatosFactura()
         factura = ObtenerDatosGeneralesFactura(id_factura)
 
@@ -89,16 +96,27 @@ Module Md_IMPRIMIR
     Private Function ObtenerComentario(id_factura As Integer) As String
         ' Obtener comentario asociado a la factura
         T.Tables.Clear()
-        SQL = "SELECT comentario FROM factura WHERE ID = " & id_factura
+        SQL = "SELECT comentario FROM factura_comentario WHERE ID_Factura = " & id_factura
         Cargar_Tabla(T, SQL)
-        'Se retorna el comntario o una cadena vacía si no existe
-        Return If(IsDBNull(T.Tables(0).Rows(0).Item(0)), "", T.Tables(0).Rows(0).Item(0))
+
+        Dim comentario As String = "" ' Inicializamos la variable del comentario
+
+        ' Verificamos que se haya cargado al menos una tabla
+        If T.Tables.Count > 0 Then
+            ' Luego verificamos que esa tabla tenga al menos una fila
+            If T.Tables(0).Rows.Count > 0 Then
+                ' Si hay una fila, obtenemos el comentario
+                comentario = If(IsDBNull(T.Tables(0).Rows(0).Item(0)), "", T.Tables(0).Rows(0).Item(0))
+            End If
+        End If
+
+        Return comentario
     End Function
 
     Private Function ObtenerDatosSucursal() As Cls_Sucursal
         ' Obtener datos de la sucursal desde la base de datos
         T.Tables.Clear()
-        SQL = "SELECT nombre, direccion, telefono, email, cedula FROM sucursal WHERE ID = 1"
+        SQL = "SELECT nombre, direccion, telefono, email, ced_juridica  FROM sucursal WHERE ID = 1"
         Cargar_Tabla(T, SQL)
         Dim sucursal As New Cls_Sucursal With {
             .Nombre = If(IsDBNull(T.Tables(0).Rows(0).Item(0)), " ", T.Tables(0).Rows(0).Item(0)),

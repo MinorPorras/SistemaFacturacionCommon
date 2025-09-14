@@ -1,9 +1,21 @@
 ﻿Imports System.Configuration
 Imports System.Data.SQLite
+Imports System.Globalization
+Imports System.IO
+Imports Microsoft.VisualBasic.Logging
 Imports Syncfusion.Pdf
 Imports Syncfusion.Pdf.Graphics
+Imports Syncfusion.Pdf.Grid
 
 Module Md_Reportes
+    ' Declaraciones a nivel de módulo
+    Dim reportePDF As PdfDocument
+    Dim pag As PdfPage
+    Dim graficos As PdfGraphics
+    Dim pos As New PointF(10, 10)
+    Dim ultimaFilaDibujada As Integer = -1
+
+#Region "Obtención de datos"
     Friend Async Function GenerarReporte(desde As Date, hasta As Date, t As DataSet) As Task(Of Cls_ReporteVentas)
         Try
             Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(desde, hasta, t)
@@ -139,11 +151,15 @@ Module Md_Reportes
                                       Using db As New SQLiteConnection(GetConnectionString())
                                           db.Open()
                                           Dim orderByProperty As String
-                                          If orderBy = 1 Then
-                                              orderByProperty = "unidadesVendidas"
-                                          ElseIf orderBy = 2 Then
-                                              orderByProperty = "total"
-                                          End If
+                                          Select Case orderBy
+                                              Case 1
+                                                  orderByProperty = "unidadesVendidas"
+                                              Case 2
+                                                  orderByProperty = "total"
+                                              Case Else
+                                                  orderByProperty = "total"
+                                          End Select
+
                                           Dim consulta As String = "SELECT COUNT(fp.ID_Producto) AS unidadesVendidas, p.nombre, SUM(fp.precio_venta * fp.cant) As total " &
                                                                "FROM factura f " &
                                                                "INNER JOIN factura_producto fp ON f.ID = fp.ID_Factura " &
@@ -178,30 +194,150 @@ Module Md_Reportes
                                   Return listProductosMasVendidos
                               End Function)
     End Function
+#End Region
 
-    Private Async Sub Crear_PDF_ReporteVentas(desde As Date, hasta As Date)
+    Friend Async Sub Crear_PDF_ReporteVentas(desde As Date, hasta As Date)
+        pos = New PointF(10, 10)
         'Se obtiene la información relevante de la base de datos
         Dim reporte As Cls_ReporteVentas = Await GenerarReporte(desde, hasta, T1)
+        Dim cultura As New CultureInfo("es-CR")
+
+        Dim listaFiltrada = reporte.ListaVentas.Select(Function(venta) New With {
+                .NumFactura = venta.NumFactura,
+                .Fecha = venta.Fecha,
+                .Cajero = venta.Cajero,
+                .Cliente = venta.Cliente,
+                .TipoPago = venta.TipoPago,
+                .TotalCaja = venta.TotalCaja.ToString("C", New CultureInfo("es-CR"))})
+
+        'Se obtienen los datos de la sucursal
+        Dim sucursal As Cls_Sucursal = Await GetInfoSucursal()
+        ' 2. Se verifica si la ruta del logo de la sucursal existe en el disco
+        If String.IsNullOrEmpty(sucursal.logo) OrElse Not System.IO.File.Exists(sucursal.logo) Then
+            ' Si la ruta no es válida, se construye una ruta dinámica para el logo de respaldo
+            Dim rutaBase As String = Application.StartupPath
+            Dim rutaRecursos As String = System.IO.Path.Combine(rutaBase, "recursos")
+            sucursal.logo = System.IO.Path.Combine(rutaRecursos, "logoCompletoSFCommon.jpg")
+        End If
+
+        Dim logo As New PdfBitmap(sucursal.logo)
+
+        'Se establecen las variables necesarias para guardar el archivo
+        Dim rutaPerfil As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+        Dim rutaDescargas As String = Path.Combine(rutaPerfil, "Downloads")
+        Dim rutaCompleta As String = Path.Combine(rutaDescargas, $"ReporteDeVentas{Date.Now:yyyyMMddHHmmss}.pdf")
 
         ' 1. Define diferentes estilos de fuente
         Dim fontTitulo As New PdfStandardFont(PdfFontFamily.Courier, 18, PdfFontStyle.Bold)
+        Dim fontSubTitulo As New PdfStandardFont(PdfFontFamily.Courier, 14, PdfFontStyle.Bold)
         Dim fontNormal As New PdfStandardFont(PdfFontFamily.Courier, 10)
         Dim fontNormalNegrita As New PdfStandardFont(PdfFontFamily.Courier, 10, PdfFontStyle.Bold)
 
-        '2. Se define el punto de incio de nuestros elementos en el documento
-        Dim yPoint As Single = 20
+        'Crea y define el objeto para la alineación
+        Dim fCentrado As New PdfStringFormat With {
+            .Alignment = PdfTextAlignment.Center
+        }
+        Dim fIzquierda As New PdfStringFormat With {
+            .Alignment = PdfTextAlignment.Left
+        }
+        Dim fDerecha As New PdfStringFormat With {
+            .Alignment = PdfTextAlignment.Right
+        }
+        Dim fJustify As New PdfStringFormat With {
+            .Alignment = PdfTextAlignment.Justify
+        }
 
-        ' Se crea un elemento PdfTextElement para los elementos que necesitamos mostrar como texto
-        'Titulo
-        Dim tituloElement As New PdfTextElement("REPORTE DE VENTAS", fontTitulo, PdfBrushes.Black)
-        'Fecha de emisión
-        Dim FechaEmisionElement As New PdfTextElement($"Fecha de emisión {desde.Date.ToLongDateString()} - {hasta.Date.ToLongDateString()}")
+        reportePDF = New PdfDocument()
+        pag = reportePDF.Pages.Add()
+        graficos = pag.Graphics
 
-        Using reportePDF As New PdfDocument()
-            ' Se pinta el título del reporte al documento
+        'Se definen las dimensiones de la imagen
+        Dim dimensionesLogo As Single = 60
+        Dim tamañoLogo As New SizeF(dimensionesLogo, dimensionesLogo)
+        Dim areaLogo As New RectangleF(pos, tamañoLogo)
+        'Se dibuja la imagen en el reporte
+        graficos.DrawImage(logo, areaLogo)
 
-        End Using
+        'Se aumenta la posición en el eje Y a 30
+        pos.Y += 20
+
+        'Se dibuja el título
+        Dim posTitulo As New PointF(pag.Size.Width / 2, pos.Y)
+        graficos.DrawString("REPORTE DE VENTAS", fontTitulo, PdfBrushes.Black, posTitulo, fCentrado)
+
+        'Se aumenta la posición en el eje Y a 80
+        pos.Y += 50
+
+        'Se muestra el total de ventas
+        graficos.DrawString($"Total de ventas: {reporte.total_ventas.ToString("C", New CultureInfo("es-CR"))}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
+
+        Dim posNumVentas As New PointF(pag.Size.Width - 210, pos.Y)
+        'Se muestra el numero de ventas
+        graficos.DrawString($"Numero de ventas: {reporte.num_ventas:#,##}", fontNormalNegrita, PdfBrushes.Black, posNumVentas, fDerecha)
+
+        pos.Y += 20
+        graficos.DrawString($"Ventas en tarjeta: {reporte.ventas_tarjeta.ToString("C", New CultureInfo("es-CR"))}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
+
+        Dim posVentasEfectivo As New PointF(pag.Size.Width - 150, pos.Y)
+        'Se muestra el numero de ventas
+        graficos.DrawString($"Ventas en efectivo: {reporte.ventas_efectivo.ToString("C", New CultureInfo("es-CR"))}", fontNormalNegrita, PdfBrushes.Black, posVentasEfectivo, fDerecha)
+
+        pos.Y += 20
+        graficos.DrawString($"Producto más vendido: {reporte.ProductoMasVendido.Nombre}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
+
+        pos.Y += 20
+        graficos.DrawString($"Cantidad vendida: {reporte.ProductoMasVendido.Cantidad:#,##}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
+
+        Dim posTotalVentasProd As New PointF(pag.Size.Width - 335, pos.Y)
+        graficos.DrawString($"Total vendido: {reporte.ProductoMasVendido.Total.ToString("C", New CultureInfo("es-CR"))}", fontNormalNegrita, PdfBrushes.Black, posTotalVentasProd, fIzquierda)
+
+        pos.Y += 30
+        graficos.DrawString($"Lista de ventas", fontSubTitulo, PdfBrushes.Black, pos, fIzquierda)
+
+        pos.Y += 20
+
+        If listaFiltrada IsNot Nothing And listaFiltrada.Count > 0 Then
+            Dim gridVentas As New PdfGrid With {
+            .DataSource = listaFiltrada
+        }
+            For Each celda As PdfGridCell In gridVentas.Headers(0).Cells
+                celda.Style.Font = fontNormalNegrita
+                celda.Style.StringFormat = fCentrado
+            Next
+            gridVentas.RepeatHeader = True
+
+            ' Se define un formato de paginación
+            Dim formatoDisposicion As New PdfGridLayoutFormat With {
+                .Layout = PdfLayoutType.Paginate,
+                .Break = PdfLayoutBreakType.FitPage
+            }
+            ' Se dibuja el grid, pasándole la posición inicial y el formato de paginación
+            ' El método Draw se encarga de crear las nuevas páginas automáticamente
+            gridVentas.Draw(pag, pos.X, pos.Y, formatoDisposicion)
+        End If
+
+        reportePDF.Save(rutaCompleta)
+
+        Dim resultado As DialogResult = MsgBox($"Archivo creado exitosamente en la ruta: {rutaCompleta}" & vbCrLf & "¿Desea abrir el archivo?", vbOKCancel, "¿Desea abrir el archivo?")
+        If resultado = DialogResult.OK Then
+            ' Abre el archivo PDF con el programa predeterminado del sistema
+            System.Diagnostics.Process.Start(rutaCompleta)
+        End If
+
     End Sub
+
+
+    Private Async Function GetInfoSucursal() As Task(Of Cls_Sucursal)
+        Return Await Task.Run(Function()
+                                  Dim consulta As String = "SELECT nombre, logo FROM sucursal;"
+                                  Cargar_Tabla(T, consulta)
+                                  Dim suc As New Cls_Sucursal With {
+                                      .Nombre = T.Tables(0).Rows(0).Item(0),
+                                      .logo = T.Tables(0).Rows(0).Item(1)
+                                  }
+                                  Return suc
+                              End Function)
+    End Function
 
 #Region "Cierre de caja"
 
