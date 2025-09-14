@@ -9,5 +9,5 @@
     Public Property Vuelto As String
     Public Property TipoPago As String
     Public Property Comentario As String
-    Public Property TotalCaja As String
+    Public Property TotalCaja As Decimal
 End Class

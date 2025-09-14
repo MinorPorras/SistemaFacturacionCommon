@@ -186,7 +186,7 @@ Partial Class P_TerminarVenta
         '
         Me.TXT_EVuelto.BorderRadius = 20
         Me.TXT_EVuelto.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.TXT_EVuelto.DefaultText = ""
+        Me.TXT_EVuelto.DefaultText = "0"
         Me.TXT_EVuelto.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
         Me.TXT_EVuelto.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
         Me.TXT_EVuelto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))

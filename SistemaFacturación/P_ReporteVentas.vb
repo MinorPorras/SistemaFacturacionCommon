@@ -250,9 +250,11 @@ Public Class P_ReporteVentas
     End Sub
 
     Private Sub BTN_GenerarReporteVentaPDF_Click(sender As Object, e As EventArgs) Handles BTN_GenerarReporteVentaPDF.Click
-        'If MsgBox("Desea generar el reporte con la información indicada?") = DialogResult.OK Then
-        '    Md_Reportes.Crear_PDF_ReporteVentas(DTP_Desde.Value, DTP_Hasta.Value)
-        'End If
+        Dim resultado As DialogResult = MsgBox($"Desea generar el reporte de ventas en este rango: {DTP_Desde.Value:dd MMM yyyy} - {DTP_Hasta.Value:dd MMM yyyy}",
+                                               vbOKCancel, "Confirmación")
+        If resultado = DialogResult.OK Then
+            Md_Reportes.Crear_PDF_ReporteVentas(DTP_Desde.Value, DTP_Hasta.Value)
+        End If
     End Sub
 
 #End Region

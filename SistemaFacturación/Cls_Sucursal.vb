@@ -4,4 +4,5 @@
     Public Property Telefono As String
     Public Property Email As String
     Public Property Cedula As String
+    Public Property logo As String
 End Class

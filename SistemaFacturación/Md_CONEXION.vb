@@ -62,6 +62,7 @@ Module Md_CONEXION
 #Region "Interaccion"
     ' Carga datos en un DataSet usando parámetros en la consulta SQL
     Public Sub CargarTablaParam(ByVal t As DataSet, ByVal consulta As String, ByVal parametros As List(Of SQLiteParameter))
+        t.Tables.Clear()
         Using db As New SQLiteConnection(GetConnectionString())
             Try
                 db.Open()
@@ -86,6 +87,7 @@ Module Md_CONEXION
 
     ' Carga datos en un DataSet usando una consulta SQL simple
     Public Sub Cargar_Tabla(ByVal t As DataSet, ByVal consulta As String)
+        t.Tables.Clear()
         Using db As New SQLiteConnection(GetConnectionString())
             Try
                 db.Open()
