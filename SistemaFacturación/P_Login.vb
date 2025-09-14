@@ -9,10 +9,10 @@ Public Class P_Login
         Cargar_Tabla(T, SQL)
         If Not IsDBNull(T.Tables(0).Rows(0).Item(0)) Then
             If T.Tables(0).Rows.Count > 0 Then
-                ActConfig("Empresa", T.Tables(0).Rows(0).Item(0).ToString())
-                ActConfig("Telefono", T.Tables(0).Rows(0).Item(1).ToString())
-                ActConfig("Correo", T.Tables(0).Rows(0).Item(2).ToString())
-                ActConfig("Logo", T.Tables(0).Rows(0).Item(3).ToString())
+                SetAppSetting("Empresa", T.Tables(0).Rows(0).Item(0).ToString())
+                SetAppSetting("Telefono", T.Tables(0).Rows(0).Item(1).ToString())
+                SetAppSetting("Correo", T.Tables(0).Rows(0).Item(2).ToString())
+                SetAppSetting("Logo", T.Tables(0).Rows(0).Item(3).ToString())
             End If
         End If
         T.Tables.Clear()

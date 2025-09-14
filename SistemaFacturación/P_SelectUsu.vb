@@ -8,6 +8,7 @@ Public Class P_SelectUsu
         inicializarDB()
         AutoUpdate()
         CheckAndMigrateDatabase()
+        InitConfigVaribles()
         T.Tables.Clear()
         SQL = "SELECT ID, usuario, color FROM usuario"
         Cargar_Tabla(T, SQL)

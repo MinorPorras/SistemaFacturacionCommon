@@ -34,11 +34,11 @@ Public Class M_Inicio
             'Se coloca en False ya que la función aún no esta implementada
             BTN_Reporte.Enabled = True
         End If
-        LBL_Sucursal.Text = "Sucursal: " + ConfigurationManager.AppSettings("Empresa").ToString()
-        LBL_Telefono.Text = "Telefono: " + ConfigurationManager.AppSettings("Telefono").ToString()
-        LBL_Email.Text = "Email: " + ConfigurationManager.AppSettings("Correo").ToString()
+        LBL_Sucursal.Text = "Sucursal: " + GetAppSetting("Empresa")
+        LBL_Telefono.Text = "Telefono: " + GetAppSetting("Telefono")
+        LBL_Email.Text = "Email: " + GetAppSetting("Correo")
         Try
-            PIC_Logo.Image = Image.FromFile(ConfigurationManager.AppSettings("Logo").ToString())
+            PIC_Logo.Image = Image.FromFile(GetAppSetting("logo"))
         Catch ex As Exception
             Console.WriteLine("No se encontró la imagen")
         End Try

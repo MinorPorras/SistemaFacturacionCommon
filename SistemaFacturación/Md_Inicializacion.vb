@@ -125,43 +125,55 @@ Module Md_Inicializacion
 #End Region
 
 #Region "Configuraciones"
+    ' Declara una variable privada para el directorio de la aplicación
+    Friend ReadOnly appRootDirectory As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CommonSistemaDeFacturacion")
+
+    ' Centraliza la creación del directorio de la aplicación
+    Friend Sub EnsureAppDirectoryExists()
+        If Not Directory.Exists(appRootDirectory) Then
+            Directory.CreateDirectory(appRootDirectory)
+        End If
+    End Sub
+
+    ' Método para obtener el directorio raíz de la aplicación
+    Friend Function GetAppDirectory() As String
+        EnsureAppDirectoryExists()
+        Return appRootDirectory
+    End Function
+
+
     ' Establece o actualiza un valor en appSettings
     Sub SetAppSetting(key As String, value As String)
-        Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
+        ' Obtiene la ruta del archivo de configuración del usuario
+        EnsureAppDirectoryExists()
+        Dim configFilePath As String = Path.Combine(appRootDirectory, "app.config")
+
+        ' Carga el archivo de configuración desde la nueva ruta
+        Dim config = ConfigurationManager.OpenMappedExeConfiguration(New ExeConfigurationFileMap() With {.ExeConfigFilename = configFilePath}, ConfigurationUserLevel.None)
+
         If config.AppSettings.Settings(key) IsNot Nothing Then
             config.AppSettings.Settings(key).Value = value
         Else
             config.AppSettings.Settings.Add(key, value)
         End If
+
+        ' Guarda los cambios
         config.Save(ConfigurationSaveMode.Modified)
         ConfigurationManager.RefreshSection("appSettings")
     End Sub
 
     ' Obtiene el valor de una clave de appSettings
+    ' Obtiene un valor de appSettings
     Function GetAppSetting(key As String) As String
-        Dim value As String = ConfigurationManager.AppSettings.Get(key)
-        Return value
-    End Function
+        EnsureAppDirectoryExists()
+        Dim configFilePath As String = Path.Combine(appRootDirectory, "app.config")
 
-    ' Establece o actualiza una cadena de conexión en connectionStrings
-    Sub SetConnectionString(name As String, connectionString As String)
-        Dim config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)
-        If config.ConnectionStrings.ConnectionStrings("conexionString") IsNot Nothing Then
-            config.ConnectionStrings.ConnectionStrings("conexionString").ConnectionString = connectionString
-        Else
-            config.ConnectionStrings.ConnectionStrings.Add(New ConnectionStringSettings("conexionString", connectionString))
-        End If
-        config.Save(ConfigurationSaveMode.Modified)
-        ConfigurationManager.RefreshSection("connectionStrings")
-    End Sub
+        Dim config = ConfigurationManager.OpenMappedExeConfiguration(New ExeConfigurationFileMap() With {.ExeConfigFilename = configFilePath}, ConfigurationUserLevel.None)
 
-    ' Obtiene la cadena de conexión especificada
-    Function ObtenerConnectionString(name As String) As String
-        Dim settings As ConnectionStringSettings = ConfigurationManager.ConnectionStrings("conexionString")
-        If settings IsNot Nothing Then
-            Return settings.ConnectionString
+        If config.AppSettings.Settings(key) IsNot Nothing Then
+            Return config.AppSettings.Settings(key).Value
         Else
-            Return String.Empty ' O devolver un mensaje de error o valor por defecto
+            Return ""
         End If
     End Function
 
@@ -170,6 +182,48 @@ Module Md_Inicializacion
         ConfigGeneral.Show()
         ConfigGeneral.Select()
         ConfigGeneral.TCO_Config.SelectedIndex = index
+    End Sub
+#End Region
+
+#Region "Inicialización de configuraciones"
+    Friend Sub InitConfigVaribles()
+        ' Asegura que el directorio de la aplicación exista
+        EnsureAppDirectoryExists()
+
+        ' Define las configuraciones y sus valores predeterminados
+        Dim defaultSettings As New Dictionary(Of String, String) From {
+        {"DirectorioRespaldo", Path.Combine(appRootDirectory, "Respaldo")},
+        {"DirectorioDescargaReportes", Path.Combine(appRootDirectory, "Reportes")},
+        {"AutoCodCajero", "2"},
+        {"AutoCodCliente", "2"},
+        {"AutoCodProv", "2"},
+        {"AutoCodImp", "2"},
+        {"AutoCodCat", "2"},
+        {"AutoCodMarca", "3"},
+        {"AutoCodProd", "4"},
+        {"AutoUpdate", "False"},
+        {"FontSizeProd", "16"},
+        {"FontSizePrecio", "16"},
+        {"Logo", Path.Combine(Application.StartupPath, "recursos", "ICO_Image.png")},
+        {"Empresa", "Nombre"},
+        {"Telefono", "1111-1111"},
+        {"Correo", "ejemplo@gmail.com"}
+    }
+
+        ' Recorre la lista, crea la configuración si no existe y asegura que las carpetas se creen
+        For Each setting In defaultSettings
+            If String.IsNullOrEmpty(GetAppSetting(setting.Key)) Then
+                ' Establece la configuración
+                SetAppSetting(setting.Key, setting.Value)
+
+                ' Si la configuración es un directorio, lo crea si no existe
+                If setting.Key = "DirectorioRespaldo" OrElse setting.Key = "DirectorioDescargaReportes" Then
+                    If Not Directory.Exists(setting.Value) Then
+                        Directory.CreateDirectory(setting.Value)
+                    End If
+                End If
+            End If
+        Next
     End Sub
 #End Region
 
@@ -200,10 +254,9 @@ Module Md_Inicializacion
         Try
             If TableExists("producto_favorito") Then
                 ' La tabla ya existe, no es necesario hacer nada
-                Return
+                Exit Sub
             End If
-            Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-            Using db As New SQLiteConnection(stringConexion)
+            Using db As New SQLiteConnection(GetConnectionString())
                 db.Open()
                 SQL = "CREATE TABLE IF NOT EXISTS producto_favorito(
                             ID_Producto INTEGER PRIMARY KEY,
@@ -224,10 +277,9 @@ Module Md_Inicializacion
         Try
             If TableExists("CierreCaja") Then
                 ' La tabla ya existe, no es necesario hacer nada
-                Return
+                Exit Sub
             End If
-            Dim stringConexion As String = ConfigurationManager.ConnectionStrings("conexionString").ConnectionString
-            Using db As New SQLiteConnection(stringConexion)
+            Using db As New SQLiteConnection(GetConnectionString())
                 db.Open()
                 'Se elimina la tabla cierre_caja si existe (Esta es la vieja y no va a seguir siendo utilizada)
                 SQL = "DROP TABLE IF EXISTS cierre_caja"
@@ -261,10 +313,9 @@ Module Md_Inicializacion
     ' Función para verificar si una tabla existe en la base de datos
     Private Function TableExists(tableName As String) As Boolean
         Dim exists As Boolean = False
-        Dim dbPath As String = "Data Source=mi_base_de_datos.db;Version=3;"
 
         Try
-            Using conn As New SQLiteConnection(dbPath)
+            Using conn As New SQLiteConnection(GetConnectionString())
                 conn.Open()
                 Dim sql As String = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{tableName}';"
                 Using cmd As New SQLiteCommand(sql, conn)
