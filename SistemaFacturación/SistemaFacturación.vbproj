@@ -562,6 +562,7 @@
     <Content Include="recursos\logoSFCommonSimple.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config.example" />
     <None Include="bd\backupDB\dbSistemaFacturacionInicial.db" />
     <None Include="Resources\logoCompletoSFCommonTransparent.png" />
     <None Include="Resources\logoSFCommonSimple.ico" />
@@ -716,7 +717,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <Content Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="SistemaFacturación_TemporaryKey.pfx" />
   </ItemGroup>

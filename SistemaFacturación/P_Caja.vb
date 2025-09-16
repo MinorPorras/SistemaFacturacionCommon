@@ -36,39 +36,43 @@ Public Class P_Caja
         BTN_TVenta.Enabled = False
         BTN_GuardarCuenta.Enabled = False
         MNU_CONTX.Enabled = True
+        Try
+            'Se carga el último número de factura que se haya agregado, que va a ser el mas alto
+            CargarNumFactura()
 
-        'Se carga el último número de factura que se haya agregado, que va a ser el mas alto
-        CargarNumFactura()
+            TXT_BuscarCliente.Text = "0001"
+            If DGV_Caja IsNot Nothing Then
+                DGV_Caja.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 128, 0)
+                DGV_Caja.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 120, 30)
+                DGV_Caja.Columns(3).DefaultCellStyle.Format = "#,##"
+                DGV_Caja.Columns(5).DefaultCellStyle.Format = "#,##"
+                DGV_Caja.Font = New Font("Arial", 11)
+                DGV_Caja.ColumnHeadersHeight = 25
+                DGV_Caja.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True
+                idCliente = 1
 
-        TXT_BuscarCliente.Text = "0001"
-        If DGV_Caja IsNot Nothing Then
-            DGV_Caja.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 128, 0)
-            DGV_Caja.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 120, 30)
-            DGV_Caja.Columns(3).DefaultCellStyle.Format = "#,##"
-            DGV_Caja.Columns(5).DefaultCellStyle.Format = "#,##"
-            DGV_Caja.Font = New Font("Arial", 11)
-            DGV_Caja.ColumnHeadersHeight = 25
-            DGV_Caja.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True
-            idCliente = 1
+                DGV_Caja.Columns(1).Width = (DGV_Caja.Width * 0.18)
+                DGV_Caja.Columns(2).Width = (DGV_Caja.Width * 0.5)
+                DGV_Caja.Columns(3).Width = (DGV_Caja.Width * 0.11)
+                DGV_Caja.Columns(4).Width = (DGV_Caja.Width * 0.1)
+                DGV_Caja.Columns(5).Width = (DGV_Caja.Width * 0.11)
+            End If
 
-            DGV_Caja.Columns(1).Width = (DGV_Caja.Width * 0.18)
-            DGV_Caja.Columns(2).Width = (DGV_Caja.Width * 0.5)
-            DGV_Caja.Columns(3).Width = (DGV_Caja.Width * 0.11)
-            DGV_Caja.Columns(4).Width = (DGV_Caja.Width * 0.1)
-            DGV_Caja.Columns(5).Width = (DGV_Caja.Width * 0.11)
-        End If
+            ' Añadir los botones de productos favoritos de forma dinpamica
+            LoadBtnFav()
+            LBL_Hora.Text = DateTime.Now.ToString("hh:mm:ss tt")
+            LBL_Fecha.Text = DateTime.Now.ToString("dd/MM/yyyy")
+            Timer1.Start()
+            Me.Select()
+            TXT_BuscarProducto.SelectAll()
 
-        ' Añadir los botones de productos favoritos de forma dinpamica
-        LoadBtnFav()
-
-
-        'Se coloca la imagen y los datos de la fecha y el día y se inicia el contador para que los vaya actualizando
-        PIC_Logo.ImageLocation = ConfigurationManager.AppSettings("Logo").ToString()
-        LBL_Hora.Text = DateTime.Now.ToString("hh:mm:ss tt")
-        LBL_Fecha.Text = DateTime.Now.ToString("dd/MM/yyyy")
-        Timer1.Start()
-        Me.Select()
-        TXT_BuscarProducto.SelectAll()
+            'Se coloca la imagen y los datos de la fecha y el día y se inicia el contador para que los vaya actualizando
+            If ConfigurationManager.AppSettings("Logo").ToString() IsNot Nothing Then
+                PIC_Logo.ImageLocation = ConfigurationManager.AppSettings("Logo").ToString()
+            End If
+        Catch ex As Exception
+            msgError("Error al cargar la información inicial de la caja." + vbCrLf + "Error: " + ex.Message)
+        End Try
     End Sub
 
     Private Async Sub P_Caja_Async_Load(sender As Object, e As EventArgs) Handles MyBase.Load

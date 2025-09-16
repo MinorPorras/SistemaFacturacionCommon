@@ -281,14 +281,16 @@ Module Md_Reportes
         'Se muestra el numero de ventas
         graficos.DrawString($"Ventas en efectivo: {reporte.ventas_efectivo.ToString("C", New CultureInfo("es-CR"))}", fontNormalNegrita, PdfBrushes.Black, posVentasEfectivo, fDerecha)
 
-        pos.Y += 20
-        graficos.DrawString($"Producto más vendido: {reporte.ProductoMasVendido.Nombre}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
+        If reporte.ProductoMasVendido IsNot Nothing Then
+            pos.Y += 20
+            graficos.DrawString($"Producto más vendido: {reporte.ProductoMasVendido.Nombre}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
 
-        pos.Y += 20
-        graficos.DrawString($"Cantidad vendida: {reporte.ProductoMasVendido.Cantidad:#,##}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
+            pos.Y += 20
+            graficos.DrawString($"Cantidad vendida: {reporte.ProductoMasVendido.Cantidad:#,##}", fontNormalNegrita, PdfBrushes.Black, pos, fIzquierda)
 
-        Dim posTotalVentasProd As New PointF(pag.Size.Width - 335, pos.Y)
-        graficos.DrawString($"Total vendido: {reporte.ProductoMasVendido.Total.ToString("C", New CultureInfo("es-CR"))}", fontNormalNegrita, PdfBrushes.Black, posTotalVentasProd, fIzquierda)
+            Dim posTotalVentasProd As New PointF(pag.Size.Width - 335, pos.Y)
+            graficos.DrawString($"Total vendido: {reporte.ProductoMasVendido.Total.ToString("C", New CultureInfo("es-CR"))}", fontNormalNegrita, PdfBrushes.Black, posTotalVentasProd, fIzquierda)
+        End If
 
         pos.Y += 30
         graficos.DrawString($"Lista de ventas", fontSubTitulo, PdfBrushes.Black, pos, fIzquierda)

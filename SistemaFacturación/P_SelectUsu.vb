@@ -6,9 +6,9 @@ Public Class P_SelectUsu
 
     Private Sub P_LoginCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         inicializarDB()
+        InitConfigVaribles()
         AutoUpdate()
         CheckAndMigrateDatabase()
-        InitConfigVaribles()
         T.Tables.Clear()
         SQL = "SELECT ID, usuario, color FROM usuario"
         Cargar_Tabla(T, SQL)

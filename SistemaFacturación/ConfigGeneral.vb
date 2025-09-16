@@ -236,6 +236,10 @@ Public Class ConfigGeneral
         Me.Close()
     End Sub
 
+    Private Sub BTN_ConfigRegHablador_Click(sender As Object, e As EventArgs) Handles BTN_ConfigRegHablador.Click
+        Me.Close()
+    End Sub
+
 #End Region
 
 End Class
