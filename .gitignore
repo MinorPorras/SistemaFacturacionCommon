@@ -11,6 +11,9 @@
 *.userosscache
 *.sln.docstates
 
+#Archivo de configuración
+App.config
+
 # VS Code settings
 .vscode/
 

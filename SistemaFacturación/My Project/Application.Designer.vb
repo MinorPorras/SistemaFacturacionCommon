@@ -26,19 +26,8 @@ Namespace My
             MyBase.New(Global.Microsoft.VisualBasic.ApplicationServices.AuthenticationMode.Windows)
             Me.IsSingleInstance = false
             Me.EnableVisualStyles = true
-            Me.SaveMySettingsOnExit = True
-            Me.ShutdownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterAllFormsClose
-
-            ' Lee la clave de licencia de la variable de entorno
-            Dim syncfusionKey As String = Environment.GetEnvironmentVariable("SYNCFUSION_LICENSE_KEY")
-
-            ' Registra la licencia solo si la clave existe
-            If Not String.IsNullOrEmpty(syncfusionKey) Then
-                Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey)
-            Else
-                System.Windows.Forms.MessageBox.Show("Syncfusion license key not found. Please set the SYNCFUSION_LICENSE_KEY environment variable.", "License Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error)
-            End If
-
+            Me.SaveMySettingsOnExit = true
+            Me.ShutDownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterAllFormsClose
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _

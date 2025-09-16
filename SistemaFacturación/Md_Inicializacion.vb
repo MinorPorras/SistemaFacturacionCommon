@@ -27,7 +27,7 @@ Module Md_Inicializacion
     ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
     Async Sub AutoUpdate()
         Dim AutoUpdate As String = GetAppSetting("AutoUpdate")
-        If AutoUpdate = "False" Then
+        If AutoUpdate = False Then
             Return
         End If
         ' Verifica si la aplicación se está ejecutando en modo de depuración.
@@ -190,6 +190,9 @@ Module Md_Inicializacion
         ' Asegura que el directorio de la aplicación exista
         EnsureAppDirectoryExists()
 
+        Dim licencia As String = ConfigurationManager.AppSettings("Syncfusion.Licensing")
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(licencia)
+
         ' Define las configuraciones y sus valores predeterminados
         Dim defaultSettings As New Dictionary(Of String, String) From {
         {"DirectorioRespaldo", Path.Combine(appRootDirectory, "Respaldo")},
@@ -233,7 +236,15 @@ Module Md_Inicializacion
 
         If Not File.Exists(dbPersistentePath) Then
             Try
-                ' Si no existe, copia la base de datos inicial desde la carpeta 'bd'
+                ' 1. Obtiene la ruta del directorio donde se guardará la base de datos.
+                Dim dbDirectory As String = Path.GetDirectoryName(dbPersistentePath)
+
+                ' 2. Crea el directorio si no existe. Esto incluye la carpeta \DB.
+                If Not Directory.Exists(dbDirectory) Then
+                    Directory.CreateDirectory(dbDirectory)
+                End If
+
+                ' 3. Ahora sí, copia la base de datos inicial a la ruta persistente.
                 Dim dbInicialPath As String = Path.Combine(Application.StartupPath, "bd\dbSistemaFacturacion.db")
                 File.Copy(dbInicialPath, dbPersistentePath)
             Catch ex As Exception

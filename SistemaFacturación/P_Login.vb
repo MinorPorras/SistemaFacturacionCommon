@@ -62,4 +62,8 @@ Public Class P_Login
     Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
         msgCerrarApp()
     End Sub
+
+    Private Sub P_Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class
