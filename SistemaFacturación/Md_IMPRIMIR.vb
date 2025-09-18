@@ -46,27 +46,12 @@ Module Md_IMPRIMIR
 
         Dim comentario As String = ObtenerComentario(id_factura)
 
-        ' Obtener datos de la sucursal
-        Dim sucursal As New Cls_Sucursal()
-        sucursal = ObtenerDatosSucursal()
-
-        ' Formatear la dirección para impresión
-        Dim direccionsplit() As String = sucursal.Direccion.Split(","c)
-        sucursal.Direccion = ""
-        For i As Integer = 0 To direccionsplit.Length - 1
-            If i <> 1 Then
-                sucursal.Direccion = sucursal.Direccion & direccionsplit(i) & ","
-            Else
-                sucursal.Direccion = sucursal.Direccion & vbCrLf & direccionsplit(i)
-            End If
-        Next
-
         ' Definir el contenido de la factura para impresión normal
-        encabezadoFactura = crearEncabezadoFactura(factura, sucursal)
+        encabezadoFactura = crearEncabezadoFactura(factura, ObtenerDatosSucursal())
 
         CargarProds(id_factura)
 
-        finFactura = crearFinFactura(factura)
+        finFactura = crearFinFactura(factura, comentario)
 
         ImprimirFactura(encabezadoFactura, facturaContenido, finFactura)
     End Sub
@@ -74,23 +59,30 @@ Module Md_IMPRIMIR
     Private Function ObtenerDatosGeneralesFactura(id_factura As Integer) As Cls_DatosFactura
         ' Obtener datos principales de la factura, cliente y usuario
         T.Tables.Clear()
-        SQL = "SELECT f.ID, f.fecha_emision, c.nombre, f.num_factura, f.total, f.efectivo_cliente, f.tarjeta_cliente, f.vuelto, f.tipo_venta, u.usuario" &
-            " FROM (factura f LEFT JOIN clientes c ON c.ID =f.ID_Cliente) LEFT JOIN usuario u ON u.ID = f.ID_Usuario WHERE f.ID = " & id_factura
+        SQL = "SELECT f.ID, strftime('%d-%m-%Y %H:%M:%S', f.fecha_emision) AS 'Fecha de emisión', c.nombre, f.num_factura, f.total, f.efectivo_cliente, " &
+          "f.tarjeta_cliente, f.vuelto, f.tipo_venta, u.usuario" &
+          " FROM (factura f LEFT JOIN clientes c ON c.ID =f.ID_Cliente) LEFT JOIN usuario u ON u.ID = f.ID_Usuario WHERE f.ID = " & id_factura
         Cargar_Tabla(T, SQL)
+
+        Dim row As DataRow = T.Tables(0).Rows(0)
+
+        Dim numFacturaValue As Integer = If(IsDBNull(row.Item(3)), 0, CInt(row.Item(3)))
+
         Dim factura As New Cls_DatosFactura With {
-            .Fecha = If(IsDBNull(T.Tables(0).Rows(0).Item(1)), " ", T.Tables(0).Rows(0).Item(1)),
-            .Cliente = If(IsDBNull(T.Tables(0).Rows(0).Item(2)), " ", T.Tables(0).Rows(0).Item(2)),
-            .NumFactura = If(IsDBNull(T.Tables(0).Rows(0).Item(3)), " ", CInt(T.Tables(0).Rows(0).Item(3)).ToString("D15")),
-            .TotalCaja = If(IsDBNull(T.Tables(0).Rows(0).Item(4)), " ", T.Tables(0).Rows(0).Item(4)),
-            .Efectivo = If(IsDBNull(T.Tables(0).Rows(0).Item(5)), " ", T.Tables(0).Rows(0).Item(5)),
-            .Tarjeta = If(IsDBNull(T.Tables(0).Rows(0).Item(6)), " ", T.Tables(0).Rows(0).Item(6)),
-            .Vuelto = If(IsDBNull(T.Tables(0).Rows(0).Item(7)), " ", T.Tables(0).Rows(0).Item(7)),
-            .TipoPago = If(IsDBNull(T.Tables(0).Rows(0).Item(8)), " ", T.Tables(0).Rows(0).Item(8)),
-            .Cajero = If(IsDBNull(T.Tables(0).Rows(0).Item(9)), " ", T.Tables(0).Rows(0).Item(9))
+            .IdFactura = If(IsDBNull(row.Item(0)), 0, CInt(row.Item(0))),
+            .NumFactura = numFacturaValue.ToString("D15"),
+            .Fecha = If(IsDBNull(row.Item(1)), "", row.Item(1).ToString()),
+            .Cliente = If(IsDBNull(row.Item(2)), "", row.Item(2).ToString()),
+            .Cajero = If(IsDBNull(row.Item(9)), "", row.Item(9).ToString()),
+            .Efectivo = If(IsDBNull(row.Item(5)), "0", row.Item(5).ToString()),
+            .Tarjeta = If(IsDBNull(row.Item(6)), "0", row.Item(6).ToString()),
+            .Vuelto = If(IsDBNull(row.Item(7)), "0", row.Item(7).ToString()),
+            .TipoPago = If(IsDBNull(row.Item(8)), "0", row.Item(8).ToString()),
+            .Comentario = "",
+            .TotalCaja = If(IsDBNull(row.Item(4)), 0D, Convert.ToDecimal(row.Item(4)))
         }
 
         Return factura
-
     End Function
 
     Private Function ObtenerComentario(id_factura As Integer) As String
@@ -131,38 +123,40 @@ Module Md_IMPRIMIR
     Private Function crearEncabezadoFactura(factura As Cls_DatosFactura, sucursal As Cls_Sucursal) As String
         Return "-------------------------------------------" & vbCrLf &
                                 "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
-                                "------------ " & sucursal.Direccion & " -------------" & vbCrLf & vbCrLf &
+                                "-------- " & sucursal.Nombre & " ---------" & vbCrLf & vbCrLf &
                                 "Nº de Factura: " & factura.NumFactura & vbCrLf &
                                 "Cajero: " & factura.Cajero & vbCrLf &
-                                "Ced. Jurídica:" & sucursal.Cedula & vbCrLf &
-                                "Dirección:" & sucursal.Direccion & vbCrLf &
+                                "Ced. Jurídica: " & sucursal.Cedula & vbCrLf &
+                                "Dirección: " & sucursal.Direccion & vbCrLf &
                                 "Teléfono: " & sucursal.Telefono & vbCrLf &
                                 "Email: " & sucursal.Email & vbCrLf &
                                 "Fecha: " & factura.Fecha & vbCrLf &
                                 vbCrLf &
                                 "Cliente:" & factura.Cliente & vbCrLf &
                                 vbCrLf &
-                                "-------------------------------------------" & vbCrLf &
+                                "----------------------------------------------" & vbCrLf &
                                 "Descripción de Productos" & vbCrLf &
-                                "-------------------------------------------" & vbCrLf
+                                "----------------------------------------------" & vbCrLf
     End Function
 
-    Private Function crearFinFactura(factura As Cls_DatosFactura) As String
-        Dim finFcatura As String = "-------------------------------------------" & vbCrLf &
+    Private Function crearFinFactura(factura As Cls_DatosFactura, comentario As String) As String
+        Dim finFact As String = "---------------------------------------------" & vbCrLf &
                       "Total de la venta: ₡ " & factura.TotalCaja & vbCrLf &
                       vbCrLf
         If factura.TipoPago = 1 Then
-            finFcatura += "Pago del cliente: ₡ " & factura.Efectivo
+            finFact += "Pago del cliente: ₡ " & factura.Efectivo
 
         ElseIf factura.TipoPago = 4 Then
-            finFcatura += "Pago en efectivo: ₡ " & factura.Efectivo & vbCrLf &
+            finFact += "Pago en efectivo: ₡ " & factura.Efectivo & vbCrLf &
                 vbCrLf &
                  "Pago en tarjeta: ₡ " & factura.Tarjeta
         Else
-            finFcatura += "Pago en tarjeta: ₡ " & factura.Tarjeta
+            finFact += "Pago en tarjeta: ₡ " & factura.Tarjeta
         End If
 
-        Return finFcatura
+        finFact += $"Comentario: {comentario}"
+
+        Return finFact
     End Function
 
     Public Sub ImprimirFactura(encabezado As String, productos As List(Of String), fin As String)
@@ -190,44 +184,78 @@ Module Md_IMPRIMIR
         Dim font As New Font("Arial", 12)
         Dim fontProds As New Font("Segoe UI", 9)
         Dim brush As New SolidBrush(Color.Black)
-        Dim stringFormat As New StringFormat() With {
+        ' Agregamos la opción para que el texto se envuelva automáticamente
+        Dim stringFormatWrap As New StringFormat() With {
             .Alignment = StringAlignment.Near,
-            .LineAlignment = StringAlignment.Near
+            .LineAlignment = StringAlignment.Near,
+            .Trimming = StringTrimming.Word,
+            .FormatFlags = StringFormatFlags.LineLimit '
         }
 
-        Dim totalWidth As Single = 72 * 3.78
-        Dim cellWidth As Single = totalWidth / 4
-        Dim leftMargin As Single = e.MarginBounds.Left
-        Dim topMargin As Single = e.MarginBounds.Top
-        Dim yPos As Single = topMargin
+        ' El ancho total de la impresión es fijo, no uses e.MarginBounds.Left/Top si son 0
+        ' totalWidth = 72 * 3.78 (272 puntos)
+        Dim totalWidth As Single = 272.0F
+        Dim leftMargin As Single = 10 ' Pequeño margen
+        Dim xPos As Single = leftMargin
+        Dim yPos As Single = 10
 
-        ' Dibuja el encabezado de la factura
-        e.Graphics.DrawString(encabezado, font, brush, leftMargin, yPos, stringFormat)
-        yPos += e.Graphics.MeasureString(encabezado, font).Height + 10
+        ' --- Encabezado ---
+        ' Usamos un ancho de RectangleF para que el texto del encabezado se ajuste
+        Dim headerRect As New RectangleF(leftMargin, yPos, totalWidth - (leftMargin * 2), 0)
+        e.Graphics.DrawString(encabezado, font, brush, headerRect, stringFormatWrap)
+        yPos += e.Graphics.MeasureString(encabezado, font, CInt(headerRect.Width), stringFormatWrap).Height + 5
 
-        ' Dibuja el encabezado de la tabla de productos
-        e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos, stringFormat) ' Nota: usa la variable global
-        yPos += e.Graphics.MeasureString(encabezadoProds, fontProds).Height + 10
+        ' --- Encabezado de Productos (Cant, Descrip, Precio, Total) ---
+        e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos)
+        yPos += e.Graphics.MeasureString(encabezadoProds, fontProds, CInt(totalWidth), stringFormatWrap).Height + 5
 
-        ' Dibuja los productos línea por línea
-        For Each line As String In productos ' Recorre la lista de productos
-            Dim columns() As String = line.Split(New Char() {"."c}, StringSplitOptions.RemoveEmptyEntries)
+        ' --- Productos línea por línea ---
+        ' Definimos los anchos de cada columna (ajustados a un ancho total de ~272 puntos)
+        Dim colWidthCant As Single = 35.0F
+        Dim colWidthDesc As Single = 130.0F ' Columna más ancha para la descripción
+        Dim colWidthPrecio As Single = 50.0F
+        Dim colWidthTotal As Single = 50.0F
 
-            Dim maxHeight As Single = 0
-            For colIndex As Integer = 0 To columns.Length - 1
-                Dim rect As New RectangleF(leftMargin + (colIndex * cellWidth), yPos, cellWidth, 0)
-                Dim size As SizeF = e.Graphics.MeasureString(columns(colIndex), fontProds, rect.Size, stringFormat)
-                If size.Height > maxHeight Then
-                    maxHeight = size.Height
-                End If
-                rect.Height = maxHeight
-                e.Graphics.DrawString(columns(colIndex), fontProds, brush, rect, stringFormat)
-            Next
-            yPos += maxHeight + 5
+        For Each line As String In productos
+            ' Usamos el separador de asterisco de CargarProds
+            Dim columns() As String = line.Split("*"c)
+
+            If columns.Length = 4 Then
+                Dim cant As String = columns(0)
+                Dim desc As String = columns(1)
+                Dim precio As String = columns(2)
+                Dim total As String = columns(3)
+
+                Dim maxHeight As Single = 0 ' Para manejar el salto de línea en la descripción
+
+                ' 1. Dibujar Descripción (columna con ajuste de línea)
+                Dim descRect As New RectangleF(leftMargin + colWidthCant, yPos, colWidthDesc, e.MarginBounds.Height)
+                e.Graphics.DrawString(desc, fontProds, brush, descRect, stringFormatWrap)
+
+                ' Medir la altura REAL de la descripción (con salto de línea)
+                maxHeight = e.Graphics.MeasureString(desc, fontProds, CInt(colWidthDesc), stringFormatWrap).Height
+
+                ' 2. Dibujar Cantidad (Alineado a la izquierda de su columna)
+                Dim rectCant As New RectangleF(leftMargin, yPos, colWidthCant, maxHeight)
+                e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap)
+
+                ' 3. Dibujar Precio (Alineado a la derecha)
+                Dim rectPrecio As New RectangleF(leftMargin + colWidthCant + colWidthDesc, yPos, colWidthPrecio, maxHeight)
+                e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatWrap)
+
+                ' 4. Dibujar Total (Alineado a la derecha)
+                Dim rectTotal As New RectangleF(leftMargin + colWidthCant + colWidthDesc + colWidthPrecio, yPos, colWidthTotal, maxHeight)
+                e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatWrap)
+
+                ' Mover la posición Y hacia abajo por la altura máxima de la línea
+                yPos += maxHeight + 2 ' Se suma un poco de espacio
+            End If
         Next
 
+        ' --- Fin de Factura ---
         yPos += 10
-        e.Graphics.DrawString(fin, font, brush, leftMargin, yPos, stringFormat)
+        Dim finRect As New RectangleF(leftMargin, yPos, totalWidth - (leftMargin * 2), e.MarginBounds.Height)
+        e.Graphics.DrawString(fin, font, brush, finRect, stringFormatWrap)
     End Sub
 
     ' Carga los productos de la factura y los agrega al contenido de impresión
@@ -236,16 +264,26 @@ Module Md_IMPRIMIR
     Private Sub CargarProds(idfact As Integer)
         T.Tables.Clear()
         SQL = "SELECT f.cant, p.nombre, f.precio_venta FROM ((factura_producto f LEFT JOIN producto p ON p.ID = f.ID_Producto)" &
-            " LEFT JOIN Producto_precioVenta v ON p.ID = v.ID_Producto) WHERE ID_Factura = " & idfact
+          " LEFT JOIN Producto_precioVenta v ON p.ID = v.ID_Producto) WHERE ID_Factura = " & idfact
         Cargar_Tabla(T, SQL)
-        Dim prods As String
+
         If T.Tables(0).Rows.Count > 0 Then
             For i As Integer = 0 To T.Tables(0).Rows.Count - 1
-                prods = T.Tables(0).Rows(i).Item(0) & "." &
-                                  T.Tables(0).Rows(i).Item(1) & "." &
-                                  T.Tables(0).Rows(i).Item(2) & "." &
-                                  Convert.ToDouble(T.Tables(0).Rows(i).Item(0)) * Convert.ToDouble(T.Tables(0).Rows(i).Item(2)) & vbCrLf
-                facturaContenido.Add(prods)
+                Dim cantidad As Double = Convert.ToDouble(T.Tables(0).Rows(i).Item(0))
+                Dim nombreProd As String = T.Tables(0).Rows(i).Item(1).ToString()
+                Dim precioVenta As Double = Convert.ToDouble(T.Tables(0).Rows(i).Item(2))
+                Dim totalLinea As Double = cantidad * precioVenta
+
+                ' Formatear la línea de producto. Usaremos tabulaciones o espacios fijos 
+                ' para la vista previa, pero en el PrintPage lo dibujaremos en columnas.
+                Dim lineaFormateada As String = $"{cantidad:N2} | {nombreProd} | {precioVenta:N2} | {totalLinea:N2}"
+
+                ' Lo importante es guardar los datos de la línea en un formato que 
+                ' nos permita procesar las columnas correctamente después. 
+                ' Para simplificar, usaremos un carácter que NO aparezca en los nombres.
+                Dim datosProducto As String = $"{cantidad}*{nombreProd}*{precioVenta}*{totalLinea}" ' Separador de asterisco
+
+                facturaContenido.Add(datosProducto)
             Next
         End If
     End Sub

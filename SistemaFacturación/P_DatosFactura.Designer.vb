@@ -449,7 +449,7 @@ Partial Class P_DatosFactura
         Me.BTN_RegresarPed.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarPed.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarPed.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarPed.Image = CType(resources.GetObject("BTN_RegresarPed.Image"), System.Drawing.Image)
+        Me.BTN_RegresarPed.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarPed.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarPed.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarPed.Name = "BTN_RegresarPed"
@@ -526,17 +526,18 @@ Partial Class P_DatosFactura
         '
         'BTN_CerrarApp
         '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(758, -1)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(756, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(55, 53)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
         Me.BTN_CerrarApp.TabIndex = 124
         '
         'P_DatosFactura

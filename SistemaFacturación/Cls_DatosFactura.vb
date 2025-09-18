@@ -1,6 +1,6 @@
 ﻿Public Class Cls_DatosFactura
     Public Property IdFactura As Integer
-    Public Property NumFactura As Integer
+    Public Property NumFactura As String
     Public Property Fecha As String
     Public Property Cliente As String
     Public Property Cajero As String

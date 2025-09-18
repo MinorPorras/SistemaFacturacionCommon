@@ -54,12 +54,12 @@ Partial Class P_Caja
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Guna2Panel4 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_GuardarCuenta = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_DelFactura = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_RegresarCliente = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_CuentaCobrar = New Guna.UI2.WinForms.Guna2TileButton()
-        Me.BTN_Reprint = New Guna.UI2.WinForms.Guna2TileButton()
+        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_GuardarCuenta = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_DelFactura = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_RegresarCaja = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_CuentaCobrar = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_Reprint = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TXT_Total = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -153,6 +153,7 @@ Partial Class P_Caja
         '
         'MNU_CONTX
         '
+        Me.MNU_CONTX.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_CONTX.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_MODIFICAR, Me.MNU_ELIMINAR})
         Me.MNU_CONTX.Name = "MNU_CONTX"
@@ -170,7 +171,8 @@ Partial Class P_Caja
         'MNU_MODIFICAR
         '
         Me.MNU_MODIFICAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_MODIFICAR.Image = CType(resources.GetObject("MNU_MODIFICAR.Image"), System.Drawing.Image)
+        Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
         Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
         Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
         Me.MNU_MODIFICAR.Text = "Modificar"
@@ -179,6 +181,7 @@ Partial Class P_Caja
         'MNU_ELIMINAR
         '
         Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
         Me.MNU_ELIMINAR.Image = CType(resources.GetObject("MNU_ELIMINAR.Image"), System.Drawing.Image)
         Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
         Me.MNU_ELIMINAR.Size = New System.Drawing.Size(135, 26)
@@ -247,22 +250,18 @@ Partial Class P_Caja
         '
         'BTN_NProd
         '
+        Me.BTN_NProd.BackColor = System.Drawing.Color.Transparent
         Me.BTN_NProd.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BTN_NProd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_NProd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_NProd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_NProd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_NProd.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_NProd.FillColor = System.Drawing.Color.Transparent
         Me.BTN_NProd.Font = New System.Drawing.Font("Snap ITC", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_NProd.ForeColor = System.Drawing.Color.White
-        Me.BTN_NProd.ImageSize = New System.Drawing.Size(90, 90)
+        Me.BTN_NProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
+        Me.BTN_NProd.ImageSize = New System.Drawing.Size(45, 45)
         Me.BTN_NProd.Location = New System.Drawing.Point(622, 10)
         Me.BTN_NProd.Name = "BTN_NProd"
         Me.BTN_NProd.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_NProd.Size = New System.Drawing.Size(44, 45)
         Me.BTN_NProd.TabIndex = 110
-        Me.BTN_NProd.Text = "+"
-        Me.BTN_NProd.TextOffset = New System.Drawing.Point(2, -2)
         '
         'LBL_Usu
         '
@@ -321,7 +320,7 @@ Partial Class P_Caja
         Me.DGV_Caja.Margin = New System.Windows.Forms.Padding(8)
         Me.DGV_Caja.Name = "DGV_Caja"
         Me.DGV_Caja.RowHeadersVisible = False
-        Me.DGV_Caja.Size = New System.Drawing.Size(642, 378)
+        Me.DGV_Caja.Size = New System.Drawing.Size(642, 367)
         Me.DGV_Caja.TabIndex = 115
         Me.DGV_Caja.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
         Me.DGV_Caja.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -399,13 +398,13 @@ Partial Class P_Caja
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 1, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_GuardarCuenta, 1, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_DelFactura, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarCliente, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarCaja, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_CuentaCobrar, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_Reprint, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel2, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel4, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 521)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 507)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.38017!))
@@ -425,11 +424,13 @@ Partial Class P_Caja
         Me.BTN_TVenta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_TVenta.ForeColor = System.Drawing.Color.Black
+        Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
+        Me.BTN_TVenta.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_TVenta.Location = New System.Drawing.Point(672, 183)
         Me.BTN_TVenta.Name = "BTN_TVenta"
         Me.BTN_TVenta.Size = New System.Drawing.Size(664, 56)
-        Me.BTN_TVenta.TabIndex = 2
+        Me.BTN_TVenta.TabIndex = 112
         Me.BTN_TVenta.Text = "[F4] Terminar venta"
         '
         'BTN_GuardarCuenta
@@ -440,13 +441,15 @@ Partial Class P_Caja
         Me.BTN_GuardarCuenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_GuardarCuenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.BTN_GuardarCuenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_GuardarCuenta.FillColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(136, Byte), Integer))
+        Me.BTN_GuardarCuenta.FillColor = System.Drawing.Color.LightSeaGreen
         Me.BTN_GuardarCuenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_GuardarCuenta.ForeColor = System.Drawing.Color.Black
+        Me.BTN_GuardarCuenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_GuardarCuenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Export
+        Me.BTN_GuardarCuenta.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_GuardarCuenta.Location = New System.Drawing.Point(672, 123)
         Me.BTN_GuardarCuenta.Name = "BTN_GuardarCuenta"
         Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(664, 54)
-        Me.BTN_GuardarCuenta.TabIndex = 3
+        Me.BTN_GuardarCuenta.TabIndex = 113
         Me.BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
         '
         'BTN_DelFactura
@@ -457,31 +460,35 @@ Partial Class P_Caja
         Me.BTN_DelFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_DelFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.BTN_DelFactura.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_DelFactura.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(174, Byte), Integer))
+        Me.BTN_DelFactura.FillColor = System.Drawing.Color.Peru
         Me.BTN_DelFactura.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_DelFactura.ForeColor = System.Drawing.Color.Black
+        Me.BTN_DelFactura.ForeColor = System.Drawing.Color.White
+        Me.BTN_DelFactura.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Clear
+        Me.BTN_DelFactura.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_DelFactura.Location = New System.Drawing.Point(672, 62)
         Me.BTN_DelFactura.Name = "BTN_DelFactura"
         Me.BTN_DelFactura.Size = New System.Drawing.Size(664, 55)
-        Me.BTN_DelFactura.TabIndex = 1
+        Me.BTN_DelFactura.TabIndex = 113
         Me.BTN_DelFactura.Text = "[F8] Limpiar caja"
         '
-        'BTN_RegresarCliente
+        'BTN_RegresarCaja
         '
-        Me.BTN_RegresarCliente.BorderRadius = 10
-        Me.BTN_RegresarCliente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarCliente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RegresarCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RegresarCliente.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_RegresarCliente.FillColor = System.Drawing.Color.IndianRed
-        Me.BTN_RegresarCliente.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_RegresarCliente.ForeColor = System.Drawing.Color.Black
-        Me.BTN_RegresarCliente.Location = New System.Drawing.Point(3, 183)
-        Me.BTN_RegresarCliente.Name = "BTN_RegresarCliente"
-        Me.BTN_RegresarCliente.Size = New System.Drawing.Size(663, 56)
-        Me.BTN_RegresarCliente.TabIndex = 2
-        Me.BTN_RegresarCliente.Text = "[F3] Regresar"
+        Me.BTN_RegresarCaja.BorderRadius = 10
+        Me.BTN_RegresarCaja.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarCaja.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarCaja.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RegresarCaja.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RegresarCaja.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_RegresarCaja.FillColor = System.Drawing.Color.IndianRed
+        Me.BTN_RegresarCaja.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.BTN_RegresarCaja.ForeColor = System.Drawing.Color.White
+        Me.BTN_RegresarCaja.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.BTN_RegresarCaja.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_RegresarCaja.Location = New System.Drawing.Point(3, 183)
+        Me.BTN_RegresarCaja.Name = "BTN_RegresarCaja"
+        Me.BTN_RegresarCaja.Size = New System.Drawing.Size(663, 56)
+        Me.BTN_RegresarCaja.TabIndex = 113
+        Me.BTN_RegresarCaja.Text = "[F3] Regresar"
         '
         'BTN_CuentaCobrar
         '
@@ -491,13 +498,15 @@ Partial Class P_Caja
         Me.BTN_CuentaCobrar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_CuentaCobrar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.BTN_CuentaCobrar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_CuentaCobrar.FillColor = System.Drawing.Color.FromArgb(CType(CType(187, Byte), Integer), CType(CType(151, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.BTN_CuentaCobrar.FillColor = System.Drawing.Color.MediumPurple
         Me.BTN_CuentaCobrar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_CuentaCobrar.ForeColor = System.Drawing.Color.Black
+        Me.BTN_CuentaCobrar.ForeColor = System.Drawing.Color.White
+        Me.BTN_CuentaCobrar.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_BagSimple
+        Me.BTN_CuentaCobrar.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_CuentaCobrar.Location = New System.Drawing.Point(3, 123)
         Me.BTN_CuentaCobrar.Name = "BTN_CuentaCobrar"
         Me.BTN_CuentaCobrar.Size = New System.Drawing.Size(663, 54)
-        Me.BTN_CuentaCobrar.TabIndex = 1
+        Me.BTN_CuentaCobrar.TabIndex = 113
         Me.BTN_CuentaCobrar.Text = "[F5] Cuentas por cobrar"
         '
         'BTN_Reprint
@@ -510,11 +519,13 @@ Partial Class P_Caja
         Me.BTN_Reprint.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BTN_Reprint.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.BTN_Reprint.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_Reprint.ForeColor = System.Drawing.Color.Black
+        Me.BTN_Reprint.ForeColor = System.Drawing.Color.White
+        Me.BTN_Reprint.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
+        Me.BTN_Reprint.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_Reprint.Location = New System.Drawing.Point(3, 62)
         Me.BTN_Reprint.Name = "BTN_Reprint"
         Me.BTN_Reprint.Size = New System.Drawing.Size(663, 55)
-        Me.BTN_Reprint.TabIndex = 0
+        Me.BTN_Reprint.TabIndex = 111
         Me.BTN_Reprint.Text = "[F7] Reimprimir factura"
         '
         'Guna2Panel2
@@ -576,7 +587,7 @@ Partial Class P_Caja
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.49712!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.50288!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1339, 521)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1339, 507)
         Me.TableLayoutPanel2.TabIndex = 121
         '
         'Panel1
@@ -591,7 +602,7 @@ Partial Class P_Caja
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(651, 105)
+        Me.Panel1.Size = New System.Drawing.Size(651, 102)
         Me.Panel1.TabIndex = 124
         '
         'Guna2Panel1
@@ -600,7 +611,7 @@ Partial Class P_Caja
         Me.Guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Guna2Panel1.Location = New System.Drawing.Point(660, 3)
         Me.Guna2Panel1.Name = "Guna2Panel1"
-        Me.Guna2Panel1.Size = New System.Drawing.Size(676, 105)
+        Me.Guna2Panel1.Size = New System.Drawing.Size(676, 102)
         Me.Guna2Panel1.TabIndex = 94
         '
         'PAN_AddProd
@@ -611,7 +622,7 @@ Partial Class P_Caja
         Me.PAN_AddProd.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PAN_AddProd.Location = New System.Drawing.Point(0, 0)
         Me.PAN_AddProd.Name = "PAN_AddProd"
-        Me.PAN_AddProd.Size = New System.Drawing.Size(676, 105)
+        Me.PAN_AddProd.Size = New System.Drawing.Size(676, 102)
         Me.PAN_AddProd.TabIndex = 101
         '
         'TXT_BuscarProducto
@@ -639,11 +650,11 @@ Partial Class P_Caja
         '
         Me.Panel3.Controls.Add(Me.TableLayoutPanel4)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel3.Location = New System.Drawing.Point(665, 119)
+        Me.Panel3.Location = New System.Drawing.Point(665, 116)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(8)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Padding = New System.Windows.Forms.Padding(0, 0, 8, 0)
-        Me.Panel3.Size = New System.Drawing.Size(666, 394)
+        Me.Panel3.Size = New System.Drawing.Size(666, 383)
         Me.Panel3.TabIndex = 125
         '
         'TableLayoutPanel4
@@ -656,7 +667,7 @@ Partial Class P_Caja
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.45686!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(658, 394)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(658, 383)
         Me.TableLayoutPanel4.TabIndex = 116
         '
         'PAN_FavProd
@@ -664,9 +675,9 @@ Partial Class P_Caja
         Me.PAN_FavProd.Controls.Add(Me.PAN_FavProdBTNContainer)
         Me.PAN_FavProd.Controls.Add(Me.PAN_HeaderFavProd)
         Me.PAN_FavProd.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PAN_FavProd.Location = New System.Drawing.Point(3, 114)
+        Me.PAN_FavProd.Location = New System.Drawing.Point(3, 111)
         Me.PAN_FavProd.Name = "PAN_FavProd"
-        Me.PAN_FavProd.Size = New System.Drawing.Size(651, 404)
+        Me.PAN_FavProd.Size = New System.Drawing.Size(651, 393)
         Me.PAN_FavProd.TabIndex = 126
         '
         'PAN_FavProdBTNContainer
@@ -679,7 +690,7 @@ Partial Class P_Caja
         Me.PAN_FavProdBTNContainer.Location = New System.Drawing.Point(12, 82)
         Me.PAN_FavProdBTNContainer.Name = "PAN_FavProdBTNContainer"
         Me.PAN_FavProdBTNContainer.Padding = New System.Windows.Forms.Padding(10)
-        Me.PAN_FavProdBTNContainer.Size = New System.Drawing.Size(623, 309)
+        Me.PAN_FavProdBTNContainer.Size = New System.Drawing.Size(623, 298)
         Me.PAN_FavProdBTNContainer.TabIndex = 1
         Me.PAN_FavProdBTNContainer.UseTransparentBackground = True
         '
@@ -697,25 +708,22 @@ Partial Class P_Caja
         '
         Me.BTN_EditFavProd.Animated = True
         Me.BTN_EditFavProd.BorderRadius = 10
-        Me.BTN_EditFavProd.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_EditFavProd.CustomBorderThickness = New System.Windows.Forms.Padding(0, 0, 0, 25)
+        Me.BTN_EditFavProd.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BTN_EditFavProd.CustomBorderColor = System.Drawing.Color.Transparent
         Me.BTN_EditFavProd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_EditFavProd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_EditFavProd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_EditFavProd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.BTN_EditFavProd.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BTN_EditFavProd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_EditFavProd.FillColor = System.Drawing.Color.Transparent
         Me.BTN_EditFavProd.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_EditFavProd.ForeColor = System.Drawing.Color.White
-        Me.BTN_EditFavProd.Image = CType(resources.GetObject("BTN_EditFavProd.Image"), System.Drawing.Image)
-        Me.BTN_EditFavProd.ImageOffset = New System.Drawing.Point(0, 15)
-        Me.BTN_EditFavProd.ImageSize = New System.Drawing.Size(50, 50)
-        Me.BTN_EditFavProd.Location = New System.Drawing.Point(515, 0)
+        Me.BTN_EditFavProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Favoritos
+        Me.BTN_EditFavProd.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_EditFavProd.Location = New System.Drawing.Point(584, 0)
         Me.BTN_EditFavProd.Name = "BTN_EditFavProd"
-        Me.BTN_EditFavProd.Size = New System.Drawing.Size(136, 67)
+        Me.BTN_EditFavProd.Size = New System.Drawing.Size(67, 67)
         Me.BTN_EditFavProd.TabIndex = 112
-        Me.BTN_EditFavProd.Text = "Editar"
-        Me.BTN_EditFavProd.TextOffset = New System.Drawing.Point(0, -5)
         '
         'lbl_tituloProdFav
         '
@@ -743,7 +751,7 @@ Partial Class P_Caja
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1339, 763)
+        Me.ClientSize = New System.Drawing.Size(1339, 749)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -819,10 +827,10 @@ Partial Class P_Caja
     Friend WithEvents BTN_EditFavProd As Guna.UI2.WinForms.Guna2TileButton
     Friend WithEvents PAN_FavProdBTNContainer As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents FLW_FavProdBtn As Syncfusion.Windows.Forms.Tools.FlowLayout
-    Friend WithEvents BTN_Reprint As Guna.UI2.WinForms.Guna2TileButton
-    Friend WithEvents BTN_CuentaCobrar As Guna.UI2.WinForms.Guna2TileButton
-    Friend WithEvents BTN_RegresarCliente As Guna.UI2.WinForms.Guna2TileButton
-    Friend WithEvents BTN_DelFactura As Guna.UI2.WinForms.Guna2TileButton
-    Friend WithEvents BTN_GuardarCuenta As Guna.UI2.WinForms.Guna2TileButton
-    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_Reprint As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_CuentaCobrar As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_RegresarCaja As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_DelFactura As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_GuardarCuenta As Guna.UI2.WinForms.Guna2Button
 End Class

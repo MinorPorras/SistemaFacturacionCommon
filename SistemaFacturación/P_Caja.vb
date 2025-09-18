@@ -66,9 +66,13 @@ Public Class P_Caja
             Me.Select()
             TXT_BuscarProducto.SelectAll()
 
-            'Se coloca la imagen y los datos de la fecha y el día y se inicia el contador para que los vaya actualizando
-            If ConfigurationManager.AppSettings("Logo").ToString() IsNot Nothing Then
-                PIC_Logo.ImageLocation = ConfigurationManager.AppSettings("Logo").ToString()
+            Dim logoPath As String = Md_Inicializacion.GetAppSetting("Logo")
+
+            If Not String.IsNullOrWhiteSpace(logoPath) Then
+                PIC_Logo.ImageLocation = logoPath
+            Else
+                PIC_Logo.Image = Nothing
+                PIC_Logo.ImageLocation = ""
             End If
         Catch ex As Exception
             msgError("Error al cargar la información inicial de la caja." + vbCrLf + "Error: " + ex.Message)
@@ -571,30 +575,13 @@ Public Class P_Caja
         CargarTotal()
     End Sub
 
-    Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
-        P_TerminarVenta.Owner = Me
-        P_TerminarVenta.LIMPIAR()
-        Dim precio As String() = TXT_Total.Text.Split(" "c)
-        'Si se está terminando la venta de una cuenta por cobrar se asigna el ID que ya existe
-        If idFactura <> 0 Then
-            P_TerminarVenta.idFactura = idFactura
-            P_TerminarVenta.isCuentaPorCobrar = True
-        End If
-        If DGV_Caja.Rows.Count > 1 Then
-            P_TerminarVenta.total = totalCaja
-            P_TerminarVenta.TXT_ETotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_TTotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_STotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_DTotal.Text = TXT_Total.Text
-            P_TerminarVenta.TXT_MTotal.Text = TXT_Total.Text
-            P_TerminarVenta.NumFactura = NumFactura
-            P_TerminarVenta.idCLiente = idCliente
-            'Se pasa el datagrid completo para obtener los datos
-            P_TerminarVenta.dgvProductos = DGV_Caja
-            P_TerminarVenta.Show()
-            P_TerminarVenta.Select()
-            P_TerminarVenta.TXT_ECliente.SelectAll()
-        End If
+    Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
+        ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
+        Dim frmCuentasCobrar As New P_CuentasCobrar With {
+            .Owner = Me
+        }
+        ' Muestra el formulario de cuentas por cobrar
+        frmCuentasCobrar.Show()
     End Sub
 
     Private Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
@@ -638,13 +625,30 @@ Public Class P_Caja
         Me.Hide()
     End Sub
 
-    Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
-        ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
-        Dim frmCuentasCobrar As New P_CuentasCobrar With {
-            .Owner = Me
-        }
-        ' Muestra el formulario de cuentas por cobrar
-        frmCuentasCobrar.Show()
+    Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
+        P_TerminarVenta.Owner = Me
+        P_TerminarVenta.LIMPIAR()
+        Dim precio As String() = TXT_Total.Text.Split(" "c)
+        'Si se está terminando la venta de una cuenta por cobrar se asigna el ID que ya existe
+        If idFactura <> 0 Then
+            P_TerminarVenta.idFactura = idFactura
+            P_TerminarVenta.isCuentaPorCobrar = True
+        End If
+        If DGV_Caja.Rows.Count > 1 Then
+            P_TerminarVenta.total = totalCaja
+            P_TerminarVenta.TXT_ETotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_TTotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_STotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_DTotal.Text = TXT_Total.Text
+            P_TerminarVenta.TXT_MTotal.Text = TXT_Total.Text
+            P_TerminarVenta.NumFactura = NumFactura
+            P_TerminarVenta.idCLiente = idCliente
+            'Se pasa el datagrid completo para obtener los datos
+            P_TerminarVenta.dgvProductos = DGV_Caja
+            P_TerminarVenta.Show()
+            P_TerminarVenta.Select()
+            P_TerminarVenta.TXT_ECliente.SelectAll()
+        End If
     End Sub
 
     Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
@@ -683,11 +687,11 @@ Public Class P_Caja
     Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         Select Case e.KeyCode
             Case Keys.F3
-                BTN_RegresarCliente.PerformClick()
+                BTN_RegresarCaja.PerformClick()
             Case Keys.F4
                 BTN_TVenta.PerformClick()
             Case Keys.F5
-                BTN_CuentaCobrar.PerformClick()
+                BTN_TVenta.PerformClick()
             Case Keys.F6
                 BTN_GuardarCuenta.PerformClick()
             Case Keys.F7
@@ -697,7 +701,7 @@ Public Class P_Caja
         End Select
     End Sub
 
-    Private Sub BTN_RegresarCliente_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCliente.Click
+    Private Sub BTN_RegresarCliente_Click(sender As Object, e As EventArgs)
         Timer1.Stop()
         M_Inicio.Show()
         M_Inicio.Select()
@@ -717,5 +721,6 @@ Public Class P_Caja
         B_Producto.Select()
         B_Producto.LIMPIAR()
     End Sub
+
 #End Region
 End Class

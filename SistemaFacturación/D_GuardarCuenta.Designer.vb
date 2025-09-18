@@ -106,7 +106,7 @@ Partial Class D_GuardarCuenta
         Me.BTN_RegresarMarca.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarMarca.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarMarca.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarMarca.Image = CType(resources.GetObject("BTN_RegresarMarca.Image"), System.Drawing.Image)
+        Me.BTN_RegresarMarca.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarMarca.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarMarca.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarMarca.Name = "BTN_RegresarMarca"
@@ -125,7 +125,7 @@ Partial Class D_GuardarCuenta
         Me.BTN_ConfirmGuardarCuenta.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_ConfirmGuardarCuenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_ConfirmGuardarCuenta.ForeColor = System.Drawing.Color.White
-        Me.BTN_ConfirmGuardarCuenta.Image = CType(resources.GetObject("BTN_ConfirmGuardarCuenta.Image"), System.Drawing.Image)
+        Me.BTN_ConfirmGuardarCuenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
         Me.BTN_ConfirmGuardarCuenta.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_ConfirmGuardarCuenta.Location = New System.Drawing.Point(199, 0)
         Me.BTN_ConfirmGuardarCuenta.Name = "BTN_ConfirmGuardarCuenta"

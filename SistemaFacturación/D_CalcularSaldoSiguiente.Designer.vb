@@ -153,8 +153,8 @@ Partial Class D_CalcularSaldoSiguiente
         Me.BTN_InsertarSaldo.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_InsertarSaldo.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_InsertarSaldo.ForeColor = System.Drawing.Color.White
-        Me.BTN_InsertarSaldo.Image = CType(resources.GetObject("BTN_InsertarSaldo.Image"), System.Drawing.Image)
-        Me.BTN_InsertarSaldo.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_InsertarSaldo.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
+        Me.BTN_InsertarSaldo.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_InsertarSaldo.Location = New System.Drawing.Point(3, 65)
         Me.BTN_InsertarSaldo.Name = "BTN_InsertarSaldo"
         Me.BTN_InsertarSaldo.Size = New System.Drawing.Size(312, 56)
@@ -173,8 +173,8 @@ Partial Class D_CalcularSaldoSiguiente
         Me.Guna2Button3.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Guna2Button3.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.Guna2Button3.ForeColor = System.Drawing.Color.White
-        Me.Guna2Button3.Image = CType(resources.GetObject("Guna2Button3.Image"), System.Drawing.Image)
-        Me.Guna2Button3.ImageSize = New System.Drawing.Size(60, 60)
+        Me.Guna2Button3.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.Guna2Button3.ImageSize = New System.Drawing.Size(40, 40)
         Me.Guna2Button3.Location = New System.Drawing.Point(3, 3)
         Me.Guna2Button3.Name = "Guna2Button3"
         Me.Guna2Button3.Size = New System.Drawing.Size(312, 56)

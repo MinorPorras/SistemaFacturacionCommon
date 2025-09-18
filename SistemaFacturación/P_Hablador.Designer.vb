@@ -27,11 +27,11 @@ Partial Class P_Hablador
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_Hablador))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_Hablador))
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
         Me.MNU_SELECCIONAR = New System.Windows.Forms.ToolStripMenuItem()
@@ -85,10 +85,10 @@ Partial Class P_Hablador
         '
         'MNU_SELECCIONAR
         '
-        Me.MNU_SELECCIONAR.BackColor = System.Drawing.Color.White
+        Me.MNU_SELECCIONAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_SELECCIONAR.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_SELECCIONAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.MNU_SELECCIONAR.Image = CType(resources.GetObject("MNU_SELECCIONAR.Image"), System.Drawing.Image)
+        Me.MNU_SELECCIONAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_SELECCIONAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
         Me.MNU_SELECCIONAR.Name = "MNU_SELECCIONAR"
         Me.MNU_SELECCIONAR.Size = New System.Drawing.Size(148, 26)
         Me.MNU_SELECCIONAR.Text = "Seleccionar"
@@ -205,15 +205,16 @@ Partial Class P_Hablador
         Me.MNU_CONTX_IMP.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX_IMP.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX_IMP.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX_IMP.Size = New System.Drawing.Size(128, 30)
+        Me.MNU_CONTX_IMP.Size = New System.Drawing.Size(185, 52)
         '
         'MNU_ELIMINAR
         '
-        Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.White
+        Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_ELIMINAR.Image = CType(resources.GetObject("MNU_ELIMINAR.Image"), System.Drawing.Image)
+        Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
         Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(127, 26)
+        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
         Me.MNU_ELIMINAR.Text = "Eliminar"
         '
         'Guna2PictureBox2
@@ -319,7 +320,8 @@ Partial Class P_Hablador
         Me.TXT_BuscarProd.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarProd.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarProd.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarProd.IconRight = CType(resources.GetObject("TXT_BuscarProd.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarProd.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+        Me.TXT_BuscarProd.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarProd.IconRightSize = New System.Drawing.Size(40, 40)
         Me.TXT_BuscarProd.Location = New System.Drawing.Point(12, 165)
         Me.TXT_BuscarProd.Name = "TXT_BuscarProd"
@@ -341,7 +343,7 @@ Partial Class P_Hablador
         Me.BTN_RegresarPrd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarPrd.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarPrd.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarPrd.Image = CType(resources.GetObject("BTN_RegresarPrd.Image"), System.Drawing.Image)
+        Me.BTN_RegresarPrd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarPrd.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarPrd.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarPrd.Name = "BTN_RegresarPrd"
@@ -361,7 +363,7 @@ Partial Class P_Hablador
         Me.BTN_Imprimir.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_Imprimir.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_Imprimir.ForeColor = System.Drawing.Color.White
-        Me.BTN_Imprimir.Image = CType(resources.GetObject("BTN_Imprimir.Image"), System.Drawing.Image)
+        Me.BTN_Imprimir.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
         Me.BTN_Imprimir.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_Imprimir.Location = New System.Drawing.Point(441, 0)
         Me.BTN_Imprimir.Name = "BTN_Imprimir"
@@ -381,17 +383,19 @@ Partial Class P_Hablador
         '
         'BTN_Config
         '
-        Me.BTN_Config.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.BTN_Config.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Image = CType(resources.GetObject("BTN_Config.Image"), System.Drawing.Image)
+        Me.BTN_Config.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_Config.CheckedState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Config
+        Me.BTN_Config.CheckedState.ImageSize = New System.Drawing.Size(45, 45)
+        Me.BTN_Config.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_ConfigCol
+        Me.BTN_Config.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_Config.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Config
         Me.BTN_Config.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_Config.ImageRotate = 0!
-        Me.BTN_Config.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_Config.Location = New System.Drawing.Point(829, 1)
+        Me.BTN_Config.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Config.Location = New System.Drawing.Point(830, 12)
         Me.BTN_Config.Name = "BTN_Config"
         Me.BTN_Config.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_Config.Size = New System.Drawing.Size(45, 45)
         Me.BTN_Config.TabIndex = 124
         '
         'P_Hablador

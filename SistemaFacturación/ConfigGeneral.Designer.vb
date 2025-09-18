@@ -87,9 +87,7 @@ Partial Class ConfigGeneral
         Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
         Me.BTN_ConfigRegHablador = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_ActualizarHablador = New Guna.UI2.WinForms.Guna2Button()
-        Me.Guna2Panel3 = New Guna.UI2.WinForms.Guna2Panel()
         Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
-        Me.CardLayout1 = New Syncfusion.Windows.Forms.Tools.CardLayout(Me.components)
         Me.Guna2Transition1 = New Guna.UI2.WinForms.Guna2Transition()
         Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.TCO_Config.SuspendLayout()
@@ -113,8 +111,6 @@ Partial Class ConfigGeneral
         CType(Me.NUD_SizePrecio, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NUD_SizeProd, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel2.SuspendLayout()
-        Me.Guna2Panel3.SuspendLayout()
-        CType(Me.CardLayout1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -254,7 +250,7 @@ Partial Class ConfigGeneral
         Me.BTN_CheckForUpdates.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_CheckForUpdates.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_CheckForUpdates.ForeColor = System.Drawing.Color.White
-        Me.BTN_CheckForUpdates.Image = CType(resources.GetObject("BTN_CheckForUpdates.Image"), System.Drawing.Image)
+        Me.BTN_CheckForUpdates.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Download
         Me.BTN_CheckForUpdates.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_CheckForUpdates.Location = New System.Drawing.Point(17, 250)
         Me.BTN_CheckForUpdates.Name = "BTN_CheckForUpdates"
@@ -435,7 +431,7 @@ Partial Class ConfigGeneral
         Me.BTN_ModCarpetaDescargaReportes.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_ModCarpetaDescargaReportes.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ModCarpetaDescargaReportes.ForeColor = System.Drawing.Color.White
-        Me.BTN_ModCarpetaDescargaReportes.Image = CType(resources.GetObject("BTN_ModCarpetaDescargaReportes.Image"), System.Drawing.Image)
+        Me.BTN_ModCarpetaDescargaReportes.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SaveFolder
         Me.BTN_ModCarpetaDescargaReportes.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_ModCarpetaDescargaReportes.Location = New System.Drawing.Point(10, 43)
         Me.BTN_ModCarpetaDescargaReportes.Name = "BTN_ModCarpetaDescargaReportes"
@@ -505,8 +501,8 @@ Partial Class ConfigGeneral
         Me.BTN_ModBackupDir.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_ModBackupDir.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_ModBackupDir.ForeColor = System.Drawing.Color.White
-        Me.BTN_ModBackupDir.Image = CType(resources.GetObject("BTN_ModBackupDir.Image"), System.Drawing.Image)
-        Me.BTN_ModBackupDir.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_ModBackupDir.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SaveFolder
+        Me.BTN_ModBackupDir.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_ModBackupDir.Location = New System.Drawing.Point(8, 159)
         Me.BTN_ModBackupDir.Name = "BTN_ModBackupDir"
         Me.BTN_ModBackupDir.Size = New System.Drawing.Size(676, 50)
@@ -552,7 +548,7 @@ Partial Class ConfigGeneral
         Me.BTN_RspaldoDB.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_RspaldoDB.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RspaldoDB.ForeColor = System.Drawing.Color.White
-        Me.BTN_RspaldoDB.Image = CType(resources.GetObject("BTN_RspaldoDB.Image"), System.Drawing.Image)
+        Me.BTN_RspaldoDB.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Export
         Me.BTN_RspaldoDB.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RspaldoDB.Location = New System.Drawing.Point(8, 46)
         Me.BTN_RspaldoDB.Name = "BTN_RspaldoDB"
@@ -880,7 +876,7 @@ Partial Class ConfigGeneral
         Me.BTN_ActualizarCods.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_ActualizarCods.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_ActualizarCods.ForeColor = System.Drawing.Color.White
-        Me.BTN_ActualizarCods.Image = CType(resources.GetObject("BTN_ActualizarCods.Image"), System.Drawing.Image)
+        Me.BTN_ActualizarCods.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_ActualizarCods.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_ActualizarCods.Location = New System.Drawing.Point(353, 0)
         Me.BTN_ActualizarCods.Name = "BTN_ActualizarCods"
@@ -1075,7 +1071,7 @@ Partial Class ConfigGeneral
         Me.BTN_ActualizarHablador.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_ActualizarHablador.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_ActualizarHablador.ForeColor = System.Drawing.Color.White
-        Me.BTN_ActualizarHablador.Image = CType(resources.GetObject("BTN_ActualizarHablador.Image"), System.Drawing.Image)
+        Me.BTN_ActualizarHablador.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_ActualizarHablador.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_ActualizarHablador.Location = New System.Drawing.Point(359, 0)
         Me.BTN_ActualizarHablador.Name = "BTN_ActualizarHablador"
@@ -1083,30 +1079,21 @@ Partial Class ConfigGeneral
         Me.BTN_ActualizarHablador.TabIndex = 101
         Me.BTN_ActualizarHablador.Text = "Actualizar"
         '
-        'Guna2Panel3
-        '
-        Me.Guna2Panel3.Controls.Add(Me.BTN_CerrarApp)
-        Me.Guna2Transition1.SetDecoration(Me.Guna2Panel3, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.Guna2Panel3.Location = New System.Drawing.Point(666, -2)
-        Me.Guna2Panel3.Name = "Guna2Panel3"
-        Me.Guna2Panel3.Size = New System.Drawing.Size(51, 53)
-        Me.Guna2Panel3.TabIndex = 124
-        '
         'BTN_CerrarApp
         '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Firebrick
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
         Me.Guna2Transition1.SetDecoration(Me.BTN_CerrarApp, Guna.UI2.AnimatorNS.DecorationType.None)
-        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(70, 70)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(665, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(51, 53)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(40, 40)
         Me.BTN_CerrarApp.TabIndex = 123
         '
         'Guna2Transition1
@@ -1148,7 +1135,7 @@ Partial Class ConfigGeneral
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(717, 679)
-        Me.Controls.Add(Me.Guna2Panel3)
+        Me.Controls.Add(Me.BTN_CerrarApp)
         Me.Controls.Add(Me.TCO_Config)
         Me.Controls.Add(Me.Guna2PictureBox2)
         Me.Guna2Transition1.SetDecoration(Me, Guna.UI2.AnimatorNS.DecorationType.None)
@@ -1184,8 +1171,6 @@ Partial Class ConfigGeneral
         CType(Me.NUD_SizePrecio, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NUD_SizeProd, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Guna2Panel2.ResumeLayout(False)
-        Me.Guna2Panel3.ResumeLayout(False)
-        CType(Me.CardLayout1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -1208,12 +1193,10 @@ Partial Class ConfigGeneral
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents Guna2Panel2 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents BTN_CerrarApp As Guna.UI2.WinForms.Guna2ImageButton
-    Friend WithEvents Guna2Panel3 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents tabInfo As TabPage
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents CardLayout1 As Syncfusion.Windows.Forms.Tools.CardLayout
     Friend WithEvents Label14 As Label
     Friend WithEvents lbl_versionGeneralConfig As Label
     Friend WithEvents Guna2Transition1 As Guna.UI2.WinForms.Guna2Transition

@@ -38,10 +38,10 @@ Public Class P_ReimprimirFact
         Task.Run(Sub()
                      Try
                          ' Crear la consulta SQL de forma segura
-                         Dim consulta As String = "SELECT f.ID, printf('%015d', CAST(f.num_factura AS INTEGER)) AS 'Num factura', f.fecha_emision AS 'Fecha de emisión', " &
-                                     "c.nombre AS 'Cliente', u.usuario AS 'Cajero', fc.comentario AS 'Comentario', f.total AS 'Total', " &
+                         Dim consulta As String = "SELECT f.ID, printf('%015d', CAST(f.num_factura AS INTEGER)) AS 'Num factura', " &
+                                     "strftime('%d-%m-%Y %H:%M:%S', f.fecha_emision) AS 'Fecha de emisión', c.nombre AS 'Cliente', u.usuario AS 'Cajero', " &
                                      "f.efectivo_cliente AS 'Pago efectivo', f.tarjeta_cliente AS 'Pago tarjeta', f.vuelto AS 'Vuelto', " &
-                                     "CASE WHEN f.tipo_venta = 0 THEN 'Efectivo' " &
+                                     "fc.comentario AS 'Comentario', f.total AS 'Total', CASE WHEN f.tipo_venta = 0 THEN 'Efectivo' " &
                                      "WHEN f.tipo_venta = 1 THEN 'Tarjeta' " &
                                      "WHEN f.tipo_venta = 2 THEN 'Sinpe' " &
                                      "WHEN f.tipo_venta = 3 THEN 'Depósito' " &

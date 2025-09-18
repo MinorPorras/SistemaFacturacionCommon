@@ -22,11 +22,11 @@ Partial Class P_VerCierre
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_VerCierre))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_VerCierre))
         Me.TBL_LayoutVerCierre = New System.Windows.Forms.TableLayoutPanel()
         Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TBL_LayoutSearch = New System.Windows.Forms.TableLayoutPanel()
@@ -93,7 +93,7 @@ Partial Class P_VerCierre
         Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.50459!))
         Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109.0!))
         Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 299.0!))
-        Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112.0!))
+        Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 113.0!))
         Me.TBL_LayoutSearch.Controls.Add(Me.DTP_Desde, 3, 0)
         Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel2, 2, 0)
         Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel1, 0, 0)
@@ -115,7 +115,7 @@ Partial Class P_VerCierre
         Me.DTP_Desde.FillColor = System.Drawing.Color.White
         Me.DTP_Desde.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.DTP_Desde.Format = System.Windows.Forms.DateTimePickerFormat.[Long]
-        Me.DTP_Desde.Location = New System.Drawing.Point(579, 3)
+        Me.DTP_Desde.Location = New System.Drawing.Point(578, 3)
         Me.DTP_Desde.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.DTP_Desde.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.DTP_Desde.Name = "DTP_Desde"
@@ -130,7 +130,7 @@ Partial Class P_VerCierre
         Me.Guna2HtmlLabel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Guna2HtmlLabel2.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Guna2HtmlLabel2.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel2.Location = New System.Drawing.Point(470, 3)
+        Me.Guna2HtmlLabel2.Location = New System.Drawing.Point(469, 3)
         Me.Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
         Me.Guna2HtmlLabel2.Size = New System.Drawing.Size(103, 48)
         Me.Guna2HtmlLabel2.TabIndex = 156
@@ -173,14 +173,14 @@ Partial Class P_VerCierre
         Me.TXT_BuscarComentario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_BuscarComentario.PlaceholderText = ""
         Me.TXT_BuscarComentario.SelectedText = ""
-        Me.TXT_BuscarComentario.Size = New System.Drawing.Size(370, 48)
+        Me.TXT_BuscarComentario.Size = New System.Drawing.Size(369, 48)
         Me.TXT_BuscarComentario.TabIndex = 155
         '
         'PAN_SWTBuscarFecha
         '
         Me.PAN_SWTBuscarFecha.Controls.Add(Me.SWT_ActivateDateSearch)
         Me.PAN_SWTBuscarFecha.Controls.Add(Me.Guna2HtmlLabel3)
-        Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(878, 3)
+        Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(877, 3)
         Me.PAN_SWTBuscarFecha.Name = "PAN_SWTBuscarFecha"
         Me.PAN_SWTBuscarFecha.Size = New System.Drawing.Size(106, 48)
         Me.PAN_SWTBuscarFecha.TabIndex = 158
@@ -240,8 +240,8 @@ Partial Class P_VerCierre
         Me.BTN_RegresarReporte.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarReporte.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarReporte.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarReporte.Image = CType(resources.GetObject("BTN_RegresarReporte.Image"), System.Drawing.Image)
-        Me.BTN_RegresarReporte.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_RegresarReporte.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.BTN_RegresarReporte.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarReporte.Location = New System.Drawing.Point(16, 1)
         Me.BTN_RegresarReporte.Name = "BTN_RegresarReporte"
         Me.BTN_RegresarReporte.Size = New System.Drawing.Size(956, 51)
@@ -346,10 +346,10 @@ Partial Class P_VerCierre
         '
         'MNU_Datos
         '
-        Me.MNU_Datos.BackColor = System.Drawing.Color.DarkGoldenrod
+        Me.MNU_Datos.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_Datos.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MNU_Datos.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.MNU_Datos.Image = CType(resources.GetObject("MNU_Datos.Image"), System.Drawing.Image)
+        Me.MNU_Datos.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
         Me.MNU_Datos.Name = "MNU_Datos"
         Me.MNU_Datos.Size = New System.Drawing.Size(184, 26)
         Me.MNU_Datos.Text = "Ver datos"

@@ -35,14 +35,14 @@ Partial Class B_Cliente
         Me.BTN_RegresarBCLiente = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_SelectCliente = New Guna.UI2.WinForms.Guna2Button()
         Me.TXT_BuscarCliente = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.LBL_IDCliente = New System.Windows.Forms.Label()
         Me.DGV_BCliente = New Guna.UI2.WinForms.Guna2DataGridView()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
         CType(Me.DGV_BCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel1.SuspendLayout()
+        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label2
@@ -123,7 +123,7 @@ Partial Class B_Cliente
         Me.BTN_RegresarBCLiente.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarBCLiente.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarBCLiente.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarBCLiente.Image = CType(resources.GetObject("BTN_RegresarBCLiente.Image"), System.Drawing.Image)
+        Me.BTN_RegresarBCLiente.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarBCLiente.ImageSize = New System.Drawing.Size(50, 50)
         Me.BTN_RegresarBCLiente.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarBCLiente.Name = "BTN_RegresarBCLiente"
@@ -142,7 +142,7 @@ Partial Class B_Cliente
         Me.BTN_SelectCliente.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_SelectCliente.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_SelectCliente.ForeColor = System.Drawing.Color.White
-        Me.BTN_SelectCliente.Image = CType(resources.GetObject("BTN_SelectCliente.Image"), System.Drawing.Image)
+        Me.BTN_SelectCliente.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_SelectCliente.ImageSize = New System.Drawing.Size(50, 50)
         Me.BTN_SelectCliente.Location = New System.Drawing.Point(344, 0)
         Me.BTN_SelectCliente.Name = "BTN_SelectCliente"
@@ -164,6 +164,7 @@ Partial Class B_Cliente
         Me.TXT_BuscarCliente.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TXT_BuscarCliente.IconRight = CType(resources.GetObject("TXT_BuscarCliente.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarCliente.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarCliente.IconRightSize = New System.Drawing.Size(35, 35)
         Me.TXT_BuscarCliente.Location = New System.Drawing.Point(16, 151)
         Me.TXT_BuscarCliente.Name = "TXT_BuscarCliente"
@@ -172,17 +173,6 @@ Partial Class B_Cliente
         Me.TXT_BuscarCliente.SelectedText = ""
         Me.TXT_BuscarCliente.Size = New System.Drawing.Size(654, 42)
         Me.TXT_BuscarCliente.TabIndex = 76
-        '
-        'Guna2PictureBox2
-        '
-        Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
-        Me.Guna2PictureBox2.ImageRotate = 0!
-        Me.Guna2PictureBox2.Location = New System.Drawing.Point(144, -94)
-        Me.Guna2PictureBox2.Name = "Guna2PictureBox2"
-        Me.Guna2PictureBox2.Size = New System.Drawing.Size(378, 336)
-        Me.Guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.Guna2PictureBox2.TabIndex = 75
-        Me.Guna2PictureBox2.TabStop = False
         '
         'Guna2BorderlessForm1
         '
@@ -280,6 +270,17 @@ Partial Class B_Cliente
         Me.Guna2Panel1.Size = New System.Drawing.Size(689, 63)
         Me.Guna2Panel1.TabIndex = 87
         '
+        'Guna2PictureBox2
+        '
+        Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
+        Me.Guna2PictureBox2.ImageRotate = 0!
+        Me.Guna2PictureBox2.Location = New System.Drawing.Point(150, -92)
+        Me.Guna2PictureBox2.Name = "Guna2PictureBox2"
+        Me.Guna2PictureBox2.Size = New System.Drawing.Size(371, 336)
+        Me.Guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Guna2PictureBox2.TabIndex = 79
+        Me.Guna2PictureBox2.TabStop = False
+        '
         'B_Cliente
         '
         Me.AcceptButton = Me.BTN_SelectCliente
@@ -303,9 +304,9 @@ Partial Class B_Cliente
         Me.Name = "B_Cliente"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Buscar cliente"
-        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DGV_BCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Guna2Panel1.ResumeLayout(False)
+        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -317,10 +318,10 @@ Partial Class B_Cliente
     Friend WithEvents TXT_codigo As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents BTN_RegresarBCLiente As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents TXT_BuscarCliente As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents Guna2PictureBox2 As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
     Friend WithEvents LBL_IDCliente As Label
     Friend WithEvents DGV_BCliente As Guna.UI2.WinForms.Guna2DataGridView
     Friend WithEvents BTN_SelectCliente As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents Guna2PictureBox2 As Guna.UI2.WinForms.Guna2PictureBox
 End Class

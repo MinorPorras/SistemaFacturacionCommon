@@ -544,6 +544,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="logoSFCommonSimple.ico" />
+    <None Include="recursos\ICO_Check.png" />
+    <None Include="recursos\ICO_Back.png" />
     <Content Include="recursos\ICO_MoveDown.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -552,6 +554,12 @@
     </Content>
     <Content Include="recursos\ICO_MoveUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="recursos\ICO_Search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="recursos\ICO_SearchCol.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="recursos\logoCompletoSFCommon.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -567,6 +575,49 @@
     <None Include="Resources\logoCompletoSFCommonTransparent.png" />
     <None Include="Resources\logoSFCommonSimple.ico" />
     <None Include="Resources\logoSFCommonSimple_1_.ico" />
+    <None Include="Resources\ICO_Mas.png" />
+    <None Include="Resources\ICO_MasCol.png" />
+    <None Include="Resources\ICO_Download.png" />
+    <None Include="Resources\ICO_Export.png" />
+    <None Include="Resources\ICO_SaveFolder.png" />
+    <None Include="Resources\ICO_Check.png" />
+    <None Include="Resources\ICO_Box.png" />
+    <None Include="Resources\ICO_Mantenimiento.png" />
+    <None Include="Resources\ICO_Reportes.png" />
+    <None Include="Resources\ICO_BagSimple.png" />
+    <None Include="Resources\ICO_Cerrar.png" />
+    <None Include="Resources\ICO_Config.png" />
+    <None Include="Resources\ICO_Logout.png" />
+    <None Include="Resources\ICO_CerrarCol.png" />
+    <None Include="Resources\ICO_LogoutCol.png" />
+    <None Include="Resources\ICO_ConfigCol.png" />
+    <None Include="Resources\ICO_Sucursal.png" />
+    <None Include="Resources\ICO_Usuario.png" />
+    <None Include="Resources\ICO_Proveedor.png" />
+    <None Include="Resources\ICO_Dolar.png" />
+    <None Include="Resources\ICO_Categoria.png" />
+    <None Include="Resources\ICO_Marca.png" />
+    <None Include="Resources\ICO_Productos.png" />
+    <None Include="Resources\ICO_Favoritos.png" />
+    <None Include="Resources\ICO_Print.png" />
+    <None Include="Resources\ICO_Print1.png" />
+    <None Include="Resources\ICO_BagSimple1.png" />
+    <None Include="Resources\ICO_Clear.png" />
+    <None Include="Resources\ICO_Export1.png" />
+    <None Include="Resources\ICO_EndSale.png" />
+    <None Include="Resources\ICO_DownArrow.png" />
+    <None Include="Resources\ICO_UpArrow.png" />
+    <None Include="Resources\ICO_Check1.png" />
+    <None Include="Resources\ICO_DownCol.png" />
+    <None Include="Resources\ICO_UpCol.png" />
+    <None Include="Resources\ICO_Usuario1.png" />
+    <None Include="Resources\ICO_Contrasena.png" />
+    <None Include="Resources\ICO_Login.png" />
+    <None Include="Resources\ICO_card.png" />
+    <None Include="Resources\ICO_DescargaDoc.png" />
+    <None Include="Resources\ICO_card1.png" />
+    <None Include="Resources\ICO_MasMenos.png" />
+    <None Include="Resources\ICO_Edit.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

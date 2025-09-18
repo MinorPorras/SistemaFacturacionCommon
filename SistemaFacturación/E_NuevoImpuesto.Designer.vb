@@ -161,7 +161,7 @@ Partial Class E_NuevoImpuesto
         Me.BTN_RegresarImp.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarImp.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarImp.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarImp.Image = CType(resources.GetObject("BTN_RegresarImp.Image"), System.Drawing.Image)
+        Me.BTN_RegresarImp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarImp.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarImp.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarImp.Name = "BTN_RegresarImp"
@@ -180,7 +180,7 @@ Partial Class E_NuevoImpuesto
         Me.BTN_NImpuesto.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_NImpuesto.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_NImpuesto.ForeColor = System.Drawing.Color.White
-        Me.BTN_NImpuesto.Image = CType(resources.GetObject("BTN_NImpuesto.Image"), System.Drawing.Image)
+        Me.BTN_NImpuesto.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_NImpuesto.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_NImpuesto.Location = New System.Drawing.Point(210, 0)
         Me.BTN_NImpuesto.Name = "BTN_NImpuesto"
@@ -194,17 +194,16 @@ Partial Class E_NuevoImpuesto
         Me.BTN_AutoCod.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_AutoCod.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_AutoCod.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_AutoCod.FillColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_AutoCod.FillColor = System.Drawing.Color.Transparent
         Me.BTN_AutoCod.Font = New System.Drawing.Font("Snap ITC", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_AutoCod.ForeColor = System.Drawing.Color.White
-        Me.BTN_AutoCod.ImageSize = New System.Drawing.Size(90, 90)
+        Me.BTN_AutoCod.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
+        Me.BTN_AutoCod.ImageSize = New System.Drawing.Size(45, 45)
         Me.BTN_AutoCod.Location = New System.Drawing.Point(331, 141)
         Me.BTN_AutoCod.Name = "BTN_AutoCod"
         Me.BTN_AutoCod.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_AutoCod.Size = New System.Drawing.Size(44, 44)
         Me.BTN_AutoCod.TabIndex = 113
-        Me.BTN_AutoCod.Text = "+"
-        Me.BTN_AutoCod.TextOffset = New System.Drawing.Point(2, -2)
         '
         'Guna2Panel1
         '

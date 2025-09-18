@@ -63,9 +63,399 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property ICO_Back() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Back", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_BagSimple() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_BagSimple", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Box() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Box", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_card() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_card", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Categoria() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Categoria", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Cerrar() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Cerrar", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_CerrarCol() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_CerrarCol", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Check() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Check", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Clear() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Clear", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Config() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Config", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_ConfigCol() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_ConfigCol", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Contrasena() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Contrasena", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_DescargaDoc() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_DescargaDoc", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Dolar() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Dolar", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_DownArrow() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_DownArrow", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_DownCol() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_DownCol", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Download() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Download", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Edit() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Edit", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property ICO_Eliminar() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ICO_Eliminar", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_EndSale() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_EndSale", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Export() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Export", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Favoritos() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Favoritos", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Login() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Login", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Logout() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Logout", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_LogoutCol() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_LogoutCol", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Mantenimiento() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Mantenimiento", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Marca() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Marca", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Mas() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Mas", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_MasCol() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_MasCol", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_MasMenos() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_MasMenos", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Print() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Print", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Productos() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Productos", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Proveedor() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Proveedor", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Reportes() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Reportes", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_SaveFolder() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_SaveFolder", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_SearchCol() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_SearchCol", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Sucursal() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Sucursal", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_UpArrow() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_UpArrow", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_UpCol() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_UpCol", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_Usuario() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Usuario", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

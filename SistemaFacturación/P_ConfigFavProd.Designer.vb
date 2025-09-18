@@ -23,7 +23,6 @@ Partial Class P_ConfigFavProd
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ConfigFavProd))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -32,6 +31,7 @@ Partial Class P_ConfigFavProd
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ConfigFavProd))
         Me.MNU_CONTX_BUSCAR = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
         Me.MNU_SELECCIONAR = New System.Windows.Forms.ToolStripMenuItem()
         Me.MNU_CONTX_FAV = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
@@ -99,10 +99,10 @@ Partial Class P_ConfigFavProd
         '
         'MNU_SELECCIONAR
         '
-        Me.MNU_SELECCIONAR.BackColor = System.Drawing.Color.White
+        Me.MNU_SELECCIONAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_SELECCIONAR.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_SELECCIONAR.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.MNU_SELECCIONAR.Image = CType(resources.GetObject("MNU_SELECCIONAR.Image"), System.Drawing.Image)
+        Me.MNU_SELECCIONAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_SELECCIONAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
         Me.MNU_SELECCIONAR.Name = "MNU_SELECCIONAR"
         Me.MNU_SELECCIONAR.Size = New System.Drawing.Size(148, 26)
         Me.MNU_SELECCIONAR.Text = "Seleccionar"
@@ -121,15 +121,16 @@ Partial Class P_ConfigFavProd
         Me.MNU_CONTX_FAV.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX_FAV.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX_FAV.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX_FAV.Size = New System.Drawing.Size(128, 30)
+        Me.MNU_CONTX_FAV.Size = New System.Drawing.Size(185, 52)
         '
         'MNU_ELIMINAR
         '
-        Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.White
+        Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_ELIMINAR.Image = CType(resources.GetObject("MNU_ELIMINAR.Image"), System.Drawing.Image)
+        Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
         Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(127, 26)
+        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
         Me.MNU_ELIMINAR.Text = "Eliminar"
         '
         'TableLayoutPanel1
@@ -209,16 +210,16 @@ Partial Class P_ConfigFavProd
         Me.BTN_MoveDown.Animated = True
         Me.BTN_MoveDown.BorderRadius = 10
         Me.BTN_MoveDown.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_MoveDown.CustomBorderThickness = New System.Windows.Forms.Padding(0, 0, 0, 25)
         Me.BTN_MoveDown.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_MoveDown.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_MoveDown.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_MoveDown.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_MoveDown.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_MoveDown.FillColor = System.Drawing.Color.Transparent
         Me.BTN_MoveDown.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MoveDown.ForeColor = System.Drawing.Color.White
-        Me.BTN_MoveDown.Image = CType(resources.GetObject("BTN_MoveDown.Image"), System.Drawing.Image)
-        Me.BTN_MoveDown.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_MoveDown.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_DownCol
+        Me.BTN_MoveDown.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_DownArrow
+        Me.BTN_MoveDown.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_MoveDown.Location = New System.Drawing.Point(519, 254)
         Me.BTN_MoveDown.Name = "BTN_MoveDown"
         Me.BTN_MoveDown.Size = New System.Drawing.Size(65, 58)
@@ -229,16 +230,16 @@ Partial Class P_ConfigFavProd
         Me.BTN_MoveUp.Animated = True
         Me.BTN_MoveUp.BorderRadius = 10
         Me.BTN_MoveUp.CustomBorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.BTN_MoveUp.CustomBorderThickness = New System.Windows.Forms.Padding(0, 0, 0, 25)
         Me.BTN_MoveUp.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_MoveUp.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_MoveUp.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_MoveUp.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_MoveUp.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_MoveUp.FillColor = System.Drawing.Color.Transparent
         Me.BTN_MoveUp.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MoveUp.ForeColor = System.Drawing.Color.White
-        Me.BTN_MoveUp.Image = CType(resources.GetObject("BTN_MoveUp.Image"), System.Drawing.Image)
-        Me.BTN_MoveUp.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_MoveUp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_UpCol
+        Me.BTN_MoveUp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_UpArrow
+        Me.BTN_MoveUp.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_MoveUp.Location = New System.Drawing.Point(519, 120)
         Me.BTN_MoveUp.Name = "BTN_MoveUp"
         Me.BTN_MoveUp.Size = New System.Drawing.Size(65, 58)
@@ -405,7 +406,8 @@ Partial Class P_ConfigFavProd
         Me.TXT_BuscarProd.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarProd.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarProd.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarProd.IconRight = CType(resources.GetObject("TXT_BuscarProd.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarProd.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+        Me.TXT_BuscarProd.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarProd.IconRightSize = New System.Drawing.Size(40, 40)
         Me.TXT_BuscarProd.Location = New System.Drawing.Point(3, 3)
         Me.TXT_BuscarProd.Name = "TXT_BuscarProd"
@@ -538,7 +540,7 @@ Partial Class P_ConfigFavProd
         Me.BTN_Actualizar.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_Actualizar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_Actualizar.ForeColor = System.Drawing.Color.White
-        Me.BTN_Actualizar.Image = CType(resources.GetObject("BTN_Actualizar.Image"), System.Drawing.Image)
+        Me.BTN_Actualizar.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_Actualizar.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_Actualizar.Location = New System.Drawing.Point(593, 0)
         Me.BTN_Actualizar.Name = "BTN_Actualizar"
@@ -558,7 +560,7 @@ Partial Class P_ConfigFavProd
         Me.BTN_RegresarConfig.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarConfig.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarConfig.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarConfig.Image = CType(resources.GetObject("BTN_RegresarConfig.Image"), System.Drawing.Image)
+        Me.BTN_RegresarConfig.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarConfig.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarConfig.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarConfig.Name = "BTN_RegresarConfig"

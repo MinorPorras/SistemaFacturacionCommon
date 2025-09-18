@@ -886,6 +886,8 @@ Partial Class P_TerminarVenta
         Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
         Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
+        Me.BTN_TVenta.ImageSize = New System.Drawing.Size(45, 45)
         Me.BTN_TVenta.Location = New System.Drawing.Point(581, 0)
         Me.BTN_TVenta.Name = "BTN_TVenta"
         Me.BTN_TVenta.Size = New System.Drawing.Size(327, 69)
@@ -904,9 +906,11 @@ Partial Class P_TerminarVenta
         Me.BTN_RegresarVenta.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarVenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_RegresarVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.BTN_RegresarVenta.ImageSize = New System.Drawing.Size(45, 45)
         Me.BTN_RegresarVenta.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarVenta.Name = "BTN_RegresarVenta"
-        Me.BTN_RegresarVenta.Size = New System.Drawing.Size(294, 69)
+        Me.BTN_RegresarVenta.Size = New System.Drawing.Size(285, 69)
         Me.BTN_RegresarVenta.TabIndex = 108
         Me.BTN_RegresarVenta.Text = "[F3] Regresar"
         '
@@ -957,9 +961,11 @@ Partial Class P_TerminarVenta
         Me.BTN_TVentaImp.FillColor = System.Drawing.Color.DarkOrange
         Me.BTN_TVentaImp.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
         Me.BTN_TVentaImp.ForeColor = System.Drawing.Color.White
-        Me.BTN_TVentaImp.Location = New System.Drawing.Point(291, 0)
+        Me.BTN_TVentaImp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
+        Me.BTN_TVentaImp.ImageSize = New System.Drawing.Size(45, 45)
+        Me.BTN_TVentaImp.Location = New System.Drawing.Point(275, 0)
         Me.BTN_TVentaImp.Name = "BTN_TVentaImp"
-        Me.BTN_TVentaImp.Size = New System.Drawing.Size(290, 69)
+        Me.BTN_TVentaImp.Size = New System.Drawing.Size(306, 69)
         Me.BTN_TVentaImp.TabIndex = 130
         Me.BTN_TVentaImp.Text = "[F4] Terminar e imprimir"
         '

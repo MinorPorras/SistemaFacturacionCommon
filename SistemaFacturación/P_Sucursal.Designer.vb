@@ -68,8 +68,8 @@ Partial Class P_Sucursal
         Me.BTN_RegresarNSuc.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarNSuc.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarNSuc.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarNSuc.Image = CType(resources.GetObject("BTN_RegresarNSuc.Image"), System.Drawing.Image)
-        Me.BTN_RegresarNSuc.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_RegresarNSuc.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.BTN_RegresarNSuc.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_RegresarNSuc.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarNSuc.Name = "BTN_RegresarNSuc"
         Me.BTN_RegresarNSuc.Size = New System.Drawing.Size(448, 71)
@@ -87,8 +87,8 @@ Partial Class P_Sucursal
         Me.BTN_GuardarNSucursal.FillColor = System.Drawing.Color.Orange
         Me.BTN_GuardarNSucursal.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_GuardarNSucursal.ForeColor = System.Drawing.Color.White
-        Me.BTN_GuardarNSucursal.Image = CType(resources.GetObject("BTN_GuardarNSucursal.Image"), System.Drawing.Image)
-        Me.BTN_GuardarNSucursal.ImageSize = New System.Drawing.Size(80, 80)
+        Me.BTN_GuardarNSucursal.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
+        Me.BTN_GuardarNSucursal.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_GuardarNSucursal.Location = New System.Drawing.Point(445, 0)
         Me.BTN_GuardarNSucursal.Name = "BTN_GuardarNSucursal"
         Me.BTN_GuardarNSucursal.Size = New System.Drawing.Size(432, 71)
@@ -338,17 +338,19 @@ Partial Class P_Sucursal
         '
         'BTN_CerrarApp
         '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(822, 0)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(820, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(55, 53)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
         Me.BTN_CerrarApp.TabIndex = 127
         '
         'P_Sucursal
