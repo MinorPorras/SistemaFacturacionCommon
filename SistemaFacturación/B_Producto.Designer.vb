@@ -23,11 +23,11 @@ Partial Class B_Producto
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(B_Producto))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(B_Producto))
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.LBL_IDProd = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -116,7 +116,7 @@ Partial Class B_Producto
         Me.BTN_RegresarPrd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarPrd.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarPrd.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarPrd.Image = CType(resources.GetObject("BTN_RegresarPrd.Image"), System.Drawing.Image)
+        Me.BTN_RegresarPrd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarPrd.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarPrd.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarPrd.Name = "BTN_RegresarPrd"
@@ -135,7 +135,7 @@ Partial Class B_Producto
         Me.BTN_SelectProd.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_SelectProd.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_SelectProd.ForeColor = System.Drawing.Color.White
-        Me.BTN_SelectProd.Image = CType(resources.GetObject("BTN_SelectProd.Image"), System.Drawing.Image)
+        Me.BTN_SelectProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_SelectProd.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_SelectProd.Location = New System.Drawing.Point(481, 0)
         Me.BTN_SelectProd.Name = "BTN_SelectProd"
@@ -156,7 +156,8 @@ Partial Class B_Producto
         Me.TXT_BuscarProd.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarProd.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarProd.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarProd.IconRight = CType(resources.GetObject("TXT_BuscarProd.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarProd.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+        Me.TXT_BuscarProd.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarProd.IconRightSize = New System.Drawing.Size(40, 40)
         Me.TXT_BuscarProd.Location = New System.Drawing.Point(23, 152)
         Me.TXT_BuscarProd.Name = "TXT_BuscarProd"
@@ -384,12 +385,12 @@ Partial Class B_Producto
         Me.BTN_MenosCant.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_MenosCant.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_MenosCant.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_MenosCant.FillColor = System.Drawing.Color.White
+        Me.BTN_MenosCant.FillColor = System.Drawing.Color.Transparent
         Me.BTN_MenosCant.Font = New System.Drawing.Font("Segoe UI", 27.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_MenosCant.ForeColor = System.Drawing.Color.White
+        Me.BTN_MenosCant.ForeColor = System.Drawing.Color.Transparent
         Me.BTN_MenosCant.Image = CType(resources.GetObject("BTN_MenosCant.Image"), System.Drawing.Image)
-        Me.BTN_MenosCant.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_MenosCant.Location = New System.Drawing.Point(574, 447)
+        Me.BTN_MenosCant.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_MenosCant.Location = New System.Drawing.Point(574, 450)
         Me.BTN_MenosCant.Name = "BTN_MenosCant"
         Me.BTN_MenosCant.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_MenosCant.Size = New System.Drawing.Size(50, 50)
@@ -406,12 +407,12 @@ Partial Class B_Producto
         Me.BTN_MasCant.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_MasCant.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_MasCant.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_MasCant.FillColor = System.Drawing.Color.DeepSkyBlue
+        Me.BTN_MasCant.FillColor = System.Drawing.Color.Transparent
         Me.BTN_MasCant.Font = New System.Drawing.Font("Segoe UI", 27.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MasCant.ForeColor = System.Drawing.Color.White
-        Me.BTN_MasCant.Image = CType(resources.GetObject("BTN_MasCant.Image"), System.Drawing.Image)
-        Me.BTN_MasCant.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_MasCant.Location = New System.Drawing.Point(850, 445)
+        Me.BTN_MasCant.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
+        Me.BTN_MasCant.ImageSize = New System.Drawing.Size(50, 50)
+        Me.BTN_MasCant.Location = New System.Drawing.Point(850, 450)
         Me.BTN_MasCant.Name = "BTN_MasCant"
         Me.BTN_MasCant.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_MasCant.Size = New System.Drawing.Size(50, 50)

@@ -129,7 +129,7 @@ Partial Class B_Proveedor
         Me.BTN_RegresarProv.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarProv.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarProv.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarProv.Image = CType(resources.GetObject("BTN_RegresarProv.Image"), System.Drawing.Image)
+        Me.BTN_RegresarProv.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarProv.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarProv.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarProv.Name = "BTN_RegresarProv"
@@ -149,7 +149,7 @@ Partial Class B_Proveedor
         Me.BTN_SelectProv.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_SelectProv.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_SelectProv.ForeColor = System.Drawing.Color.White
-        Me.BTN_SelectProv.Image = CType(resources.GetObject("BTN_SelectProv.Image"), System.Drawing.Image)
+        Me.BTN_SelectProv.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_SelectProv.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_SelectProv.Location = New System.Drawing.Point(355, 0)
         Me.BTN_SelectProv.Name = "BTN_SelectProv"
@@ -170,7 +170,8 @@ Partial Class B_Proveedor
         Me.TXT_BuscarProv.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarProv.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarProv.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarProv.IconRight = CType(resources.GetObject("TXT_BuscarProv.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarProv.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+        Me.TXT_BuscarProv.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarProv.IconRightSize = New System.Drawing.Size(40, 40)
         Me.TXT_BuscarProv.Location = New System.Drawing.Point(34, 163)
         Me.TXT_BuscarProv.Name = "TXT_BuscarProv"

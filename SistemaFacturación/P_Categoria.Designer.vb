@@ -38,14 +38,12 @@ Partial Class P_Categoria
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.DGV_Categoria = New Guna.UI2.WinForms.Guna2DataGridView()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.Guna2Panel4 = New Guna.UI2.WinForms.Guna2Panel()
         Me.BTN_Config = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.MNU_CONTX.SuspendLayout()
         CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DGV_Categoria, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel1.SuspendLayout()
-        Me.Guna2Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'MNU_CONTX
@@ -62,23 +60,27 @@ Partial Class P_Categoria
         Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX.Size = New System.Drawing.Size(136, 56)
+        Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
         '
         'MNU_MODIFICAR
         '
+        Me.MNU_MODIFICAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_MODIFICAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_MODIFICAR.Image = CType(resources.GetObject("MNU_MODIFICAR.Image"), System.Drawing.Image)
+        Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
         Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
-        Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
+        Me.MNU_MODIFICAR.Size = New System.Drawing.Size(184, 26)
         Me.MNU_MODIFICAR.Text = "Modificar"
         Me.MNU_MODIFICAR.Visible = False
         '
         'MNU_ELIMINAR
         '
+        Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_ELIMINAR.Image = CType(resources.GetObject("MNU_ELIMINAR.Image"), System.Drawing.Image)
+        Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
         Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(135, 26)
+        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
         Me.MNU_ELIMINAR.Text = "Eliminar"
         Me.MNU_ELIMINAR.Visible = False
         '
@@ -94,7 +96,7 @@ Partial Class P_Categoria
         Me.BTN_RegresarCat.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarCat.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarCat.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarCat.Image = CType(resources.GetObject("BTN_RegresarCat.Image"), System.Drawing.Image)
+        Me.BTN_RegresarCat.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarCat.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarCat.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarCat.Name = "BTN_RegresarCat"
@@ -113,7 +115,7 @@ Partial Class P_Categoria
         Me.BTN_NCat.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_NCat.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_NCat.ForeColor = System.Drawing.Color.White
-        Me.BTN_NCat.Image = CType(resources.GetObject("BTN_NCat.Image"), System.Drawing.Image)
+        Me.BTN_NCat.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
         Me.BTN_NCat.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_NCat.Location = New System.Drawing.Point(219, 0)
         Me.BTN_NCat.Name = "BTN_NCat"
@@ -134,7 +136,8 @@ Partial Class P_Categoria
         Me.TXT_BuscarCat.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarCat.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarCat.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarCat.IconRight = CType(resources.GetObject("TXT_BuscarCat.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarCat.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+        Me.TXT_BuscarCat.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarCat.IconRightSize = New System.Drawing.Size(40, 40)
         Me.TXT_BuscarCat.Location = New System.Drawing.Point(12, 165)
         Me.TXT_BuscarCat.Name = "TXT_BuscarCat"
@@ -240,45 +243,36 @@ Partial Class P_Categoria
         Me.Guna2Panel1.Size = New System.Drawing.Size(444, 61)
         Me.Guna2Panel1.TabIndex = 122
         '
-        'Guna2Panel4
-        '
-        Me.Guna2Panel4.Controls.Add(Me.BTN_Config)
-        Me.Guna2Panel4.Controls.Add(Me.BTN_CerrarApp)
-        Me.Guna2Panel4.Location = New System.Drawing.Point(385, -3)
-        Me.Guna2Panel4.Name = "Guna2Panel4"
-        Me.Guna2Panel4.Size = New System.Drawing.Size(58, 115)
-        Me.Guna2Panel4.TabIndex = 127
-        '
         'BTN_Config
         '
-        Me.BTN_Config.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.BTN_Config.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BTN_Config.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Image = CType(resources.GetObject("BTN_Config.Image"), System.Drawing.Image)
+        Me.BTN_Config.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_Config.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Config.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_ConfigCol
+        Me.BTN_Config.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_Config.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Config
         Me.BTN_Config.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_Config.ImageRotate = 0!
-        Me.BTN_Config.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_Config.Location = New System.Drawing.Point(0, 54)
+        Me.BTN_Config.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Config.Location = New System.Drawing.Point(387, 63)
         Me.BTN_Config.Name = "BTN_Config"
         Me.BTN_Config.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_Config.Size = New System.Drawing.Size(45, 45)
         Me.BTN_Config.TabIndex = 123
         '
         'BTN_CerrarApp
         '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(385, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
         Me.BTN_CerrarApp.TabIndex = 122
         '
         'P_Categoria
@@ -289,7 +283,8 @@ Partial Class P_Categoria
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.CancelButton = Me.BTN_RegresarCat
         Me.ClientSize = New System.Drawing.Size(444, 502)
-        Me.Controls.Add(Me.Guna2Panel4)
+        Me.Controls.Add(Me.BTN_Config)
+        Me.Controls.Add(Me.BTN_CerrarApp)
         Me.Controls.Add(Me.Guna2Panel1)
         Me.Controls.Add(Me.DGV_Categoria)
         Me.Controls.Add(Me.TXT_BuscarCat)
@@ -304,7 +299,6 @@ Partial Class P_Categoria
         CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DGV_Categoria, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Guna2Panel1.ResumeLayout(False)
-        Me.Guna2Panel4.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -318,7 +312,6 @@ Partial Class P_Categoria
     Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
     Friend WithEvents DGV_Categoria As Guna.UI2.WinForms.Guna2DataGridView
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
-    Friend WithEvents Guna2Panel4 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents BTN_Config As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents BTN_CerrarApp As Guna.UI2.WinForms.Guna2ImageButton
 End Class

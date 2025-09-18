@@ -141,7 +141,7 @@ Partial Class E_ProductoVariable
         Me.BTN_RegresarPrd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarPrd.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarPrd.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarPrd.Image = CType(resources.GetObject("BTN_RegresarPrd.Image"), System.Drawing.Image)
+        Me.BTN_RegresarPrd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarPrd.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarPrd.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarPrd.Name = "BTN_RegresarPrd"
@@ -160,7 +160,7 @@ Partial Class E_ProductoVariable
         Me.BTN_SelectProd.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_SelectProd.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_SelectProd.ForeColor = System.Drawing.Color.White
-        Me.BTN_SelectProd.Image = CType(resources.GetObject("BTN_SelectProd.Image"), System.Drawing.Image)
+        Me.BTN_SelectProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_SelectProd.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_SelectProd.Location = New System.Drawing.Point(200, 0)
         Me.BTN_SelectProd.Name = "BTN_SelectProd"

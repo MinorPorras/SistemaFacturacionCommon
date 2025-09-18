@@ -23,11 +23,11 @@ Partial Class E_ProveedorPedido
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(E_ProveedorPedido))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(E_ProveedorPedido))
         Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
         Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
@@ -62,14 +62,16 @@ Partial Class E_ProveedorPedido
         Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX.Size = New System.Drawing.Size(128, 30)
+        Me.MNU_CONTX.Size = New System.Drawing.Size(185, 52)
         '
         'MNU_ELIMINAR
         '
+        Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_ELIMINAR.Image = CType(resources.GetObject("MNU_ELIMINAR.Image"), System.Drawing.Image)
+        Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
         Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(127, 26)
+        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
         Me.MNU_ELIMINAR.Text = "Eliminar"
         Me.MNU_ELIMINAR.Visible = False
         '
@@ -161,7 +163,7 @@ Partial Class E_ProveedorPedido
         Me.BTN_RegresarPed.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarPed.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarPed.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarPed.Image = CType(resources.GetObject("BTN_RegresarPed.Image"), System.Drawing.Image)
+        Me.BTN_RegresarPed.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarPed.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarPed.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarPed.Name = "BTN_RegresarPed"
@@ -181,8 +183,8 @@ Partial Class E_ProveedorPedido
         Me.BTN_NProv.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_NProv.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_NProv.ForeColor = System.Drawing.Color.White
-        Me.BTN_NProv.Image = CType(resources.GetObject("BTN_NProv.Image"), System.Drawing.Image)
-        Me.BTN_NProv.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_NProv.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
+        Me.BTN_NProv.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_NProv.Location = New System.Drawing.Point(380, 0)
         Me.BTN_NProv.Name = "BTN_NProv"
         Me.BTN_NProv.Size = New System.Drawing.Size(386, 63)

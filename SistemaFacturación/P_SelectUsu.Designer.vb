@@ -83,17 +83,19 @@ Partial Class P_SelectUsu
         'BTN_CerrarApp
         '
         Me.BTN_CerrarApp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(926, -2)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(927, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
         Me.BTN_CerrarApp.TabIndex = 124
         '
         'Guna2BorderlessForm1

@@ -79,7 +79,7 @@ Partial Class P_CuentasCobrar
         Me.btn_Regresar.Style.ForeColor = System.Drawing.Color.White
         Me.btn_Regresar.Style.HoverBackColor = System.Drawing.Color.Maroon
         Me.btn_Regresar.Style.HoverForeColor = System.Drawing.Color.White
-        Me.btn_Regresar.Style.Image = CType(resources.GetObject("resource.Image"), System.Drawing.Image)
+        Me.btn_Regresar.Style.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.btn_Regresar.TabIndex = 74
         Me.btn_Regresar.Text = "Regresar"
         Me.btn_Regresar.TextAlign = System.Drawing.ContentAlignment.MiddleRight

@@ -23,7 +23,6 @@ Partial Class D_VerDatosCierre
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(D_VerDatosCierre))
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.PAN_Cell2InfoCierre = New Guna.UI2.WinForms.Guna2Panel()
         Me.TXT_VerCCSaldoSiguienteEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
@@ -465,7 +464,7 @@ Partial Class D_VerDatosCierre
         Me.BTN_RegresarVerCC.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarVerCC.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarVerCC.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarVerCC.Image = CType(resources.GetObject("BTN_RegresarVerCC.Image"), System.Drawing.Image)
+        Me.BTN_RegresarVerCC.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarVerCC.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_RegresarVerCC.Location = New System.Drawing.Point(3, 3)
         Me.BTN_RegresarVerCC.Name = "BTN_RegresarVerCC"

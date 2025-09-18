@@ -62,7 +62,6 @@ Partial Class M_Inicio
         Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
         Me.BTN_LogOut = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.BTN_Config = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.BTN_CerrarApp = New Guna.UI2.WinForms.Guna2ImageButton()
@@ -76,7 +75,6 @@ Partial Class M_Inicio
         Me.GroupBox2.SuspendLayout()
         CType(Me.DGV_LHacerPed, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.Guna2Panel2.SuspendLayout()
         Me.Guna2Panel1.SuspendLayout()
         Me.Guna2Panel3.SuspendLayout()
         Me.SuspendLayout()
@@ -99,12 +97,11 @@ Partial Class M_Inicio
         Me.BTN_Mantenimiento.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_Mantenimiento.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.BTN_Mantenimiento.Dock = System.Windows.Forms.DockStyle.Left
-        Me.BTN_Mantenimiento.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.BTN_Mantenimiento.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_Mantenimiento.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_Mantenimiento.ForeColor = System.Drawing.Color.White
-        Me.BTN_Mantenimiento.Image = CType(resources.GetObject("BTN_Mantenimiento.Image"), System.Drawing.Image)
-        Me.BTN_Mantenimiento.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.BTN_Mantenimiento.ImageSize = New System.Drawing.Size(80, 80)
+        Me.BTN_Mantenimiento.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mantenimiento
+        Me.BTN_Mantenimiento.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_Mantenimiento.Location = New System.Drawing.Point(0, 0)
         Me.BTN_Mantenimiento.Name = "BTN_Mantenimiento"
         Me.BTN_Mantenimiento.Size = New System.Drawing.Size(538, 90)
@@ -119,13 +116,12 @@ Partial Class M_Inicio
         Me.BTN_Reporte.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.BTN_Reporte.Dock = System.Windows.Forms.DockStyle.Right
         Me.BTN_Reporte.Enabled = False
-        Me.BTN_Reporte.FillColor = System.Drawing.Color.RoyalBlue
+        Me.BTN_Reporte.FillColor = System.Drawing.Color.DodgerBlue
         Me.BTN_Reporte.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_Reporte.ForeColor = System.Drawing.Color.White
         Me.BTN_Reporte.HoverState.BorderColor = System.Drawing.Color.White
-        Me.BTN_Reporte.Image = CType(resources.GetObject("BTN_Reporte.Image"), System.Drawing.Image)
-        Me.BTN_Reporte.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.BTN_Reporte.ImageSize = New System.Drawing.Size(90, 90)
+        Me.BTN_Reporte.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Reportes
+        Me.BTN_Reporte.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_Reporte.Location = New System.Drawing.Point(551, 0)
         Me.BTN_Reporte.Name = "BTN_Reporte"
         Me.BTN_Reporte.Size = New System.Drawing.Size(549, 90)
@@ -296,11 +292,11 @@ Partial Class M_Inicio
         Me.BTN_CajaVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_CajaVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
         Me.BTN_CajaVenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_CajaVenta.FillColor = System.Drawing.Color.YellowGreen
+        Me.BTN_CajaVenta.FillColor = System.Drawing.Color.OliveDrab
         Me.BTN_CajaVenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_CajaVenta.ForeColor = System.Drawing.Color.White
-        Me.BTN_CajaVenta.Image = CType(resources.GetObject("BTN_CajaVenta.Image"), System.Drawing.Image)
-        Me.BTN_CajaVenta.ImageSize = New System.Drawing.Size(80, 80)
+        Me.BTN_CajaVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_BagSimple
+        Me.BTN_CajaVenta.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_CajaVenta.Location = New System.Drawing.Point(0, 0)
         Me.BTN_CajaVenta.Name = "BTN_CajaVenta"
         Me.BTN_CajaVenta.Size = New System.Drawing.Size(1100, 90)
@@ -485,62 +481,52 @@ Partial Class M_Inicio
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1076, 283)
         Me.TableLayoutPanel1.TabIndex = 119
         '
-        'Guna2Panel2
-        '
-        Me.Guna2Panel2.Controls.Add(Me.BTN_LogOut)
-        Me.Guna2Panel2.Controls.Add(Me.BTN_Config)
-        Me.Guna2Panel2.Controls.Add(Me.BTN_CerrarApp)
-        Me.Guna2Panel2.Location = New System.Drawing.Point(1042, -3)
-        Me.Guna2Panel2.Name = "Guna2Panel2"
-        Me.Guna2Panel2.Size = New System.Drawing.Size(58, 166)
-        Me.Guna2Panel2.TabIndex = 121
-        '
         'BTN_LogOut
         '
-        Me.BTN_LogOut.BackColor = System.Drawing.Color.FromArgb(CType(CType(29, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(143, Byte), Integer))
-        Me.BTN_LogOut.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_LogOut.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BTN_LogOut.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_LogOut.Image = CType(resources.GetObject("BTN_LogOut.Image"), System.Drawing.Image)
+        Me.BTN_LogOut.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_LogOut.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_LogOut.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_LogoutCol
+        Me.BTN_LogOut.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_LogOut.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Logout
         Me.BTN_LogOut.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_LogOut.ImageRotate = 0!
-        Me.BTN_LogOut.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_LogOut.Location = New System.Drawing.Point(0, 108)
+        Me.BTN_LogOut.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_LogOut.Location = New System.Drawing.Point(983, 12)
         Me.BTN_LogOut.Name = "BTN_LogOut"
         Me.BTN_LogOut.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_LogOut.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_LogOut.Size = New System.Drawing.Size(45, 45)
         Me.BTN_LogOut.TabIndex = 124
         '
         'BTN_Config
         '
-        Me.BTN_Config.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(58, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.BTN_Config.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BTN_Config.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Image = CType(resources.GetObject("BTN_Config.Image"), System.Drawing.Image)
+        Me.BTN_Config.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_Config.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Config.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_ConfigCol
+        Me.BTN_Config.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_Config.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Config
         Me.BTN_Config.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_Config.ImageRotate = 0!
-        Me.BTN_Config.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_Config.Location = New System.Drawing.Point(0, 54)
+        Me.BTN_Config.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Config.Location = New System.Drawing.Point(927, 12)
         Me.BTN_Config.Name = "BTN_Config"
         Me.BTN_Config.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_Config.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_Config.Size = New System.Drawing.Size(45, 45)
         Me.BTN_Config.TabIndex = 123
         '
         'BTN_CerrarApp
         '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(1043, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
         Me.BTN_CerrarApp.TabIndex = 122
         '
         'Guna2Panel1
@@ -575,9 +561,11 @@ Partial Class M_Inicio
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1100, 710)
+        Me.Controls.Add(Me.BTN_CerrarApp)
+        Me.Controls.Add(Me.BTN_Config)
+        Me.Controls.Add(Me.BTN_LogOut)
         Me.Controls.Add(Me.Guna2Panel3)
         Me.Controls.Add(Me.Guna2Panel1)
-        Me.Controls.Add(Me.Guna2Panel2)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.Guna2HtmlLabel6)
         Me.Controls.Add(Me.LBL_Usu)
@@ -599,7 +587,6 @@ Partial Class M_Inicio
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.DGV_LHacerPed, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.Guna2Panel2.ResumeLayout(False)
         Me.Guna2Panel1.ResumeLayout(False)
         Me.Guna2Panel3.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -637,7 +624,6 @@ Partial Class M_Inicio
     Friend WithEvents DomingoReb As DataGridViewTextBoxColumn
     Friend WithEvents Guna2DataGridViewStyler2 As Guna.UI2.WinForms.Guna2DataGridViewStyler
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents Guna2Panel2 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents BTN_LogOut As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents BTN_Config As Guna.UI2.WinForms.Guna2ImageButton
     Friend WithEvents Guna2Panel3 As Guna.UI2.WinForms.Guna2Panel

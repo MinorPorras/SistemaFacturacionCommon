@@ -73,27 +73,27 @@ Partial Class P_ReimprimirFact
         Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX.Size = New System.Drawing.Size(146, 56)
+        Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
         '
         'MNU_REIMPRIMIR
         '
-        Me.MNU_REIMPRIMIR.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.MNU_REIMPRIMIR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_REIMPRIMIR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_REIMPRIMIR.ForeColor = System.Drawing.SystemColors.Control
-        Me.MNU_REIMPRIMIR.Image = CType(resources.GetObject("MNU_REIMPRIMIR.Image"), System.Drawing.Image)
+        Me.MNU_REIMPRIMIR.ForeColor = System.Drawing.Color.White
+        Me.MNU_REIMPRIMIR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
         Me.MNU_REIMPRIMIR.Name = "MNU_REIMPRIMIR"
-        Me.MNU_REIMPRIMIR.Size = New System.Drawing.Size(145, 26)
+        Me.MNU_REIMPRIMIR.Size = New System.Drawing.Size(184, 26)
         Me.MNU_REIMPRIMIR.Text = "Reimprimir"
         Me.MNU_REIMPRIMIR.Visible = False
         '
         'MNU_Datos
         '
-        Me.MNU_Datos.BackColor = System.Drawing.Color.DarkGoldenrod
+        Me.MNU_Datos.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_Datos.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_Datos.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.MNU_Datos.Image = CType(resources.GetObject("MNU_Datos.Image"), System.Drawing.Image)
+        Me.MNU_Datos.ForeColor = System.Drawing.Color.White
+        Me.MNU_Datos.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
         Me.MNU_Datos.Name = "MNU_Datos"
-        Me.MNU_Datos.Size = New System.Drawing.Size(145, 26)
+        Me.MNU_Datos.Size = New System.Drawing.Size(184, 26)
         Me.MNU_Datos.Text = "Ver datos"
         '
         'BTN_RegresarFact
@@ -108,7 +108,7 @@ Partial Class P_ReimprimirFact
         Me.BTN_RegresarFact.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarFact.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarFact.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarFact.Image = CType(resources.GetObject("BTN_RegresarFact.Image"), System.Drawing.Image)
+        Me.BTN_RegresarFact.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarFact.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarFact.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarFact.Name = "BTN_RegresarFact"
@@ -127,7 +127,7 @@ Partial Class P_ReimprimirFact
         Me.BTN_ImpReciente.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_ImpReciente.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_ImpReciente.ForeColor = System.Drawing.Color.White
-        Me.BTN_ImpReciente.Image = CType(resources.GetObject("BTN_ImpReciente.Image"), System.Drawing.Image)
+        Me.BTN_ImpReciente.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
         Me.BTN_ImpReciente.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_ImpReciente.Location = New System.Drawing.Point(607, 0)
         Me.BTN_ImpReciente.Name = "BTN_ImpReciente"
@@ -148,9 +148,10 @@ Partial Class P_ReimprimirFact
         Me.TXT_BuscarFact.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarFact.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarFact.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarFact.IconRight = CType(resources.GetObject("TXT_BuscarFact.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarFact.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+        Me.TXT_BuscarFact.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarFact.IconRightSize = New System.Drawing.Size(40, 40)
-        Me.TXT_BuscarFact.Location = New System.Drawing.Point(26, 172)
+        Me.TXT_BuscarFact.Location = New System.Drawing.Point(26, 166)
         Me.TXT_BuscarFact.Name = "TXT_BuscarFact"
         Me.TXT_BuscarFact.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_BuscarFact.PlaceholderText = "Buscar número de factura"
@@ -162,9 +163,9 @@ Partial Class P_ReimprimirFact
         '
         Me.Guna2PictureBox1.Image = CType(resources.GetObject("Guna2PictureBox1.Image"), System.Drawing.Image)
         Me.Guna2PictureBox1.ImageRotate = 0!
-        Me.Guna2PictureBox1.Location = New System.Drawing.Point(394, -102)
+        Me.Guna2PictureBox1.Location = New System.Drawing.Point(460, -91)
         Me.Guna2PictureBox1.Name = "Guna2PictureBox1"
-        Me.Guna2PictureBox1.Size = New System.Drawing.Size(478, 377)
+        Me.Guna2PictureBox1.Size = New System.Drawing.Size(387, 316)
         Me.Guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Guna2PictureBox1.TabIndex = 48
         Me.Guna2PictureBox1.TabStop = False
@@ -345,17 +346,19 @@ Partial Class P_ReimprimirFact
         '
         'BTN_CerrarApp
         '
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(1164, -1)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(1162, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(55, 53)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
         Me.BTN_CerrarApp.TabIndex = 125
         '
         'P_ReimprimirFact

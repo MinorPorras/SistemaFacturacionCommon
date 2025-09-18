@@ -22,7 +22,6 @@ Partial Class P_ReporteVentas
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ReporteVentas))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -31,6 +30,7 @@ Partial Class P_ReporteVentas
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ReporteVentas))
         Me.TAB_Reportes = New Guna.UI2.WinForms.Guna2TabControl()
         Me.PAG_ReporteVentas = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -642,7 +642,7 @@ Partial Class P_ReporteVentas
         Me.BTN_GenerarReporteVentaPDF.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_GenerarReporteVentaPDF.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_GenerarReporteVentaPDF.ForeColor = System.Drawing.Color.White
-        Me.BTN_GenerarReporteVentaPDF.Image = CType(resources.GetObject("BTN_GenerarReporteVentaPDF.Image"), System.Drawing.Image)
+        Me.BTN_GenerarReporteVentaPDF.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_DescargaDoc
         Me.BTN_GenerarReporteVentaPDF.ImageSize = New System.Drawing.Size(50, 50)
         Me.BTN_GenerarReporteVentaPDF.Location = New System.Drawing.Point(403, 0)
         Me.BTN_GenerarReporteVentaPDF.Name = "BTN_GenerarReporteVentaPDF"
@@ -661,7 +661,7 @@ Partial Class P_ReporteVentas
         Me.BTN_RegresarReporte.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarReporte.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarReporte.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarReporte.Image = CType(resources.GetObject("BTN_RegresarReporte.Image"), System.Drawing.Image)
+        Me.BTN_RegresarReporte.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarReporte.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_RegresarReporte.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarReporte.Name = "BTN_RegresarReporte"
@@ -680,7 +680,7 @@ Partial Class P_ReporteVentas
         Me.BTN_GenReporte.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_GenReporte.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_GenReporte.ForeColor = System.Drawing.Color.White
-        Me.BTN_GenReporte.Image = CType(resources.GetObject("BTN_GenReporte.Image"), System.Drawing.Image)
+        Me.BTN_GenReporte.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
         Me.BTN_GenReporte.ImageSize = New System.Drawing.Size(50, 50)
         Me.BTN_GenReporte.Location = New System.Drawing.Point(829, 0)
         Me.BTN_GenReporte.Name = "BTN_GenReporte"
@@ -807,26 +807,26 @@ Partial Class P_ReporteVentas
         Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX.Size = New System.Drawing.Size(146, 56)
+        Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
         '
         'MNU_REIMPRIMIR
         '
-        Me.MNU_REIMPRIMIR.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.MNU_REIMPRIMIR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_REIMPRIMIR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_REIMPRIMIR.ForeColor = System.Drawing.SystemColors.Control
-        Me.MNU_REIMPRIMIR.Image = CType(resources.GetObject("MNU_REIMPRIMIR.Image"), System.Drawing.Image)
+        Me.MNU_REIMPRIMIR.ForeColor = System.Drawing.Color.White
+        Me.MNU_REIMPRIMIR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
         Me.MNU_REIMPRIMIR.Name = "MNU_REIMPRIMIR"
-        Me.MNU_REIMPRIMIR.Size = New System.Drawing.Size(145, 26)
+        Me.MNU_REIMPRIMIR.Size = New System.Drawing.Size(184, 26)
         Me.MNU_REIMPRIMIR.Text = "Reimprimir"
         '
         'MNU_Datos
         '
-        Me.MNU_Datos.BackColor = System.Drawing.Color.DarkGoldenrod
+        Me.MNU_Datos.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_Datos.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MNU_Datos.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.MNU_Datos.Image = CType(resources.GetObject("MNU_Datos.Image"), System.Drawing.Image)
+        Me.MNU_Datos.ForeColor = System.Drawing.Color.White
+        Me.MNU_Datos.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
         Me.MNU_Datos.Name = "MNU_Datos"
-        Me.MNU_Datos.Size = New System.Drawing.Size(145, 26)
+        Me.MNU_Datos.Size = New System.Drawing.Size(184, 26)
         Me.MNU_Datos.Text = "Ver datos"
         '
         'PAG_ReporteProd
@@ -884,8 +884,8 @@ Partial Class P_ReporteVentas
         Me.BTN_RegresarReporteProducto.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarReporteProducto.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarReporteProducto.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarReporteProducto.Image = CType(resources.GetObject("BTN_RegresarReporteProducto.Image"), System.Drawing.Image)
-        Me.BTN_RegresarReporteProducto.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_RegresarReporteProducto.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.BTN_RegresarReporteProducto.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarReporteProducto.Location = New System.Drawing.Point(3, 646)
         Me.BTN_RegresarReporteProducto.Name = "BTN_RegresarReporteProducto"
         Me.BTN_RegresarReporteProducto.Size = New System.Drawing.Size(837, 45)
@@ -1203,11 +1203,11 @@ Partial Class P_ReporteVentas
         Me.BTN_GenReporteProductos.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_GenReporteProductos.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_GenReporteProductos.ForeColor = System.Drawing.Color.White
-        Me.BTN_GenReporteProductos.Image = CType(resources.GetObject("BTN_GenReporteProductos.Image"), System.Drawing.Image)
-        Me.BTN_GenReporteProductos.ImageSize = New System.Drawing.Size(50, 50)
-        Me.BTN_GenReporteProductos.Location = New System.Drawing.Point(0, 640)
+        Me.BTN_GenReporteProductos.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
+        Me.BTN_GenReporteProductos.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_GenReporteProductos.Location = New System.Drawing.Point(0, 646)
         Me.BTN_GenReporteProductos.Name = "BTN_GenReporteProductos"
-        Me.BTN_GenReporteProductos.Size = New System.Drawing.Size(385, 54)
+        Me.BTN_GenReporteProductos.Size = New System.Drawing.Size(385, 45)
         Me.BTN_GenReporteProductos.TabIndex = 150
         Me.BTN_GenReporteProductos.Text = "Generar reporte"
         '
@@ -2012,8 +2012,8 @@ Partial Class P_ReporteVentas
         Me.BTN_CalcularSaldoSiguiente.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_CalcularSaldoSiguiente.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_CalcularSaldoSiguiente.ForeColor = System.Drawing.Color.White
-        Me.BTN_CalcularSaldoSiguiente.Image = CType(resources.GetObject("BTN_CalcularSaldoSiguiente.Image"), System.Drawing.Image)
-        Me.BTN_CalcularSaldoSiguiente.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CalcularSaldoSiguiente.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasMenos
+        Me.BTN_CalcularSaldoSiguiente.ImageSize = New System.Drawing.Size(35, 35)
         Me.BTN_CalcularSaldoSiguiente.Location = New System.Drawing.Point(435, 384)
         Me.BTN_CalcularSaldoSiguiente.Name = "BTN_CalcularSaldoSiguiente"
         Me.BTN_CalcularSaldoSiguiente.Size = New System.Drawing.Size(164, 36)
@@ -2336,8 +2336,8 @@ Partial Class P_ReporteVentas
         Me.Guna2Button3.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Guna2Button3.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.Guna2Button3.ForeColor = System.Drawing.Color.White
-        Me.Guna2Button3.Image = CType(resources.GetObject("Guna2Button3.Image"), System.Drawing.Image)
-        Me.Guna2Button3.ImageSize = New System.Drawing.Size(60, 60)
+        Me.Guna2Button3.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.Guna2Button3.ImageSize = New System.Drawing.Size(50, 50)
         Me.Guna2Button3.Location = New System.Drawing.Point(3, 3)
         Me.Guna2Button3.Name = "Guna2Button3"
         Me.Guna2Button3.Size = New System.Drawing.Size(301, 60)
@@ -2357,7 +2357,7 @@ Partial Class P_ReporteVentas
         Me.BTN_GenerarCierre.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_GenerarCierre.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_GenerarCierre.ForeColor = System.Drawing.Color.White
-        Me.BTN_GenerarCierre.Image = CType(resources.GetObject("BTN_GenerarCierre.Image"), System.Drawing.Image)
+        Me.BTN_GenerarCierre.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
         Me.BTN_GenerarCierre.ImageSize = New System.Drawing.Size(50, 50)
         Me.BTN_GenerarCierre.Location = New System.Drawing.Point(310, 3)
         Me.BTN_GenerarCierre.Name = "BTN_GenerarCierre"

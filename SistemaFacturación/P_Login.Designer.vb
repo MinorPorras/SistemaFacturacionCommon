@@ -53,7 +53,7 @@ Partial Class P_Login
         Me.BTN_RegresarLogin.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarLogin.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarLogin.ForeColor = System.Drawing.SystemColors.Control
-        Me.BTN_RegresarLogin.Image = CType(resources.GetObject("BTN_RegresarLogin.Image"), System.Drawing.Image)
+        Me.BTN_RegresarLogin.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarLogin.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarLogin.Location = New System.Drawing.Point(4, 276)
         Me.BTN_RegresarLogin.Name = "BTN_RegresarLogin"
@@ -75,7 +75,7 @@ Partial Class P_Login
         Me.BTN_Login.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_Login.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_Login.ForeColor = System.Drawing.SystemColors.Control
-        Me.BTN_Login.Image = CType(resources.GetObject("BTN_Login.Image"), System.Drawing.Image)
+        Me.BTN_Login.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Login
         Me.BTN_Login.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_Login.Location = New System.Drawing.Point(257, 275)
         Me.BTN_Login.Name = "BTN_Login"
@@ -124,7 +124,7 @@ Partial Class P_Login
         '
         Me.Guna2PictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Guna2PictureBox2.BackColor = System.Drawing.Color.Transparent
-        Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
+        Me.Guna2PictureBox2.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Usuario
         Me.Guna2PictureBox2.ImageRotate = 0!
         Me.Guna2PictureBox2.Location = New System.Drawing.Point(73, 89)
         Me.Guna2PictureBox2.Name = "Guna2PictureBox2"
@@ -137,7 +137,7 @@ Partial Class P_Login
         '
         Me.Guna2PictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Guna2PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.Guna2PictureBox1.Image = CType(resources.GetObject("Guna2PictureBox1.Image"), System.Drawing.Image)
+        Me.Guna2PictureBox1.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Contrasena
         Me.Guna2PictureBox1.ImageRotate = 0!
         Me.Guna2PictureBox1.Location = New System.Drawing.Point(73, 161)
         Me.Guna2PictureBox1.Name = "Guna2PictureBox1"
@@ -175,17 +175,19 @@ Partial Class P_Login
         'BTN_CerrarApp
         '
         Me.BTN_CerrarApp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Red
-        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Image = CType(resources.GetObject("BTN_CerrarApp.Image"), System.Drawing.Image)
+        Me.BTN_CerrarApp.BackColor = System.Drawing.Color.Transparent
+        Me.BTN_CerrarApp.CheckedState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
+        Me.BTN_CerrarApp.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
+        Me.BTN_CerrarApp.HoverState.ImageSize = New System.Drawing.Size(43, 43)
+        Me.BTN_CerrarApp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_CerrarApp.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_CerrarApp.ImageRotate = 0!
-        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(60, 60)
-        Me.BTN_CerrarApp.Location = New System.Drawing.Point(656, -1)
+        Me.BTN_CerrarApp.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CerrarApp.Location = New System.Drawing.Point(657, 12)
         Me.BTN_CerrarApp.Name = "BTN_CerrarApp"
         Me.BTN_CerrarApp.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.BTN_CerrarApp.Size = New System.Drawing.Size(58, 54)
+        Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
         Me.BTN_CerrarApp.TabIndex = 123
         '
         'Guna2BorderlessForm1

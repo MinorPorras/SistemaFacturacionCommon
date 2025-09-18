@@ -23,11 +23,11 @@ Partial Class B_Impuesto
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(B_Impuesto))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(B_Impuesto))
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TXT_Desc = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -35,16 +35,16 @@ Partial Class B_Impuesto
         Me.BTN_RegresarImpuesto = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_SelectImpuesto = New Guna.UI2.WinForms.Guna2Button()
         Me.TXT_BuscarImp = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TXT_porcentaje = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.DGV_BImp = New Guna.UI2.WinForms.Guna2DataGridView()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Guna2PictureBox2 = New Guna.UI2.WinForms.Guna2PictureBox()
         CType(Me.DGV_BImp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Guna2Panel1.SuspendLayout()
+        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label2
@@ -125,7 +125,7 @@ Partial Class B_Impuesto
         Me.BTN_RegresarImpuesto.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarImpuesto.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarImpuesto.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarImpuesto.Image = CType(resources.GetObject("BTN_RegresarImpuesto.Image"), System.Drawing.Image)
+        Me.BTN_RegresarImpuesto.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarImpuesto.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarImpuesto.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarImpuesto.Name = "BTN_RegresarImpuesto"
@@ -144,7 +144,7 @@ Partial Class B_Impuesto
         Me.BTN_SelectImpuesto.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_SelectImpuesto.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_SelectImpuesto.ForeColor = System.Drawing.Color.White
-        Me.BTN_SelectImpuesto.Image = CType(resources.GetObject("BTN_SelectImpuesto.Image"), System.Drawing.Image)
+        Me.BTN_SelectImpuesto.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_SelectImpuesto.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_SelectImpuesto.Location = New System.Drawing.Point(356, 0)
         Me.BTN_SelectImpuesto.Name = "BTN_SelectImpuesto"
@@ -165,7 +165,8 @@ Partial Class B_Impuesto
         Me.TXT_BuscarImp.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarImp.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarImp.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarImp.IconRight = CType(resources.GetObject("TXT_BuscarImp.IconRight"), System.Drawing.Image)
+        Me.TXT_BuscarImp.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+        Me.TXT_BuscarImp.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarImp.IconRightSize = New System.Drawing.Size(35, 35)
         Me.TXT_BuscarImp.Location = New System.Drawing.Point(31, 159)
         Me.TXT_BuscarImp.Name = "TXT_BuscarImp"
@@ -174,17 +175,6 @@ Partial Class B_Impuesto
         Me.TXT_BuscarImp.SelectedText = ""
         Me.TXT_BuscarImp.Size = New System.Drawing.Size(654, 42)
         Me.TXT_BuscarImp.TabIndex = 66
-        '
-        'Guna2PictureBox2
-        '
-        Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
-        Me.Guna2PictureBox2.ImageRotate = 0!
-        Me.Guna2PictureBox2.Location = New System.Drawing.Point(187, -61)
-        Me.Guna2PictureBox2.Name = "Guna2PictureBox2"
-        Me.Guna2PictureBox2.Size = New System.Drawing.Size(329, 287)
-        Me.Guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.Guna2PictureBox2.TabIndex = 65
-        Me.Guna2PictureBox2.TabStop = False
         '
         'Guna2BorderlessForm1
         '
@@ -314,6 +304,17 @@ Partial Class B_Impuesto
         Me.Guna2Panel1.Size = New System.Drawing.Size(713, 74)
         Me.Guna2Panel1.TabIndex = 88
         '
+        'Guna2PictureBox2
+        '
+        Me.Guna2PictureBox2.Image = CType(resources.GetObject("Guna2PictureBox2.Image"), System.Drawing.Image)
+        Me.Guna2PictureBox2.ImageRotate = 0!
+        Me.Guna2PictureBox2.Location = New System.Drawing.Point(166, -86)
+        Me.Guna2PictureBox2.Name = "Guna2PictureBox2"
+        Me.Guna2PictureBox2.Size = New System.Drawing.Size(371, 336)
+        Me.Guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Guna2PictureBox2.TabIndex = 69
+        Me.Guna2PictureBox2.TabStop = False
+        '
         'B_Impuesto
         '
         Me.AcceptButton = Me.BTN_SelectImpuesto
@@ -339,9 +340,9 @@ Partial Class B_Impuesto
         Me.Name = "B_Impuesto"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Buscar impuestos"
-        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DGV_BImp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Guna2Panel1.ResumeLayout(False)
+        CType(Me.Guna2PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -354,11 +355,11 @@ Partial Class B_Impuesto
     Friend WithEvents BTN_RegresarImpuesto As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_SelectImpuesto As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents TXT_BuscarImp As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents Guna2PictureBox2 As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents TXT_porcentaje As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents DGV_BImp As Guna.UI2.WinForms.Guna2DataGridView
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents Guna2PictureBox2 As Guna.UI2.WinForms.Guna2PictureBox
 End Class

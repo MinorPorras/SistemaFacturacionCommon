@@ -270,7 +270,7 @@ Partial Class E_NuevaSucursal
         Me.BTN_RegresarNSuc.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarNSuc.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarNSuc.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarNSuc.Image = CType(resources.GetObject("BTN_RegresarNSuc.Image"), System.Drawing.Image)
+        Me.BTN_RegresarNSuc.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarNSuc.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarNSuc.Location = New System.Drawing.Point(0, 0)
         Me.BTN_RegresarNSuc.Name = "BTN_RegresarNSuc"
@@ -289,7 +289,7 @@ Partial Class E_NuevaSucursal
         Me.BTN_GuardarNSucursal.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_GuardarNSucursal.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_GuardarNSucursal.ForeColor = System.Drawing.Color.White
-        Me.BTN_GuardarNSucursal.Image = CType(resources.GetObject("BTN_GuardarNSucursal.Image"), System.Drawing.Image)
+        Me.BTN_GuardarNSucursal.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Check
         Me.BTN_GuardarNSucursal.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_GuardarNSucursal.Location = New System.Drawing.Point(421, 0)
         Me.BTN_GuardarNSucursal.Name = "BTN_GuardarNSucursal"
