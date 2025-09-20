@@ -346,6 +346,7 @@ Module Md_Reportes
         'Se obtiene la información del cierre anterior
         Dim infoCierreAnterior As DataTable = Await obtenerInfoCierreAnterior()
 
+
         'Se establecen los datos que se usan en caso de que no haya ningún cierre
         Dim fechaHoy As Date = Date.Today
         Dim fechaInicio As Date = New Date(fechaHoy.Year, fechaHoy.Month, fechaHoy.Day, 5, 0, 0)
@@ -400,6 +401,15 @@ Module Md_Reportes
 
                                   ' Verifica si la tabla 0 existe en el DataSet
                                   If T.Tables.Count > 0 Then
+                                      Dim fechaAnterior As Date = T.Tables(0).Rows(0).Item("HoraFin")
+
+                                      'Se verifica si el cierre anterior es de hace más de dos días
+                                      If fechaAnterior.Date <= Date.Today.AddDays(-2) Then
+                                          ' Se reinician los datos del cierre anterior para usar solo las fechas del día actual
+                                          T.Tables(0).Rows(0).Item("HoraFin") = Date.Today
+                                          T.Tables(0).Rows(0).Item("dineroSiguente") = 0
+                                      End If
+
                                       ' Si existe, devuelve la tabla con los datos
                                       Return T.Tables(0)
                                   Else

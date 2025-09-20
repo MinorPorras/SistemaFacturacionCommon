@@ -36,6 +36,7 @@ Partial Class P_Caja
         Me.TXT_BuscarCliente = New Guna.UI2.WinForms.Guna2TextBox()
         Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
         Me.MNU_MODIFICAR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
         Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -155,7 +156,7 @@ Partial Class P_Caja
         '
         Me.MNU_CONTX.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.MNU_CONTX.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_MODIFICAR, Me.MNU_ELIMINAR})
+        Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_MODIFICAR, Me.ToolStripSeparator1, Me.MNU_ELIMINAR})
         Me.MNU_CONTX.Name = "MNU_CONTX"
         Me.MNU_CONTX.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.MNU_CONTX.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
@@ -166,7 +167,7 @@ Partial Class P_Caja
         Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX.Size = New System.Drawing.Size(136, 56)
+        Me.MNU_CONTX.Size = New System.Drawing.Size(136, 62)
         '
         'MNU_MODIFICAR
         '
@@ -177,6 +178,12 @@ Partial Class P_Caja
         Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
         Me.MNU_MODIFICAR.Text = "Modificar"
         Me.MNU_MODIFICAR.Visible = False
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(132, 6)
         '
         'MNU_ELIMINAR
         '
@@ -718,6 +725,7 @@ Partial Class P_Caja
         Me.BTN_EditFavProd.FillColor = System.Drawing.Color.Transparent
         Me.BTN_EditFavProd.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_EditFavProd.ForeColor = System.Drawing.Color.White
+        Me.BTN_EditFavProd.HoverState.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_EditFavProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Favoritos
         Me.BTN_EditFavProd.ImageSize = New System.Drawing.Size(60, 60)
         Me.BTN_EditFavProd.Location = New System.Drawing.Point(584, 0)
@@ -833,4 +841,5 @@ Partial Class P_Caja
     Friend WithEvents BTN_RegresarCaja As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_DelFactura As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_GuardarCuenta As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
 End Class

@@ -8,7 +8,7 @@ Imports System.Drawing.Printing
 Module Md_IMPRIMIR
     ' Variables para el contenido de la factura (impresión)
     Friend encabezadoFactura As String
-    Friend encabezadoProds As String = "Cant     Descripción        Precio       Total" & vbCrLf &
+    Friend encabezadoProds As String = "Cant        Descripción             Precio        Total" & vbCrLf &
                                                     "--------------------------------------------------" & vbCrLf
     Friend facturaContenido As New List(Of String)()
     Friend finFactura As String
@@ -134,24 +134,24 @@ Module Md_IMPRIMIR
                                 vbCrLf &
                                 "Cliente:" & factura.Cliente & vbCrLf &
                                 vbCrLf &
-                                "----------------------------------------------" & vbCrLf &
+                                "------------------------------------------" & vbCrLf &
                                 "Descripción de Productos" & vbCrLf &
-                                "----------------------------------------------" & vbCrLf
+                                "------------------------------------------" & vbCrLf
     End Function
 
     Private Function crearFinFactura(factura As Cls_DatosFactura, comentario As String) As String
-        Dim finFact As String = "---------------------------------------------" & vbCrLf &
+        Dim finFact As String = "-----------------------------------------" & vbCrLf &
                       "Total de la venta: ₡ " & factura.TotalCaja & vbCrLf &
                       vbCrLf
         If factura.TipoPago = 1 Then
-            finFact += "Pago del cliente: ₡ " & factura.Efectivo
+            finFact += "Pago del cliente: ₡ " & factura.Efectivo & vbCrLf
 
         ElseIf factura.TipoPago = 4 Then
             finFact += "Pago en efectivo: ₡ " & factura.Efectivo & vbCrLf &
                 vbCrLf &
                  "Pago en tarjeta: ₡ " & factura.Tarjeta
         Else
-            finFact += "Pago en tarjeta: ₡ " & factura.Tarjeta
+            finFact += "Pago en tarjeta: ₡ " & factura.Tarjeta & vbCrLf
         End If
 
         finFact += $"Comentario: {comentario}"
@@ -166,17 +166,35 @@ Module Md_IMPRIMIR
         AddHandler printDoc.PrintPage, Sub(sender, e)
                                            printDocument_PrintPage(sender, e, encabezado, productos, fin)
                                        End Sub
-        ' Configurar tamaño de papel personalizado (72 puntos por pulgada, 3.937 pulgadas de ancho, 297 mm de alto)
-        Dim customPaperSize As New PaperSize("Custom", CInt(72 * 3.937), CInt(297 * 3.937))
+        ' 1. ANCHO: 80 mm (3.15 in) = 227 puntos.
+        ' 2. ALTO: Se mantiene un valor simbólicamente grande para rollo continuo.
+        Dim anchoEnPuntos As Integer = CInt(72 * 3.15) ' ~227 puntos
+        Dim altoSimbolico As Integer = CInt(72 * 50)
+
+        Dim customPaperSize As New PaperSize("80mm Roll", anchoEnPuntos, altoSimbolico)
         printDoc.DefaultPageSettings.PaperSize = customPaperSize
         printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
 
-        Dim printPreview As New PrintPreviewDialog With {
-            .Document = printDoc
-        }
+        Using printDialog As New PrintDialog()
+            ' Asignar el documento al diálogo
+            printDialog.Document = printDoc
 
-        ' printPreview.ShowDialog() ' Para vista previa
-        printDoc.Print()
+            ' Permitir solo la selección de impresora, no ajustes avanzados
+            printDialog.AllowSomePages = False
+
+            ' Mostrar el diálogo y verificar si el usuario presionó OK
+            If printDialog.ShowDialog() = DialogResult.OK Then
+                ' Si el usuario seleccionó una impresora y presionó Aceptar,
+                ' la propiedad Document del diálogo ya tiene la impresora seleccionada.
+
+                ' Llama al método Print(), que inicia el evento PrintPage
+                printDoc.Print()
+            End If
+        End Using
+
+        'Se muestra al usuario una vista previa del proceso de impresión
+        Dim printPreview As New PrintPreviewDialog With {.Document = printDoc}
+        printPreview.ShowDialog()
     End Sub
 
     ' Manejador del evento PrintPage que ahora recibe los parámetros de la factura
@@ -192,9 +210,16 @@ Module Md_IMPRIMIR
             .FormatFlags = StringFormatFlags.LineLimit '
         }
 
+        Dim stringFormatRight As New StringFormat() With {
+            .Alignment = StringAlignment.Far, ' Alineación a la derecha
+            .LineAlignment = StringAlignment.Near,
+            .Trimming = StringTrimming.None,
+            .FormatFlags = StringFormatFlags.NoWrap
+        }
+
         ' El ancho total de la impresión es fijo, no uses e.MarginBounds.Left/Top si son 0
         ' totalWidth = 72 * 3.78 (272 puntos)
-        Dim totalWidth As Single = 272.0F
+        Dim totalWidth As Single = 270.0F
         Dim leftMargin As Single = 10 ' Pequeño margen
         Dim xPos As Single = leftMargin
         Dim yPos As Single = 10
@@ -212,7 +237,7 @@ Module Md_IMPRIMIR
         ' --- Productos línea por línea ---
         ' Definimos los anchos de cada columna (ajustados a un ancho total de ~272 puntos)
         Dim colWidthCant As Single = 35.0F
-        Dim colWidthDesc As Single = 130.0F ' Columna más ancha para la descripción
+        Dim colWidthDesc As Single = 110.0F
         Dim colWidthPrecio As Single = 50.0F
         Dim colWidthTotal As Single = 50.0F
 
@@ -226,29 +251,28 @@ Module Md_IMPRIMIR
                 Dim precio As String = columns(2)
                 Dim total As String = columns(3)
 
-                Dim maxHeight As Single = 0 ' Para manejar el salto de línea en la descripción
+                Dim maxHeight As Single = 0
 
-                ' 1. Dibujar Descripción (columna con ajuste de línea)
+                ' 1. Dibujar Descripción (columna con ajuste de línea) - Usa stringFormatWrap
                 Dim descRect As New RectangleF(leftMargin + colWidthCant, yPos, colWidthDesc, e.MarginBounds.Height)
                 e.Graphics.DrawString(desc, fontProds, brush, descRect, stringFormatWrap)
 
-                ' Medir la altura REAL de la descripción (con salto de línea)
+                ' Medir la altura REAL de la descripción
                 maxHeight = e.Graphics.MeasureString(desc, fontProds, CInt(colWidthDesc), stringFormatWrap).Height
 
-                ' 2. Dibujar Cantidad (Alineado a la izquierda de su columna)
+                ' 2. Dibujar Cantidad (Izquierda) - Usa stringFormatWrap o Near
                 Dim rectCant As New RectangleF(leftMargin, yPos, colWidthCant, maxHeight)
-                e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap)
+                e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap) ' <--- OK con stringFormatWrap
 
-                ' 3. Dibujar Precio (Alineado a la derecha)
+                ' 3. Dibujar Precio (Derecha) - ¡Usa stringFormatRight!
                 Dim rectPrecio As New RectangleF(leftMargin + colWidthCant + colWidthDesc, yPos, colWidthPrecio, maxHeight)
-                e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatWrap)
+                e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatRight) ' <--- CAMBIO
 
-                ' 4. Dibujar Total (Alineado a la derecha)
+                ' 4. Dibujar Total (Derecha) - ¡Usa stringFormatRight!
                 Dim rectTotal As New RectangleF(leftMargin + colWidthCant + colWidthDesc + colWidthPrecio, yPos, colWidthTotal, maxHeight)
-                e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatWrap)
+                e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatRight) ' <--- CAMBIO
 
-                ' Mover la posición Y hacia abajo por la altura máxima de la línea
-                yPos += maxHeight + 2 ' Se suma un poco de espacio
+                yPos += maxHeight + 2
             End If
         Next
 
