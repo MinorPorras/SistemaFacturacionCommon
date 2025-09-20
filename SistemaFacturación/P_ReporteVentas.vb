@@ -472,7 +472,13 @@ Public Class P_ReporteVentas
 
         TXT_CCComentario.Text = ""
         NUD_CCSaldoSiguienteTurno.Value = 0
-        NUD_CCSaldoSiguienteTurno.Value = 0
+        NUD_SalidasEfectivo.Value = 0
+        TXT_CCComentario.Text = ""
+        TXT_CCTotalEsperado.Text = "0.00"
+        TXT_CCDiferenciaAbsoluta.Text = "0.00"
+        TXT_CCDiferenciaPorcentual.Text = "0.00"
+
+        saldoSiguiente = Nothing
 
         ObtenerDatosCierreDeCaja()
     End Sub

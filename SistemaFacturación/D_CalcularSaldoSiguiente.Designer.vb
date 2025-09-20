@@ -71,6 +71,7 @@ Partial Class D_CalcularSaldoSiguiente
         Me.Guna2HtmlLabel17 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TXT_SaldoSiguiente = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.Guna2DragControl1 = New Guna.UI2.WinForms.Guna2DragControl(Me.components)
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TBL_IngresoEfectivoReal.SuspendLayout()
@@ -753,6 +754,12 @@ Partial Class D_CalcularSaldoSiguiente
         Me.TXT_SaldoSiguiente.Size = New System.Drawing.Size(300, 42)
         Me.TXT_SaldoSiguiente.TabIndex = 157
         '
+        'Guna2DragControl1
+        '
+        Me.Guna2DragControl1.DockIndicatorTransparencyValue = 0.6R
+        Me.Guna2DragControl1.TargetControl = Me.Guna2HtmlLabel16
+        Me.Guna2DragControl1.UseTransparentDrag = True
+        '
         'D_CalcularSaldoSiguiente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -765,6 +772,7 @@ Partial Class D_CalcularSaldoSiguiente
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "D_CalcularSaldoSiguiente"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Calcular saldo turno siguiente "
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -859,4 +867,5 @@ Partial Class D_CalcularSaldoSiguiente
     Friend WithEvents NUD_Billete50 As Guna.UI2.WinForms.Guna2NumericUpDown
     Friend WithEvents Guna2HtmlLabel17 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_SaldoSiguiente As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2DragControl1 As Guna.UI2.WinForms.Guna2DragControl
 End Class

@@ -174,7 +174,7 @@ Public Class P_ReimprimirFact
     Private Function ObtenerIdFacturaReciente() As Integer
         Dim idFactura As Integer = -1
         Try
-            Using conn As New SQLiteConnection("Data Source=tu_basededatos.db;Version=3;")
+            Using conn As New SQLiteConnection(GetConnectionString())
                 conn.Open()
                 Using cmd As New SQLiteCommand("SELECT MAX(ID) FROM factura WHERE cobrada = 1;", conn)
                     Dim result = cmd.ExecuteScalar()

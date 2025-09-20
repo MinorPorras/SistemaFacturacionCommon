@@ -236,6 +236,11 @@ Public Class P_Caja
         End Try
     End Sub
 
+    Private Sub BTN_RegresarCaja_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCaja.Click
+        M_Inicio.Show()
+        Me.Close()
+    End Sub
+
 
     Friend Sub AgregarProd(ID As String, codigo As String, nombre As String, precioVenta As String, cant As String)
         Dim filaExistente As DataGridViewRow = Nothing
