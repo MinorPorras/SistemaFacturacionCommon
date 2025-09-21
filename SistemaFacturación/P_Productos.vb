@@ -131,6 +131,7 @@ Public Class P_Productos
     End Sub
 
     ' Método para manejar el evento DataBindingComplete
+    ' Método para manejar el evento DataBindingComplete
     Private Sub DGV_Prods_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_Prods.DataBindingComplete
         Try
             Dim selectedRowIndex As Integer = -1
@@ -141,19 +142,32 @@ Public Class P_Productos
                 DGV_Prods.Rows(selectedRowIndex).Selected = True
                 DGV_Prods.FirstDisplayedScrollingRowIndex = selectedRowIndex
             End If
+
             For i As Integer = 0 To DGV_Prods.Columns.Count - 1
                 DGV_Prods.Columns(i).ReadOnly = True
+
+                ' Configurar inicialmente todas las columnas en modo None
+                DGV_Prods.Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+
+                ' Configurar visibilidad y saltar si está oculta
+                Select Case i
+                    Case 0, 5, 6, 9, 11, 13
+                        DGV_Prods.Columns(i).Visible = False
+                        Continue For
+                End Select
+
                 Select Case i
                     Case 1
                         DGV_Prods.Columns(i).Width = 100
                     Case 2
                         DGV_Prods.Columns(i).Width = 200
-                    Case 3
-                        DGV_Prods.Columns(i).Width = 350
+                    Case 3 ' Columna de la Descripción (la que se adapta)
+                        ' Usamos Fill para que rellene el espacio disponible
+                        DGV_Prods.Columns(i).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                        'Establecemos un ANCHO MÍNIMO para que se ajuste al contenido si hay poco espacio
+                        DGV_Prods.Columns(i).MinimumWidth = DGV_Prods.Columns(i).GetPreferredWidth(DataGridViewAutoSizeColumnMode.DisplayedCells, True)
                     Case 4
                         DGV_Prods.Columns(i).Width = 60
-                    Case 6
-                        DGV_Prods.Columns(i).Width = 30
                     Case 8
                         DGV_Prods.Columns(i).Width = 45
                     Case 10
@@ -164,23 +178,38 @@ Public Class P_Productos
                         DGV_Prods.Columns(i).Width = 70
                     Case 15
                         DGV_Prods.Columns(i).Width = 70
-
                 End Select
             Next
+
             DGV_Prods.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-            DGV_Prods.AutoResizeColumn(DataGridViewAutoSizeColumnMode.DisplayedCells)
             DGV_Prods.Columns(4).DefaultCellStyle.Format = "#,##"
             DGV_Prods.Columns(7).DefaultCellStyle.Format = "#,##"
             DGV_Prods.GridColor = Color.DarkGray
-            DGV_Prods.Columns(0).Visible = False
-            DGV_Prods.Columns(5).Visible = False
-            DGV_Prods.Columns(6).Visible = False
-            DGV_Prods.Columns(9).Visible = False
-            DGV_Prods.Columns(11).Visible = False
-            DGV_Prods.Columns(13).Visible = False
+
         Catch ex As Exception
-            ' Manejar el error si alguna columna no existe
-            Console.WriteLine("Error al ocultar las columnas: " & ex.Message)
+            Console.WriteLine("Error al configurar las columnas: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub DGV_Prods_SizeChanged(sender As Object, e As EventArgs) Handles DGV_Prods.SizeChanged
+        Try
+            ' 1. Verificar si la columna 3 existe y es visible.
+            If DGV_Prods.Columns.Count > 3 AndAlso DGV_Prods.Columns(3).Visible Then
+
+                Dim ColumnaDescripcion As DataGridViewColumn = DGV_Prods.Columns(3)
+                Const MAX_ANCHO As Integer = 400
+
+                ' 2. Aplicar el límite de 400px
+                ' Si el ancho calculado automáticamente por el modo Fill supera el máximo, lo forzamos.
+                If ColumnaDescripcion.Width > MAX_ANCHO Then
+                    ColumnaDescripcion.Width = MAX_ANCHO
+                End If
+
+                ' 3. Reajustar las celdas para que se adapte el contenido si el ancho fue limitado.
+                DGV_Prods.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.DisplayedCells)
+            End If
+        Catch ex As Exception
+            Console.WriteLine("Error al limitar el ancho de la columna: " & ex.Message)
         End Try
     End Sub
 

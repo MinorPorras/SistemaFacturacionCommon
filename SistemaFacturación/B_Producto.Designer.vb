@@ -388,7 +388,7 @@ Partial Class B_Producto
         Me.BTN_MenosCant.FillColor = System.Drawing.Color.Transparent
         Me.BTN_MenosCant.Font = New System.Drawing.Font("Segoe UI", 27.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_MenosCant.ForeColor = System.Drawing.Color.Transparent
-        Me.BTN_MenosCant.Image = CType(resources.GetObject("BTN_MenosCant.Image"), System.Drawing.Image)
+        Me.BTN_MenosCant.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MinusCol
         Me.BTN_MenosCant.ImageSize = New System.Drawing.Size(50, 50)
         Me.BTN_MenosCant.Location = New System.Drawing.Point(574, 450)
         Me.BTN_MenosCant.Name = "BTN_MenosCant"

@@ -2,6 +2,7 @@
 Imports System.Data.SQLite
 Imports System.IO
 Imports System.Net
+Imports System.Web.Util
 Imports Squirrel
 
 ' -----------------------------------------------------------------------------
@@ -255,71 +256,182 @@ Module Md_Inicializacion
 
 
     Friend Sub CheckAndMigrateDatabase()
-        'Creación y actualización de tabla producto_favorito
-        Create_Producto_Favorito_IfNotExists()
-        'Creación y actualización de tabla CierreCaja
-        Update_cierre_caja()
-    End Sub
-
-    Private Sub Create_Producto_Favorito_IfNotExists()
         Try
-            If TableExists("producto_favorito") Then
-                ' La tabla ya existe, no es necesario hacer nada
-                Exit Sub
+            ' 1. Creación/Verificación de la tabla 'producto_favorito'
+            If Not InicializarProductoFavorito() Then
+                ' Si falla la inicialización (devuelve False), lanzamos una excepción con un mensaje claro.
+                Throw New Exception("Fallo en la inicialización de la tabla 'producto_favorito'.")
             End If
-            Using db As New SQLiteConnection(GetConnectionString())
-                db.Open()
-                SQL = "CREATE TABLE IF NOT EXISTS producto_favorito(
-                            ID_Producto INTEGER PRIMARY KEY,
-                            Posicion INTEGER NOT NULL,
-                            BTN_Color INTEGER NOT NULL,
-                            FOREIGN KEY(ID_Producto) REFERENCES producto(ID))
-                        "
-                Dim cmd As New SQLiteCommand(SQL, db)
-                cmd.ExecuteNonQuery()
-            End Using
+
+            ' 2. Creación/Actualización/Migración del esquema de Caja
+            Update_cierre_caja()
+
         Catch ex As Exception
             ' Maneja cualquier error que ocurra durante la verificación o migración
-            MessageBox.Show("Error al verificar o migrar la base de datos: " & ex.Message, "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            msgError("Error general al verificar o migrar la base de datos: " & vbCrLf & vbCrLf & ex.Message)
         End Try
     End Sub
+
+    Private Function InicializarProductoFavorito() As Boolean
+        ' Si la tabla ya existe, salimos inmediatamente del delegado ya que ya se creó.
+        If TableExists("producto_favorito") Then
+            Return True
+        End If
+        ' Se define el delegado que contiene la operación de creación.
+        Dim operaciones As Action(Of SQLiteConnection, SQLiteTransaction) =
+        Sub(conn, transaction)
+
+            ' SQL para la creación de la tabla
+            SQL = "CREATE TABLE IF NOT EXISTS producto_favorito(
+                       ID_Producto INTEGER PRIMARY KEY,
+                       Posicion INTEGER NOT NULL,
+                       BTN_Color INTEGER NOT NULL,
+                       FOREIGN KEY(ID_Producto) REFERENCES producto(ID)
+                     )"
+
+            Dim param As New Dictionary(Of String, Object)
+
+            ' Si la ejecución falla, lanzamos una excepción para que EJECUTAR_TRANSACCION haga el Rollback.
+            If Not EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, conn, transaction) Then
+                Throw New Exception("Fallo al crear la tabla producto_favorito.")
+            End If
+        End Sub
+
+        ' Ejecutamos la transacción maestra.
+        Return EJECUTAR_TRANSACCION(operaciones)
+    End Function
 
     Private Sub Update_cierre_caja()
-        Try
-            If TableExists("CierreCaja") Then
-                ' La tabla ya existe, no es necesario hacer nada
-                Exit Sub
-            End If
-            Using db As New SQLiteConnection(GetConnectionString())
-                db.Open()
-                'Se elimina la tabla cierre_caja si existe (Esta es la vieja y no va a seguir siendo utilizada)
-                SQL = "DROP TABLE IF EXISTS cierre_caja"
-                Dim cmd As New SQLiteCommand(SQL, db)
-                cmd.ExecuteNonQuery()
+        ' Si la nueva estructura ya existe, salimos inmediatamente.
+        If TableExists("Movimientos_Caja") Then
+            Exit Sub
+        End If
 
-                'Se crea la nueva tabla cierre_caja si no existe
-                SQL = "CREATE TABLE IF NOT EXISTS CierreCaja (
-                            ID_Cierre INTEGER PRIMARY KEY AUTOINCREMENT,
-                            Fecha_Hora_Inicio TEXT NOT NULL,
-                            Fecha_Hora_Fin TEXT NOT NULL,
-                            ID_Usuario INTEGER NOT NULL,
-                            Saldo_Inicial REAL NOT NULL,
-                            Ingreso_Efectivo REAL NOT NULL,
-                            Ingreso_Tarjeta REAL NOT NULL,
-                            Salidas_Efectivo REAL NOT NULL,
-                            Efectivo_Contado REAL NOT NULL,
-                            Saldo_Siguiente_Turno Real NOT NULL,
-                            Comentarios TEXT,
-                            FOREIGN KEY(ID_Usuario) REFERENCES Usuarios(ID_Usuario)
-                        );"
-                cmd = New SQLiteCommand(SQL, db)
-                cmd.ExecuteNonQuery()
-            End Using
-        Catch ex As Exception
-            ' Maneja cualquier error que ocurra durante la verificación o migración
-            MessageBox.Show("Error al actualizar la tabla de cierre de caja" & ex.Message, "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        Dim exito As Boolean = False
+
+        ' 1. Determinar el modo (Migración o Creación Inicial)
+        If TableExists("CierreCaja") Then
+            ' Modo 1: Migración (la tabla antigua existe)
+            exito = InicializaciónActualizaciónCierreCaja(True)
+        Else
+            ' Modo 2: Creación Inicial (la tabla antigua NO existe)
+            exito = InicializaciónActualizaciónCierreCaja(False)
+        End If
+
+        ' 2. Verificar el resultado y lanzar excepción si falló el COMMIT/ROLLBACK
+        If Not exito Then
+            ' Esto será capturado por el CATCH de CheckAndMigrateDatabase.
+            Throw New Exception("La actualización de la base de datos falló y se deshicieron los cambios.")
+        End If
     End Sub
+
+    Private Function InicializarTiposMovimientos(db As SQLiteConnection, transaccion As SQLiteTransaction) As Boolean
+        ' Se crea la tabla de Tipos_Movimiento
+        ' Debe de tener ID, nombre y valor (1 para entradas -1 para salidas, esto para facilitar los calculos)
+        SQL = "CREATE TABLE IF NOT EXISTS Tipos_Movimiento (
+                            ID INTEGER PRIMARY KEY,
+                            nombre TEXT,
+                            Valor INTEGER)"
+        Dim param As New Dictionary(Of String, Object)
+
+        If Not EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion) Then
+            'Significa que hubo un error en la transacción
+            Return False
+        End If
+
+        SQL = "INSERT OR IGNORE INTO Tipos_Movimiento VALUES (1, 'Entrada', 1), (2, 'Salida', -1)"
+        Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion)
+    End Function
+
+    Private Function InicializarConceptosCaja(db As SQLiteConnection, transaccion As SQLiteTransaction) As Boolean
+        ' Se crea la tabla de Conceptos_Caja
+        ' Debe de tener ID, concepto
+        SQL = "CREATE TABLE IF NOT EXISTS Conceptos_Caja (
+                            ID INTEGER PRIMARY KEY,
+                            concepto TEXT)"
+        Dim param As New Dictionary(Of String, Object)
+        If Not EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion) Then
+            'Significa que hubo un error en la transacción
+            Return False
+        End If
+
+        SQL = "INSERT OR IGNORE INTO Conceptos_Caja VALUES (1, 'Ajuste'), (2, 'Pago a proveedores')"
+        Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion)
+    End Function
+
+    Private Function InicializarArqueoCaja(db As SQLiteConnection, transaccion As SQLiteTransaction, isMigrating As Boolean) As Boolean
+        ' 1. Se crea la tabla de Arqueo_Caja para pasar los datos de la tabla de cierreCaja
+        ' Debe de tener ID, fondo_inicial, hora_apertura, hora_cierre, efectivo_contado, diferencia
+        SQL = "CREATE TABLE IF NOT EXISTS Arqueo_Caja (
+                            ID INTEGER PRIMARY KEY,
+                            ID_Usuario INTEGER,
+                            fondo_inicial REAL,
+                            hora_apertura TEXT,
+                            hora_cierre TEXT,
+                            efectivo_contado REAL,
+                            diferencia REAL,
+                            FOREIGN KEY(ID_Usuario) REFERENCES Usuarios(ID_Usuario))"
+        Dim param As New Dictionary(Of String, Object)
+        Dim success = EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion)
+        If Not success Then
+            'Significa que hubo un error en la transacción
+            Return False
+        End If
+
+
+        If Not isMigrating And success Then
+            Return True
+        End If
+
+        ' 2. MIGRAR LOS DATOS HISTÓRICOS
+        SQL = "INSERT INTO Arqueo_Caja (ID, ID_Usuario, fondo_inicial, hora_apertura, hora_cierre, efectivo_contado, diferencia) " &
+              "SELECT ID_Cierre, ID_Usuario, Saldo_Inicial, Fecha_Hora_Inicio, Fecha_Hora_Fin, Efectivo_Contado, " &
+              "(Efectivo_Contado - (Saldo_Inicial + Ingreso_Efectivo - Salidas_Efectivo)) " &
+              "FROM CierreCaja"
+        If Not EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion) Then
+            'Significa que hubo un error en la transacción
+            Return False
+        End If
+
+        ' 3. ELIMINAR LA TABLA ANTIGUA
+        SQL = "DROP TABLE CierreCaja"
+        Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion)
+    End Function
+
+    Private Function InicializarMovimientosCaja(db As SQLiteConnection, transaccion As SQLiteTransaction) As Boolean
+        ' Se crea la tabla de Movimientos_Caja
+        ' Debe de tener ID, monto, ID_tipo_movimiento, ID_concepto, ID_arqueo, referencia
+        SQL = "CREATE TABLE IF NOT EXISTS Movimientos_Caja (
+                            ID INTEGER PRIMARY KEY,
+                            monto REAL,
+                            ID_tipo_movimiento INTEGER,
+                            ID_concepto INTEGER,
+                            ID_arqueo INTEGER,
+                            referencia TEXT,
+                            FOREIGN KEY(ID_tipo_movimiento) REFERENCES Tipos_Movimiento(ID),
+                            FOREIGN KEY(ID_concepto) REFERENCES Conceptos_Caja(ID),
+                            FOREIGN KEY(ID_arqueo) REFERENCES Arqueo_Caja(ID))"
+        Dim param As New Dictionary(Of String, Object)
+        Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion)
+    End Function
+
+    Private Function InicializaciónActualizaciónCierreCaja(isMigrating As Boolean) As Boolean ' Se recomienda que devuelva Boolean
+        ' Se define un delegado que contiene todas las operaciones de creación
+        Dim operacionesDeGuardado As Action(Of SQLiteConnection, SQLiteTransaction) =
+        Sub(conn, transaction)
+            ' Aseguramos que todas las llamadas dentro de la transacción sean exitosas
+            ' Usamos la lógica de Throw si alguna falla para forzar el Rollback en EJECUTAR_TRANSACCION
+
+            If Not InicializarTiposMovimientos(conn, transaction) Then Throw New Exception("Fallo al crear Tipos_Movimiento.")
+            If Not InicializarConceptosCaja(conn, transaction) Then Throw New Exception("Fallo al crear Conceptos_Caja.")
+            If Not InicializarArqueoCaja(conn, transaction, isMigrating) Then Throw New Exception("Fallo al crear Arqueo_Caja.")
+            If Not InicializarMovimientosCaja(conn, transaction) Then Throw New Exception("Fallo al crear Movimientos_Caja.")
+        End Sub
+
+        ' Ejecutamos todas las operaciones a través de la función maestra
+        ' que maneja la apertura, el commit y el rollback automáticamente.
+        Return EJECUTAR_TRANSACCION(operacionesDeGuardado)
+    End Function
 
     ' Función para verificar si una tabla existe en la base de datos
     Private Function TableExists(tableName As String) As Boolean

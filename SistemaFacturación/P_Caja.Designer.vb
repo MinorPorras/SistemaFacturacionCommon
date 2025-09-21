@@ -23,10 +23,10 @@ Partial Class P_Caja
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_Caja))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
@@ -55,19 +55,23 @@ Partial Class P_Caja
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Guna2Panel4 = New Guna.UI2.WinForms.Guna2Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_GuardarCuenta = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_DelFactura = New Guna.UI2.WinForms.Guna2Button()
+        Me.TXT_Total = New Guna.UI2.WinForms.Guna2TextBox()
         Me.BTN_RegresarCaja = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_CuentaCobrar = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_Reprint = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2Panel2 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.TXT_Total = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_GuardarCuenta = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_CuentaCobrar = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_RegistrarIngreso = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_AperturaCaja = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_RegistrarSalida = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_CierreCaja = New Guna.UI2.WinForms.Guna2Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Me.PAN_AddProd = New System.Windows.Forms.Panel()
+        Me.BTN_DelFactura = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_BuscarProducto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
@@ -133,6 +137,8 @@ Partial Class P_Caja
         '
         'TXT_BuscarCliente
         '
+        Me.TXT_BuscarCliente.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TXT_BuscarCliente.BorderRadius = 20
         Me.TXT_BuscarCliente.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.TXT_BuscarCliente.DefaultText = ""
@@ -144,12 +150,12 @@ Partial Class P_Caja
         Me.TXT_BuscarCliente.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarCliente.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarCliente.Location = New System.Drawing.Point(100, 8)
+        Me.TXT_BuscarCliente.Location = New System.Drawing.Point(100, 6)
         Me.TXT_BuscarCliente.Name = "TXT_BuscarCliente"
         Me.TXT_BuscarCliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_BuscarCliente.PlaceholderText = "Doble click para buscar"
         Me.TXT_BuscarCliente.SelectedText = ""
-        Me.TXT_BuscarCliente.Size = New System.Drawing.Size(515, 42)
+        Me.TXT_BuscarCliente.Size = New System.Drawing.Size(337, 42)
         Me.TXT_BuscarCliente.TabIndex = 95
         '
         'MNU_CONTX
@@ -233,10 +239,13 @@ Partial Class P_Caja
         '
         'PIC_Logo
         '
+        Me.PIC_Logo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PIC_Logo.BackColor = System.Drawing.Color.Transparent
         Me.PIC_Logo.BorderRadius = 15
         Me.PIC_Logo.ImageRotate = 0!
-        Me.PIC_Logo.Location = New System.Drawing.Point(5, 10)
+        Me.PIC_Logo.Location = New System.Drawing.Point(5, 6)
         Me.PIC_Logo.Name = "PIC_Logo"
         Me.PIC_Logo.Size = New System.Drawing.Size(100, 90)
         Me.PIC_Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -248,7 +257,7 @@ Partial Class P_Caja
         Me.Guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel4.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(19, 16)
+        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(22, 20)
         Me.Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
         Me.Guna2HtmlLabel4.Size = New System.Drawing.Size(104, 32)
         Me.Guna2HtmlLabel4.TabIndex = 96
@@ -264,7 +273,7 @@ Partial Class P_Caja
         Me.BTN_NProd.ForeColor = System.Drawing.Color.White
         Me.BTN_NProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
         Me.BTN_NProd.ImageSize = New System.Drawing.Size(45, 45)
-        Me.BTN_NProd.Location = New System.Drawing.Point(622, 10)
+        Me.BTN_NProd.Location = New System.Drawing.Point(446, 15)
         Me.BTN_NProd.Name = "BTN_NProd"
         Me.BTN_NProd.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_NProd.Size = New System.Drawing.Size(44, 45)
@@ -298,28 +307,28 @@ Partial Class P_Caja
         '
         Me.DGV_Caja.AllowUserToDeleteRows = False
         Me.DGV_Caja.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        Me.DGV_Caja.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGV_Caja.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
+        Me.DGV_Caja.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGV_Caja.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.DGV_Caja.ColumnHeadersHeight = 15
         Me.DGV_Caja.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing
         Me.DGV_Caja.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID_Prod, Me.codigo, Me.Nombre_prod, Me.precioVenta, Me.cantidad, Me.Total})
         Me.DGV_Caja.ContextMenuStrip = Me.MNU_CONTX
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DGV_Caja.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGV_Caja.DefaultCellStyle = DataGridViewCellStyle6
         Me.DGV_Caja.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGV_Caja.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.DGV_Caja.GridColor = System.Drawing.Color.White
@@ -394,155 +403,37 @@ Partial Class P_Caja
         Me.Guna2Panel4.Controls.Add(Me.TXT_BuscarCliente)
         Me.Guna2Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Guna2Panel4.Name = "Guna2Panel4"
-        Me.Guna2Panel4.Size = New System.Drawing.Size(663, 53)
+        Me.Guna2Panel4.Size = New System.Drawing.Size(440, 53)
         Me.Guna2Panel4.TabIndex = 119
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_GuardarCuenta, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_DelFactura, 1, 1)
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.Controls.Add(Me.TXT_Total, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarCaja, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_CuentaCobrar, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_Reprint, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel2, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Guna2Panel4, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_AperturaCaja, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_CierreCaja, 2, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_GuardarCuenta, 2, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 2, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_CuentaCobrar, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegistrarSalida, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegistrarIngreso, 1, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 507)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.38017!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.20661!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.48133!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.3112!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.10373!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.10373!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1339, 242)
         Me.TableLayoutPanel1.TabIndex = 120
-        '
-        'BTN_TVenta
-        '
-        Me.BTN_TVenta.BorderRadius = 10
-        Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_TVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_TVenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
-        Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
-        Me.BTN_TVenta.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_TVenta.Location = New System.Drawing.Point(672, 183)
-        Me.BTN_TVenta.Name = "BTN_TVenta"
-        Me.BTN_TVenta.Size = New System.Drawing.Size(664, 56)
-        Me.BTN_TVenta.TabIndex = 112
-        Me.BTN_TVenta.Text = "[F4] Terminar venta"
-        '
-        'BTN_GuardarCuenta
-        '
-        Me.BTN_GuardarCuenta.BorderRadius = 10
-        Me.BTN_GuardarCuenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_GuardarCuenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_GuardarCuenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_GuardarCuenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_GuardarCuenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_GuardarCuenta.FillColor = System.Drawing.Color.LightSeaGreen
-        Me.BTN_GuardarCuenta.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_GuardarCuenta.ForeColor = System.Drawing.Color.White
-        Me.BTN_GuardarCuenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Export
-        Me.BTN_GuardarCuenta.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_GuardarCuenta.Location = New System.Drawing.Point(672, 123)
-        Me.BTN_GuardarCuenta.Name = "BTN_GuardarCuenta"
-        Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(664, 54)
-        Me.BTN_GuardarCuenta.TabIndex = 113
-        Me.BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
-        '
-        'BTN_DelFactura
-        '
-        Me.BTN_DelFactura.BorderRadius = 10
-        Me.BTN_DelFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DelFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_DelFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_DelFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_DelFactura.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_DelFactura.FillColor = System.Drawing.Color.Peru
-        Me.BTN_DelFactura.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_DelFactura.ForeColor = System.Drawing.Color.White
-        Me.BTN_DelFactura.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Clear
-        Me.BTN_DelFactura.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_DelFactura.Location = New System.Drawing.Point(672, 62)
-        Me.BTN_DelFactura.Name = "BTN_DelFactura"
-        Me.BTN_DelFactura.Size = New System.Drawing.Size(664, 55)
-        Me.BTN_DelFactura.TabIndex = 113
-        Me.BTN_DelFactura.Text = "[F8] Limpiar caja"
-        '
-        'BTN_RegresarCaja
-        '
-        Me.BTN_RegresarCaja.BorderRadius = 10
-        Me.BTN_RegresarCaja.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarCaja.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarCaja.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RegresarCaja.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RegresarCaja.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_RegresarCaja.FillColor = System.Drawing.Color.IndianRed
-        Me.BTN_RegresarCaja.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_RegresarCaja.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarCaja.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
-        Me.BTN_RegresarCaja.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_RegresarCaja.Location = New System.Drawing.Point(3, 183)
-        Me.BTN_RegresarCaja.Name = "BTN_RegresarCaja"
-        Me.BTN_RegresarCaja.Size = New System.Drawing.Size(663, 56)
-        Me.BTN_RegresarCaja.TabIndex = 113
-        Me.BTN_RegresarCaja.Text = "[F3] Regresar"
-        '
-        'BTN_CuentaCobrar
-        '
-        Me.BTN_CuentaCobrar.BorderRadius = 10
-        Me.BTN_CuentaCobrar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CuentaCobrar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_CuentaCobrar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_CuentaCobrar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_CuentaCobrar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_CuentaCobrar.FillColor = System.Drawing.Color.MediumPurple
-        Me.BTN_CuentaCobrar.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_CuentaCobrar.ForeColor = System.Drawing.Color.White
-        Me.BTN_CuentaCobrar.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_BagSimple
-        Me.BTN_CuentaCobrar.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_CuentaCobrar.Location = New System.Drawing.Point(3, 123)
-        Me.BTN_CuentaCobrar.Name = "BTN_CuentaCobrar"
-        Me.BTN_CuentaCobrar.Size = New System.Drawing.Size(663, 54)
-        Me.BTN_CuentaCobrar.TabIndex = 113
-        Me.BTN_CuentaCobrar.Text = "[F5] Cuentas por cobrar"
-        '
-        'BTN_Reprint
-        '
-        Me.BTN_Reprint.BorderRadius = 10
-        Me.BTN_Reprint.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Reprint.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_Reprint.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_Reprint.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Reprint.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_Reprint.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.BTN_Reprint.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
-        Me.BTN_Reprint.ForeColor = System.Drawing.Color.White
-        Me.BTN_Reprint.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
-        Me.BTN_Reprint.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Reprint.Location = New System.Drawing.Point(3, 62)
-        Me.BTN_Reprint.Name = "BTN_Reprint"
-        Me.BTN_Reprint.Size = New System.Drawing.Size(663, 55)
-        Me.BTN_Reprint.TabIndex = 111
-        Me.BTN_Reprint.Text = "[F7] Reimprimir factura"
-        '
-        'Guna2Panel2
-        '
-        Me.Guna2Panel2.Controls.Add(Me.TXT_Total)
-        Me.Guna2Panel2.Controls.Add(Me.Guna2HtmlLabel7)
-        Me.Guna2Panel2.Location = New System.Drawing.Point(672, 3)
-        Me.Guna2Panel2.Name = "Guna2Panel2"
-        Me.Guna2Panel2.Size = New System.Drawing.Size(652, 53)
-        Me.Guna2Panel2.TabIndex = 116
         '
         'TXT_Total
         '
@@ -553,30 +444,206 @@ Partial Class P_Caja
         Me.TXT_Total.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
         Me.TXT_Total.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
         Me.TXT_Total.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_Total.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TXT_Total.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TXT_Total.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXT_Total.ForeColor = System.Drawing.Color.Black
         Me.TXT_Total.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_Total.Location = New System.Drawing.Point(253, 5)
+        Me.TXT_Total.Location = New System.Drawing.Point(898, 6)
         Me.TXT_Total.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.TXT_Total.Name = "TXT_Total"
         Me.TXT_Total.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_Total.PlaceholderText = ""
         Me.TXT_Total.SelectedText = ""
-        Me.TXT_Total.Size = New System.Drawing.Size(376, 45)
+        Me.TXT_Total.Size = New System.Drawing.Size(435, 47)
         Me.TXT_Total.TabIndex = 124
+        '
+        'BTN_RegresarCaja
+        '
+        Me.BTN_RegresarCaja.BorderRadius = 10
+        Me.BTN_RegresarCaja.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarCaja.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarCaja.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RegresarCaja.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RegresarCaja.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_RegresarCaja.FillColor = System.Drawing.Color.IndianRed
+        Me.BTN_RegresarCaja.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_RegresarCaja.ForeColor = System.Drawing.Color.White
+        Me.BTN_RegresarCaja.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.BTN_RegresarCaja.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_RegresarCaja.Location = New System.Drawing.Point(3, 183)
+        Me.BTN_RegresarCaja.Name = "BTN_RegresarCaja"
+        Me.BTN_RegresarCaja.Size = New System.Drawing.Size(440, 56)
+        Me.BTN_RegresarCaja.TabIndex = 113
+        Me.BTN_RegresarCaja.Text = "[F7] Regresar"
+        '
+        'BTN_Reprint
+        '
+        Me.BTN_Reprint.BorderRadius = 10
+        Me.BTN_Reprint.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Reprint.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_Reprint.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_Reprint.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_Reprint.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_Reprint.FillColor = System.Drawing.Color.Gray
+        Me.BTN_Reprint.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_Reprint.ForeColor = System.Drawing.Color.White
+        Me.BTN_Reprint.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
+        Me.BTN_Reprint.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_Reprint.Location = New System.Drawing.Point(3, 62)
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(440, 55)
+        Me.BTN_Reprint.TabIndex = 111
+        Me.BTN_Reprint.Text = "[F1] Reimprimir factura"
+        '
+        'Guna2Panel2
+        '
+        Me.Guna2Panel2.Controls.Add(Me.Guna2HtmlLabel7)
+        Me.Guna2Panel2.Location = New System.Drawing.Point(449, 3)
+        Me.Guna2Panel2.Name = "Guna2Panel2"
+        Me.Guna2Panel2.Size = New System.Drawing.Size(440, 53)
+        Me.Guna2Panel2.TabIndex = 116
         '
         'Guna2HtmlLabel7
         '
+        Me.Guna2HtmlLabel7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel7.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel7.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel7.Location = New System.Drawing.Point(69, 11)
+        Me.Guna2HtmlLabel7.Location = New System.Drawing.Point(357, 11)
         Me.Guna2HtmlLabel7.Name = "Guna2HtmlLabel7"
         Me.Guna2HtmlLabel7.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel7.TabIndex = 123
         Me.Guna2HtmlLabel7.Text = "Total:"
         Me.Guna2HtmlLabel7.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+        '
+        'BTN_TVenta
+        '
+        Me.BTN_TVenta.BorderRadius = 10
+        Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_TVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
+        Me.BTN_TVenta.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_TVenta.Location = New System.Drawing.Point(895, 62)
+        Me.BTN_TVenta.Name = "BTN_TVenta"
+        Me.BTN_TVenta.Size = New System.Drawing.Size(441, 55)
+        Me.BTN_TVenta.TabIndex = 112
+        Me.BTN_TVenta.Text = "[F3] Terminar venta"
+        '
+        'BTN_GuardarCuenta
+        '
+        Me.BTN_GuardarCuenta.BorderRadius = 10
+        Me.BTN_GuardarCuenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_GuardarCuenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_GuardarCuenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_GuardarCuenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_GuardarCuenta.FillColor = System.Drawing.Color.LightSeaGreen
+        Me.BTN_GuardarCuenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_GuardarCuenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_GuardarCuenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Export
+        Me.BTN_GuardarCuenta.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_GuardarCuenta.Location = New System.Drawing.Point(895, 183)
+        Me.BTN_GuardarCuenta.Name = "BTN_GuardarCuenta"
+        Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(441, 55)
+        Me.BTN_GuardarCuenta.TabIndex = 113
+        Me.BTN_GuardarCuenta.Text = "[F9] Guardar cuenta"
+        '
+        'BTN_CuentaCobrar
+        '
+        Me.BTN_CuentaCobrar.BorderRadius = 10
+        Me.BTN_CuentaCobrar.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CuentaCobrar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CuentaCobrar.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CuentaCobrar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CuentaCobrar.FillColor = System.Drawing.Color.MediumPurple
+        Me.BTN_CuentaCobrar.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_CuentaCobrar.ForeColor = System.Drawing.Color.White
+        Me.BTN_CuentaCobrar.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_BagSimple
+        Me.BTN_CuentaCobrar.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CuentaCobrar.Location = New System.Drawing.Point(449, 183)
+        Me.BTN_CuentaCobrar.Name = "BTN_CuentaCobrar"
+        Me.BTN_CuentaCobrar.Size = New System.Drawing.Size(440, 55)
+        Me.BTN_CuentaCobrar.TabIndex = 113
+        Me.BTN_CuentaCobrar.Text = "[F8] Cuentas por cobrar"
+        '
+        'BTN_RegistrarIngreso
+        '
+        Me.BTN_RegistrarIngreso.BorderRadius = 10
+        Me.BTN_RegistrarIngreso.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegistrarIngreso.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegistrarIngreso.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RegistrarIngreso.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RegistrarIngreso.FillColor = System.Drawing.Color.DarkCyan
+        Me.BTN_RegistrarIngreso.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_RegistrarIngreso.ForeColor = System.Drawing.Color.White
+        Me.BTN_RegistrarIngreso.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
+        Me.BTN_RegistrarIngreso.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_RegistrarIngreso.Location = New System.Drawing.Point(449, 62)
+        Me.BTN_RegistrarIngreso.Name = "BTN_RegistrarIngreso"
+        Me.BTN_RegistrarIngreso.Size = New System.Drawing.Size(440, 54)
+        Me.BTN_RegistrarIngreso.TabIndex = 113
+        Me.BTN_RegistrarIngreso.Text = "[F2] Ingreso de efectivo"
+        '
+        'BTN_AperturaCaja
+        '
+        Me.BTN_AperturaCaja.BorderRadius = 10
+        Me.BTN_AperturaCaja.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_AperturaCaja.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_AperturaCaja.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_AperturaCaja.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_AperturaCaja.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_AperturaCaja.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.BTN_AperturaCaja.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_AperturaCaja.ForeColor = System.Drawing.Color.White
+        Me.BTN_AperturaCaja.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Unlock
+        Me.BTN_AperturaCaja.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_AperturaCaja.Location = New System.Drawing.Point(3, 123)
+        Me.BTN_AperturaCaja.Name = "BTN_AperturaCaja"
+        Me.BTN_AperturaCaja.Size = New System.Drawing.Size(440, 54)
+        Me.BTN_AperturaCaja.TabIndex = 125
+        Me.BTN_AperturaCaja.Text = "[F4] Apertura de caja"
+        '
+        'BTN_RegistrarSalida
+        '
+        Me.BTN_RegistrarSalida.BorderRadius = 10
+        Me.BTN_RegistrarSalida.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegistrarSalida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegistrarSalida.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RegistrarSalida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RegistrarSalida.FillColor = System.Drawing.Color.Peru
+        Me.BTN_RegistrarSalida.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_RegistrarSalida.ForeColor = System.Drawing.Color.White
+        Me.BTN_RegistrarSalida.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Menos
+        Me.BTN_RegistrarSalida.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_RegistrarSalida.Location = New System.Drawing.Point(449, 123)
+        Me.BTN_RegistrarSalida.Name = "BTN_RegistrarSalida"
+        Me.BTN_RegistrarSalida.Size = New System.Drawing.Size(440, 54)
+        Me.BTN_RegistrarSalida.TabIndex = 126
+        Me.BTN_RegistrarSalida.Text = "[F5] Salida de efectivo"
+        '
+        'BTN_CierreCaja
+        '
+        Me.BTN_CierreCaja.BorderRadius = 10
+        Me.BTN_CierreCaja.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CierreCaja.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_CierreCaja.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_CierreCaja.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_CierreCaja.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_CierreCaja.FillColor = System.Drawing.Color.MediumOrchid
+        Me.BTN_CierreCaja.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_CierreCaja.ForeColor = System.Drawing.Color.White
+        Me.BTN_CierreCaja.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Lock
+        Me.BTN_CierreCaja.ImageSize = New System.Drawing.Size(40, 40)
+        Me.BTN_CierreCaja.Location = New System.Drawing.Point(895, 123)
+        Me.BTN_CierreCaja.Name = "BTN_CierreCaja"
+        Me.BTN_CierreCaja.Size = New System.Drawing.Size(441, 54)
+        Me.BTN_CierreCaja.TabIndex = 127
+        Me.BTN_CierreCaja.Text = "[F6] Cierre de caja"
         '
         'TableLayoutPanel2
         '
@@ -623,6 +690,7 @@ Partial Class P_Caja
         '
         'PAN_AddProd
         '
+        Me.PAN_AddProd.Controls.Add(Me.BTN_DelFactura)
         Me.PAN_AddProd.Controls.Add(Me.BTN_NProd)
         Me.PAN_AddProd.Controls.Add(Me.TXT_BuscarProducto)
         Me.PAN_AddProd.Controls.Add(Me.Guna2HtmlLabel4)
@@ -631,6 +699,27 @@ Partial Class P_Caja
         Me.PAN_AddProd.Name = "PAN_AddProd"
         Me.PAN_AddProd.Size = New System.Drawing.Size(676, 102)
         Me.PAN_AddProd.TabIndex = 101
+        '
+        'BTN_DelFactura
+        '
+        Me.BTN_DelFactura.Animated = True
+        Me.BTN_DelFactura.BorderRadius = 10
+        Me.BTN_DelFactura.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BTN_DelFactura.CustomBorderColor = System.Drawing.Color.Transparent
+        Me.BTN_DelFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DelFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_DelFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_DelFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_DelFactura.FillColor = System.Drawing.Color.Transparent
+        Me.BTN_DelFactura.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BTN_DelFactura.ForeColor = System.Drawing.Color.White
+        Me.BTN_DelFactura.HoverState.FillColor = System.Drawing.Color.IndianRed
+        Me.BTN_DelFactura.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Clear
+        Me.BTN_DelFactura.ImageSize = New System.Drawing.Size(60, 60)
+        Me.BTN_DelFactura.Location = New System.Drawing.Point(596, 20)
+        Me.BTN_DelFactura.Name = "BTN_DelFactura"
+        Me.BTN_DelFactura.Size = New System.Drawing.Size(67, 67)
+        Me.BTN_DelFactura.TabIndex = 113
         '
         'TXT_BuscarProducto
         '
@@ -645,12 +734,12 @@ Partial Class P_Caja
         Me.TXT_BuscarProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.TXT_BuscarProducto.ForeColor = System.Drawing.Color.Black
         Me.TXT_BuscarProducto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.TXT_BuscarProducto.Location = New System.Drawing.Point(129, 9)
+        Me.TXT_BuscarProducto.Location = New System.Drawing.Point(132, 13)
         Me.TXT_BuscarProducto.Name = "TXT_BuscarProducto"
         Me.TXT_BuscarProducto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_BuscarProducto.PlaceholderText = "Doble click para buscar"
         Me.TXT_BuscarProducto.SelectedText = ""
-        Me.TXT_BuscarProducto.Size = New System.Drawing.Size(487, 47)
+        Me.TXT_BuscarProducto.Size = New System.Drawing.Size(308, 47)
         Me.TXT_BuscarProducto.TabIndex = 97
         '
         'Panel3
@@ -839,7 +928,11 @@ Partial Class P_Caja
     Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_CuentaCobrar As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_RegresarCaja As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_DelFactura As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_RegistrarIngreso As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_GuardarCuenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents BTN_DelFactura As Guna.UI2.WinForms.Guna2TileButton
+    Friend WithEvents BTN_CierreCaja As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_RegistrarSalida As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_AperturaCaja As Guna.UI2.WinForms.Guna2Button
 End Class

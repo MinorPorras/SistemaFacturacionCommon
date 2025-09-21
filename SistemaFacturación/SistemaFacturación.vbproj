@@ -605,6 +605,10 @@
     <None Include="Resources\ICO_card1.png" />
     <None Include="Resources\ICO_MasMenos.png" />
     <None Include="Resources\ICO_Edit.png" />
+    <None Include="Resources\ICO_MinusCol.png" />
+    <None Include="Resources\ICO_Menos.png" />
+    <None Include="Resources\ICO_Unlock.png" />
+    <None Include="Resources\ICO_Lock.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

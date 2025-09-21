@@ -320,7 +320,7 @@ Public Class P_Caja
         BTN_TVenta.Enabled = False
         BTN_GuardarCuenta.Enabled = False
 
-        BTN_DelFactura.PerformClick()
+        BTN_RegistrarIngreso.PerformClick()
         TXT_BuscarProducto.Clear()
         TXT_Total.Clear()
         TXT_BuscarCliente.Text = "0001"
@@ -571,15 +571,6 @@ Public Class P_Caja
         End If
     End Sub
 
-    Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
-        DGV_Caja.Rows.Clear()
-        TXT_BuscarProducto.Clear()
-        TXT_BuscarProducto.SelectAll()
-        BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
-        ValidarListView()
-        CargarTotal()
-    End Sub
-
     Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
         ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
         Dim frmCuentasCobrar As New P_CuentasCobrar With {
@@ -689,20 +680,35 @@ Public Class P_Caja
         CargarTotal()
     End Sub
 
+    Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
+        DGV_Caja.Rows.Clear()
+        TXT_BuscarProducto.Clear()
+        TXT_BuscarProducto.SelectAll()
+        BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
+        ValidarListView()
+        CargarTotal()
+    End Sub
+
     Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         Select Case e.KeyCode
-            Case Keys.F3
-                BTN_RegresarCaja.PerformClick()
-            Case Keys.F4
-                BTN_TVenta.PerformClick()
-            Case Keys.F5
-                BTN_TVenta.PerformClick()
-            Case Keys.F6
-                BTN_GuardarCuenta.PerformClick()
-            Case Keys.F7
+            Case Keys.F1
                 BTN_Reprint.PerformClick()
+            Case Keys.F2
+                BTN_RegistrarIngreso.PerformClick()
+            Case Keys.F3
+                BTN_TVenta.PerformClick()
+            Case Keys.F4
+                BTN_AperturaCaja.PerformClick()
+            Case Keys.F5
+                BTN_RegistrarSalida.PerformClick()
+            Case Keys.F6
+                BTN_CierreCaja.PerformClick()
+            Case Keys.F7
+                BTN_RegresarCaja.PerformClick()
             Case Keys.F8
-                BTN_DelFactura.PerformClick()
+                BTN_CuentaCobrar.PerformClick()
+            Case Keys.F9
+                BTN_GuardarCuenta.PerformClick()
         End Select
     End Sub
 
@@ -727,5 +733,23 @@ Public Class P_Caja
         B_Producto.LIMPIAR()
     End Sub
 
+#End Region
+
+#Region "Movimientos caja"
+    Private Sub BTN_AperturaCaja_Click(sender As Object, e As EventArgs) Handles BTN_AperturaCaja.Click
+
+    End Sub
+
+    Private Sub BTN_RegistrarIngreso_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarIngreso.Click
+
+    End Sub
+
+    Private Sub BTN_RegistrarSalida_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarSalida.Click
+
+    End Sub
+
+    Private Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
+
+    End Sub
 #End Region
 End Class

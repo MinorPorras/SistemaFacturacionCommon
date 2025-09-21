@@ -22,7 +22,6 @@ Partial Class P_Productos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -34,7 +33,6 @@ Partial Class P_Productos
         Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_RegresarProd = New Guna.UI2.WinForms.Guna2Button()
         Me.TXT_BuscarProd = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -51,31 +49,31 @@ Partial Class P_Productos
         Me.SWT_Cat = New Guna.UI2.WinForms.Guna2ToggleSwitch()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.SWT_Recientes = New Guna.UI2.WinForms.Guna2ToggleSwitch()
-        Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Me.BTN_Config = New Guna.UI2.WinForms.Guna2ImageButton()
-        Me.Guna2ImageButton1 = New Guna.UI2.WinForms.Guna2ImageButton()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MNU_CONTX.SuspendLayout()
         CType(Me.DGV_Prods, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Guna2Panel1.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'BTN_NProd
         '
         Me.BTN_NProd.BorderColor = System.Drawing.Color.Red
+        Me.BTN_NProd.BorderRadius = 10
         Me.BTN_NProd.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_NProd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_NProd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_NProd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_NProd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_NProd.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_NProd.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BTN_NProd.FillColor = System.Drawing.Color.MediumSeaGreen
         Me.BTN_NProd.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_NProd.ForeColor = System.Drawing.Color.White
         Me.BTN_NProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Mas
         Me.BTN_NProd.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_NProd.Location = New System.Drawing.Point(829, 0)
+        Me.BTN_NProd.Location = New System.Drawing.Point(837, 3)
         Me.BTN_NProd.Name = "BTN_NProd"
-        Me.BTN_NProd.Size = New System.Drawing.Size(451, 61)
+        Me.BTN_NProd.Size = New System.Drawing.Size(413, 52)
         Me.BTN_NProd.TabIndex = 51
         Me.BTN_NProd.Text = "Agregar"
         '
@@ -94,7 +92,7 @@ Partial Class P_Productos
         Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
         Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
         Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-        Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
+        Me.MNU_CONTX.Size = New System.Drawing.Size(136, 56)
         '
         'MNU_MODIFICAR
         '
@@ -103,7 +101,7 @@ Partial Class P_Productos
         Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
         Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
         Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
-        Me.MNU_MODIFICAR.Size = New System.Drawing.Size(184, 26)
+        Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
         Me.MNU_MODIFICAR.Text = "Modificar"
         Me.MNU_MODIFICAR.Visible = False
         '
@@ -114,32 +112,35 @@ Partial Class P_Productos
         Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
         Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
         Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
+        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(135, 26)
         Me.MNU_ELIMINAR.Text = "Eliminar"
         Me.MNU_ELIMINAR.Visible = False
         '
         'BTN_RegresarProd
         '
         Me.BTN_RegresarProd.BorderColor = System.Drawing.Color.Red
+        Me.BTN_RegresarProd.BorderRadius = 10
         Me.BTN_RegresarProd.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_RegresarProd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_RegresarProd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_RegresarProd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_RegresarProd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RegresarProd.Dock = System.Windows.Forms.DockStyle.Left
+        Me.BTN_RegresarProd.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BTN_RegresarProd.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BTN_RegresarProd.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_RegresarProd.ForeColor = System.Drawing.Color.White
         Me.BTN_RegresarProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_RegresarProd.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_RegresarProd.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_RegresarProd.Location = New System.Drawing.Point(3, 3)
         Me.BTN_RegresarProd.Name = "BTN_RegresarProd"
-        Me.BTN_RegresarProd.Size = New System.Drawing.Size(401, 61)
+        Me.BTN_RegresarProd.Size = New System.Drawing.Size(411, 52)
         Me.BTN_RegresarProd.TabIndex = 48
         Me.BTN_RegresarProd.Text = "Regresar"
         '
         'TXT_BuscarProd
         '
+        Me.TXT_BuscarProd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TXT_BuscarProd.BorderRadius = 20
         Me.TXT_BuscarProd.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.TXT_BuscarProd.DefaultText = ""
@@ -161,13 +162,6 @@ Partial Class P_Productos
         Me.TXT_BuscarProd.SelectedText = ""
         Me.TXT_BuscarProd.Size = New System.Drawing.Size(1157, 42)
         Me.TXT_BuscarProd.TabIndex = 47
-        '
-        'Guna2BorderlessForm1
-        '
-        Me.Guna2BorderlessForm1.BorderRadius = 25
-        Me.Guna2BorderlessForm1.ContainerControl = Me
-        Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
-        Me.Guna2BorderlessForm1.TransparentWhileDrag = True
         '
         'Label1
         '
@@ -276,6 +270,9 @@ Partial Class P_Productos
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.DGV_Prods.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.DGV_Prods.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DGV_Prods.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
@@ -296,7 +293,7 @@ Partial Class P_Productos
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DGV_Prods.DefaultCellStyle = DataGridViewCellStyle3
         Me.DGV_Prods.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DGV_Prods.Location = New System.Drawing.Point(7, 165)
+        Me.DGV_Prods.Location = New System.Drawing.Point(14, 165)
         Me.DGV_Prods.MultiSelect = False
         Me.DGV_Prods.Name = "DGV_Prods"
         Me.DGV_Prods.ReadOnly = True
@@ -310,7 +307,7 @@ Partial Class P_Productos
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DGV_Prods.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.DGV_Prods.RowHeadersVisible = False
-        Me.DGV_Prods.Size = New System.Drawing.Size(1256, 387)
+        Me.DGV_Prods.Size = New System.Drawing.Size(1253, 387)
         Me.DGV_Prods.TabIndex = 68
         Me.DGV_Prods.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
         Me.DGV_Prods.ThemeStyle.AlternatingRowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -337,20 +334,21 @@ Partial Class P_Productos
         'BTN_Hablador
         '
         Me.BTN_Hablador.BorderColor = System.Drawing.Color.Red
+        Me.BTN_Hablador.BorderRadius = 10
         Me.BTN_Hablador.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.BTN_Hablador.DisabledState.BorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Hablador.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
         Me.BTN_Hablador.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
         Me.BTN_Hablador.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_Hablador.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_Hablador.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BTN_Hablador.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.BTN_Hablador.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
         Me.BTN_Hablador.ForeColor = System.Drawing.Color.White
         Me.BTN_Hablador.Image = CType(resources.GetObject("BTN_Hablador.Image"), System.Drawing.Image)
         Me.BTN_Hablador.ImageSize = New System.Drawing.Size(50, 50)
-        Me.BTN_Hablador.Location = New System.Drawing.Point(399, 0)
+        Me.BTN_Hablador.Location = New System.Drawing.Point(420, 3)
         Me.BTN_Hablador.Name = "BTN_Hablador"
-        Me.BTN_Hablador.Size = New System.Drawing.Size(430, 61)
+        Me.BTN_Hablador.Size = New System.Drawing.Size(411, 52)
         Me.BTN_Hablador.TabIndex = 69
         Me.BTN_Hablador.Text = "Crear hablador"
         '
@@ -437,6 +435,7 @@ Partial Class P_Productos
         '
         'Label7
         '
+        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Britannic Bold", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
@@ -449,6 +448,7 @@ Partial Class P_Productos
         '
         'SWT_Recientes
         '
+        Me.SWT_Recientes.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SWT_Recientes.CheckedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.SWT_Recientes.CheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.SWT_Recientes.CheckedState.InnerBorderColor = System.Drawing.Color.White
@@ -462,19 +462,9 @@ Partial Class P_Productos
         Me.SWT_Recientes.UncheckedState.InnerBorderColor = System.Drawing.Color.White
         Me.SWT_Recientes.UncheckedState.InnerColor = System.Drawing.Color.White
         '
-        'Guna2Panel1
-        '
-        Me.Guna2Panel1.Controls.Add(Me.BTN_RegresarProd)
-        Me.Guna2Panel1.Controls.Add(Me.BTN_Hablador)
-        Me.Guna2Panel1.Controls.Add(Me.BTN_NProd)
-        Me.Guna2Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Guna2Panel1.Location = New System.Drawing.Point(0, 576)
-        Me.Guna2Panel1.Name = "Guna2Panel1"
-        Me.Guna2Panel1.Size = New System.Drawing.Size(1280, 61)
-        Me.Guna2Panel1.TabIndex = 123
-        '
         'BTN_Config
         '
+        Me.BTN_Config.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BTN_Config.BackColor = System.Drawing.Color.Transparent
         Me.BTN_Config.CheckedState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Config
         Me.BTN_Config.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
@@ -484,28 +474,29 @@ Partial Class P_Productos
         Me.BTN_Config.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_Config.ImageRotate = 0!
         Me.BTN_Config.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Config.Location = New System.Drawing.Point(1175, 21)
+        Me.BTN_Config.Location = New System.Drawing.Point(1198, 18)
         Me.BTN_Config.Name = "BTN_Config"
         Me.BTN_Config.PressedState.ImageSize = New System.Drawing.Size(64, 64)
         Me.BTN_Config.Size = New System.Drawing.Size(45, 45)
         Me.BTN_Config.TabIndex = 125
         '
-        'Guna2ImageButton1
+        'TableLayoutPanel1
         '
-        Me.Guna2ImageButton1.BackColor = System.Drawing.Color.Transparent
-        Me.Guna2ImageButton1.CheckedState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
-        Me.Guna2ImageButton1.CheckedState.ImageSize = New System.Drawing.Size(40, 40)
-        Me.Guna2ImageButton1.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_CerrarCol
-        Me.Guna2ImageButton1.HoverState.ImageSize = New System.Drawing.Size(43, 43)
-        Me.Guna2ImageButton1.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
-        Me.Guna2ImageButton1.ImageOffset = New System.Drawing.Point(0, 0)
-        Me.Guna2ImageButton1.ImageRotate = 0!
-        Me.Guna2ImageButton1.ImageSize = New System.Drawing.Size(40, 40)
-        Me.Guna2ImageButton1.Location = New System.Drawing.Point(1226, 21)
-        Me.Guna2ImageButton1.Name = "Guna2ImageButton1"
-        Me.Guna2ImageButton1.PressedState.ImageSize = New System.Drawing.Size(64, 64)
-        Me.Guna2ImageButton1.Size = New System.Drawing.Size(45, 45)
-        Me.Guna2ImageButton1.TabIndex = 126
+        Me.TableLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarProd, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_Hablador, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_NProd, 2, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(14, 576)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1253, 58)
+        Me.TableLayoutPanel1.TabIndex = 126
         '
         'P_Productos
         '
@@ -514,9 +505,8 @@ Partial Class P_Productos
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.CancelButton = Me.BTN_RegresarProd
         Me.ClientSize = New System.Drawing.Size(1280, 637)
-        Me.Controls.Add(Me.Guna2ImageButton1)
+        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.BTN_Config)
-        Me.Controls.Add(Me.Guna2Panel1)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.SWT_Recientes)
         Me.Controls.Add(Me.Label6)
@@ -533,15 +523,15 @@ Partial Class P_Productos
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TXT_BuscarProd)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "P_Productos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Productos"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MNU_CONTX.ResumeLayout(False)
         CType(Me.DGV_Prods, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Guna2Panel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -550,7 +540,6 @@ Partial Class P_Productos
     Friend WithEvents BTN_NProd As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_RegresarProd As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents TXT_BuscarProd As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
     Friend WithEvents MNU_CONTX As Guna.UI2.WinForms.Guna2ContextMenuStrip
     Friend WithEvents MNU_MODIFICAR As ToolStripMenuItem
     Friend WithEvents MNU_ELIMINAR As ToolStripMenuItem
@@ -570,7 +559,6 @@ Partial Class P_Productos
     Friend WithEvents SWT_Marca As Guna.UI2.WinForms.Guna2ToggleSwitch
     Friend WithEvents Label7 As Label
     Friend WithEvents SWT_Recientes As Guna.UI2.WinForms.Guna2ToggleSwitch
-    Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents BTN_Config As Guna.UI2.WinForms.Guna2ImageButton
-    Friend WithEvents Guna2ImageButton1 As Guna.UI2.WinForms.Guna2ImageButton
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
 End Class
