@@ -258,235 +258,241 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Cls_AtrFactura.vb" />
-    <Compile Include="Cls_CierreCaja.vb" />
-    <Compile Include="Cls_DatosFactura.vb" />
-    <Compile Include="Cls_ProductoCaja.vb" />
-    <Compile Include="Cls_ProductosMasVendidos.vb" />
-    <Compile Include="Cls_ReporteVentas.vb" />
-    <Compile Include="Cls_SaldoCaja.vb" />
-    <Compile Include="Cls_Sucursal.vb" />
-    <Compile Include="D_CalcularSaldoSiguiente.Designer.vb">
+    <Compile Include="Data\Cls_AtrFactura.vb" />
+    <Compile Include="Data\Cls_CierreCaja.vb" />
+    <Compile Include="Data\Cls_DatosFactura.vb" />
+    <Compile Include="Data\Cls_ProductoCaja.vb" />
+    <Compile Include="Data\Cls_ProductosMasVendidos.vb" />
+    <Compile Include="Data\Cls_ReporteVentas.vb" />
+    <Compile Include="Data\Cls_SaldoCaja.vb" />
+    <Compile Include="Data\Cls_Sucursal.vb" />
+    <Compile Include="Forms\Dialogos\D_AperturaCaja.Designer.vb">
+      <DependentUpon>D_AperturaCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dialogos\D_AperturaCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogos\D_CalcularSaldoSiguiente.Designer.vb">
       <DependentUpon>D_CalcularSaldoSiguiente.vb</DependentUpon>
     </Compile>
-    <Compile Include="D_CalcularSaldoSiguiente.vb">
+    <Compile Include="Forms\Dialogos\D_CalcularSaldoSiguiente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="D_GuardarCuenta.Designer.vb">
+    <Compile Include="Forms\Dialogos\D_GuardarCuenta.Designer.vb">
       <DependentUpon>D_GuardarCuenta.vb</DependentUpon>
     </Compile>
-    <Compile Include="D_GuardarCuenta.vb">
+    <Compile Include="Forms\Dialogos\D_GuardarCuenta.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="D_VerDatosCierre.Designer.vb">
+    <Compile Include="Forms\Dialogos\D_VerDatosCierre.Designer.vb">
       <DependentUpon>D_VerDatosCierre.vb</DependentUpon>
     </Compile>
-    <Compile Include="D_VerDatosCierre.vb">
+    <Compile Include="Forms\Dialogos\D_VerDatosCierre.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Md_Reportes.vb" />
-    <Compile Include="P_ConfigFavProd.Designer.vb">
-      <DependentUpon>P_ConfigFavProd.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_ConceptosCaja.Designer.vb">
+      <DependentUpon>C_ConceptosCaja.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_ConfigFavProd.vb">
+    <Compile Include="Forms\Mantenimiento\C_ConceptosCaja.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_CuentasCobrar.Designer.vb">
+    <Compile Include="Modules\Md_Reportes.vb" />
+    <Compile Include="Forms\Caja\P_CuentasCobrar.Designer.vb">
       <DependentUpon>P_CuentasCobrar.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_CuentasCobrar.vb">
+    <Compile Include="Forms\Caja\P_CuentasCobrar.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_DatosFactura.Designer.vb">
+    <Compile Include="Forms\Caja\P_DatosFactura.Designer.vb">
       <DependentUpon>P_DatosFactura.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_DatosFactura.vb">
+    <Compile Include="Forms\Caja\P_DatosFactura.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_ReporteVentas.Designer.vb">
+    <Compile Include="Forms\Reportes\P_ReporteVentas.Designer.vb">
       <DependentUpon>P_ReporteVentas.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_ReporteVentas.vb">
+    <Compile Include="Forms\Reportes\P_ReporteVentas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_VerCierre.Designer.vb">
+    <Compile Include="Forms\Reportes\P_VerCierre.Designer.vb">
       <DependentUpon>P_VerCierre.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_VerCierre.vb">
+    <Compile Include="Forms\Reportes\P_VerCierre.vb">
       <SubType>Form</SubType>
     </Compile>
     <Content Include="bd\dbSistemaFacturacion.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Compile Include="B_Cliente.Designer.vb">
+    <Compile Include="Forms\Busqueda\B_Cliente.Designer.vb">
       <DependentUpon>B_Cliente.vb</DependentUpon>
     </Compile>
-    <Compile Include="B_Cliente.vb">
+    <Compile Include="Forms\Busqueda\B_Cliente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="B_Producto.Designer.vb">
+    <Compile Include="Forms\Busqueda\B_Producto.Designer.vb">
       <DependentUpon>B_Producto.vb</DependentUpon>
     </Compile>
-    <Compile Include="B_Producto.vb">
+    <Compile Include="Forms\Busqueda\B_Producto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_ProductoVariable.Designer.vb">
+    <Compile Include="Forms\Caja\E_ProductoVariable.Designer.vb">
       <DependentUpon>E_ProductoVariable.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_ProductoVariable.vb">
+    <Compile Include="Forms\Caja\E_ProductoVariable.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_ProveedorPedido.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_ProveedorPedido.Designer.vb">
       <DependentUpon>E_ProveedorPedido.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_ProveedorPedido.vb">
+    <Compile Include="Forms\Mantenimiento\E_ProveedorPedido.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Md_BackupDB.vb" />
-    <Compile Include="B_Categoria.Designer.vb">
+    <Compile Include="Modules\Md_BackupDB.vb" />
+    <Compile Include="Forms\Busqueda\B_Categoria.Designer.vb">
       <DependentUpon>B_Categoria.vb</DependentUpon>
     </Compile>
-    <Compile Include="B_Categoria.vb">
+    <Compile Include="Forms\Busqueda\B_Categoria.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="B_Impuesto.Designer.vb">
+    <Compile Include="Forms\Busqueda\B_Impuesto.Designer.vb">
       <DependentUpon>B_Impuesto.vb</DependentUpon>
     </Compile>
-    <Compile Include="B_Impuesto.vb">
+    <Compile Include="Forms\Busqueda\B_Impuesto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="B_Marca.Designer.vb">
+    <Compile Include="Forms\Busqueda\B_Marca.Designer.vb">
       <DependentUpon>B_Marca.vb</DependentUpon>
     </Compile>
-    <Compile Include="B_Marca.vb">
+    <Compile Include="Forms\Busqueda\B_Marca.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="B_Proveedor.Designer.vb">
+    <Compile Include="Forms\Busqueda\B_Proveedor.Designer.vb">
       <DependentUpon>B_Proveedor.vb</DependentUpon>
     </Compile>
-    <Compile Include="B_Proveedor.vb">
+    <Compile Include="Forms\Busqueda\B_Proveedor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClsCategoria.vb" />
-    <Compile Include="ClsMarca.vb" />
-    <Compile Include="ClsProveedor.vb" />
-    <Compile Include="ConfigGeneral.Designer.vb">
+    <Compile Include="Data\ClsCategoria.vb" />
+    <Compile Include="Data\ClsMarca.vb" />
+    <Compile Include="Data\ClsProveedor.vb" />
+    <Compile Include="Forms\Inicio\ConfigGeneral.Designer.vb">
       <DependentUpon>ConfigGeneral.vb</DependentUpon>
     </Compile>
-    <Compile Include="ConfigGeneral.vb">
+    <Compile Include="Forms\Inicio\ConfigGeneral.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_NuevoProducto.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoProducto.Designer.vb">
       <DependentUpon>E_NuevoProducto.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevoProducto.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoProducto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Md_IMPRIMIR.vb" />
-    <Compile Include="Md_Inicializacion.vb" />
-    <Compile Include="MSG.vb" />
-    <Compile Include="P_Caja.Designer.vb">
+    <Compile Include="Modules\Md_IMPRIMIR.vb" />
+    <Compile Include="Modules\Md_Inicializacion.vb" />
+    <Compile Include="Modules\MSG.vb" />
+    <Compile Include="Forms\Caja\P_Caja.Designer.vb">
       <DependentUpon>P_Caja.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Caja.vb">
+    <Compile Include="Forms\Caja\P_Caja.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Hablador.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\P_Hablador.Designer.vb">
       <DependentUpon>P_Hablador.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Hablador.vb">
+    <Compile Include="Forms\Mantenimiento\P_Hablador.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Login.Designer.vb">
+    <Compile Include="Forms\Inicio\P_Login.Designer.vb">
       <DependentUpon>P_Login.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Login.vb">
+    <Compile Include="Forms\Inicio\P_Login.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_ReimprimirFact.Designer.vb">
+    <Compile Include="Forms\Caja\P_ReimprimirFact.Designer.vb">
       <DependentUpon>P_ReimprimirFact.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_ReimprimirFact.vb">
+    <Compile Include="Forms\Caja\P_ReimprimirFact.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_SelectUsu.Designer.vb">
+    <Compile Include="Forms\Inicio\P_SelectUsu.Designer.vb">
       <DependentUpon>P_SelectUsu.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_SelectUsu.vb">
+    <Compile Include="Forms\Inicio\P_SelectUsu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Productos.Designer.vb">
-      <DependentUpon>P_Productos.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_Productos.Designer.vb">
+      <DependentUpon>C_Productos.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Productos.vb">
+    <Compile Include="Forms\Mantenimiento\C_Productos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Proveedor.Designer.vb">
-      <DependentUpon>P_Proveedor.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_Proveedor.Designer.vb">
+      <DependentUpon>C_Proveedor.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Proveedor.vb">
+    <Compile Include="Forms\Mantenimiento\C_Proveedor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_NuevaCategoria.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevaCategoria.Designer.vb">
       <DependentUpon>E_NuevaCategoria.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevaCategoria.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevaCategoria.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_NuevaMarca.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevaMarca.Designer.vb">
       <DependentUpon>E_NuevaMarca.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevaMarca.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevaMarca.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_NuevoCliente.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoCliente.Designer.vb">
       <DependentUpon>E_NuevoCliente.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevoCliente.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoCliente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_NuevoImpuesto.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoImpuesto.Designer.vb">
       <DependentUpon>E_NuevoImpuesto.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevoImpuesto.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoImpuesto.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_NuevoProveedor.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoProveedor.Designer.vb">
       <DependentUpon>E_NuevoProveedor.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevoProveedor.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Categoria.Designer.vb">
-      <DependentUpon>P_Categoria.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_Categoria.Designer.vb">
+      <DependentUpon>C_Categoria.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Categoria.vb">
+    <Compile Include="Forms\Mantenimiento\C_Categoria.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Clientes.Designer.vb">
-      <DependentUpon>P_Clientes.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_Clientes.Designer.vb">
+      <DependentUpon>C_Clientes.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Clientes.vb">
+    <Compile Include="Forms\Mantenimiento\C_Clientes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClsSucursal.vb" />
-    <Compile Include="Md_CONEXION.vb" />
-    <Compile Include="E_NuevaSucursal.Designer.vb">
+    <Compile Include="Data\ClsSucursal.vb" />
+    <Compile Include="Modules\Md_CONEXION.vb" />
+    <Compile Include="Forms\Mantenimiento\E_NuevaSucursal.Designer.vb">
       <DependentUpon>E_NuevaSucursal.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevaSucursal.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevaSucursal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_NuevoUsuario.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoUsuario.Designer.vb">
       <DependentUpon>E_NuevoUsuario.vb</DependentUpon>
     </Compile>
-    <Compile Include="E_NuevoUsuario.vb">
+    <Compile Include="Forms\Mantenimiento\E_NuevoUsuario.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="M_Inicio.vb">
+    <Compile Include="Forms\Inicio\M_Inicio.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="M_Inicio.Designer.vb">
+    <Compile Include="Forms\Inicio\M_Inicio.Designer.vb">
       <DependentUpon>M_Inicio.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
@@ -506,41 +512,41 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="M_MantenimientoMenu.Designer.vb">
+    <Compile Include="Forms\Mantenimiento\M_MantenimientoMenu.Designer.vb">
       <DependentUpon>M_MantenimientoMenu.vb</DependentUpon>
     </Compile>
-    <Compile Include="M_MantenimientoMenu.vb">
+    <Compile Include="Forms\Mantenimiento\M_MantenimientoMenu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Md_PROCESOS_BD.vb" />
-    <Compile Include="P_Impuestos.Designer.vb">
-      <DependentUpon>P_Impuestos.vb</DependentUpon>
+    <Compile Include="Modules\Md_PROCESOS_BD.vb" />
+    <Compile Include="Forms\Mantenimiento\C_Impuestos.Designer.vb">
+      <DependentUpon>C_Impuestos.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Impuestos.vb">
+    <Compile Include="Forms\Mantenimiento\C_Impuestos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Marca.Designer.vb">
-      <DependentUpon>P_Marca.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_Marca.Designer.vb">
+      <DependentUpon>C_Marca.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Marca.vb">
+    <Compile Include="Forms\Mantenimiento\C_Marca.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Sucursal.Designer.vb">
-      <DependentUpon>P_Sucursal.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_Sucursal.Designer.vb">
+      <DependentUpon>C_Sucursal.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Sucursal.vb">
+    <Compile Include="Forms\Mantenimiento\C_Sucursal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_TerminarVenta.Designer.vb">
+    <Compile Include="Forms\Caja\P_TerminarVenta.Designer.vb">
       <DependentUpon>P_TerminarVenta.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_TerminarVenta.vb">
+    <Compile Include="Forms\Caja\P_TerminarVenta.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Usuarios.Designer.vb">
-      <DependentUpon>P_Usuarios.vb</DependentUpon>
+    <Compile Include="Forms\Mantenimiento\C_Usuarios.Designer.vb">
+      <DependentUpon>C_Usuarios.vb</DependentUpon>
     </Compile>
-    <Compile Include="P_Usuarios.vb">
+    <Compile Include="Forms\Mantenimiento\C_Usuarios.vb">
       <SubType>Form</SubType>
     </Compile>
     <Content Include="logoSFCommonSimple.ico" />
@@ -617,106 +623,109 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="B_Categoria.resx">
+    <EmbeddedResource Include="Forms\Busqueda\B_Categoria.resx">
       <DependentUpon>B_Categoria.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="B_Cliente.resx">
+    <EmbeddedResource Include="Forms\Busqueda\B_Cliente.resx">
       <DependentUpon>B_Cliente.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="B_Impuesto.resx">
+    <EmbeddedResource Include="Forms\Busqueda\B_Impuesto.resx">
       <DependentUpon>B_Impuesto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="B_Marca.resx">
+    <EmbeddedResource Include="Forms\Busqueda\B_Marca.resx">
       <DependentUpon>B_Marca.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="B_Producto.resx">
+    <EmbeddedResource Include="Forms\Busqueda\B_Producto.resx">
       <DependentUpon>B_Producto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="B_Proveedor.resx">
+    <EmbeddedResource Include="Forms\Busqueda\B_Proveedor.resx">
       <DependentUpon>B_Proveedor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConfigGeneral.resx">
+    <EmbeddedResource Include="Forms\Inicio\ConfigGeneral.resx">
       <DependentUpon>ConfigGeneral.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="D_CalcularSaldoSiguiente.resx">
+    <EmbeddedResource Include="Forms\Dialogos\D_AperturaCaja.resx">
+      <DependentUpon>D_AperturaCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogos\D_CalcularSaldoSiguiente.resx">
       <DependentUpon>D_CalcularSaldoSiguiente.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="D_GuardarCuenta.resx">
+    <EmbeddedResource Include="Forms\Dialogos\D_GuardarCuenta.resx">
       <DependentUpon>D_GuardarCuenta.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="D_VerDatosCierre.resx">
+    <EmbeddedResource Include="Forms\Dialogos\D_VerDatosCierre.resx">
       <DependentUpon>D_VerDatosCierre.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevoProducto.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\C_ConceptosCaja.resx">
+      <DependentUpon>C_ConceptosCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevoProducto.resx">
       <DependentUpon>E_NuevoProducto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_ProductoVariable.resx">
+    <EmbeddedResource Include="Forms\Caja\E_ProductoVariable.resx">
       <DependentUpon>E_ProductoVariable.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_ProveedorPedido.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_ProveedorPedido.resx">
       <DependentUpon>E_ProveedorPedido.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Caja.resx">
+    <EmbeddedResource Include="Forms\Caja\P_Caja.resx">
       <DependentUpon>P_Caja.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_ConfigFavProd.resx">
-      <DependentUpon>P_ConfigFavProd.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="P_CuentasCobrar.resx">
+    <EmbeddedResource Include="Forms\Caja\P_CuentasCobrar.resx">
       <DependentUpon>P_CuentasCobrar.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_DatosFactura.resx">
+    <EmbeddedResource Include="Forms\Caja\P_DatosFactura.resx">
       <DependentUpon>P_DatosFactura.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Hablador.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\P_Hablador.resx">
       <DependentUpon>P_Hablador.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Login.resx">
+    <EmbeddedResource Include="Forms\Inicio\P_Login.resx">
       <DependentUpon>P_Login.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_ReimprimirFact.resx">
+    <EmbeddedResource Include="Forms\Caja\P_ReimprimirFact.resx">
       <DependentUpon>P_ReimprimirFact.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_ReporteVentas.resx">
+    <EmbeddedResource Include="Forms\Reportes\P_ReporteVentas.resx">
       <DependentUpon>P_ReporteVentas.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_SelectUsu.resx">
+    <EmbeddedResource Include="Forms\Inicio\P_SelectUsu.resx">
       <DependentUpon>P_SelectUsu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Productos.resx">
-      <DependentUpon>P_Productos.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Productos.resx">
+      <DependentUpon>C_Productos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Proveedor.resx">
-      <DependentUpon>P_Proveedor.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Proveedor.resx">
+      <DependentUpon>C_Proveedor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevaCategoria.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevaCategoria.resx">
       <DependentUpon>E_NuevaCategoria.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevaMarca.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevaMarca.resx">
       <DependentUpon>E_NuevaMarca.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevoCliente.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevoCliente.resx">
       <DependentUpon>E_NuevoCliente.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevoImpuesto.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevoImpuesto.resx">
       <DependentUpon>E_NuevoImpuesto.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevoProveedor.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevoProveedor.resx">
       <DependentUpon>E_NuevoProveedor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Categoria.resx">
-      <DependentUpon>P_Categoria.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Categoria.resx">
+      <DependentUpon>C_Categoria.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Clientes.resx">
-      <DependentUpon>P_Clientes.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Clientes.resx">
+      <DependentUpon>C_Clientes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevaSucursal.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevaSucursal.resx">
       <DependentUpon>E_NuevaSucursal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_NuevoUsuario.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevoUsuario.resx">
       <DependentUpon>E_NuevoUsuario.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="M_Inicio.resx">
+    <EmbeddedResource Include="Forms\Inicio\M_Inicio.resx">
       <DependentUpon>M_Inicio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -725,25 +734,25 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="M_MantenimientoMenu.resx">
+    <EmbeddedResource Include="Forms\Mantenimiento\M_MantenimientoMenu.resx">
       <DependentUpon>M_MantenimientoMenu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Impuestos.resx">
-      <DependentUpon>P_Impuestos.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Impuestos.resx">
+      <DependentUpon>C_Impuestos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Marca.resx">
-      <DependentUpon>P_Marca.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Marca.resx">
+      <DependentUpon>C_Marca.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Sucursal.resx">
-      <DependentUpon>P_Sucursal.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Sucursal.resx">
+      <DependentUpon>C_Sucursal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_TerminarVenta.resx">
+    <EmbeddedResource Include="Forms\Caja\P_TerminarVenta.resx">
       <DependentUpon>P_TerminarVenta.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Usuarios.resx">
-      <DependentUpon>P_Usuarios.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Mantenimiento\C_Usuarios.resx">
+      <DependentUpon>C_Usuarios.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_VerCierre.resx">
+    <EmbeddedResource Include="Forms\Reportes\P_VerCierre.resx">
       <DependentUpon>P_VerCierre.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -767,6 +776,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bd\backupDB\RespaldosSF\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="recursos\ICO_Eliminar.png">
