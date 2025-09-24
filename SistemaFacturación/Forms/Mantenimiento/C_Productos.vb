@@ -1,5 +1,7 @@
-﻿Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
+﻿Imports System.Data.SQLite
+Imports System.Text
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 Namespace SistemaFacturacion.Forms.Mantenimiento
 
     Public Class C_Productos
@@ -53,70 +55,67 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
             TXT_BuscarProd.Select()
         End Sub
 
-        Public Sub REFRESCAR()
-            Task.Run(Sub()
-                         Try
-                             ' Se limpia todo en la tabla
-                             T.Tables.Clear()
+        Public Async Sub REFRESCAR()
+            Try
+                Dim resultados As DataTable = Await Task.Run(Function()
+                                                                 Dim T As New DataSet()
+                                                                 ' La consulta base ahora es la que me proporcionaste
+                                                                 Dim paramList As New List(Of SQLiteParameter)()
+                                                                 Dim condiciones As New StringBuilder(" WHERE 1=1 ")
 
-                             Dim condicionBusqueda = String.Empty
+                                                                 ' Filtro principal por nombre o código
+                                                                 If Not String.IsNullOrEmpty(TXT_BuscarProd.Text) Then
+                                                                     condiciones.Append(" AND (p.nombre LIKE @producto OR p.codigo LIKE @producto) ")
+                                                                     paramList.Add(New SQLiteParameter("@producto", "%" & TXT_BuscarProd.Text & "%"))
+                                                                 End If
 
-                             If Not String.IsNullOrEmpty(TXT_BuscarProd.Text) Then
-                                 condicionBusqueda = " WHERE (p.nombre LIKE '%" & TXT_BuscarProd.Text & "%' OR p.codigo LIKE '%" & TXT_BuscarProd.Text & "%') "
-                             Else
-                                 condicionBusqueda = " WHERE 1=1 "
-                             End If
-                             ' Se verifica que el checkbox de buscar por categoría esté seleccionado
-                             If SWT_Cat.Checked AndAlso Not String.IsNullOrEmpty(TXT_BuscarCat.Text) Then
-                                 condicionBusqueda += "AND cat.nombre LIKE '%" & TXT_BuscarCat.Text & "%' "
-                             End If
+                                                                 ' Filtro por categoría
+                                                                 If SWT_Cat.Checked AndAlso Not String.IsNullOrEmpty(TXT_BuscarCat.Text) Then
+                                                                     condiciones.Append(" AND cat.nombre LIKE @categoria ")
+                                                                     paramList.Add(New SQLiteParameter("@categoria", "%" & TXT_BuscarCat.Text & "%"))
+                                                                 End If
 
-                             ' Se verifica que el checkbox de buscar por marca esté seleccionado
-                             If SWT_Marca.Checked AndAlso Not String.IsNullOrEmpty(TXT_BuscarMarca.Text) Then
-                                 condicionBusqueda += "AND m.nombre LIKE '%" & TXT_BuscarMarca.Text & "%' "
-                             End If
+                                                                 ' Filtro por marca
+                                                                 If SWT_Marca.Checked AndAlso Not String.IsNullOrEmpty(TXT_BuscarMarca.Text) Then
+                                                                     condiciones.Append(" AND m.nombre LIKE @marca ")
+                                                                     paramList.Add(New SQLiteParameter("@marca", "%" & TXT_BuscarMarca.Text & "%"))
+                                                                 End If
 
-                             ' Se verifica que el checkbox de buscar por proveedor esté seleccionado
-                             If SWT_Prov.Checked AndAlso Not String.IsNullOrEmpty(TXT_BuscarProv.Text) Then
-                                 condicionBusqueda += "AND pr.nombre LIKE '%" & TXT_BuscarProv.Text & "%' "
-                             End If
+                                                                 ' Filtro por proveedor
+                                                                 If SWT_Prov.Checked AndAlso Not String.IsNullOrEmpty(TXT_BuscarProv.Text) Then
+                                                                     condiciones.Append(" AND pr.nombre LIKE @proveedor ")
+                                                                     paramList.Add(New SQLiteParameter("@proveedor", "%" & TXT_BuscarProv.Text & "%"))
+                                                                 End If
 
-                             If SWT_Recientes.Checked Then
-                                 condicionBusqueda += "Order By p.fechaAdd DESC;"
-                             Else
-                                 condicionBusqueda += "ORDER BY p.codigo ASC;"
-                             End If
+                                                                 Dim orden As String = If(SWT_Recientes.Checked, " ORDER BY p.fechaAdd DESC;", " ORDER BY p.codigo ASC;")
+                                                                 Dim consultaFinal As String = stringConsultaBase.ToString() & condiciones.ToString() & orden
 
-                             ' Construcción del query basado en si se busca por código o por nombre
-                             SQL = stringConsultaBase & condicionBusqueda
+                                                                 ' Llamada al método para cargar la tabla de forma segura
+                                                                 CargarTablaParam(T, consultaFinal, paramList)
 
-                             ' Luego de cargar los datos, actualizar la interfaz de usuario de manera segura 
-                             Invoke(Sub()
-                                        MNU_ELIMINAR.Visible = False
-                                        MNU_MODIFICAR.Visible = False
-                                        ' Cargar los datos en la tabla
-                                        Cargar_Tabla(T, SQL)
-                                        If T.Tables.Count > 0 AndAlso T.Tables(0).Rows.Count > 0 Then
-                                            Dim bin As New BindingSource
-                                            bin.DataSource = T.Tables(0)
-                                            DGV_Prods.DataSource = bin
-                                            MNU_ELIMINAR.Visible = True
-                                            MNU_MODIFICAR.Visible = True
-                                        Else ' Limpiar la fuente de datos si no se cargaron datos
-                                            DGV_Prods.DataSource = Nothing
-                                        End If
-                                        AddHandler DGV_Prods.Resize, AddressOf DGV_Prods_Resize
-                                    End Sub)
-                         Catch ex As Exception
-                             If DGV_Prods.IsHandleCreated Then
-                                 Invoke(Sub()
-                                            If ex.Message <> "InvalidArgument=El valor de '0' no es válido para 'index'." & vbCrLf & "Nombre del parámetro: index" Then
-                                                msgError("Error al cargar la lista de productos: " & ex.Message)
-                                            End If
-                                        End Sub)
-                             End If
-                         End Try
-                     End Sub)
+                                                                 If T.Tables.Count > 0 Then
+                                                                     Return T.Tables(0)
+                                                                 Else
+                                                                     Return Nothing
+                                                                 End If
+                                                             End Function)
+
+                ' Actualización de la UI en el hilo principal
+                DGV_Prods.DataSource = Nothing
+                MNU_ELIMINAR.Visible = False
+                MNU_MODIFICAR.Visible = False
+
+                If resultados IsNot Nothing AndAlso resultados.Rows.Count > 0 Then
+                    DGV_Prods.DataSource = New BindingSource With {.DataSource = resultados}
+                    MNU_ELIMINAR.Visible = True
+                    MNU_MODIFICAR.Visible = True
+                End If
+
+            Catch ex As Exception
+                If Me.IsHandleCreated Then
+                    msgError("Error al cargar la lista de productos: " & ex.Message)
+                End If
+            End Try
         End Sub
 
 

@@ -260,6 +260,7 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Data\Cls_AtrFactura.vb" />
     <Compile Include="Data\Cls_CierreCaja.vb" />
+    <Compile Include="Data\Cls_ConceptoCaja.vb" />
     <Compile Include="Data\Cls_DatosFactura.vb" />
     <Compile Include="Data\Cls_ProductoCaja.vb" />
     <Compile Include="Data\Cls_ProductosMasVendidos.vb" />
@@ -294,6 +295,12 @@
       <DependentUpon>C_ConceptosCaja.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Mantenimiento\C_ConceptosCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Mantenimiento\E_NuevoConcepto.Designer.vb">
+      <DependentUpon>E_NuevoConcepto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Mantenimiento\E_NuevoConcepto.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\Md_Reportes.vb" />
@@ -658,6 +665,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Mantenimiento\C_ConceptosCaja.resx">
       <DependentUpon>C_ConceptosCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Mantenimiento\E_NuevoConcepto.resx">
+      <DependentUpon>E_NuevoConcepto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Mantenimiento\E_NuevoProducto.resx">
       <DependentUpon>E_NuevoProducto.vb</DependentUpon>

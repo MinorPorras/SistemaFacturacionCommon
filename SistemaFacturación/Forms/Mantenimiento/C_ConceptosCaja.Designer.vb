@@ -33,6 +33,9 @@ Partial Class C_ConceptosCaja
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(C_ConceptosCaja))
         Me.BTN_Config = New Guna.UI2.WinForms.Guna2ImageButton()
         Me.DGV_Entradas = New Guna.UI2.WinForms.Guna2DataGridView()
+        Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
+        Me.MNU_MODIFICAR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
         Me.TXT_BuscarSalidas = New Guna.UI2.WinForms.Guna2TextBox()
         Me.DGV_Salidas = New Guna.UI2.WinForms.Guna2DataGridView()
         Me.TXT_BuscarEntradas = New Guna.UI2.WinForms.Guna2TextBox()
@@ -43,6 +46,7 @@ Partial Class C_ConceptosCaja
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.DGV_Entradas, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MNU_CONTX.SuspendLayout()
         CType(Me.DGV_Salidas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -57,7 +61,7 @@ Partial Class C_ConceptosCaja
         Me.BTN_Config.ImageOffset = New System.Drawing.Point(0, 0)
         Me.BTN_Config.ImageRotate = 0!
         Me.BTN_Config.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Config.Location = New System.Drawing.Point(936, 12)
+        Me.BTN_Config.Location = New System.Drawing.Point(718, 12)
         Me.BTN_Config.Name = "BTN_Config"
         Me.BTN_Config.PressedState.ImageSize = New System.Drawing.Size(64, 64)
         Me.BTN_Config.Size = New System.Drawing.Size(45, 45)
@@ -85,6 +89,7 @@ Partial Class C_ConceptosCaja
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DGV_Entradas.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DGV_Entradas.ColumnHeadersHeight = 20
+        Me.DGV_Entradas.ContextMenuStrip = Me.MNU_CONTX
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -94,7 +99,7 @@ Partial Class C_ConceptosCaja
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DGV_Entradas.DefaultCellStyle = DataGridViewCellStyle3
         Me.DGV_Entradas.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DGV_Entradas.Location = New System.Drawing.Point(26, 208)
+        Me.DGV_Entradas.Location = New System.Drawing.Point(414, 179)
         Me.DGV_Entradas.MultiSelect = False
         Me.DGV_Entradas.Name = "DGV_Entradas"
         Me.DGV_Entradas.ReadOnly = True
@@ -108,7 +113,7 @@ Partial Class C_ConceptosCaja
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DGV_Entradas.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.DGV_Entradas.RowHeadersVisible = False
-        Me.DGV_Entradas.Size = New System.Drawing.Size(447, 249)
+        Me.DGV_Entradas.Size = New System.Drawing.Size(333, 249)
         Me.DGV_Entradas.TabIndex = 125
         Me.DGV_Entradas.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
         Me.DGV_Entradas.ThemeStyle.AlternatingRowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -132,6 +137,42 @@ Partial Class C_ConceptosCaja
         Me.DGV_Entradas.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.DGV_Entradas.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
         '
+        'MNU_CONTX
+        '
+        Me.MNU_CONTX.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_MODIFICAR, Me.MNU_ELIMINAR})
+        Me.MNU_CONTX.Name = "MNU_CONTX"
+        Me.MNU_CONTX.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MNU_CONTX.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+        Me.MNU_CONTX.RenderStyle.ColorTable = Nothing
+        Me.MNU_CONTX.RenderStyle.RoundedEdges = True
+        Me.MNU_CONTX.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+        Me.MNU_CONTX.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+        Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+        Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+        Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
+        '
+        'MNU_MODIFICAR
+        '
+        Me.MNU_MODIFICAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.MNU_MODIFICAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
+        Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
+        Me.MNU_MODIFICAR.Size = New System.Drawing.Size(184, 26)
+        Me.MNU_MODIFICAR.Text = "Modificar"
+        '
+        'MNU_ELIMINAR
+        '
+        Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
+        Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
+        Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
+        Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
+        Me.MNU_ELIMINAR.Text = "Eliminar"
+        '
         'TXT_BuscarSalidas
         '
         Me.TXT_BuscarSalidas.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -150,12 +191,12 @@ Partial Class C_ConceptosCaja
         Me.TXT_BuscarSalidas.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
         Me.TXT_BuscarSalidas.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarSalidas.IconRightSize = New System.Drawing.Size(40, 40)
-        Me.TXT_BuscarSalidas.Location = New System.Drawing.Point(26, 148)
+        Me.TXT_BuscarSalidas.Location = New System.Drawing.Point(26, 119)
         Me.TXT_BuscarSalidas.Name = "TXT_BuscarSalidas"
         Me.TXT_BuscarSalidas.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TXT_BuscarSalidas.PlaceholderText = "Buscar Categoría"
+        Me.TXT_BuscarSalidas.PlaceholderText = "Buscar concepto de salidas"
         Me.TXT_BuscarSalidas.SelectedText = ""
-        Me.TXT_BuscarSalidas.Size = New System.Drawing.Size(391, 42)
+        Me.TXT_BuscarSalidas.Size = New System.Drawing.Size(283, 42)
         Me.TXT_BuscarSalidas.TabIndex = 124
         '
         'DGV_Salidas
@@ -180,6 +221,7 @@ Partial Class C_ConceptosCaja
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DGV_Salidas.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.DGV_Salidas.ColumnHeadersHeight = 20
+        Me.DGV_Salidas.ContextMenuStrip = Me.MNU_CONTX
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
         DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -189,7 +231,7 @@ Partial Class C_ConceptosCaja
         DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DGV_Salidas.DefaultCellStyle = DataGridViewCellStyle7
         Me.DGV_Salidas.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DGV_Salidas.Location = New System.Drawing.Point(518, 208)
+        Me.DGV_Salidas.Location = New System.Drawing.Point(26, 179)
         Me.DGV_Salidas.MultiSelect = False
         Me.DGV_Salidas.Name = "DGV_Salidas"
         Me.DGV_Salidas.ReadOnly = True
@@ -203,7 +245,7 @@ Partial Class C_ConceptosCaja
         DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DGV_Salidas.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.DGV_Salidas.RowHeadersVisible = False
-        Me.DGV_Salidas.Size = New System.Drawing.Size(447, 249)
+        Me.DGV_Salidas.Size = New System.Drawing.Size(333, 249)
         Me.DGV_Salidas.TabIndex = 127
         Me.DGV_Salidas.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
         Me.DGV_Salidas.ThemeStyle.AlternatingRowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -245,12 +287,12 @@ Partial Class C_ConceptosCaja
         Me.TXT_BuscarEntradas.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
         Me.TXT_BuscarEntradas.IconRightOffset = New System.Drawing.Point(10, 0)
         Me.TXT_BuscarEntradas.IconRightSize = New System.Drawing.Size(40, 40)
-        Me.TXT_BuscarEntradas.Location = New System.Drawing.Point(518, 148)
+        Me.TXT_BuscarEntradas.Location = New System.Drawing.Point(414, 119)
         Me.TXT_BuscarEntradas.Name = "TXT_BuscarEntradas"
         Me.TXT_BuscarEntradas.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TXT_BuscarEntradas.PlaceholderText = "Buscar Categoría"
+        Me.TXT_BuscarEntradas.PlaceholderText = "Buscar concepto de entradas"
         Me.TXT_BuscarEntradas.SelectedText = ""
-        Me.TXT_BuscarEntradas.Size = New System.Drawing.Size(391, 42)
+        Me.TXT_BuscarEntradas.Size = New System.Drawing.Size(283, 42)
         Me.TXT_BuscarEntradas.TabIndex = 128
         '
         'BTN_Regresar
@@ -269,9 +311,9 @@ Partial Class C_ConceptosCaja
         Me.BTN_Regresar.ForeColor = System.Drawing.Color.White
         Me.BTN_Regresar.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
         Me.BTN_Regresar.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Regresar.Location = New System.Drawing.Point(26, 482)
+        Me.BTN_Regresar.Location = New System.Drawing.Point(26, 439)
         Me.BTN_Regresar.Name = "BTN_Regresar"
-        Me.BTN_Regresar.Size = New System.Drawing.Size(939, 55)
+        Me.BTN_Regresar.Size = New System.Drawing.Size(721, 55)
         Me.BTN_Regresar.TabIndex = 129
         Me.BTN_Regresar.Text = "Regresar"
         '
@@ -285,9 +327,10 @@ Partial Class C_ConceptosCaja
         Me.BTN_AddSalida.FillColor = System.Drawing.Color.Transparent
         Me.BTN_AddSalida.Font = New System.Drawing.Font("Snap ITC", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_AddSalida.ForeColor = System.Drawing.Color.White
-        Me.BTN_AddSalida.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
+        Me.BTN_AddSalida.HoverState.Image = CType(resources.GetObject("resource.Image"), System.Drawing.Image)
+        Me.BTN_AddSalida.Image = CType(resources.GetObject("BTN_AddSalida.Image"), System.Drawing.Image)
         Me.BTN_AddSalida.ImageSize = New System.Drawing.Size(45, 45)
-        Me.BTN_AddSalida.Location = New System.Drawing.Point(429, 148)
+        Me.BTN_AddSalida.Location = New System.Drawing.Point(315, 119)
         Me.BTN_AddSalida.Name = "BTN_AddSalida"
         Me.BTN_AddSalida.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_AddSalida.Size = New System.Drawing.Size(44, 44)
@@ -303,9 +346,10 @@ Partial Class C_ConceptosCaja
         Me.BTN_AddEntrada.FillColor = System.Drawing.Color.Transparent
         Me.BTN_AddEntrada.Font = New System.Drawing.Font("Snap ITC", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BTN_AddEntrada.ForeColor = System.Drawing.Color.White
-        Me.BTN_AddEntrada.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
+        Me.BTN_AddEntrada.HoverState.Image = CType(resources.GetObject("resource.Image1"), System.Drawing.Image)
+        Me.BTN_AddEntrada.Image = CType(resources.GetObject("BTN_AddEntrada.Image"), System.Drawing.Image)
         Me.BTN_AddEntrada.ImageSize = New System.Drawing.Size(45, 45)
-        Me.BTN_AddEntrada.Location = New System.Drawing.Point(921, 148)
+        Me.BTN_AddEntrada.Location = New System.Drawing.Point(703, 119)
         Me.BTN_AddEntrada.Name = "BTN_AddEntrada"
         Me.BTN_AddEntrada.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
         Me.BTN_AddEntrada.Size = New System.Drawing.Size(44, 44)
@@ -316,7 +360,7 @@ Partial Class C_ConceptosCaja
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(131, 101)
+        Me.Label1.Location = New System.Drawing.Point(85, 76)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(205, 23)
         Me.Label1.TabIndex = 132
@@ -327,7 +371,7 @@ Partial Class C_ConceptosCaja
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Britannic Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(637, 101)
+        Me.Label2.Location = New System.Drawing.Point(487, 76)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(219, 23)
         Me.Label2.TabIndex = 133
@@ -340,7 +384,7 @@ Partial Class C_ConceptosCaja
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Britannic Bold", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(234, 16)
+        Me.Label3.Location = New System.Drawing.Point(142, 9)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(499, 41)
         Me.Label3.TabIndex = 134
@@ -351,7 +395,7 @@ Partial Class C_ConceptosCaja
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(993, 549)
+        Me.ClientSize = New System.Drawing.Size(775, 506)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -369,6 +413,7 @@ Partial Class C_ConceptosCaja
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Conceptos de entradas y salidas de caja"
         CType(Me.DGV_Entradas, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MNU_CONTX.ResumeLayout(False)
         CType(Me.DGV_Salidas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -386,4 +431,7 @@ Partial Class C_ConceptosCaja
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents MNU_CONTX As Guna.UI2.WinForms.Guna2ContextMenuStrip
+    Friend WithEvents MNU_MODIFICAR As ToolStripMenuItem
+    Friend WithEvents MNU_ELIMINAR As ToolStripMenuItem
 End Class

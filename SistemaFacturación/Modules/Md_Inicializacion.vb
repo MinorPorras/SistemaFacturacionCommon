@@ -353,14 +353,16 @@ Namespace SistemaFacturacion.Modules
             ' Debe de tener ID, concepto
             SQL = "CREATE TABLE IF NOT EXISTS Conceptos_Caja (
                             ID INTEGER PRIMARY KEY,
-                            concepto TEXT)"
+                            concepto TEXT,
+                            ID_Tipo_Movimiento INTEGER,
+                            FOREIGN KEY(ID_Tipo_Movimiento) REFERENCES Tipos_Movimiento(ID))"
             Dim param As New Dictionary(Of String, Object)
             If Not EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion) Then
                 'Significa que hubo un error en la transacción
                 Return False
             End If
 
-            SQL = "INSERT OR IGNORE INTO Conceptos_Caja VALUES (1, 'Ajuste'), (2, 'Pago a proveedores')"
+            SQL = "INSERT OR IGNORE INTO Conceptos_Caja VALUES (1, 'Ajuste', 1), (2, 'Pago a proveedores', 2)"
             Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaccion)
         End Function
 
