@@ -415,6 +415,7 @@ Namespace SistemaFacturacion.Modules
                             ID_concepto INTEGER,
                             ID_arqueo INTEGER,
                             referencia TEXT,
+                            fecha_hora TEXT,
                             FOREIGN KEY(ID_tipo_movimiento) REFERENCES Tipos_Movimiento(ID),
                             FOREIGN KEY(ID_concepto) REFERENCES Conceptos_Caja(ID),
                             FOREIGN KEY(ID_arqueo) REFERENCES Arqueo_Caja(ID))"

@@ -1,8 +1,4 @@
-﻿Imports System.Net.Mime.MediaTypeNames
-Imports System.Threading.Tasks
-Imports System.Windows.Forms
-Imports System.Drawing
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Mantenimiento
+﻿Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Mantenimiento
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 
 Namespace SistemaFacturacion.Forms.Busqueda

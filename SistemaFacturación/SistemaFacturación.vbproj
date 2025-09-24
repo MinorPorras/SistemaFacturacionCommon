@@ -262,6 +262,7 @@
     <Compile Include="Data\Cls_CierreCaja.vb" />
     <Compile Include="Data\Cls_ConceptoCaja.vb" />
     <Compile Include="Data\Cls_DatosFactura.vb" />
+    <Compile Include="Data\Cls_MovimientosCaja.vb" />
     <Compile Include="Data\Cls_ProductoCaja.vb" />
     <Compile Include="Data\Cls_ProductosMasVendidos.vb" />
     <Compile Include="Data\Cls_ReporteVentas.vb" />
@@ -283,6 +284,12 @@
       <DependentUpon>D_GuardarCuenta.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Dialogos\D_GuardarCuenta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogos\D_MovimientoCaja.Designer.vb">
+      <DependentUpon>D_MovimientoCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dialogos\D_MovimientoCaja.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Dialogos\D_VerDatosCierre.Designer.vb">
@@ -647,6 +654,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Busqueda\B_Proveedor.resx">
       <DependentUpon>B_Proveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogos\D_MovimientoCaja.resx">
+      <DependentUpon>D_MovimientoCaja.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Inicio\ConfigGeneral.resx">
       <DependentUpon>ConfigGeneral.vb</DependentUpon>

@@ -194,6 +194,40 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #End Region
 
+#Region "Funciones generales"
+        Friend Sub LIMPIAR()
+
+            'Se desabilitann botones que tiene activaciones condicionales
+            BTN_TVenta.Enabled = False
+            BTN_GuardarCuenta.Enabled = False
+
+            BTN_RegistrarIngreso.PerformClick()
+            TXT_BuscarProducto.Clear()
+            TXT_Total.Clear()
+            TXT_BuscarCliente.Text = "0001"
+            idCliente = 1
+            StrNumFactura = ""
+            idFactura = 0
+            NumFactura = 0
+            totalCaja = 0
+            Comentario = ""
+            DGV_Caja.Rows.Clear()
+
+            'Se carga el último número de factura que se haya agregado, que va a ser el mas alto
+            CargarNumFactura()
+
+        End Sub
+
+        Private Sub P_Caja_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+            Me.Select()
+            TXT_BuscarProducto.Select()
+            TXT_BuscarProducto.SelectAll()
+        End Sub
+#End Region
+
+#Region "Manejo de productos"
+
+
         Private Sub BTN_NProd_Click(sender As Object, e As EventArgs) Handles BTN_NProd.Click
             T.Tables.Clear()
             SQL = "SELECT p.ID, p.variable, v.precio_venta, p.nombre FROM producto p LEFT JOIN producto_precioVenta v ON p.ID = v.ID_Producto" +
@@ -236,11 +270,6 @@ Namespace SistemaFacturacion.Forms.Caja
             Catch ex As Exception
                 msgError("El código que colocó está mal escrito o no existe" + ex.Message)
             End Try
-        End Sub
-
-        Private Sub BTN_RegresarCaja_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCaja.Click
-            M_Inicio.Show()
-            Me.Close()
         End Sub
 
 
@@ -316,29 +345,6 @@ Namespace SistemaFacturacion.Forms.Caja
             End If
         End Sub
 
-        Friend Sub LIMPIAR()
-
-            'Se desabilitann botones que tiene activaciones condicionales
-            BTN_TVenta.Enabled = False
-            BTN_GuardarCuenta.Enabled = False
-
-            BTN_RegistrarIngreso.PerformClick()
-            TXT_BuscarProducto.Clear()
-            TXT_Total.Clear()
-            TXT_BuscarCliente.Text = "0001"
-            idCliente = 1
-            StrNumFactura = ""
-            idFactura = 0
-            NumFactura = 0
-            totalCaja = 0
-            Comentario = ""
-            DGV_Caja.Rows.Clear()
-
-            'Se carga el último número de factura que se haya agregado, que va a ser el mas alto
-            CargarNumFactura()
-
-        End Sub
-
         Private Sub DGV_Caja_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellClick
             ' Validar que el clic no fue en el encabezado de las columnas
             If e.RowIndex >= 0 Then
@@ -376,11 +382,39 @@ Namespace SistemaFacturacion.Forms.Caja
             TXT_BuscarProducto.Focus()
         End Sub
 
-        Private Sub P_Caja_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-            Me.Select()
-            TXT_BuscarProducto.Select()
-            TXT_BuscarProducto.SelectAll()
+        Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
+            'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
+            If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
+                msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
+                Return
+            End If
+
+            B_Producto.ModProd = True
+            B_Producto.Show()
+            B_Producto.Select()
+            B_Producto.LBL_IDProd.Text = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
+            B_Producto.idModProd = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
+            B_Producto.TXT_BuscarProd.Text = DGV_Caja.SelectedRows(0).Cells(2).Value.ToString()
+            B_Producto.TXT_CantProd.Text = DGV_Caja.SelectedRows(0).Cells(4).Value.ToString()
+            ValidarListView()
+            CargarTotal()
         End Sub
+
+        Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
+            'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
+            If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
+                msgError("Se debe de seleccionar un producto, no se puede eliminar una fila vacía")
+                Return
+            End If
+
+            'Se remuevela fila en el indice seleccionado
+            DGV_Caja.Rows.RemoveAt(DGV_Caja.SelectedRows(0).Index)
+
+            'Se valida la información de datagrid y se actualiza elt otal de la factura
+            ValidarListView()
+            CargarTotal()
+        End Sub
+#End Region
 
 #Region "Cuentas por cobrar"
 
@@ -571,6 +605,10 @@ Namespace SistemaFacturacion.Forms.Caja
 #End Region
 
 #Region "Acciones de botones"
+        Private Sub BTN_RegresarCaja_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCaja.Click
+            M_Inicio.Show()
+            Me.Close()
+        End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs)
             msgCerrarApp()
@@ -651,39 +689,6 @@ Namespace SistemaFacturacion.Forms.Caja
                 P_TerminarVenta.Select()
                 P_TerminarVenta.TXT_ECliente.SelectAll()
             End If
-        End Sub
-
-        Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
-            'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
-            If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
-                msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
-                Return
-            End If
-
-            B_Producto.ModProd = True
-            B_Producto.Show()
-            B_Producto.Select()
-            B_Producto.LBL_IDProd.Text = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
-            B_Producto.idModProd = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
-            B_Producto.TXT_BuscarProd.Text = DGV_Caja.SelectedRows(0).Cells(2).Value.ToString()
-            B_Producto.TXT_CantProd.Text = DGV_Caja.SelectedRows(0).Cells(4).Value.ToString()
-            ValidarListView()
-            CargarTotal()
-        End Sub
-
-        Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
-            'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
-            If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
-                msgError("Se debe de seleccionar un producto, no se puede eliminar una fila vacía")
-                Return
-            End If
-
-            'Se remuevela fila en el indice seleccionado
-            DGV_Caja.Rows.RemoveAt(DGV_Caja.SelectedRows(0).Index)
-
-            'Se valida la información de datagrid y se actualiza elt otal de la factura
-            ValidarListView()
-            CargarTotal()
         End Sub
 
         Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
@@ -797,18 +802,90 @@ Namespace SistemaFacturacion.Forms.Caja
             Return True
         End Function
 
-        Private Sub BTN_RegistrarIngreso_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarIngreso.Click
+        Private Sub RegistroMovimientos(esEntrada As Boolean)
+            Using formMovimiento As New D_MovimientoCaja
+                formMovimiento.isEntrada = esEntrada
+                formMovimiento.Owner = Me
+                Dim resultado = formMovimiento.ShowDialog()
 
+                If resultado = DialogResult.OK Then
+                    Dim movimiento As New Cls_MovimientosCaja With {
+                        .id = 0,
+                        .monto = CInt(formMovimiento.NUD_Monto.Value),
+                        .tipoMovimiento = If(esEntrada, 1, 2),
+                        .ID_Concepto = CInt(formMovimiento.CBX_tipoConcepto.SelectedValue),
+                        .ID_Arqueo = 0,
+                        .referencia = formMovimiento.TXT_Referencia.Text,
+                        .fecha = DateTime.Now
+                    }
+                    If IngresarMovimientoCaja(movimiento) Then
+                        mensaje("Ingreso registrado con éxito", vbOKOnly, "Ingreso a caja")
+                    End If
+                Else
+                    Console.WriteLine("Se presionó el botón Cancel")
+                    Return
+                End If
+
+            End Using
+        End Sub
+
+        Private Function IngresarMovimientoCaja(movimiento As Cls_MovimientosCaja) As Boolean
+            ' Se define un delegado que contiene todas las operaciones
+            Dim operacionesDeGuardado As Action(Of SQLiteConnection, SQLiteTransaction) =
+            Sub(conn, transaction)
+                CrearMovimiento(conn, transaction, movimiento)
+            End Sub
+
+            ' Se llama al método para ejecutar la transacción de forma segura
+            If Not EJECUTAR_TRANSACCION(operacionesDeGuardado) Then
+                Return False
+            End If
+
+            Return True
+        End Function
+
+        Private Function CrearMovimiento(conn As SQLiteConnection, transaction As SQLiteTransaction, movimiento As Cls_MovimientosCaja)
+            'Hacer el ingreso a la base de datos de la información
+            'Se ingresa el nuevo ID, monto, ID_Tipo_Movimiento, ID_Concepto, ID_arqueo, referencia
+            Dim insertSQL As String = "INSERT INTO Movimientos_Caja (ID, monto, ID_Tipo_Movimiento, ID_Concepto, ID_arqueo, referencia, fecha_hora) " &
+                                        "VALUES (@id, @monto, @tipo, @concepto, @arqueo, @referencia, @fecha)"
+            Dim param As New Dictionary(Of String, Object) From {
+                {"id", OBTENERPK("Movimientos_Caja", "ID")},
+                {"monto", movimiento.monto},
+                {"tipo", movimiento.tipoMovimiento}, ' 1 para entrada, 2 para salida
+                {"concepto", movimiento.ID_Concepto},
+                {"arqueo", OBTENERULTIMOARQUEO(conn)},
+                {"referencia", movimiento.referencia},
+                {"fecha", movimiento.fecha}
+            }
+            Return EJECUTAR_PARAMETROS_TRANSACCION(insertSQL, param, conn, transaction)
+        End Function
+
+        Private Function OBTENERULTIMOARQUEO(conn As SQLiteConnection) As Object
+            SQL = "SELECT ID FROM Arqueo_Caja ORDER BY ID DESC LIMIT 1"
+            Dim cmd As New SQLiteCommand(SQL, conn)
+            Dim result = cmd.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return Convert.ToInt32(result)
+            Else
+                msgError("No se encontró un arqueo de caja abierto. Por favor, realice una apertura de caja primero.")
+                Throw New Exception("No se encontró un arqueo de caja abierto.")
+            End If
+        End Function
+
+        Private Sub BTN_RegistrarIngreso_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarIngreso.Click
+            RegistroMovimientos(True)
         End Sub
 
         Private Sub BTN_RegistrarSalida_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarSalida.Click
-
+            RegistroMovimientos(False)
         End Sub
 
         Private Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
 
         End Sub
 #End Region
+
     End Class
 
 End Namespace

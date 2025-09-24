@@ -1,5 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class E_NuevoConcepto
+﻿Namespace SistemaFacturacion.Forms.Mantenimiento
+    <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+    Partial Class E_NuevoConcepto
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -213,3 +214,5 @@ Partial Class E_NuevoConcepto
     Friend WithEvents BTN_Regresar As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_NConcepto As Guna.UI2.WinForms.Guna2Button
 End Class
+
+End Namespace
