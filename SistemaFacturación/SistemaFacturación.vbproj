@@ -263,6 +263,7 @@
     <Compile Include="Data\Cls_ConceptoCaja.vb" />
     <Compile Include="Data\Cls_DatosFactura.vb" />
     <Compile Include="Data\Cls_MovimientosCaja.vb" />
+    <Compile Include="Data\Cls_MovimientosEfectivo.vb" />
     <Compile Include="Data\Cls_ProductoCaja.vb" />
     <Compile Include="Data\Cls_ProductosMasVendidos.vb" />
     <Compile Include="Data\Cls_ReporteVentas.vb" />
@@ -333,12 +334,6 @@
       <DependentUpon>P_ReporteVentas.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Reportes\P_ReporteVentas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Reportes\P_VerCierre.Designer.vb">
-      <DependentUpon>P_VerCierre.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Reportes\P_VerCierre.vb">
       <SubType>Form</SubType>
     </Compile>
     <Content Include="bd\dbSistemaFacturacion.db">
@@ -780,9 +775,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Mantenimiento\C_Usuarios.resx">
       <DependentUpon>C_Usuarios.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Reportes\P_VerCierre.resx">
-      <DependentUpon>P_VerCierre.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

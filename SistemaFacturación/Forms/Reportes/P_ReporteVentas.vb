@@ -1,4 +1,5 @@
-﻿Imports System.Globalization
+﻿Imports System.Data.SQLite
+Imports System.Globalization
 Imports Guna.UI2.WinForms
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
@@ -14,7 +15,8 @@ Namespace SistemaFacturacion.Forms.Reportes
         ' Declaración de un diccionario para rastrear el estado de carga de cada pestaña.
         Private _tabLoaded As New Dictionary(Of String, Boolean) From {
             {"PAG_ReporteVentas", False},
-            {"PAG_ReporteProd", False}
+            {"PAG_ReporteProd", False},
+            {"PAG_ArqueosCaja", False}
         }
 
 #Region "Metodos compartidos"
@@ -56,6 +58,9 @@ Namespace SistemaFacturacion.Forms.Reportes
 
                     ' Actualiza el estado de carga para evitar recargas.
                     _tabLoaded("PAG_ReporteProd") = True
+                Case "PAG_ArqueosCaja"
+                    InicializarComponentes()
+                    ReiniciarTemporizador()
             End Select
         End Sub
         Private Sub Regresar()
@@ -210,7 +215,7 @@ Namespace SistemaFacturacion.Forms.Reportes
             End If
         End Sub
 
-        Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
+        Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_DATOS.Click
             Dim datosFactura As New Cls_DatosFactura With {
                 .IdFactura = DGV_FactReporte.SelectedRows(0).Cells(0).Value.ToString(),
                 .NumFactura = DGV_FactReporte.SelectedRows(0).Cells(1).Value.ToString(),
@@ -332,6 +337,161 @@ Namespace SistemaFacturacion.Forms.Reportes
             DGV_ListProductosMasVendidos.Columns("cantidad").DisplayIndex = 1
             DGV_ListProductosMasVendidos.Columns("total").DisplayIndex = 2
         End Sub
+#End Region
+
+
+#Region "Arqueos de caja"
+        Private searchTimer As Timer
+
+        Private Sub ReiniciarTemporizador()
+            If searchTimer IsNot Nothing Then
+                ' Reiniciar el temporizador cada vez que se cambia el texto
+                searchTimer.Stop()
+                searchTimer.Start()
+            End If
+        End Sub
+
+        ' Método para inicializar el temporizador y otros componentes necesarios
+        Private Sub InicializarComponentes()
+            'Se establece el filtro de la busqueda en desabilitado inicialmente para que muestre todos los cierres
+            SWT_ActivateDateSearch.Checked = False
+            DTP_Desde.Enabled = False
+            ' Inicializar el temporizador
+            searchTimer = New Timer With {
+                .Interval = 250
+            }
+            ' Medio segundo
+            AddHandler searchTimer.Tick, AddressOf OnSearchTimerTick
+        End Sub
+
+        Private Sub OnSearchTimerTick(sender As Object, e As EventArgs)
+            ' Detener el temporizador y ejecutar la búsqueda
+            searchTimer.Stop()
+            REFRESCAR()
+        End Sub
+
+        Private Sub REFRESCAR()
+            Task.Run(Sub()
+                         T.Tables.Clear()
+                         'Se inicializa el comando SQL para obtener la información
+                         SQL = "SELECT ac.ID, ac.ID_Usuario, u.usuario As 'Cajero', ac.fondo_inicial As 'Fondo Inicial', ac.hora_apertura As 'Hora Apertura', " &
+                                "ac.hora_cierre As 'Hora Cierre', SUM(mc.ID) As '# Movimientos', ac.efectivo_contado As 'Efectivo contado', ac.diferencia As 'Diferencia' " &
+                                "FROM Arqueo_Caja ac  LEFT JOIN usuario u ON U.ID = AC.ID_Usuario  LEFT JOIN Movimientos_Caja mc  ON mc.ID_arqueo  = AC.ID " &
+                                "WHERE (@usuario IS NULL OR u.usuario LIKE '%' || @usuario || '%') AND" &
+                                "(@fecha IS NULL OR DATE(ac.hora_cierre) = DATE(@fecha) OR DATE(ac.hora_apertura) = DATE(@fecha)) " &
+                                "GROUP BY ac.ID ORDER BY ac.hora_cierre
+"
+
+                         'Se crea el parámetro para el comentario y para la fecha
+                         Dim usuario As New SQLiteParameter("@usuario")
+                         Dim fecha As New SQLiteParameter("@fecha")
+
+                         ' Si el campo de texto está vacío, el parámetro es NULL.
+                         ' Esto le indica a la consulta SQL que ignore el filtro.
+                         If String.IsNullOrWhiteSpace(TXT_BuscarUsuario.Text) Then
+                             usuario.Value = DBNull.Value
+                         Else
+                             ' Se agrega la búsqueda por patrón LIKE para ser más flexible
+                             usuario.Value = TXT_BuscarUsuario.Text
+                         End If
+
+                         ' Si el switch no está marcado, se ignora la fecha en el filtro
+                         If SWT_ActivateDateSearch.Checked Then
+                             fecha.Value = DTP_Desde.Value
+                         Else
+                             fecha.Value = DBNull.Value
+                         End If
+
+                         ' Se crea una lista para almacenar los parámetros
+                         'Se añaden los parémtros a la lista
+                         Dim paramList As New List(Of SQLiteParameter) From {
+                             usuario,
+                             fecha
+                         }
+
+                         ' Verificamos si la invocación es necesaria
+                         Invoke(Sub()
+                                    'Se carga la tabla con esa lista de parámetros indicado
+                                    CargarTablaParam(T, SQL, paramList)
+
+                                    Dim bin As New BindingSource With {
+                                       .DataSource = T.Tables(0)
+                                    }
+                                    DGV_ListaCierres.DataSource = bin
+
+                                    ' Mueve las siguientes dos líneas al final
+                                    DGV_ListaCierres.Columns(0).Visible = False
+                                    DGV_ListaCierres.Columns(1).Visible = False
+
+                                    ' Agrega Refresh() para forzar la actualización después de todo
+                                    DGV_ListaCierres.Refresh()
+                                End Sub)
+                     End Sub)
+        End Sub
+
+        Private Sub DGV_ListaCierres_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_ListaCierres.DataBindingComplete
+            ' Verificamos que existan al menos 11 columnas para evitar errores de índice
+            If DGV_ListaCierres.Columns.Count >= 11 Then
+                ' Oculta las columnas de ID, si es necesario
+                DGV_ListaCierres.Columns(0).Visible = False
+                DGV_ListaCierres.Columns(3).Visible = False
+
+                ' Bucle para formatear las columnas de la 5 a la 10
+                For i As Integer = 5 To 10
+                    ' Aplica el formato de moneda de Costa Rica
+                    DGV_ListaCierres.Columns(i).DefaultCellStyle.Format = "C"
+                    DGV_ListaCierres.Columns(i).DefaultCellStyle.FormatProvider = New CultureInfo("es-CR")
+                Next
+            End If
+        End Sub
+
+        Private Sub BTN_RegresarArqueos_Click(sender As Object, e As EventArgs) Handles BTN_RegresarArqueos.Click
+            Regresar()
+        End Sub
+
+        Private Sub TXT_BuscarUsuario_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarUsuario.TextChanged
+            ReiniciarTemporizador()
+        End Sub
+
+        Private Sub Guna2DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DTP_FechaFiltroArqueo.ValueChanged
+            ReiniciarTemporizador()
+        End Sub
+
+        Private Sub SWT_ActivateDateSearch_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_ActivateDateSearch.CheckedChanged
+            If SWT_ActivateDateSearch.Checked Then
+                DTP_FechaFiltroArqueo.Enabled = True
+            Else
+                DTP_FechaFiltroArqueo.Enabled = False
+            End If
+        End Sub
+
+        Private Sub MNU_ARQUEO_DATOS_Click(sender As Object, e As EventArgs) Handles MNU_ARQUEO_DATOS.Click
+            Dim cierre = DGV_ListaCierres.SelectedRows(0)
+            SQL = "SELECT ac.ID, ac.ID_Usuario, u.usuario As 'Cajero', ac.fondo_inicial As 'Fondo Inicial', ac.hora_apertura As 'Hora Apertura', " &
+                    "ac.hora_cierre As 'Hora Cierre', SUM(mc.ID) As '# Movimientos', ac.efectivo_contado As 'Efectivo contado', ac.diferencia As 'Diferencia' " &
+                    "FROM Arqueo_Caja ac  LEFT JOIN usuario u ON U.ID = AC.ID_Usuario  LEFT JOIN Movimientos_Caja mc  ON mc.ID_arqueo  = AC.ID " &
+                    "WHERE (@usuario IS NULL OR u.usuario LIKE '%' || @usuario || '%') " &
+                    "(@fecha IS NULL OR DATE(ac.hora_cierre) = DATE(@fecha) OR DATE(ac.hora_apertura) = DATE(@fecha)) " &
+                    "GROUP BY ac.ID ORDER BY ac.hora_cierre"
+            Dim datosCierre As New Cls_CierreCaja With {
+                .ID = cierre.Cells("ID").Value,
+                .ID_Usuario = cierre.Cells("ID_Usuario").Value,
+                .Cajero = cierre.Cells("Cajero").Value,
+                .fondo_inicial = cierre.Cells("Fondo Inicial").Value,
+                .hora_apertura = cierre.Cells("Hora Apertura").Value,
+                .hora_cierre = cierre.Cells("Hora Cierre").Value,
+                .efectivo_contado = cierre.Cells("Efectivo contado").Value,
+                .diferencia = cierre.Cells("Diferencia").Value
+            }
+
+            Using frmVerDatos As New D_VerDatosCierre
+                frmVerDatos.Owner = Me
+                frmVerDatos.datosCierre = datosCierre
+                frmVerDatos.ShowDialog()
+            End Using
+        End Sub
+
+
 #End Region
     End Class
 

@@ -510,7 +510,7 @@
             Me.Guna2GroupBox4.Name = "Guna2GroupBox4"
             Me.Guna2GroupBox4.Size = New System.Drawing.Size(532, 151)
             Me.Guna2GroupBox4.TabIndex = 159
-            Me.Guna2GroupBox4.Text = "Datos del cierre anterior"
+            Me.Guna2GroupBox4.Text = "Datos Iniciales del turno"
             Me.Guna2GroupBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
             'TXT_VentaTarjeta

@@ -23,71 +23,92 @@
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ReporteVentas))
-        Me.TAB_Reportes = New Guna.UI2.WinForms.Guna2TabControl()
-        Me.PAG_ReporteVentas = New System.Windows.Forms.TabPage()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Guna2GroupBox1 = New Guna.UI2.WinForms.Guna2GroupBox()
-        Me.TXT_CantProdMasVendido = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.TXT_TotalProdMasVendido = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2HtmlLabel9 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel8 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.TXT_NombreProdMasVendido = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2GroupBox2 = New Guna.UI2.WinForms.Guna2GroupBox()
-        Me.TXT_CantFacturas = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2HtmlLabel5 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.TXT_VentasEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.TXT_VentasTarjeta = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.LBL_Usu = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.TXT_TotalVentas = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        Me.BTN_GenerarReporteVentaPDF = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_RegresarReporte = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_GenReporte = New Guna.UI2.WinForms.Guna2Button()
-        Me.DTP_Hasta = New Guna.UI2.WinForms.Guna2DateTimePicker()
-        Me.DTP_Desde = New Guna.UI2.WinForms.Guna2DateTimePicker()
-        Me.DGV_FactReporte = New Guna.UI2.WinForms.Guna2DataGridView()
-        Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
-        Me.MNU_REIMPRIMIR = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MNU_Datos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PAG_ReporteProd = New System.Windows.Forms.TabPage()
-        Me.TBL_ReporteProductosGeneral = New System.Windows.Forms.TableLayoutPanel()
-        Me.TBL_ResultContainer = New System.Windows.Forms.TableLayoutPanel()
-        Me.BTN_RegresarReporteProducto = New Guna.UI2.WinForms.Guna2Button()
-        Me.GBX_ListaProductoCompleta = New Guna.UI2.WinForms.Guna2GroupBox()
-        Me.DGV_ListProductosMasVendidos = New Guna.UI2.WinForms.Guna2DataGridView()
-        Me.DGV_MejorProducto = New Guna.UI2.WinForms.Guna2GroupBox()
-        Me.TXT_MejorProductoCant = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.TXT_MejorProductoTotal = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel10 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel11 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.TXT_MejorProductoNombre = New Guna.UI2.WinForms.Guna2TextBox()
-        Me.PAN_ReporteProductoInputContainer = New Guna.UI2.WinForms.Guna2Panel()
-        Me.Guna2GroupBox3 = New Guna.UI2.WinForms.Guna2GroupBox()
-        Me.RDB_OrderByCant = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
-        Me.RDB_OrderByTotal = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
-        Me.Guna2HtmlLabel15 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.BTN_GenReporteProductos = New Guna.UI2.WinForms.Guna2Button()
-        Me.Guna2HtmlLabel13 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.Guna2HtmlLabel14 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.DTP_HastaReporteProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
-        Me.DTP_DesdeReporteProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
-        Me.NUD_LimitReporteProducto = New Guna.UI2.WinForms.Guna2NumericUpDown()
-        Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+            Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ReporteVentas))
+            Me.TAB_Reportes = New Guna.UI2.WinForms.Guna2TabControl()
+            Me.PAG_ReporteVentas = New System.Windows.Forms.TabPage()
+            Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+            Me.Guna2GroupBox1 = New Guna.UI2.WinForms.Guna2GroupBox()
+            Me.TXT_CantProdMasVendido = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.TXT_TotalProdMasVendido = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.Guna2HtmlLabel9 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel8 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.TXT_NombreProdMasVendido = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.Guna2GroupBox2 = New Guna.UI2.WinForms.Guna2GroupBox()
+            Me.TXT_CantFacturas = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.Guna2HtmlLabel5 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.TXT_VentasEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.TXT_VentasTarjeta = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.LBL_Usu = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.TXT_TotalVentas = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
+            Me.BTN_GenerarReporteVentaPDF = New Guna.UI2.WinForms.Guna2Button()
+            Me.BTN_RegresarReporte = New Guna.UI2.WinForms.Guna2Button()
+            Me.BTN_GenReporte = New Guna.UI2.WinForms.Guna2Button()
+            Me.DTP_Hasta = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_Desde = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DGV_FactReporte = New Guna.UI2.WinForms.Guna2DataGridView()
+            Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
+            Me.MNU_REIMPRIMIR = New System.Windows.Forms.ToolStripMenuItem()
+            Me.MNU_DATOS = New System.Windows.Forms.ToolStripMenuItem()
+            Me.PAG_ReporteProd = New System.Windows.Forms.TabPage()
+            Me.TBL_ReporteProductosGeneral = New System.Windows.Forms.TableLayoutPanel()
+            Me.TBL_ResultContainer = New System.Windows.Forms.TableLayoutPanel()
+            Me.BTN_RegresarReporteProducto = New Guna.UI2.WinForms.Guna2Button()
+            Me.GBX_ListaProductoCompleta = New Guna.UI2.WinForms.Guna2GroupBox()
+            Me.DGV_ListProductosMasVendidos = New Guna.UI2.WinForms.Guna2DataGridView()
+            Me.DGV_MejorProducto = New Guna.UI2.WinForms.Guna2GroupBox()
+            Me.TXT_MejorProductoCant = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.TXT_MejorProductoTotal = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel10 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel11 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.TXT_MejorProductoNombre = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.PAN_ReporteProductoInputContainer = New Guna.UI2.WinForms.Guna2Panel()
+            Me.Guna2GroupBox3 = New Guna.UI2.WinForms.Guna2GroupBox()
+            Me.RDB_OrderByCant = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
+            Me.RDB_OrderByTotal = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
+            Me.Guna2HtmlLabel15 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.BTN_GenReporteProductos = New Guna.UI2.WinForms.Guna2Button()
+            Me.Guna2HtmlLabel13 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel14 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.DTP_HastaReporteProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_DesdeReporteProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.NUD_LimitReporteProducto = New Guna.UI2.WinForms.Guna2NumericUpDown()
+            Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.PAG_ArqueosCaja = New System.Windows.Forms.TabPage()
+            Me.TBL_LayoutVerCierre = New System.Windows.Forms.TableLayoutPanel()
+            Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.TBL_LayoutSearch = New System.Windows.Forms.TableLayoutPanel()
+            Me.DTP_FechaFiltroArqueo = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.Guna2HtmlLabel17 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.Guna2HtmlLabel18 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.TXT_BuscarUsuario = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.PAN_SWTBuscarFecha = New Guna.UI2.WinForms.Guna2Panel()
+            Me.SWT_ActivateDateSearch = New Guna.UI2.WinForms.Guna2ToggleSwitch()
+            Me.Guna2HtmlLabel19 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.PAN_BTNAccions = New Guna.UI2.WinForms.Guna2Panel()
+            Me.BTN_RegresarArqueos = New Guna.UI2.WinForms.Guna2Button()
+            Me.PAN_dgvVerCierre = New Guna.UI2.WinForms.Guna2Panel()
+            Me.DGV_ListaCierres = New Guna.UI2.WinForms.Guna2DataGridView()
+            Me.MNU_CONTX_ARQUEO = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
+            Me.MNU_ARQUEO_DATOS = New System.Windows.Forms.ToolStripMenuItem()
             Me.TAB_Reportes.SuspendLayout()
             Me.PAG_ReporteVentas.SuspendLayout()
             Me.TableLayoutPanel1.SuspendLayout()
@@ -107,12 +128,21 @@
             CType(Me.RDB_OrderByCant, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.RDB_OrderByTotal, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.NUD_LimitReporteProducto, System.ComponentModel.ISupportInitialize).BeginInit()
+            Me.PAG_ArqueosCaja.SuspendLayout()
+            Me.TBL_LayoutVerCierre.SuspendLayout()
+            Me.TBL_LayoutSearch.SuspendLayout()
+            Me.PAN_SWTBuscarFecha.SuspendLayout()
+            Me.PAN_BTNAccions.SuspendLayout()
+            Me.PAN_dgvVerCierre.SuspendLayout()
+            CType(Me.DGV_ListaCierres, System.ComponentModel.ISupportInitialize).BeginInit()
+            Me.MNU_CONTX_ARQUEO.SuspendLayout()
             Me.SuspendLayout()
             '
             'TAB_Reportes
             '
             Me.TAB_Reportes.Controls.Add(Me.PAG_ReporteVentas)
             Me.TAB_Reportes.Controls.Add(Me.PAG_ReporteProd)
+            Me.TAB_Reportes.Controls.Add(Me.PAG_ArqueosCaja)
             Me.TAB_Reportes.Dock = System.Windows.Forms.DockStyle.Fill
             Me.TAB_Reportes.ItemSize = New System.Drawing.Size(180, 40)
             Me.TAB_Reportes.Location = New System.Drawing.Point(0, 0)
@@ -674,7 +704,7 @@
             'MNU_CONTX
             '
             Me.MNU_CONTX.ImageScalingSize = New System.Drawing.Size(20, 20)
-            Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_REIMPRIMIR, Me.MNU_Datos})
+            Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_REIMPRIMIR, Me.MNU_DATOS})
             Me.MNU_CONTX.Name = "MNU_CONTX"
             Me.MNU_CONTX.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.MNU_CONTX.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
@@ -697,15 +727,15 @@
             Me.MNU_REIMPRIMIR.Size = New System.Drawing.Size(145, 26)
             Me.MNU_REIMPRIMIR.Text = "Reimprimir"
             '
-            'MNU_Datos
+            'MNU_DATOS
             '
-            Me.MNU_Datos.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-            Me.MNU_Datos.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.MNU_Datos.ForeColor = System.Drawing.Color.White
-            Me.MNU_Datos.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
-            Me.MNU_Datos.Name = "MNU_Datos"
-            Me.MNU_Datos.Size = New System.Drawing.Size(145, 26)
-            Me.MNU_Datos.Text = "Ver datos"
+            Me.MNU_DATOS.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.MNU_DATOS.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.MNU_DATOS.ForeColor = System.Drawing.Color.White
+            Me.MNU_DATOS.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+            Me.MNU_DATOS.Name = "MNU_DATOS"
+            Me.MNU_DATOS.Size = New System.Drawing.Size(145, 26)
+            Me.MNU_DATOS.Text = "Ver datos"
             '
             'PAG_ReporteProd
             '
@@ -1182,6 +1212,320 @@
             Me.Guna2HtmlLabel12.Text = "Cantidad a mostrar:"
             Me.Guna2HtmlLabel12.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
             '
+            'PAG_ArqueosCaja
+            '
+            Me.PAG_ArqueosCaja.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.PAG_ArqueosCaja.Controls.Add(Me.TBL_LayoutVerCierre)
+            Me.PAG_ArqueosCaja.Location = New System.Drawing.Point(4, 44)
+            Me.PAG_ArqueosCaja.Name = "PAG_ArqueosCaja"
+            Me.PAG_ArqueosCaja.Padding = New System.Windows.Forms.Padding(3)
+            Me.PAG_ArqueosCaja.Size = New System.Drawing.Size(1246, 706)
+            Me.PAG_ArqueosCaja.TabIndex = 2
+            Me.PAG_ArqueosCaja.Text = "Arqueos de caja"
+            Me.PAG_ArqueosCaja.ToolTipText = "Consulta y revisión de los cierres de caja realizados"
+            '
+            'TBL_LayoutVerCierre
+            '
+            Me.TBL_LayoutVerCierre.ColumnCount = 1
+            Me.TBL_LayoutVerCierre.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+            Me.TBL_LayoutVerCierre.Controls.Add(Me.Guna2HtmlLabel16, 0, 0)
+            Me.TBL_LayoutVerCierre.Controls.Add(Me.TBL_LayoutSearch, 0, 1)
+            Me.TBL_LayoutVerCierre.Controls.Add(Me.PAN_BTNAccions, 0, 3)
+            Me.TBL_LayoutVerCierre.Controls.Add(Me.PAN_dgvVerCierre, 0, 2)
+            Me.TBL_LayoutVerCierre.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.TBL_LayoutVerCierre.Location = New System.Drawing.Point(3, 3)
+            Me.TBL_LayoutVerCierre.Name = "TBL_LayoutVerCierre"
+            Me.TBL_LayoutVerCierre.RowCount = 4
+            Me.TBL_LayoutVerCierre.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+            Me.TBL_LayoutVerCierre.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+            Me.TBL_LayoutVerCierre.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+            Me.TBL_LayoutVerCierre.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
+            Me.TBL_LayoutVerCierre.Size = New System.Drawing.Size(1240, 700)
+            Me.TBL_LayoutVerCierre.TabIndex = 1
+            '
+            'Guna2HtmlLabel16
+            '
+            Me.Guna2HtmlLabel16.AutoSize = False
+            Me.Guna2HtmlLabel16.BackColor = System.Drawing.Color.Transparent
+            Me.Guna2HtmlLabel16.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.Guna2HtmlLabel16.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.Guna2HtmlLabel16.ForeColor = System.Drawing.SystemColors.Control
+            Me.Guna2HtmlLabel16.Location = New System.Drawing.Point(3, 3)
+            Me.Guna2HtmlLabel16.Name = "Guna2HtmlLabel16"
+            Me.Guna2HtmlLabel16.Size = New System.Drawing.Size(1234, 54)
+            Me.Guna2HtmlLabel16.TabIndex = 153
+            Me.Guna2HtmlLabel16.Text = "Consulta de cierres de caja"
+            Me.Guna2HtmlLabel16.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+            Me.Guna2HtmlLabel16.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
+            'TBL_LayoutSearch
+            '
+            Me.TBL_LayoutSearch.ColumnCount = 5
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.49541!))
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.50459!))
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109.0!))
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 299.0!))
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116.0!))
+            Me.TBL_LayoutSearch.Controls.Add(Me.DTP_FechaFiltroArqueo, 3, 0)
+            Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel17, 2, 0)
+            Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel18, 0, 0)
+            Me.TBL_LayoutSearch.Controls.Add(Me.TXT_BuscarUsuario, 1, 0)
+            Me.TBL_LayoutSearch.Controls.Add(Me.PAN_SWTBuscarFecha, 4, 0)
+            Me.TBL_LayoutSearch.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.TBL_LayoutSearch.Location = New System.Drawing.Point(3, 63)
+            Me.TBL_LayoutSearch.Name = "TBL_LayoutSearch"
+            Me.TBL_LayoutSearch.RowCount = 1
+            Me.TBL_LayoutSearch.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+            Me.TBL_LayoutSearch.Size = New System.Drawing.Size(1234, 54)
+            Me.TBL_LayoutSearch.TabIndex = 154
+            '
+            'DTP_FechaFiltroArqueo
+            '
+            Me.DTP_FechaFiltroArqueo.BorderRadius = 10
+            Me.DTP_FechaFiltroArqueo.Checked = True
+            Me.DTP_FechaFiltroArqueo.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.DTP_FechaFiltroArqueo.FillColor = System.Drawing.Color.White
+            Me.DTP_FechaFiltroArqueo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_FechaFiltroArqueo.Format = System.Windows.Forms.DateTimePickerFormat.[Long]
+            Me.DTP_FechaFiltroArqueo.Location = New System.Drawing.Point(821, 3)
+            Me.DTP_FechaFiltroArqueo.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_FechaFiltroArqueo.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_FechaFiltroArqueo.Name = "DTP_FechaFiltroArqueo"
+            Me.DTP_FechaFiltroArqueo.Size = New System.Drawing.Size(293, 48)
+            Me.DTP_FechaFiltroArqueo.TabIndex = 157
+            Me.DTP_FechaFiltroArqueo.Value = New Date(2025, 3, 17, 19, 28, 7, 244)
+            '
+            'Guna2HtmlLabel17
+            '
+            Me.Guna2HtmlLabel17.AutoSize = False
+            Me.Guna2HtmlLabel17.BackColor = System.Drawing.Color.Transparent
+            Me.Guna2HtmlLabel17.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.Guna2HtmlLabel17.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.Guna2HtmlLabel17.ForeColor = System.Drawing.SystemColors.Control
+            Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(712, 3)
+            Me.Guna2HtmlLabel17.Name = "Guna2HtmlLabel17"
+            Me.Guna2HtmlLabel17.Size = New System.Drawing.Size(103, 48)
+            Me.Guna2HtmlLabel17.TabIndex = 156
+            Me.Guna2HtmlLabel17.Text = "Fecha:"
+            Me.Guna2HtmlLabel17.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+            Me.Guna2HtmlLabel17.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
+            'Guna2HtmlLabel18
+            '
+            Me.Guna2HtmlLabel18.AutoSize = False
+            Me.Guna2HtmlLabel18.BackColor = System.Drawing.Color.Transparent
+            Me.Guna2HtmlLabel18.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.Guna2HtmlLabel18.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.Guna2HtmlLabel18.ForeColor = System.Drawing.SystemColors.Control
+            Me.Guna2HtmlLabel18.Location = New System.Drawing.Point(3, 3)
+            Me.Guna2HtmlLabel18.Name = "Guna2HtmlLabel18"
+            Me.Guna2HtmlLabel18.Size = New System.Drawing.Size(132, 48)
+            Me.Guna2HtmlLabel18.TabIndex = 154
+            Me.Guna2HtmlLabel18.Text = "Usuario:"
+            Me.Guna2HtmlLabel18.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter
+            Me.Guna2HtmlLabel18.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
+            'TXT_BuscarUsuario
+            '
+            Me.TXT_BuscarUsuario.BorderRadius = 10
+            Me.TXT_BuscarUsuario.Cursor = System.Windows.Forms.Cursors.IBeam
+            Me.TXT_BuscarUsuario.DefaultText = ""
+            Me.TXT_BuscarUsuario.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+            Me.TXT_BuscarUsuario.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+            Me.TXT_BuscarUsuario.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_BuscarUsuario.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_BuscarUsuario.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.TXT_BuscarUsuario.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_BuscarUsuario.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.TXT_BuscarUsuario.ForeColor = System.Drawing.Color.Black
+            Me.TXT_BuscarUsuario.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_BuscarUsuario.IconRightSize = New System.Drawing.Size(40, 40)
+            Me.TXT_BuscarUsuario.Location = New System.Drawing.Point(141, 3)
+            Me.TXT_BuscarUsuario.Name = "TXT_BuscarUsuario"
+            Me.TXT_BuscarUsuario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+            Me.TXT_BuscarUsuario.PlaceholderText = ""
+            Me.TXT_BuscarUsuario.SelectedText = ""
+            Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(565, 48)
+            Me.TXT_BuscarUsuario.TabIndex = 155
+            '
+            'PAN_SWTBuscarFecha
+            '
+            Me.PAN_SWTBuscarFecha.Controls.Add(Me.SWT_ActivateDateSearch)
+            Me.PAN_SWTBuscarFecha.Controls.Add(Me.Guna2HtmlLabel19)
+            Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(1120, 3)
+            Me.PAN_SWTBuscarFecha.Name = "PAN_SWTBuscarFecha"
+            Me.PAN_SWTBuscarFecha.Size = New System.Drawing.Size(106, 48)
+            Me.PAN_SWTBuscarFecha.TabIndex = 158
+            '
+            'SWT_ActivateDateSearch
+            '
+            Me.SWT_ActivateDateSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.SWT_ActivateDateSearch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.SWT_ActivateDateSearch.CheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.SWT_ActivateDateSearch.CheckedState.InnerBorderColor = System.Drawing.Color.White
+            Me.SWT_ActivateDateSearch.CheckedState.InnerColor = System.Drawing.Color.White
+            Me.SWT_ActivateDateSearch.Location = New System.Drawing.Point(25, 26)
+            Me.SWT_ActivateDateSearch.Name = "SWT_ActivateDateSearch"
+            Me.SWT_ActivateDateSearch.Size = New System.Drawing.Size(53, 20)
+            Me.SWT_ActivateDateSearch.TabIndex = 158
+            Me.SWT_ActivateDateSearch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(125, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
+            Me.SWT_ActivateDateSearch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(CType(CType(125, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
+            Me.SWT_ActivateDateSearch.UncheckedState.InnerBorderColor = System.Drawing.Color.White
+            Me.SWT_ActivateDateSearch.UncheckedState.InnerColor = System.Drawing.Color.White
+            '
+            'Guna2HtmlLabel19
+            '
+            Me.Guna2HtmlLabel19.AutoSize = False
+            Me.Guna2HtmlLabel19.BackColor = System.Drawing.Color.Transparent
+            Me.Guna2HtmlLabel19.Dock = System.Windows.Forms.DockStyle.Top
+            Me.Guna2HtmlLabel19.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.Guna2HtmlLabel19.ForeColor = System.Drawing.SystemColors.Control
+            Me.Guna2HtmlLabel19.Location = New System.Drawing.Point(0, 0)
+            Me.Guna2HtmlLabel19.Name = "Guna2HtmlLabel19"
+            Me.Guna2HtmlLabel19.Size = New System.Drawing.Size(106, 25)
+            Me.Guna2HtmlLabel19.TabIndex = 157
+            Me.Guna2HtmlLabel19.Text = "Activar"
+            Me.Guna2HtmlLabel19.TextAlignment = System.Drawing.ContentAlignment.TopCenter
+            Me.Guna2HtmlLabel19.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
+            'PAN_BTNAccions
+            '
+            Me.PAN_BTNAccions.Controls.Add(Me.BTN_RegresarArqueos)
+            Me.PAN_BTNAccions.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.PAN_BTNAccions.Location = New System.Drawing.Point(3, 643)
+            Me.PAN_BTNAccions.Name = "PAN_BTNAccions"
+            Me.PAN_BTNAccions.Size = New System.Drawing.Size(1234, 54)
+            Me.PAN_BTNAccions.TabIndex = 156
+            '
+            'BTN_RegresarArqueos
+            '
+            Me.BTN_RegresarArqueos.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.BTN_RegresarArqueos.BorderRadius = 10
+            Me.BTN_RegresarArqueos.DialogResult = System.Windows.Forms.DialogResult.Cancel
+            Me.BTN_RegresarArqueos.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_RegresarArqueos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_RegresarArqueos.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+            Me.BTN_RegresarArqueos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+            Me.BTN_RegresarArqueos.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+            Me.BTN_RegresarArqueos.Font = New System.Drawing.Font("Ebrima", 20.25!, System.Drawing.FontStyle.Bold)
+            Me.BTN_RegresarArqueos.ForeColor = System.Drawing.Color.White
+            Me.BTN_RegresarArqueos.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+            Me.BTN_RegresarArqueos.ImageSize = New System.Drawing.Size(40, 40)
+            Me.BTN_RegresarArqueos.Location = New System.Drawing.Point(16, 1)
+            Me.BTN_RegresarArqueos.Name = "BTN_RegresarArqueos"
+            Me.BTN_RegresarArqueos.Size = New System.Drawing.Size(1202, 51)
+            Me.BTN_RegresarArqueos.TabIndex = 84
+            Me.BTN_RegresarArqueos.Text = "Regresar"
+            '
+            'PAN_dgvVerCierre
+            '
+            Me.PAN_dgvVerCierre.Controls.Add(Me.DGV_ListaCierres)
+            Me.PAN_dgvVerCierre.Dock = System.Windows.Forms.DockStyle.Fill
+            Me.PAN_dgvVerCierre.Location = New System.Drawing.Point(3, 123)
+            Me.PAN_dgvVerCierre.Name = "PAN_dgvVerCierre"
+            Me.PAN_dgvVerCierre.Size = New System.Drawing.Size(1234, 514)
+            Me.PAN_dgvVerCierre.TabIndex = 157
+            '
+            'DGV_ListaCierres
+            '
+            Me.DGV_ListaCierres.AllowUserToAddRows = False
+            Me.DGV_ListaCierres.AllowUserToDeleteRows = False
+            Me.DGV_ListaCierres.AllowUserToResizeRows = False
+            DataGridViewCellStyle9.BackColor = System.Drawing.Color.White
+            DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+            DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+            DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+            Me.DGV_ListaCierres.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+            Me.DGV_ListaCierres.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+            DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+            DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
+            DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+            DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+            DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+            Me.DGV_ListaCierres.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+            Me.DGV_ListaCierres.ColumnHeadersHeight = 20
+            Me.DGV_ListaCierres.ContextMenuStrip = Me.MNU_CONTX_ARQUEO
+            DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+            DataGridViewCellStyle11.BackColor = System.Drawing.Color.White
+            DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+            DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+            DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+            DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+            Me.DGV_ListaCierres.DefaultCellStyle = DataGridViewCellStyle11
+            Me.DGV_ListaCierres.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.DGV_ListaCierres.Location = New System.Drawing.Point(16, 13)
+            Me.DGV_ListaCierres.MultiSelect = False
+            Me.DGV_ListaCierres.Name = "DGV_ListaCierres"
+            Me.DGV_ListaCierres.ReadOnly = True
+            Me.DGV_ListaCierres.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+            DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+            DataGridViewCellStyle12.BackColor = System.Drawing.Color.White
+            DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+            DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White
+            DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+            DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+            Me.DGV_ListaCierres.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+            Me.DGV_ListaCierres.RowHeadersVisible = False
+            Me.DGV_ListaCierres.Size = New System.Drawing.Size(1202, 491)
+            Me.DGV_ListaCierres.TabIndex = 156
+            Me.DGV_ListaCierres.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White
+            Me.DGV_ListaCierres.ThemeStyle.AlternatingRowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.DGV_ListaCierres.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.SystemColors.ControlText
+            Me.DGV_ListaCierres.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.DGV_ListaCierres.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+            Me.DGV_ListaCierres.ThemeStyle.BackColor = System.Drawing.Color.White
+            Me.DGV_ListaCierres.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.DGV_ListaCierres.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+            Me.DGV_ListaCierres.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+            Me.DGV_ListaCierres.ThemeStyle.HeaderStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.DGV_ListaCierres.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
+            Me.DGV_ListaCierres.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+            Me.DGV_ListaCierres.ThemeStyle.HeaderStyle.Height = 20
+            Me.DGV_ListaCierres.ThemeStyle.ReadOnly = True
+            Me.DGV_ListaCierres.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
+            Me.DGV_ListaCierres.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
+            Me.DGV_ListaCierres.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.DGV_ListaCierres.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+            Me.DGV_ListaCierres.ThemeStyle.RowsStyle.Height = 22
+            Me.DGV_ListaCierres.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.DGV_ListaCierres.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
+            '
+            'MNU_CONTX_ARQUEO
+            '
+            Me.MNU_CONTX_ARQUEO.ImageScalingSize = New System.Drawing.Size(20, 20)
+            Me.MNU_CONTX_ARQUEO.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_ARQUEO_DATOS})
+            Me.MNU_CONTX_ARQUEO.Name = "MNU_CONTX"
+            Me.MNU_CONTX_ARQUEO.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.MNU_CONTX_ARQUEO.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+            Me.MNU_CONTX_ARQUEO.RenderStyle.ColorTable = Nothing
+            Me.MNU_CONTX_ARQUEO.RenderStyle.RoundedEdges = True
+            Me.MNU_CONTX_ARQUEO.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+            Me.MNU_CONTX_ARQUEO.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.MNU_CONTX_ARQUEO.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+            Me.MNU_CONTX_ARQUEO.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+            Me.MNU_CONTX_ARQUEO.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+            Me.MNU_CONTX_ARQUEO.Size = New System.Drawing.Size(137, 30)
+            '
+            'MNU_ARQUEO_DATOS
+            '
+            Me.MNU_ARQUEO_DATOS.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.MNU_ARQUEO_DATOS.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.MNU_ARQUEO_DATOS.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+            Me.MNU_ARQUEO_DATOS.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+            Me.MNU_ARQUEO_DATOS.Name = "MNU_ARQUEO_DATOS"
+            Me.MNU_ARQUEO_DATOS.Size = New System.Drawing.Size(136, 26)
+            Me.MNU_ARQUEO_DATOS.Text = "Ver datos"
+            '
             'P_ReporteVentas
             '
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1218,6 +1562,14 @@
             CType(Me.RDB_OrderByCant, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.RDB_OrderByTotal, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.NUD_LimitReporteProducto, System.ComponentModel.ISupportInitialize).EndInit()
+            Me.PAG_ArqueosCaja.ResumeLayout(False)
+            Me.TBL_LayoutVerCierre.ResumeLayout(False)
+            Me.TBL_LayoutSearch.ResumeLayout(False)
+            Me.PAN_SWTBuscarFecha.ResumeLayout(False)
+            Me.PAN_BTNAccions.ResumeLayout(False)
+            Me.PAN_dgvVerCierre.ResumeLayout(False)
+            CType(Me.DGV_ListaCierres, System.ComponentModel.ISupportInitialize).EndInit()
+            Me.MNU_CONTX_ARQUEO.ResumeLayout(False)
             Me.ResumeLayout(False)
 
         End Sub
@@ -1276,7 +1628,24 @@
         Friend WithEvents RDB_OrderByCant As Syncfusion.Windows.Forms.Tools.RadioButtonAdv
         Friend WithEvents MNU_CONTX As Guna.UI2.WinForms.Guna2ContextMenuStrip
         Friend WithEvents MNU_REIMPRIMIR As ToolStripMenuItem
-        Friend WithEvents MNU_Datos As ToolStripMenuItem
+        Friend WithEvents MNU_DATOS As ToolStripMenuItem
+        Friend WithEvents PAG_ArqueosCaja As TabPage
+        Friend WithEvents TBL_LayoutVerCierre As TableLayoutPanel
+        Friend WithEvents Guna2HtmlLabel16 As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents TBL_LayoutSearch As TableLayoutPanel
+        Friend WithEvents DTP_FechaFiltroArqueo As Guna.UI2.WinForms.Guna2DateTimePicker
+        Friend WithEvents Guna2HtmlLabel17 As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents Guna2HtmlLabel18 As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents TXT_BuscarUsuario As Guna.UI2.WinForms.Guna2TextBox
+        Friend WithEvents PAN_SWTBuscarFecha As Guna.UI2.WinForms.Guna2Panel
+        Friend WithEvents SWT_ActivateDateSearch As Guna.UI2.WinForms.Guna2ToggleSwitch
+        Friend WithEvents Guna2HtmlLabel19 As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents PAN_BTNAccions As Guna.UI2.WinForms.Guna2Panel
+        Friend WithEvents BTN_RegresarArqueos As Guna.UI2.WinForms.Guna2Button
+        Friend WithEvents PAN_dgvVerCierre As Guna.UI2.WinForms.Guna2Panel
+        Friend WithEvents DGV_ListaCierres As Guna.UI2.WinForms.Guna2DataGridView
+        Friend WithEvents MNU_CONTX_ARQUEO As Guna.UI2.WinForms.Guna2ContextMenuStrip
+        Friend WithEvents MNU_ARQUEO_DATOS As ToolStripMenuItem
     End Class
 
 End Namespace
