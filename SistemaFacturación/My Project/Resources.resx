@@ -124,17 +124,14 @@
   <data name="ICO_card" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\..\Downloads\icos_Common\ICO_card.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ICO_Check" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\recursos\ICO_Check.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ICO_Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICO_Dolar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICO_Dolar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ICO_SearchCol" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\recursos\ICO_SearchCol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ICO_DescargaDoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICO_DescargaDoc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICO_Print" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Print.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,8 +145,14 @@
   <data name="ICO_Categoria" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Categoria.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ICO_ConfigCol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_ConfigCol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ICO_SaveFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_SaveFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ICO_MinusCol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_MinusCol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICO_LogoutCol" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_LogoutCol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,8 +160,8 @@
   <data name="ICO_Eliminar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Eliminar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICO_BagSimple" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICO_BagSimple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICO_DescargaDoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_DescargaDoc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICO_Favoritos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Favoritos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -175,6 +178,9 @@
   <data name="ICO_Cerrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Cerrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ICO_Unlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_Unlock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ICO_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -187,11 +193,14 @@
   <data name="ICO_UpCol" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_UpCol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ICO_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ICO_Sucursal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Sucursal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICO_Check" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\recursos\ICO_Check.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICO_Menos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_Menos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICO_MasMenos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_MasMenos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,8 +229,11 @@
   <data name="ICO_Download" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICO_Login" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICO_Login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICO_BagSimple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_BagSimple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ICO_Dolar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_Dolar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICO_EndSale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_EndSale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,8 +244,8 @@
   <data name="ICO_Mantenimiento" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Mantenimiento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICO_ConfigCol" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICO_ConfigCol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICO_Login" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_Login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ICO_Marca" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Marca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -241,7 +253,7 @@
   <data name="ICO_Config" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Config.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICO_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ICO_Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICO_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_Lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
