@@ -60,27 +60,27 @@ Namespace SistemaFacturacion.Data
                                   End Function)
         End Function
 
-        Private Async Function ObtenerMovimientosCaja(ID As Integer) As Task(Of DataTable)
-            Return Await Task.Run(Function()
-                                      Dim sql As String = "SELECT SUM(monto) AS total, ID_Tipo_Movimiento FROM Movimientos_Caja WHERE ID_Arqueo = @idArqueo GROUP BY ID_Tipo_Movimiento"
-                                      Dim paramList As New List(Of SQLiteParameter) From {
+        Friend Async Sub ObtenerTotalMovimientosCaja()
+            Await Task.Run(Sub()
+                               Dim sql As String = "SELECT SUM(monto) AS total, ID_Tipo_Movimiento FROM Movimientos_Caja WHERE ID_Arqueo = @idArqueo GROUP BY ID_Tipo_Movimiento"
+                               Dim paramList As New List(Of SQLiteParameter) From {
                                           New SQLiteParameter("@idArqueo", ID)
                                       }
-                                      CargarTablaParam(T, sql, paramList)
-                                      ' Verifica si la tabla 0 existe en el DataSet
-                                      If T.Tables.Count <= 0 Then
-                                          ' Si no existe, devuelve una nueva DataTable vacía
-                                          Return New DataTable()
-                                      End If
+                               CargarTablaParam(T1, sql, paramList)
 
-                                      ' Verifica si la tabla 0 tiene filas
-                                      If T.Tables(0).Rows.Count = 0 Then
-                                          ' Si no hay filas, devuelve una nueva DataTable vacía
-                                          Return New DataTable()
-                                      End If
-                                      Return T.Tables(0)
-                                  End Function)
-        End Function
+                               ' Verifica si la tabla existe o si esta tiene filas
+                               If T1.Tables.Count <= 0 OrElse T1.Tables(0).Rows.Count = 0 OrElse IsDBNull(T1.Tables(0).Rows(0).Item("Total")) Then
+                                   ' Si no hay filas, devuelve una nueva DataTable vacía
+                                   EntradasEfectivo = 0
+                                   SalidasEfectivo = 0
+                                   Exit Sub
+                               End If
+
+                               EntradasEfectivo = T1.Tables(0).Rows(0).Item("Total")
+                               SalidasEfectivo = T1.Tables(0).Rows(1).Item("Total")
+
+                           End Sub)
+        End Sub
 
         Public Async Function obtenerInfoInicial() As Task
             'Se obtiene la información del cierre anterior
@@ -125,15 +125,7 @@ Namespace SistemaFacturacion.Data
             diferencia = 0
             diferenciaPorcentaje = 0
 
-            'Se obtiene la información de las entradas y salidas de efectivo en caja
-            Dim movimientosCaja As DataTable = Await ObtenerMovimientosCaja(infoCierreActual.Rows(0).Item("ID"))
-            If movimientosCaja.Rows.Count > 0 Then
-                EntradasEfectivo = movimientosCaja.Rows(0).Item("Total")
-                SalidasEfectivo = movimientosCaja.Rows(1).Item("Total")
-            Else
-                EntradasEfectivo = 0
-                SalidasEfectivo = 0
-            End If
+            ObtenerTotalMovimientosCaja()
 
         End Function
 
@@ -231,6 +223,26 @@ Namespace SistemaFacturacion.Data
             End If
             'Si el conteo es mayor que 0, hay caja abierta
             Return Convert.ToInt32(T.Tables(0).Rows(0).Item(0)) > 0
+        End Function
+
+        Friend Async Function obtenerListaMovimientos(filter As String) As Task(Of DataTable)
+            Return Await Task.Run(Function()
+                                      SQL = "SELECT mc.monto As 'Monto', tm.ID, tm.nombre As 'Tipo movimiento', cc.concepto As 'Concepto', mc.referencia As 'Referencia', " &
+                                            "mc.fecha_hora As 'Fecha' FROM Movimientos_Caja mc LEFT JOIN Tipos_Movimiento tm ON mc.ID_tipo_movimiento = tm.id " &
+                                            "LEFT JOIN Conceptos_Caja cc ON cc.ID = mc.ID_concepto WHERE ID_ARQUEO = @ID"
+                                      If filter = "Entrada" Then
+                                          SQL += " AND tm.ID = 1"
+                                      ElseIf filter = "Salida" Then
+                                          SQL += " AND tm.ID = 2"
+                                      End If
+
+                                      Dim paramList As New List(Of SQLiteParameter) From {
+                                          {New SQLiteParameter("@ID", ID)}
+                                      }
+                                      CargarTablaParam(T, SQL, paramList)
+
+                                      Return T.Tables(0)
+                                  End Function)
         End Function
     End Class
 End Namespace
