@@ -335,6 +335,7 @@ Namespace SistemaFacturacion.Forms.Caja
                 P_Caja.Refresh()
                 P_Caja.Select()
                 P_Caja.BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
+                P_Caja.isDialogOpen = False
 
                 mensaje("Vuelto: ₡ " & vuelto, vbOKOnly, "Venta completada")
                 P_Caja.TXT_BuscarProducto.Select()

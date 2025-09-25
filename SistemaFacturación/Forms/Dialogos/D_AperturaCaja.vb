@@ -64,25 +64,6 @@ Namespace SistemaFacturacion.Forms.Dialogos
             TXT_SaldoSiguiente.Text = saldoSiguiente.Total
         End Sub
 
-        Private Sub CalcularMonto()
-            saldoSiguiente.Total = 0
-            For Each denominacion In listTxtDenominaciones
-                ' Obtiene el valor del control NumericUpDown (Decimal)
-                Dim valorContado As Decimal = denominacion.Value.Value
-
-                ' La clave del diccionario es un entero, lo usamos directamente para el case
-                Dim valorDenominacion As Integer = denominacion.Key
-
-                ' Se asigna la cantidad de monedas o billetes a la propiedad específica
-                AsignarCantidadDenomincacion(valorContado, valorDenominacion)
-
-                ' Se suma el valor total de esa denominación
-                saldoSiguiente.Total += valorDenominacion * valorContado
-            Next
-
-            TXT_SaldoSiguiente.Text = saldoSiguiente.Total.ToString("C", New CultureInfo("es-CR"))
-        End Sub
-
         Private Sub AsignarCantidadDenomincacion(valorContado As Decimal, valorDenominacion As Integer)
             Select Case valorDenominacion
                 Case 5
@@ -114,7 +95,8 @@ Namespace SistemaFacturacion.Forms.Dialogos
 
         'Al cambiar el valor del NUD se actualiza el total
         Private Sub NUD_ValueChanged(sender As Object, e As EventArgs)
-            CalcularMonto()
+            Dim CierreCaja As New Cls_CierreCaja
+            TXT_SaldoSiguiente.Text = CierreCaja.CalcularMontoEfectivoCajaReal(listTxtDenominaciones)
         End Sub
     End Class
 End Namespace

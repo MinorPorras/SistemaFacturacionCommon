@@ -26,6 +26,7 @@ Namespace SistemaFacturacion.Forms.Caja
         ' Este ID es para cuando se carga una factura desde cuentas por cobrar
         'Con esta se verifica que la cuenta que se está cargando no se vuelva a guardar
         Friend idFactura As Integer = 0
+        Friend isDialogOpen As Boolean
 
 #End Region
 
@@ -118,19 +119,19 @@ Namespace SistemaFacturacion.Forms.Caja
                     Dim brightness As Single = colorBtn.GetBrightness()
 
                     Dim newFavBtn As New Guna2TileButton With {
-                    .Text = row("nombre").ToString(),
-                    .Tag = row("ID").ToString(),
-                    .Name = "BTN_Fav_" & row("ID").ToString(),
-                    .Size = New Size(200, 50),
-                    .Margin = New Padding(5),
-                    .FillColor = colorBtn,
-                    .ForeColor = If(brightness > 0.5F, Color.Black, Color.White),
-                    .Font = New Font("Segoe UI", 10, Drawing.FontStyle.Bold),
-                    .ImageAlign = HorizontalAlignment.Center,
-                    .Cursor = Cursors.Hand,
-                    .Animated = True,
-                    .BorderRadius = 10
-                }
+                        .Text = row("nombre").ToString(),
+                        .Tag = row("ID").ToString(),
+                        .Name = "BTN_Fav_" & row("ID").ToString(),
+                        .Size = New Size(200, 50),
+                        .Margin = New Padding(5),
+                        .FillColor = colorBtn,
+                        .ForeColor = If(brightness > 0.5F, Color.Black, Color.White),
+                        .Font = New Font("Segoe UI", 10, Drawing.FontStyle.Bold),
+                        .ImageAlign = HorizontalAlignment.Center,
+                        .Cursor = Cursors.Hand,
+                        .Animated = True,
+                        .BorderRadius = 10
+                    }
 
                     AddHandler newFavBtn.Click, AddressOf AgregarProdFav
                     PAN_FavProdBTNContainer.Controls.Add(newFavBtn)
@@ -201,7 +202,6 @@ Namespace SistemaFacturacion.Forms.Caja
             BTN_TVenta.Enabled = False
             BTN_GuardarCuenta.Enabled = False
 
-            BTN_RegistrarIngreso.PerformClick()
             TXT_BuscarProducto.Clear()
             TXT_Total.Clear()
             TXT_BuscarCliente.Text = "0001"
@@ -617,8 +617,9 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
             ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
             Dim frmCuentasCobrar As New P_CuentasCobrar With {
-            .Owner = Me
-        }
+                .Owner = Me
+            }
+            isDialogOpen = True
             ' Muestra el formulario de cuentas por cobrar
             frmCuentasCobrar.Show()
         End Sub
@@ -639,6 +640,7 @@ Namespace SistemaFacturacion.Forms.Caja
                     ' Se trata de una cuenta por cobrar ya registrada
                     dlg.TXT_Comentario.Text = Comentario
                 End If
+                isDialogOpen = True
                 ' Muestra el diálogo
                 dlg.ShowDialog()
 
@@ -648,8 +650,10 @@ Namespace SistemaFacturacion.Forms.Caja
                     Comentario = dlg.ComentarioIngresado
                     GuardarCuenta(Comentario, actualizar_factura_cobrar)
                     LIMPIAR()
+                    isDialogOpen = False
                 Else
                     Console.WriteLine("Se presionó el botón Cancel")
+                    isDialogOpen = False
                     Return
                 End If
             End Using
@@ -661,6 +665,7 @@ Namespace SistemaFacturacion.Forms.Caja
             .Owner = Me
         }
             frmReimprimirFact.Show()
+            isDialogOpen = True
             frmReimprimirFact.Select()
             Me.Hide()
         End Sub
@@ -685,6 +690,7 @@ Namespace SistemaFacturacion.Forms.Caja
                 P_TerminarVenta.idCLiente = idCliente
                 'Se pasa el datagrid completo para obtener los datos
                 P_TerminarVenta.dgvProductos = DGV_Caja
+                isDialogOpen = True
                 P_TerminarVenta.Show()
                 P_TerminarVenta.Select()
                 P_TerminarVenta.TXT_ECliente.SelectAll()
@@ -705,6 +711,11 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+            ' Se asegura de que los atajos solo se ejecuten si no hay un diálogo abierto.
+            If isDialogOpen Then
+                Return
+            End If
+
             Select Case e.KeyCode
                 Case Keys.F1
                     BTN_Reprint.PerformClick()
@@ -754,14 +765,17 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Sub BTN_AperturaCaja_Click(sender As Object, e As EventArgs) Handles BTN_AperturaCaja.Click
             Using frmAperturaCaja As New D_AperturaCaja()
                 frmAperturaCaja.Owner = Me
+                isDialogOpen = True
                 frmAperturaCaja.ShowDialog()
                 If frmAperturaCaja.ResultadoDelDialogo = DialogResult.OK Then
                     Dim saldo As Integer = CInt(frmAperturaCaja.TXT_SaldoSiguiente.Text)
                     If IngresarApertura(saldo) Then
                         mensaje("Apertura de caja registrada con éxito", vbOKOnly, "Apertura de caja")
+                        isDialogOpen = False
                     End If
                 Else
                     Console.WriteLine("Se presionó el botón Cancel")
+                    isDialogOpen = False
                     Return
                 End If
             End Using
@@ -806,6 +820,7 @@ Namespace SistemaFacturacion.Forms.Caja
             Using formMovimiento As New D_MovimientoCaja
                 formMovimiento.isEntrada = esEntrada
                 formMovimiento.Owner = Me
+                isDialogOpen = True
                 Dim resultado = formMovimiento.ShowDialog()
 
                 If resultado = DialogResult.OK Then
@@ -820,9 +835,11 @@ Namespace SistemaFacturacion.Forms.Caja
                     }
                     If IngresarMovimientoCaja(movimiento) Then
                         mensaje("Ingreso registrado con éxito", vbOKOnly, "Ingreso a caja")
+                        isDialogOpen = False
                     End If
                 Else
                     Console.WriteLine("Se presionó el botón Cancel")
+                    isDialogOpen = False
                     Return
                 End If
 
@@ -881,8 +898,30 @@ Namespace SistemaFacturacion.Forms.Caja
             RegistroMovimientos(False)
         End Sub
 
-        Private Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
+        Private Async Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
+            Dim clsCierre As New Cls_CierreCaja()
+            If Not clsCierre.verificarCajaAbierta() Then
+                msgError("No se puede realizar el cierre de caja porque no hay una caja abierta. Por favor, realice una apertura de caja primero.")
+                Return
+            End If
+            Using frmCierre As New P_GenerarCierreCaja
+                frmCierre.Owner = Me
+                isDialogOpen = True
+                Dim result = frmCierre.ShowDialog()
 
+                If result <> DialogResult.OK Then
+                    Console.WriteLine("Se presionó el botón Cancel")
+                    isDialogOpen = False
+                    Exit Sub
+                End If
+
+                If Await frmCierre.infoCierre.guardarCierre() Then
+                    mensaje("Cierre de caja registrado con éxito", vbOKOnly, "Cierre de caja")
+                    isDialogOpen = False
+                    'Se abre el formulario de apertura de caja para iniciar una nueva sesión
+                    BTN_AperturaCaja.PerformClick()
+                End If
+            End Using
         End Sub
 #End Region
 

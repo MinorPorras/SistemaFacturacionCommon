@@ -150,24 +150,24 @@ Namespace SistemaFacturacion.Forms.Reportes
         End Sub
 
         Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
-            Dim datosCierre As New Cls_CierreCaja With {
-                .fecha_inicio = DGV_ListaCierres.SelectedRows(0).Cells(1).Value,
-                .fecha_fin = DGV_ListaCierres.SelectedRows(0).Cells(2).Value,
-                .Cajero = DGV_ListaCierres.SelectedRows(0).Cells(4).Value,
-                .saldo_inicial = DGV_ListaCierres.SelectedRows(0).Cells(5).Value,
-                .ingresoEfectivo = DGV_ListaCierres.SelectedRows(0).Cells(6).Value,
-                .ingresoTarjeta = DGV_ListaCierres.SelectedRows(0).Cells(7).Value,
-                .salidasEfectivo = DGV_ListaCierres.SelectedRows(0).Cells(8).Value,
-                .efectivoContado = DGV_ListaCierres.SelectedRows(0).Cells(9).Value,
-                .saldoSiguiente = DGV_ListaCierres.SelectedRows(0).Cells(10).Value,
-                .comentarios = DGV_ListaCierres.SelectedRows(0).Cells(11).Value
-            }
+            'Dim datosCierre As New Cls_CierreCaja With {
+            '    .fecha_inicio = DGV_ListaCierres.SelectedRows(0).Cells(1).Value,
+            '    .fecha_fin = DGV_ListaCierres.SelectedRows(0).Cells(2).Value,
+            '    .Cajero = DGV_ListaCierres.SelectedRows(0).Cells(4).Value,
+            '    .saldo_inicial = DGV_ListaCierres.SelectedRows(0).Cells(5).Value,
+            '    .ingresoEfectivo = DGV_ListaCierres.SelectedRows(0).Cells(6).Value,
+            '    .ingresoTarjeta = DGV_ListaCierres.SelectedRows(0).Cells(7).Value,
+            '    .salidasEfectivo = DGV_ListaCierres.SelectedRows(0).Cells(8).Value,
+            '    .efectivoContado = DGV_ListaCierres.SelectedRows(0).Cells(9).Value,
+            '    .saldoSiguiente = DGV_ListaCierres.SelectedRows(0).Cells(10).Value,
+            '    .comentarios = DGV_ListaCierres.SelectedRows(0).Cells(11).Value
+            '}
 
-            Using frmVerDatos As New D_VerDatosCierre
-                frmVerDatos.Owner = Me
-                frmVerDatos.datosCierre = datosCierre
-                frmVerDatos.ShowDialog()
-            End Using
+            'Using frmVerDatos As New D_VerDatosCierre
+            '    frmVerDatos.Owner = Me
+            '    frmVerDatos.datosCierre = datosCierre
+            '    frmVerDatos.ShowDialog()
+            'End Using
         End Sub
     End Class
 

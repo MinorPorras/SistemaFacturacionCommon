@@ -56,7 +56,6 @@
             Me.Guna2HtmlLabel31 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.TXT_VerCCSaldoInicial = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel30 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-            Me.PAN_Cell2InfoCierre.SuspendLayout()
             Me.TableLayoutPanel4.SuspendLayout()
             Me.Guna2GroupBox5.SuspendLayout()
             Me.TableLayoutPanel3.SuspendLayout()
@@ -73,24 +72,6 @@
             Me.Guna2BorderlessForm1.ContainerControl = Me
             Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
             Me.Guna2BorderlessForm1.TransparentWhileDrag = True
-            '
-            'PAN_Cell2InfoCierre
-            '
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.TXT_VerCCSaldoSiguienteEfectivo)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.TXT_VerCCEfectivoContado)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2HtmlLabel1)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.TableLayoutPanel4)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2GroupBox5)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.TXT_VerCCComentario)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2HtmlLabel37)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2HtmlLabel36)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2Panel2)
-            Me.PAN_Cell2InfoCierre.Controls.Add(Me.Guna2GroupBox4)
-            Me.PAN_Cell2InfoCierre.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.PAN_Cell2InfoCierre.Location = New System.Drawing.Point(0, 0)
-            Me.PAN_Cell2InfoCierre.Name = "PAN_Cell2InfoCierre"
-            Me.PAN_Cell2InfoCierre.Size = New System.Drawing.Size(628, 668)
-            Me.PAN_Cell2InfoCierre.TabIndex = 2
             '
             'TXT_VerCCSaldoSiguienteEfectivo
             '
@@ -619,8 +600,6 @@
             Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
             Me.Name = "D_VerDatosCierre"
             Me.Text = "D_VerDatosCierre"
-            Me.PAN_Cell2InfoCierre.ResumeLayout(False)
-            Me.PAN_Cell2InfoCierre.PerformLayout()
             Me.TableLayoutPanel4.ResumeLayout(False)
             Me.Guna2GroupBox5.ResumeLayout(False)
             Me.TableLayoutPanel3.ResumeLayout(False)

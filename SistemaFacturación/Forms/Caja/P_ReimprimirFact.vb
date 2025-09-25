@@ -241,9 +241,13 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub BTN_RegresarFact_Click(sender As Object, e As EventArgs) Handles BTN_RegresarFact.Click
-            P_Caja.Show()
-            P_Caja.Select()
-            P_Caja.TXT_BuscarProducto.SelectAll()
+            Owner.Show()
+            Owner.Select()
+            If TypeOf Owner Is P_Caja Then
+                Dim caja = CType(Owner, P_Caja)
+                caja.isDialogOpen = False
+                caja.TXT_BuscarProducto.SelectAll()
+            End If
             Me.Close()
         End Sub
 

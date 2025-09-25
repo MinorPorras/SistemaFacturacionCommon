@@ -5,6 +5,10 @@ Namespace SistemaFacturacion.Forms.Caja
 
     Public Class P_CuentasCobrar
         Private Sub btn_Regresar_Click(sender As Object, e As EventArgs) Handles btn_Regresar.Click
+            If TypeOf Owner Is P_Caja Then
+                Dim caja = CType(Owner, P_Caja)
+                caja.isDialogOpen = False
+            End If
             Me.Close()
         End Sub
 
@@ -216,8 +220,16 @@ Namespace SistemaFacturacion.Forms.Caja
                 Dim cajaForm As P_Caja = CType(Me.Owner, P_Caja)
                 cajaForm.CargarFacturaDesdeCuentas(T_Productos.Tables(0), T_Factura.Tables(0).Rows(0)("num_factura"), T_Factura.Tables(0).Rows(0)("total"),
                                                    idFactura, T_Factura.Tables(0).Rows(0)("ID_Cliente"), comentarioTexto)
+                If TypeOf Owner Is P_Caja Then
+                    Dim caja = CType(Owner, P_Caja)
+                    caja.isDialogOpen = False
+                End If
                 Me.Close()
             Else
+                If TypeOf Owner Is P_Caja Then
+                    Dim caja = CType(Owner, P_Caja)
+                    caja.isDialogOpen = False
+                End If
                 MSG.msgError("No se encontraron datos para esta factura.")
             End If
         End Sub

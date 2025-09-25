@@ -681,7 +681,7 @@
             Me.BTN_AbrirSesionCaja.BackColor = System.Drawing.Color.Transparent
             Me.BTN_AbrirSesionCaja.BorderColor = System.Drawing.Color.Red
             Me.BTN_AbrirSesionCaja.BorderRadius = 10
-            Me.BTN_AbrirSesionCaja.DialogResult = System.Windows.Forms.DialogResult.Cancel
+            Me.BTN_AbrirSesionCaja.DialogResult = System.Windows.Forms.DialogResult.OK
             Me.BTN_AbrirSesionCaja.DisabledState.BorderColor = System.Drawing.Color.DarkGray
             Me.BTN_AbrirSesionCaja.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
             Me.BTN_AbrirSesionCaja.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
