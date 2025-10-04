@@ -15,6 +15,15 @@ Namespace SistemaFacturacion.Modules
     Module Md_Inicializacion
 
 #Region "Actualizaciones"
+
+        'Private Async Function checkForUpdate() As Task
+        '    Using mgr = UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon")
+
+        '    End Using
+        'End Function
+
+
+
         'Comprueba si hay conexión a internet intentando acceder a un sitio conocido
         Function HayConexionInternet() As Boolean
             Try
@@ -189,7 +198,6 @@ Namespace SistemaFacturacion.Modules
             frmConf.Show(owner)
             frmConf.Select()
         End Sub
-#End Region
 
 #Region "Inicialización de configuraciones"
         Friend Sub InitConfigVaribles()
@@ -236,7 +244,12 @@ Namespace SistemaFacturacion.Modules
         End Sub
 #End Region
 
+#End Region
+
 #Region "Migraciones e inicialización de base de datos"
+
+#Region "Metodos de migración generales"
+
         Friend Sub inicializarDB()
             Dim dbPersistentePath As String = GetDbPath()
 
@@ -259,24 +272,56 @@ Namespace SistemaFacturacion.Modules
             End If
         End Sub
 
+        ' Función para verificar si una tabla existe en la base de datos
+        Private Function TableExists(tableName As String) As Boolean
+            Dim exists As Boolean = False
+
+            Try
+                Using conn As New SQLiteConnection(GetConnectionString())
+                    conn.Open()
+                    Dim sql As String = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{tableName}';"
+                    Using cmd As New SQLiteCommand(sql, conn)
+                        Using reader As SQLiteDataReader = cmd.ExecuteReader()
+                            If reader.HasRows Then
+                                exists = True
+                            End If
+                        End Using
+                    End Using
+                End Using
+            Catch ex As Exception
+                ' Puedes manejar el error o simplemente devolver False
+                MessageBox.Show("Error al verificar la existencia de la tabla: " & ex.Message)
+            End Try
+
+            Return exists
+        End Function
+
 
         Friend Sub CheckAndMigrateDatabase()
             Try
                 ' 1. Creación/Verificación de la tabla 'producto_favorito'
                 If Not InicializarProductoFavorito() Then
-                    ' Si falla la inicialización (devuelve False), lanzamos una excepción con un mensaje claro.
+                    ' Si falla la inicialización (devuelve False)
                     Throw New Exception("Fallo en la inicialización de la tabla 'producto_favorito'.")
                 End If
 
                 ' 2. Creación/Actualización/Migración del esquema de Caja
                 Update_cierre_caja()
 
+                ' 3. Creación de las tablas para el manejo de las cuentas por cobrar
+                If Not inicializarCuentasXCobrar() Then
+                    ' Si falla la inicialización (devuelve False)
+                    Throw New Exception("Fallo en la inicialización de la tabla 'producto_favorito'.")
+                End If
+
             Catch ex As Exception
                 ' Maneja cualquier error que ocurra durante la verificación o migración
                 msgError("Error general al verificar o migrar la base de datos: " & vbCrLf & vbCrLf & ex.Message)
             End Try
         End Sub
+#End Region
 
+#Region "Inicialización de productos favoritos"
         Private Function InicializarProductoFavorito() As Boolean
             ' Si la tabla ya existe, salimos inmediatamente del delegado ya que ya se creó.
             If TableExists("producto_favorito") Then
@@ -306,6 +351,9 @@ Namespace SistemaFacturacion.Modules
             Return EJECUTAR_TRANSACCION(operaciones)
         End Function
 
+#End Region
+
+#Region "Inialización cierre de caja"
         Private Sub Update_cierre_caja()
             ' Si la nueva estructura ya existe, salimos inmediatamente.
             If TableExists("Movimientos_Caja") Then
@@ -429,7 +477,6 @@ Namespace SistemaFacturacion.Modules
             Sub(conn, transaction)
                 ' Aseguramos que todas las llamadas dentro de la transacción sean exitosas
                 ' Usamos la lógica de Throw si alguna falla para forzar el Rollback en EJECUTAR_TRANSACCION
-
                 If Not InicializarTiposMovimientos(conn, transaction) Then Throw New Exception("Fallo al crear Tipos_Movimiento.")
                 If Not InicializarConceptosCaja(conn, transaction) Then Throw New Exception("Fallo al crear Conceptos_Caja.")
                 If Not InicializarArqueoCaja(conn, transaction, isMigrating) Then Throw New Exception("Fallo al crear Arqueo_Caja.")
@@ -440,30 +487,60 @@ Namespace SistemaFacturacion.Modules
             ' que maneja la apertura, el commit y el rollback automáticamente.
             Return EJECUTAR_TRANSACCION(operacionesDeGuardado)
         End Function
+#End Region
 
-        ' Función para verificar si una tabla existe en la base de datos
-        Private Function TableExists(tableName As String) As Boolean
-            Dim exists As Boolean = False
+#Region "Inicialización de cuentas por cobrar"
 
-            Try
-                Using conn As New SQLiteConnection(GetConnectionString())
-                    conn.Open()
-                    Dim sql As String = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{tableName}';"
-                    Using cmd As New SQLiteCommand(sql, conn)
-                        Using reader As SQLiteDataReader = cmd.ExecuteReader()
-                            If reader.HasRows Then
-                                exists = True
-                            End If
-                        End Using
-                    End Using
-                End Using
-            Catch ex As Exception
-                ' Puedes manejar el error o simplemente devolver False
-                MessageBox.Show("Error al verificar la existencia de la tabla: " & ex.Message)
-            End Try
-
-            Return exists
+        Private Function inicializarCuentasXCobrar() As Boolean
+            If TableExists("CC_Encabezado") Then Return True
+            Dim op As Action(Of SQLiteConnection, SQLiteTransaction) =
+                Sub(conn, transaccion)
+                    If Not inicializarTablaCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Encabezado.")
+                    If Not inicializarDetalleCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_DetalleProducto.")
+                    If Not inicializarPagosCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Pagos.")
+                End Sub
+            Return EJECUTAR_TRANSACCION(op)
         End Function
+
+        Private Function inicializarTablaCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
+            SQL = "CREATE TABLE CC_Encabezado (
+                    ID INTEGER PRIMARY KEY,
+                    ID_Cliente INTEGER NOT NULL,
+                    fecha_creacion DATETIME NOT NULL,
+                    saldo_total DECIMAL(10, 2) NOT NULL,
+                    comentario TEXT,
+                    FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID))"
+            Dim param As New Dictionary(Of String, Object)
+            Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
+        End Function
+
+        Private Function inicializarDetalleCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
+            SQL = "CREATE TABLE CC_DetalleProducto (
+                    ID INTEGER PRIMARY KEY,
+                    ID_Encabezado INTEGER NOT NULL,
+                    ID_Producto INTEGER,
+                    cantidad DECIMAL(10, 2) NOT NULL,
+                    precio DECIMAL(10, 2) NOT NULL,
+                    total_linea DECIMAL(10, 2) NOT NULL,
+                    FOREIGN KEY (ID_Encabezado) REFERENCES CC_Encabezado(ID) ON DELETE CASCADE
+                    FOREIGN KEY(ID_Producto) REFERENCES producto(ID))"
+            Dim param As New Dictionary(Of String, Object)
+            Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
+        End Function
+
+        Private Function inicializarPagosCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
+            SQL = "CREATE TABLE CC_Pagos (
+                    ID INTEGER PRIMARY KEY,
+                    ID_Encabezado INTEGER NOT NULL,
+                    fecha DATETIME NOT NULL,
+                    monto DECIMAL(10, 2) NOT NULL,
+                    tipo_venta NVARCHAR(50),
+                    comentario NVARCHAR(255),
+                    FOREIGN KEY (ID_Encabezado) REFERENCES CC_Encabezado(ID) ON DELETE CASCADE)"
+            Dim param As New Dictionary(Of String, Object)
+            Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
+        End Function
+#End Region
 #End Region
     End Module
 

@@ -1,4 +1,4 @@
-﻿Namespace SistemaFacturacion.Forms.Caja
+﻿Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
     <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
     Partial Class P_CuentasCobrar
@@ -26,7 +26,6 @@
         Private Sub InitializeComponent()
             Me.components = New System.ComponentModel.Container()
             Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_CuentasCobrar))
-            Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
             Me.pan_CuentasCobrar = New Guna.UI2.WinForms.Guna2Panel()
             Me.Label1 = New System.Windows.Forms.Label()
             Me.FlowLayout1 = New Syncfusion.Windows.Forms.Tools.FlowLayout(Me.components)
@@ -34,15 +33,11 @@
             CType(Me.FlowLayout1, System.ComponentModel.ISupportInitialize).BeginInit()
             Me.SuspendLayout()
             '
-            'Guna2BorderlessForm1
-            '
-            Me.Guna2BorderlessForm1.BorderRadius = 25
-            Me.Guna2BorderlessForm1.ContainerControl = Me
-            Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
-            Me.Guna2BorderlessForm1.TransparentWhileDrag = True
-            '
             'pan_CuentasCobrar
             '
+            Me.pan_CuentasCobrar.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.pan_CuentasCobrar.AutoScroll = True
             Me.pan_CuentasCobrar.Location = New System.Drawing.Point(1, 76)
             Me.pan_CuentasCobrar.Name = "pan_CuentasCobrar"
@@ -51,14 +46,15 @@
             '
             'Label1
             '
-            Me.Label1.AutoSize = True
+            Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
             Me.Label1.Font = New System.Drawing.Font("Britannic Bold", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Label1.ForeColor = System.Drawing.Color.White
-            Me.Label1.Location = New System.Drawing.Point(283, 32)
+            Me.Label1.Location = New System.Drawing.Point(0, 0)
             Me.Label1.Name = "Label1"
-            Me.Label1.Size = New System.Drawing.Size(338, 41)
+            Me.Label1.Size = New System.Drawing.Size(939, 41)
             Me.Label1.TabIndex = 73
             Me.Label1.Text = "Cuentas por cobrar"
+            Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
             '
             'FlowLayout1
             '
@@ -96,18 +92,15 @@
             Me.Controls.Add(Me.btn_Regresar)
             Me.Controls.Add(Me.Label1)
             Me.Controls.Add(Me.pan_CuentasCobrar)
-            Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
             Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
             Me.Name = "P_CuentasCobrar"
             Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
             Me.Text = "P_CuentasCobrar"
+            Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
             CType(Me.FlowLayout1, System.ComponentModel.ISupportInitialize).EndInit()
             Me.ResumeLayout(False)
-            Me.PerformLayout()
 
         End Sub
-
-        Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
         Friend WithEvents pan_CuentasCobrar As Guna.UI2.WinForms.Guna2Panel
         Friend WithEvents Label1 As Label
         Friend WithEvents FlowLayout1 As Syncfusion.Windows.Forms.Tools.FlowLayout

@@ -8,6 +8,7 @@ Imports Syncfusion.Windows.Forms.Diagram
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.CuentasXCobrar
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Namespace SistemaFacturacion.Forms.Caja
@@ -25,7 +26,7 @@ Namespace SistemaFacturacion.Forms.Caja
         Friend Comentario As String = ""
         ' Este ID es para cuando se carga una factura desde cuentas por cobrar
         'Con esta se verifica que la cuenta que se está cargando no se vuelva a guardar
-        Friend idFactura As Integer = 0
+        Friend idEncabezadoCC As Integer = 0
         Friend isDialogOpen As Boolean
 
 #End Region
@@ -172,7 +173,7 @@ Namespace SistemaFacturacion.Forms.Caja
         Friend Sub CargarNumFactura()
             Try
                 T.Tables.Clear()
-                SQL = "SELECT num_factura FROM factura ORDER BY CAST(num_factura AS INTEGER) DESC;"
+                SQL = "SELECT num_factura FROM factura ORDER BY CAST(num_factura AS INTEGER) DESC LIMIT 1;"
                 Cargar_Tabla(T, SQL)
                 If T.Tables(0).Rows.Count > 0 Then
                     NumFactura = If(IsDBNull(T.Tables(0).Rows(0).Item(0)), 1, Convert.ToInt32(T.Tables(0).Rows(0).Item(0)))
@@ -207,7 +208,7 @@ Namespace SistemaFacturacion.Forms.Caja
             TXT_BuscarCliente.Text = "0001"
             idCliente = 1
             StrNumFactura = ""
-            idFactura = 0
+            idEncabezadoCC = 0
             NumFactura = 0
             totalCaja = 0
             Comentario = ""
@@ -215,6 +216,12 @@ Namespace SistemaFacturacion.Forms.Caja
 
             'Se carga el último número de factura que se haya agregado, que va a ser el mas alto
             CargarNumFactura()
+
+            TXT_BuscarProducto.SelectAll()
+            BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
+
+            ValidarListView()
+            CargarTotal()
 
         End Sub
 
@@ -418,138 +425,14 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #Region "Cuentas por cobrar"
 
-        ' Modifica la función GuardarCuenta para usar la nueva función asíncrona
-        Private Async Sub GuardarCuenta(comentarioRecibido As String, actualizar_factura_cobrar As Boolean)
-            Console.WriteLine("Se guarda la cuenta en la DB")
-            'Se Guarda el resultado del return de la función de guardado, enviandole el comentario y si es una actualización o un guardado nuevo
-            Dim resultado As String = Await GuardarOActualizarCuenta(comentarioRecibido, actualizar_factura_cobrar)
-
-            ' En caso de que el resultado se OK, se muestra un mensaje, se limpia la caja y se carga el nuevo número de factura
-            If resultado = "OK" Then
-                mensaje("Cuenta guardada con éxito", vbOKOnly, "Cuenta por cobrar")
-                LIMPIAR()
-                CargarNumFactura()
-            Else
-                msgError(resultado) ' Muestra el mensaje de error de la transacción
-            End If
-        End Sub
-
-        Private Async Function GuardarOActualizarCuenta(comentarioRecibido As String, actualizar_factura_cobrar As Boolean) As Task(Of String)
-            Return Await Task.Run(Function()
-                                      ' Iniciar una transacción de base de datos
-                                      Dim dbConnection As New SQLiteConnection(GetConnectionString())
-                                      dbConnection.Open()
-                                      Dim transaction As SQLiteTransaction = dbConnection.BeginTransaction()
-
-                                      Try
-                                          If Not actualizar_factura_cobrar Then
-                                              ' Caso: Guardar por primera vez
-                                              idFactura = OBTENERPK("factura", "ID")
-                                              Dim insertFacturaSQL As String = "INSERT INTO factura 
-                                        (ID, num_factura, fecha_emision, ID_Cliente, ID_usuario, total, efectivo_cliente, tarjeta_cliente, vuelto, tipo_venta, cobrada)
-                                        VALUES (@id, @numFactura, @fecha, @idCliente, @idUsu, @total, 0, 0, 0, 0, 0)"
-                                              Dim parametrosFactura As New Dictionary(Of String, Object) From {
-                                              {"id", idFactura},
-                                              {"numFactura", NumFactura},
-                                              {"fecha", DateTime.Now},
-                                              {"idCliente", idCliente},
-                                              {"idUsu", idUsu},
-                                              {"total", totalCaja}
-                                          }
-                                              Using cmd As New SQLiteCommand(insertFacturaSQL, dbConnection, transaction)
-                                                  'Se agrega cada uno de los parámetros al comando
-                                                  For Each p In parametrosFactura
-                                                      cmd.Parameters.AddWithValue("@" & p.Key, p.Value)
-                                                  Next
-                                                  cmd.ExecuteNonQuery()
-                                              End Using
-
-                                          Else
-                                              ' Caso: Actualizar factura existente
-                                              Dim updateFacturaSQL As String = "UPDATE factura SET 
-                                            num_factura = @num_factura, 
-                                            fecha_emision = @fecha_emision, 
-                                            ID_Cliente = @ID_Cliente, 
-                                            ID_usuario = @ID_usuario, 
-                                            total = @total 
-                                            WHERE ID = @idFactura"
-                                              Dim parametrosUpdate As New Dictionary(Of String, Object) From {
-                                              {"num_factura", NumFactura},
-                                              {"fecha_emision", DateTime.Now},
-                                              {"ID_Cliente", idCliente},
-                                              {"ID_usuario", idUsu},
-                                              {"total", totalCaja},
-                                              {"idFactura", idFactura}
-                                          }
-                                              Using cmd As New SQLiteCommand(updateFacturaSQL, dbConnection, transaction)
-                                                  For Each p In parametrosUpdate
-                                                      'Se agrega cada uno de los parámetros al comando
-                                                      cmd.Parameters.AddWithValue("@" & p.Key, p.Value)
-                                                  Next
-                                                  cmd.ExecuteNonQuery()
-                                              End Using
-
-                                              ' Eliminar productos anteriores
-                                              Dim deleteProductosSQL As String = "DELETE FROM factura_producto WHERE ID_Factura = @idFactura"
-                                              Using cmd As New SQLiteCommand(deleteProductosSQL, dbConnection, transaction)
-                                                  cmd.Parameters.AddWithValue("@idFactura", idFactura)
-                                                  cmd.ExecuteNonQuery()
-                                              End Using
-                                          End If
-
-                                          ' Insertar productos de la factura (para ambos casos)
-                                          For i As Integer = 0 To DGV_Caja.Rows.Count - 2
-                                              Dim producto As New Cls_ProductoCaja With {
-                                            .ID = Convert.ToInt32(DGV_Caja.Rows(i).Cells(0).Value.ToString()),
-                                            .Cantidad = Convert.ToInt32(DGV_Caja.Rows(i).Cells(4).Value.ToString()),
-                                            .Precio = Convert.ToDecimal(DGV_Caja.Rows(i).Cells(3).Value.ToString())
-                                        }
-                                              Dim insertProductoSQL As String = "INSERT INTO factura_producto (ID_Factura, ID_Producto, cant, precio_venta) VALUES (@idFactura, @idProducto, @cantidad, @precio)"
-                                              Using cmd As New SQLiteCommand(insertProductoSQL, dbConnection, transaction)
-                                                  cmd.Parameters.AddWithValue("@idFactura", idFactura)
-                                                  cmd.Parameters.AddWithValue("@idProducto", producto.ID)
-                                                  cmd.Parameters.AddWithValue("@cantidad", producto.Cantidad)
-                                                  cmd.Parameters.AddWithValue("@precio", producto.Precio)
-                                                  cmd.ExecuteNonQuery()
-                                              End Using
-                                          Next
-
-                                          ' Insertar o actualizar comentario
-                                          Dim comentarioSQL As String
-                                          If Not actualizar_factura_cobrar Then
-                                              comentarioSQL = "INSERT INTO factura_comentario (ID_Factura, comentario) VALUES (@idFactura, @comentario)"
-                                          Else
-                                              comentarioSQL = "UPDATE factura_comentario SET comentario = @comentario WHERE ID_Factura = @idFactura"
-                                          End If
-
-                                          Using cmd As New SQLiteCommand(comentarioSQL, dbConnection, transaction)
-                                              cmd.Parameters.AddWithValue("@comentario", comentarioRecibido)
-                                              cmd.Parameters.AddWithValue("@idFactura", idFactura)
-                                              cmd.ExecuteNonQuery()
-                                          End Using
-
-                                          transaction.Commit()
-                                          Return "OK"
-
-                                      Catch ex As Exception
-                                          transaction.Rollback()
-                                          Return "Error en la transacción: " & ex.Message
-                                      Finally
-                                          If dbConnection.State = ConnectionState.Open Then
-                                              dbConnection.Close()
-                                          End If
-                                      End Try
-                                  End Function)
-        End Function
-
         ' En el formulario P_Caja (archivo P_Caja.vb)
-        Public Sub CargarFacturaDesdeCuentas(productos As DataTable, num_factura As String, totalFactura As Double, idFactura As String, idCliente As String, comentario As String)
+        Public Sub CargarFacturaDesdeCuentas(productos As DataTable, num_factura As String, totalFactura As Double, idEncabezadoCC As String, idCliente As String, comentario As String)
             ' 1. Limpia los datos de la venta actual
             Me.LIMPIAR()
 
             ' 2. Asigna las variables de la clase con los datos de la factura
             Me.totalCaja = totalFactura
-            Me.idFactura = idFactura
+            Me.idEncabezadoCC = idEncabezadoCC
             Me.idCliente = idCliente
             Me.NumFactura = num_factura ' Se asume que el ID de la factura es también el número de factura
             Me.Comentario = comentario
@@ -622,12 +505,13 @@ Namespace SistemaFacturacion.Forms.Caja
             isDialogOpen = True
             ' Muestra el formulario de cuentas por cobrar
             frmCuentasCobrar.Show()
+            Me.Hide()
         End Sub
 
-        Private Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
+        Private Async Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
             If DGV_Caja.Rows.Count <= 1 Then
                 msgError("No se puede Guardar una factura vacía")
-                Return
+                Exit Sub
             End If
             Using dlg As New D_GuardarCuenta()
                 ' Establece el propietario del diálogo
@@ -648,15 +532,40 @@ Namespace SistemaFacturacion.Forms.Caja
                 If dlg.ResultadoDelDialogo = DialogResult.OK Then
                     Console.WriteLine("Se presionó el botón OK")
                     Comentario = dlg.ComentarioIngresado
-                    GuardarCuenta(Comentario, actualizar_factura_cobrar)
-                    LIMPIAR()
-                    isDialogOpen = False
-                Else
-                    Console.WriteLine("Se presionó el botón Cancel")
-                    isDialogOpen = False
-                    Return
+
+                    'Se crea el objeto de la nueva cuenta por cobrar con los datos básicos
+                    Dim cuentaXCobrar As New Cls_CuentasXCobrar With {
+                        .ID_Cliente = idCliente,
+                        .fecha_creacion = DateTime.Now,
+                        .saldo_total = totalCaja,
+                        .comentario = Comentario,
+                        .listaPagos = New List(Of Cls_CxCPagos)
+                    }
+
+                    'Se obtiene la lista de productos
+                    Dim listaProductos As New List(Of Cls_ProductoCaja)
+                    For Each row As DataGridViewRow In DGV_Caja.Rows
+                        Dim prod As New Cls_ProductoCaja With {
+                            .ID = row.Cells(0).Value,
+                            .Cantidad = row.Cells(4).Value,
+                            .Precio = row.Cells(5).Value
+                        }
+
+                        listaProductos.Add(prod)
+                    Next
+
+                    'Se Guarda el resultado del return de la función de guardado, si es una actualización o un guardado nuevo y la lista de productos
+                    Dim resultado As String = Await cuentaXCobrar.agregarActualizarCuenta(actualizar_factura_cobrar, listaProductos)
+                    'Si devuelve OK la acción de guardado se limpia la información se cierra el dialogo y se termina la ejecución de la función
+                    If resultado Is "OK" Then
+                        LIMPIAR()
+                        isDialogOpen = False
+                        Exit Sub
+                    End If
                 End If
             End Using
+            'Si algo no funciona simplemente se cierra el dialogo
+            isDialogOpen = False
         End Sub
 
         Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
@@ -675,8 +584,8 @@ Namespace SistemaFacturacion.Forms.Caja
             P_TerminarVenta.LIMPIAR()
             Dim precio As String() = TXT_Total.Text.Split(" "c)
             'Si se está terminando la venta de una cuenta por cobrar se asigna el ID que ya existe
-            If idFactura <> 0 Then
-                P_TerminarVenta.idFactura = idFactura
+            If idEncabezadoCC <> 0 Then
+                P_TerminarVenta.idFactura = idEncabezadoCC
                 P_TerminarVenta.isCuentaPorCobrar = True
             End If
             If DGV_Caja.Rows.Count > 1 Then
@@ -698,12 +607,7 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
-            DGV_Caja.Rows.Clear()
-            TXT_BuscarProducto.Clear()
-            TXT_BuscarProducto.SelectAll()
-            BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
-            ValidarListView()
-            CargarTotal()
+            LIMPIAR()
         End Sub
 
         Private Sub BTN_ConfigCaja_Click(sender As Object, e As EventArgs) Handles BTN_ConfigCaja.Click

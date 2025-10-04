@@ -1,14 +1,14 @@
 ﻿Imports Guna.UI2.WinForms
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
+Imports System.Data.SQLite
+Imports Syncfusion.Windows.Forms.Tools
 
-Namespace SistemaFacturacion.Forms.Caja
+Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
     Public Class P_CuentasCobrar
         Private Sub btn_Regresar_Click(sender As Object, e As EventArgs) Handles btn_Regresar.Click
-            If TypeOf Owner Is P_Caja Then
-                Dim caja = CType(Owner, P_Caja)
-                caja.isDialogOpen = False
-            End If
+            Owner.Show()
             Me.Close()
         End Sub
 
@@ -17,73 +17,85 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub CrearBotones()
-            SQL = "SELECT f.ID , c.nombre , fc.comentario 
-                FROM factura f
-                LEFT JOIN clientes c ON c.codigo  = f.ID_Cliente 
-                LEFT JOIN factura_comentario fc ON f.ID = fc.ID_Factura
-                WHERE f.cobrada = 0"
+            SQL = "SELECT e.ID , c.nombre , e.comentario 
+                    FROM CC_Encabezado e
+                    LEFT JOIN clientes c ON c.codigo = e.ID_Cliente"
             T1.Tables.Clear()
             Cargar_Tabla(T1, SQL)
             If T.Tables(0).Rows.Count <= 0 Then
                 MsgBox("No hay facturas por cobrar", MsgBoxStyle.Information, "Aviso")
-                Return
+                Exit Sub
             End If
 
             For i = 0 To T1.Tables(0).Rows.Count - 1
-                Dim idFactura = T1.Tables(0).Rows(i)("ID").ToString()
+                Dim idEncabezado = T1.Tables(0).Rows(i)("ID").ToString()
 
                 ' 1. Crea el panel que contendrá todo (panel normal)
-                Dim panelContenedor As New Panel With {
-                .Size = New Size(300, 100),
-                .BorderStyle = BorderStyle.FixedSingle
+                Dim panelContenedor As New Guna2GroupBox With {
+                    .Size = New Size(400, 180),
+                    .BorderStyle = BorderStyle.FixedSingle,
+                    .CustomBorderColor = Color.FromArgb(255, 128, 0),
+                    .Text = T1.Tables(0).Rows(i)("nombre").ToString(),
+                    .ForeColor = Color.White,
+                    .Font = New Font("Segoe UI", 16, FontStyle.Bold),
+                    .TextAlign = TextAlignment.Center,
+                    .AutoScroll = True,
+                    .BorderRadius = 20
                 }
 
                 ' 2. Crea un Panel normal para los Labels internos
                 Dim panelLabels As New Panel With {
-                .Name = "PAN_" & idFactura,
-                .Size = New Size(290, 60), ' Adjusted size to fit inside the container
-                .Location = New Point(5, 5),
-                .BorderStyle = BorderStyle.FixedSingle,
-                .BackColor = Color.FromArgb(38, 38, 38), ' Establece el color de fondo original
-                .Cursor = Cursors.Hand ' Cambia el cursor a mano para indicar que es clickeable
+                    .Name = "PAN_" & idEncabezado,
+                    .Location = New Point(5, 5),
+                    .BorderStyle = BorderStyle.FixedSingle,
+                    .BackColor = Color.FromArgb(38, 38, 38), ' Establece el color de fondo original
+                    .Cursor = Cursors.Hand, ' Cambia el cursor a mano para indicar que es clickeable
+                    .Dock = Dock.Fill
+                }
+                AddHandler panelLabels.Click, AddressOf Label_Click_Select_Cuenta
+                AddHandler panelLabels.MouseEnter, AddressOf PanelLabels_MouseEnter
+                AddHandler panelLabels.MouseLeave, AddressOf PanelLabels_MouseLeave
+
+                Dim panelButtons As New Panel With {
+                    .Dock = DockStyle.Bottom,
+                    .Size = New Size(panelContenedor.Width, 30)
                 }
 
                 ' 3. Crea el botón (con Dock.Bottom)
                 Dim btnEliminar As New Guna2Button With {
-                .Name = "BTN_" & idFactura,
-                .Text = "Eliminar",
-                .Size = New Size(290, 30), ' Adjusted size
-                .Location = New Point(5, 70),
-                .Dock = DockStyle.Bottom,
-                .FillColor = Color.White,
-                .ForeColor = Color.FromArgb(255, 64, 64),
-                .Font = New Font("Segoe UI", 16, FontStyle.Bold),
-                .ImageAlign = HorizontalAlignment.Center,
-                .Image = My.Resources.ICO_Eliminar,
-                .Cursor = Cursors.Hand
+                    .Name = "BTN_" & idEncabezado,
+                    .Text = "Eliminar",
+                    .Size = New Size(198, 30),
+                    .Location = New Point(5, 70),
+                    .Dock = DockStyle.Left,
+                    .FillColor = Color.FromArgb(255, 64, 64),
+                    .ForeColor = Color.White,
+                    .Font = New Font("Segoe UI", 16, FontStyle.Bold),
+                    .ImageAlign = HorizontalAlignment.Center,
+                    .Image = My.Resources.ICO_Eliminar,
+                    .Cursor = Cursors.Hand
                 }
                 AddHandler btnEliminar.Click, AddressOf BtnEliminar_Click
                 AddHandler btnEliminar.MouseEnter, AddressOf BtnEliminar_MouseEnter
                 AddHandler btnEliminar.MouseLeave, AddressOf BtnEliminar_MouseLeave
 
-                ' Se añade el botón primero para que el Dock.Fill del panelLabels funcione
-                panelContenedor.Controls.Add(btnEliminar)
-                panelContenedor.Controls.Add(panelLabels)
-
-                ' 4. Posiciona los Labels dentro del panelLabels
-                Dim lblNombre As New Label With {
-                .Text = T1.Tables(0).Rows(i)("nombre").ToString(),
-                .ForeColor = Color.White,
-                .TextAlign = ContentAlignment.MiddleCenter,
-                .AutoSize = False,
-                .Size = New Size(panelLabels.Width, panelLabels.Height / 2),
-                .Location = New Point(0, 0)
+                ' 3. Crea el botón (con Dock.Bottom)
+                Dim btnVerDetalles As New Guna2Button With {
+                    .Name = "BTN_" & idEncabezado,
+                    .Text = "Detalles",
+                    .Size = New Size(198, 30),
+                    .Location = New Point(5, 70),
+                    .Dock = DockStyle.Right,
+                    .ForeColor = Color.White,
+                    .FillColor = Color.FromArgb(128, 128, 255),
+                    .Font = New Font("Segoe UI", 16, FontStyle.Bold),
+                    .ImageAlign = HorizontalAlignment.Center,
+                    .Image = My.Resources.ICO_Search,
+                    .Cursor = Cursors.Hand
                 }
-                panelLabels.Controls.Add(lblNombre)
-                'Asigna los eventos de hover y click a lblNombre
-                AddHandler lblNombre.Click, AddressOf Label_Click_Select_Cuenta
-                AddHandler lblNombre.MouseEnter, AddressOf PanelLabels_MouseEnter
-                AddHandler lblNombre.MouseLeave, AddressOf PanelLabels_MouseLeave
+                AddHandler btnVerDetalles.Click, AddressOf btnVerDetalles_Click
+                AddHandler btnVerDetalles.MouseEnter, AddressOf btnVerDetalles_MouseEnter
+                AddHandler btnVerDetalles.MouseLeave, AddressOf btnVerDetalles_MouseLeave
 
                 Dim lblComentario As New Label
                 If IsDBNull(T1.Tables(0).Rows(i)("comentario")) Then
@@ -91,21 +103,85 @@ Namespace SistemaFacturacion.Forms.Caja
                 Else
                     lblComentario.Text = T1.Tables(0).Rows(i)("comentario").ToString()
                 End If
-                lblComentario.Name = $"lblComentario_{idFactura}"
+                lblComentario.Name = $"lblComentario_{idEncabezado}"
                 lblComentario.ForeColor = Color.White
                 lblComentario.TextAlign = ContentAlignment.MiddleCenter
                 lblComentario.AutoSize = False
+                lblComentario.Font = New Font("Segoe UI", 14, FontStyle.Regular)
                 lblComentario.Size = New Size(panelLabels.Width, panelLabels.Height / 2)
-                lblComentario.Location = New Point(0, panelLabels.Height / 2)
+                lblComentario.Dock = DockStyle.Top
+
                 'Asigna los eventos de hover y click a lblComentario
                 AddHandler lblComentario.Click, AddressOf Label_Click_Select_Cuenta
                 AddHandler lblComentario.MouseEnter, AddressOf PanelLabels_MouseEnter
                 AddHandler lblComentario.MouseLeave, AddressOf PanelLabels_MouseLeave
+
+                Dim saldoPendiente = obtenerSaldoPendiente(T1.Tables(0).Rows(i)("ID"))
+                Dim lblSaldoRestante As New Label With {
+                    .Name = $"lblSaldoRestante_{idEncabezado}",
+                    .Text = $"Pendiente: {saldoPendiente}",
+                    .ForeColor = Color.White,
+                    .TextAlign = ContentAlignment.MiddleCenter,
+                    .AutoSize = False,
+                    .Font = New Font("Segoe UI", 14, FontStyle.Bold),
+                    .Size = New Size(panelLabels.Width, panelLabels.Height / 2),
+                    .Dock = DockStyle.Top
+                }
+                AddHandler lblSaldoRestante.Click, AddressOf Label_Click_Select_Cuenta
+                AddHandler lblSaldoRestante.MouseEnter, AddressOf PanelLabels_MouseEnter
+                AddHandler lblSaldoRestante.MouseLeave, AddressOf PanelLabels_MouseLeave
+
+                ' Agregar los botones al panel de botones
+                panelButtons.Controls.Add(btnEliminar)
+                panelButtons.Controls.Add(btnVerDetalles)
+
+                ' 1. Añade el panel de botones (Dock.Bottom)
+                panelContenedor.Controls.Add(panelButtons)
+
+                ' 2. Añade el panel de etiquetas (Dock.Fill) DE ÚLTIMO
+                panelContenedor.Controls.Add(panelLabels)
+
+                ' Agregar los labels al panel de etiquetas
+                panelLabels.Controls.Add(lblSaldoRestante)
                 panelLabels.Controls.Add(lblComentario)
 
+                ' Finalmente, añadir el panel contenedor completo al contenedor principal
                 pan_CuentasCobrar.Controls.Add(panelContenedor)
             Next
         End Sub
+
+        Private Function obtenerSaldoPendiente(ID As Integer) As Decimal
+            SQL = "SELECT 
+                        ce.saldo_total - IFNULL((
+                            SELECT SUM(cp.monto) 
+                            FROM CC_Pagos cp 
+                            WHERE cp.ID_Encabezado = ce.ID
+                        ), 0) AS Saldo_Pendiente
+                    FROM 
+                        CC_Encabezado ce 
+                    WHERE 
+                        ce.ID = @ID;"
+            Dim paramList As New List(Of SQLiteParameter) From {
+                {New SQLiteParameter("@ID", ID)}
+            }
+            CargarTablaParam(T, SQL, paramList)
+            'Se revisa que exista la tabla
+            If T Is Nothing OrElse T.Tables.Count <= 0 Then
+                Return 0
+            End If
+            'Se revisa que haya al menos una fila
+            If T.Tables(0).Rows.Count <= 0 Then
+                Return 0
+            End If
+            'Se obtiene el saldo y se revisa si este no es null
+            Dim saldo As Object = T.Tables(0).Rows(0).Item("Saldo_Pendiente")
+
+            If IsDBNull(saldo) Then
+                Return 0
+            End If
+            'Se retorna el saldo como decimal
+            Return Convert.ToDecimal(saldo)
+        End Function
 
         ' Maneja el evento cuando el mouse entra en los labels de panel
         Private Sub PanelLabels_MouseEnter(sender As Object, e As EventArgs)
@@ -123,15 +199,31 @@ Namespace SistemaFacturacion.Forms.Caja
         ' Esta subrutina se ejecuta cuando el mouse entra al botón
         Private Sub BtnEliminar_MouseEnter(sender As Object, e As EventArgs)
             Dim btn As Guna2Button = CType(sender, Guna2Button)
-            ' Cambia a un color rojo más oscuro
-            btn.FillColor = Color.WhiteSmoke
+            ' Restaura el color base
+            btn.FillColor = Color.FromArgb(215, 16, 0)
         End Sub
 
         ' Esta subrutina se ejecuta cuando el mouse sale del botón
         Private Sub BtnEliminar_MouseLeave(sender As Object, e As EventArgs)
             Dim btn As Guna2Button = CType(sender, Guna2Button)
             ' Restaura el color base
-            btn.FillColor = Color.White
+            btn.FillColor = Color.FromArgb(255, 64, 64)
+        End Sub
+
+        Private Sub btnVerDetalles_MouseLeave(sender As Object, e As EventArgs)
+            Dim btn As Guna2Button = CType(sender, Guna2Button)
+            ' Restaura el color base
+            btn.FillColor = Color.FromArgb(128, 128, 255)
+        End Sub
+
+        Private Sub btnVerDetalles_MouseEnter(sender As Object, e As EventArgs)
+            Dim btn As Guna2Button = CType(sender, Guna2Button)
+            ' Cambia a un color rojo más oscuro
+            btn.FillColor = Color.FromArgb(110, 110, 255)
+        End Sub
+
+        Private Sub btnVerDetalles_Click(sender As Object, e As EventArgs)
+
         End Sub
 
         Private Sub LimpiarBotones()
@@ -142,10 +234,10 @@ Namespace SistemaFacturacion.Forms.Caja
             'Se obtiene el nombre del botón que se presionó
             Dim btnDelNombre As String = sender.name
             ' Se hace un substring para obtener el ID de la factura que está en el nombre del botón
-            Dim idFactura As String = btnDelNombre.Substring(4)
+            Dim idEncabezado As String = btnDelNombre.Substring(4)
 
             ' Se busca el control Label por su nombre (lblComentario_ID)
-            Dim controlesEncontrados() As Control = Controls.Find($"lblComentario_{idFactura}", True)
+            Dim controlesEncontrados() As Control = Controls.Find($"lblComentario_{idEncabezado}", True)
 
             ' Se verifica si se encontró el control y si este es del tipo correcto
             If controlesEncontrados.Length <= 0 Or TypeOf controlesEncontrados(0) IsNot Label Then
@@ -162,11 +254,11 @@ Namespace SistemaFacturacion.Forms.Caja
                 Return
             End If
 
-            Dim FacturaEliminada As Boolean = Await ELIMINAR_FACT(idFactura)
+            Dim CuentaEliminada As Boolean = Await ELIMINAR_CxC(idEncabezado)
 
             'Se elimina la cuenta de la base de datos
-            If Not FacturaEliminada Then
-                MSG.msgError("No se pudo eliminar correctamente la factura")
+            If Not CuentaEliminada Then
+                MSG.msgError("No se pudo eliminar correctamente la cuenta")
             End If
 
 
