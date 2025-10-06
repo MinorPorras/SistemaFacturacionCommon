@@ -504,7 +504,7 @@ Namespace SistemaFacturacion.Modules
 
         Private Function inicializarTablaCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
             SQL = "CREATE TABLE CC_Encabezado (
-                    ID INTEGER PRIMARY KEY,
+                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
                     ID_Cliente INTEGER NOT NULL,
                     fecha_creacion DATETIME NOT NULL,
                     saldo_total DECIMAL(10, 2) NOT NULL,
@@ -516,7 +516,7 @@ Namespace SistemaFacturacion.Modules
 
         Private Function inicializarDetalleCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
             SQL = "CREATE TABLE CC_DetalleProducto (
-                    ID INTEGER PRIMARY KEY,
+                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
                     ID_Encabezado INTEGER NOT NULL,
                     ID_Producto INTEGER,
                     cantidad DECIMAL(10, 2) NOT NULL,
@@ -530,10 +530,11 @@ Namespace SistemaFacturacion.Modules
 
         Private Function inicializarPagosCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
             SQL = "CREATE TABLE CC_Pagos (
-                    ID INTEGER PRIMARY KEY,
+                    ID INTEGER PRIMARY KEY AUTOINCREMENT,
                     ID_Encabezado INTEGER NOT NULL,
                     fecha DATETIME NOT NULL,
-                    monto DECIMAL(10, 2) NOT NULL,
+                    monto_efectivo DECIMAL(10, 2),
+                    monto_tarjeta DECIMAL(10, 2),
                     tipo_venta NVARCHAR(50),
                     comentario NVARCHAR(255),
                     FOREIGN KEY (ID_Encabezado) REFERENCES CC_Encabezado(ID) ON DELETE CASCADE)"

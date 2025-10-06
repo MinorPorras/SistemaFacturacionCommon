@@ -11,6 +11,9 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.CuentasXCobrar
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
+Imports System.Globalization
+Imports Syncfusion.PivotAnalysis.Base
+Imports Syncfusion.XlsIO
 Namespace SistemaFacturacion.Forms.Caja
     Public Class P_Caja
 #Region "Variables y constantes"
@@ -28,6 +31,9 @@ Namespace SistemaFacturacion.Forms.Caja
         'Con esta se verifica que la cuenta que se está cargando no se vuelva a guardar
         Friend idEncabezadoCC As Integer = 0
         Friend isDialogOpen As Boolean
+        Friend prodList As New List(Of Cls_ProductoCaja)
+        Private binCaja As New BindingSource
+        Private culturaCR As New CultureInfo("es-CR")
 
 #End Region
 
@@ -45,22 +51,10 @@ Namespace SistemaFacturacion.Forms.Caja
                 CargarNumFactura()
 
                 TXT_BuscarCliente.Text = "0001"
-                If DGV_Caja IsNot Nothing Then
-                    DGV_Caja.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 128, 0)
-                    DGV_Caja.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 120, 30)
-                    DGV_Caja.Columns(3).DefaultCellStyle.Format = "#,##"
-                    DGV_Caja.Columns(5).DefaultCellStyle.Format = "#,##"
-                    DGV_Caja.Font = New Font("Arial", 11)
-                    DGV_Caja.ColumnHeadersHeight = 25
-                    DGV_Caja.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True
-                    idCliente = 1
+                idCliente = 1
 
-                    DGV_Caja.Columns(1).Width = (DGV_Caja.Width * 0.18)
-                    DGV_Caja.Columns(2).Width = (DGV_Caja.Width * 0.5)
-                    DGV_Caja.Columns(3).Width = (DGV_Caja.Width * 0.11)
-                    DGV_Caja.Columns(4).Width = (DGV_Caja.Width * 0.1)
-                    DGV_Caja.Columns(5).Width = (DGV_Caja.Width * 0.11)
-                End If
+                binCaja.DataSource = prodList
+                DGV_Caja.DataSource = binCaja
 
                 ' Añadir los botones de productos favoritos de forma dinpamica
                 LoadBtnFav()
@@ -81,6 +75,32 @@ Namespace SistemaFacturacion.Forms.Caja
             Catch ex As Exception
                 msgError("Error al cargar la información inicial de la caja." + vbCrLf + "Error: " + ex.Message)
             End Try
+        End Sub
+        Private Sub DGV_Caja_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_Caja.DataBindingComplete
+            Dim hiddenColumns As New List(Of String) From {
+                {"ID"},
+                {"Precio"},
+                {"Total"}
+            }
+            Dim formatedNames As New Dictionary(Of String, String) From {
+                {"formated_precio", "Precio"},
+                {"formated_total", "Total"}
+            }
+            Dim columnSize As New Dictionary(Of String, Integer) From {
+                {"Cod", 60},
+                {"Producto", 200},
+                {"formated_precio", 70},
+                {"Cant.", 70},
+                {"formated_total", 70}
+            }
+
+            formatDGV(DGV_Caja, hiddenColumns, formatedNames, columnSize)
+
+            DGV_Caja.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 128, 0)
+            DGV_Caja.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 120, 30)
+            DGV_Caja.Font = New Font("Arial", 11)
+            DGV_Caja.ColumnHeadersHeight = 25
+            DGV_Caja.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True
         End Sub
 
         Private Async Sub P_Caja_Async_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -149,25 +169,54 @@ Namespace SistemaFacturacion.Forms.Caja
                 msgError("No se encontró el producto")
                 Return
             End If
+
             ' Buscar el producto en la base de datos usando el ID almacenado en la propiedad Tag del botón
             T.Tables.Clear()
             SQL = "SELECT p.codigo, p.variable, v.precio_venta FROM producto p LEFT JOIN producto_precioVenta v ON p.ID = v.ID_Producto" +
-                " WHERE p.ID = " + btnFav.Tag.ToString()
-            Cargar_Tabla(T, SQL)
+                " WHERE p.ID = @ID"
+            Dim paramList As New List(Of SQLiteParameter) From {{New SQLiteParameter("@ID", btnFav.Tag.ToString())}}
+            CargarTablaParam(T, SQL, paramList)
+
             ' Verificar si se encontró el producto
             If T.Tables(0).Rows.Count <= 0 Then
                 msgError("No se encontró el producto")
                 Return
             End If
+
             ' Agregar el producto a la lista o manejar la variable según corresponda
-            If T.Tables(0).Rows(0).Item(1) = 0 Then
-                AgregarProd(btnFav.Tag.ToString(), T.Tables(0).Rows(0).Item(0), btnFav.Text, T.Tables(0).Rows(0).Item(2), 1)
-            Else
-                E_ProductoVariable.LBL_Cod.Text = T.Tables(0).Rows(0).Item(0)
-                E_ProductoVariable.LBL_Producto.Text = btnFav.Text
-                E_ProductoVariable.LBL_ID.Text = btnFav.Tag
-                E_ProductoVariable.Show()
+            Dim isVariable = T.Tables(0).Rows(0).Item(1) = 1
+            If Not isVariable Then
+                'Si el producto no es variable
+                Dim producto As New Cls_ProductoCaja With {
+                .ID = btnFav.Tag,
+                .Codigo = T.Tables(0).Rows(0).Item("codigo"),
+                .Producto = btnFav.Text,
+                .Precio = T.Tables(0).Rows(0).Item("precio_venta"),
+                .Cantidad = 1,
+                .total = T.Tables(0).Rows(0).Item("precio_venta")
+            }
+
+                producto.formated_precio = producto.Precio.ToString("C", culturaCR)
+                producto.formated_total = producto.total.ToString("C", culturaCR)
+
+                AddProduct(producto)
+                Exit Sub
             End If
+
+            'Si es variable
+            Using prodVariableForm As New E_ProductoVariable
+                prodVariableForm.LBL_Cod.Text = T.Tables(0).Rows(0).Item("Codigo")
+                prodVariableForm.LBL_Producto.Text = btnFav.Text
+                prodVariableForm.LBL_ID.Text = btnFav.Tag
+                prodVariableForm.Owner = Me
+                prodVariableForm.cant = 1
+                Dim result As DialogResult = prodVariableForm.ShowDialog()
+                If result = DialogResult.OK Then
+                    AddProduct(prodVariableForm.producto)
+                End If
+                Exit Sub
+            End Using
+
         End Sub
 
         Friend Sub CargarNumFactura()
@@ -221,7 +270,7 @@ Namespace SistemaFacturacion.Forms.Caja
             BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
 
             ValidarListView()
-            CargarTotal()
+            getTotal()
 
         End Sub
 
@@ -241,13 +290,20 @@ Namespace SistemaFacturacion.Forms.Caja
                 " WHERE p.codigo = '" & TXT_BuscarProducto.Text & "';"
             Cargar_Tabla(T, SQL)
             If T.Tables(0).Rows.Count > 0 Then
-                If T.Tables(0).Rows(0).Item(1) = 0 Then
+                If T.Tables(0).Rows(0).Item("variable") = 0 Then
                     Buscar_DatosProd(TXT_BuscarProducto, False)
                 Else
-                    E_ProductoVariable.LBL_Cod.Text = TXT_BuscarProducto.Text
-                    E_ProductoVariable.LBL_Producto.Text = T.Tables(0).Rows(0).Item(3)
-                    E_ProductoVariable.LBL_ID.Text = T.Tables(0).Rows(0).Item(0)
-                    E_ProductoVariable.Show()
+                    Using prodVariableForm As New E_ProductoVariable
+                        prodVariableForm.LBL_Cod.Text = TXT_BuscarProducto.Text
+                        prodVariableForm.LBL_Producto.Text = T.Tables(0).Rows(0).Item("nombre")
+                        prodVariableForm.LBL_ID.Text = T.Tables(0).Rows(0).Item("ID")
+                        prodVariableForm.Owner = Me
+                        prodVariableForm.cant = 1
+                        Dim result As DialogResult = prodVariableForm.ShowDialog()
+                        If result = DialogResult.OK Then
+                            AddProduct(prodVariableForm.producto)
+                        End If
+                    End Using
                 End If
 
             Else
@@ -255,19 +311,22 @@ Namespace SistemaFacturacion.Forms.Caja
             End If
         End Sub
 
-        Friend Sub Buscar_DatosProd(txtCodProd As Guna.UI2.WinForms.Guna2TextBox, buscado As Boolean)
+        Friend Sub Buscar_DatosProd(txtCodProd As Guna.UI2.WinForms.Guna2TextBox, cant As Integer)
             Try
                 T.Tables.Clear()
                 SQL = "SELECT p.ID, p.nombre, pv.precio_venta FROM producto p LEFT JOIN producto_precioVenta pv ON p.ID = pv.ID_Producto" +
                 " WHERE p.codigo = '" & txtCodProd.Text & "'"
                 Cargar_Tabla(T, SQL)
                 If T.Tables(0).Rows.Count > 0 Then
-                    If Not buscado Then
-                        cantProd = 1
-                    End If
-                    AgregarProd(T.Tables(0).Rows(0).Item(0).ToString(), txtCodProd.Text, T.Tables(0).Rows(0).Item(1).ToString(), T.Tables(0).Rows(0).Item(2).ToString(), cantProd)
-                    DGV_Caja.Columns(3).DefaultCellStyle.Format = "#,##"
-                    DGV_Caja.Columns(5).DefaultCellStyle.Format = "#,##"
+                    Dim producto As New Cls_ProductoCaja With {
+                        .ID = T.Tables(0).Rows(0).Item("ID"),
+                        .Codigo = txtCodProd.Text,
+                        .Producto = T.Tables(0).Rows(0).Item("nombre"),
+                        .Precio = T.Tables(0).Rows(0).Item("precio_venta"),
+                        .Cantidad = cant,
+                        .total = T.Tables(0).Rows(0).Item("precio_venta") * cantProd
+                    }
+                    AddProduct(producto)
                     cantProd = 1
                     TXT_BuscarProducto.SelectAll()
                 Else
@@ -279,54 +338,55 @@ Namespace SistemaFacturacion.Forms.Caja
             End Try
         End Sub
 
+        Friend Sub AddProduct(producto As Cls_ProductoCaja)
+            Dim productoExistente As Cls_ProductoCaja = prodList.FirstOrDefault(Function(p) p.ID = producto.ID)
+            If productoExistente IsNot Nothing Then
+                ' 2. Si el producto ya existe, actualiza la cantidad y el total
+                productoExistente.Cantidad += producto.Cantidad
+                productoExistente.total = productoExistente.Cantidad * productoExistente.Precio
 
-        Friend Sub AgregarProd(ID As String, codigo As String, nombre As String, precioVenta As String, cant As String)
-            Dim filaExistente As DataGridViewRow = Nothing
+                productoExistente.formated_precio = productoExistente.Precio.ToString("C", culturaCR)
+                productoExistente.formated_total = productoExistente.total.ToString("C", culturaCR)
 
-            ' 1. Busca si el producto ya existe en el DataGridView por su ID
-            For Each fila As DataGridViewRow In DGV_Caja.Rows
-                If fila.Cells(0).Value IsNot Nothing AndAlso fila.Cells(0).Value.ToString() = ID Then
-                    filaExistente = fila
-                    Exit For ' Sal del bucle tan pronto como encuentres la fila
-                End If
-            Next
-
-            If filaExistente IsNot Nothing Then
-                ' 2. Si el producto ya existe, aumenta la cantidad y recalcula el subtotal
-                Dim cantidadActual As Integer = 0
-                If Not Integer.TryParse(filaExistente.Cells(4).Value.ToString(), cantidadActual) Then
-                    msgError("Error al leer la cantidad actual del producto.")
-                    Return
-                End If
-
-                'Se suma a la cantidad actual la nueva cantidad que se está agregando
-                cantidadActual += Integer.Parse(cant)
-                filaExistente.Cells(4).Value = cantidadActual.ToString()
-
-                'Se actualiza el subtotal
-                Dim subtotalActual As Double = Convert.ToDouble(filaExistente.Cells(3).Value) * cantidadActual
-                filaExistente.Cells(5).Value = subtotalActual
+                ' Notificar al BindingSource que un elemento fue modificado
+                binCaja.ResetBindings(False)
             Else
-                ' 3. Si el producto no existe, agrega una nueva fila como lo hacías antes
-                Dim Subtotal As Double = Convert.ToInt32(cant) * Convert.ToInt32(precioVenta)
-                Dim row As String() = {ID, codigo, nombre, precioVenta, cant, Subtotal.ToString()}
-
-                DGV_Caja.Rows.Add(row)
+                prodList.Add(producto)
+                binCaja.ResetBindings(False)
             End If
 
-            ' Acciones que se ejecutan en ambos casos
             TXT_BuscarProducto.Clear()
             TXT_BuscarProducto.Focus()
             ValidarListView()
-            CargarTotal()
+            getTotal()
         End Sub
 
-        Friend Sub CargarTotal()
+        Private Sub EditProduct(newProd As Cls_ProductoCaja)
+
+            ' 1. Buscar el ÍNDICE del producto en la lista
+            Dim indexAEditar As Integer = prodList.FindIndex(Function(p) p.ID = newProd.ID)
+
+            If indexAEditar >= 0 Then
+                ' 2. Reemplazar el objeto antiguo en la lista con el objeto nuevo
+                prodList(indexAEditar) = newProd
+
+                ' 3. Notificar al BindingSource
+                '    Usamos ResetItem(index) para que el BindingSource solo recargue esa fila.
+                binCaja.ResetItem(indexAEditar)
+
+                ' Acciones posteriores
+                getTotal()
+            Else
+                msgError($"No se encontró el producto con ID {newProd.ID}.")
+            End If
+        End Sub
+
+        Private Sub getTotal()
             totalCaja = 0
-            For i As Integer = 0 To DGV_Caja.Rows.Count - 2
-                totalCaja += Convert.ToDouble(DGV_Caja.Rows(i).Cells(5).Value)
+            For Each producto As Cls_ProductoCaja In prodList
+                totalCaja += producto.total
             Next
-            TXT_Total.Text = "₡ " + totalCaja.ToString()
+            TXT_Total.Text = totalCaja.ToString("C", culturaCR)
         End Sub
 
         Private Sub TXT_BuscarProducto_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarProducto.TextChanged
@@ -338,17 +398,15 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Friend Sub ValidarListView()
-            itemCount = DGV_Caja.Rows.Count
-            If itemCount > 1 Then
+            itemCount = prodList.Count
+            If itemCount >= 1 Then
                 BTN_TVenta.Enabled = True
                 BTN_GuardarCuenta.Enabled = True
-                MNU_MODIFICAR.Visible = True
-                MNU_ELIMINAR.Visible = True
+                MNU_CONTX.Enabled = True
             Else
-                MNU_ELIMINAR.Visible = False
                 BTN_GuardarCuenta.Enabled = False
-                MNU_MODIFICAR.Visible = False
                 BTN_TVenta.Enabled = False
+                MNU_CONTX.Enabled = False
             End If
         End Sub
 
@@ -359,34 +417,59 @@ Namespace SistemaFacturacion.Forms.Caja
                 Dim filaSeleccionada As DataGridViewRow = DGV_Caja.Rows(e.RowIndex)
 
                 ' Asegurar que la celda 4 exista en la fila
-                If filaSeleccionada.Cells.Count > 4 Then
+                If filaSeleccionada.Cells.Count > 5 Then
                     ' Seleccionar la celda en la columna 4
-                    filaSeleccionada.Cells(4).Selected = True
+                    filaSeleccionada.Cells("Cantidad").Selected = True
 
                     ' Poner el DGV en modo de edición y activar la celda 4
-                    DGV_Caja.CurrentCell = filaSeleccionada.Cells(4)
+                    DGV_Caja.CurrentCell = filaSeleccionada.Cells("Cantidad")
                     DGV_Caja.BeginEdit(True)
                 End If
             End If
         End Sub
 
         Private Sub DGV_Caja_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellEndEdit
-            ' Se asegura de que no estamos en una fila de encabezado o de inserción
-            If e.RowIndex >= 0 AndAlso DGV_Caja.Rows(e.RowIndex).Cells(4).Value IsNot Nothing Then
-                ' Obtiene los valores de la cantidad y el precio de la fila que se está editando
-                Dim cant As Double = Convert.ToDouble(DGV_Caja.Rows(e.RowIndex).Cells(4).Value)
-                Dim precioVenta As Double = Convert.ToDouble(DGV_Caja.Rows(e.RowIndex).Cells(3).Value)
-
-                ' Calcula el subtotal
-                Dim subTotal As Double = precioVenta * cant
-
-                ' Asigna el subtotal a la celda 5 de la fila actual
-                DGV_Caja.Rows(e.RowIndex).Cells(5).Value = subTotal
+            ' Nos aseguramos de que no estamos en una fila de encabezado, ni la fila de inserción, y que hay un objeto
+            If e.RowIndex < 0 OrElse e.RowIndex >= prodList.Count Then
+                getTotal()
+                TXT_BuscarProducto.Focus()
+                Exit Sub
             End If
 
+            Dim productoAEditar As Cls_ProductoCaja = prodList(e.RowIndex)
+            Dim valorCelda As Object = DGV_Caja.Rows(e.RowIndex).Cells("Cantidad").Value
+            Dim nuevaCantidad As Integer = 0
+
+            If valorCelda Is Nothing OrElse Not Integer.TryParse(valorCelda.ToString(), nuevaCantidad) Then
+                ' Restaurar el valor antiguo del DGV usando el BindingSource.
+                binCaja.ResetItem(e.RowIndex)
+                msgError("El valor ingresado debe ser un número entero válido para la cantidad.")
+                Return
+            End If
+
+            productoAEditar.Cantidad = nuevaCantidad
+            productoAEditar.total = productoAEditar.Precio * nuevaCantidad
+            productoAEditar.formated_total = productoAEditar.total.ToString("C", culturaCR)
+
+            binCaja.ResetItem(e.RowIndex)
+
             ' Recalcula el total de la factura
-            CargarTotal()
-            TXT_BuscarProducto.Focus()
+            getTotal()
+        End Sub
+
+        Private Sub DGV_Caja_CellValidated(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellValidated
+
+            ' 1. Verificamos que se editó la celda de Cantidad
+            Dim colName As String = DGV_Caja.Columns(e.ColumnIndex).Name
+
+            If colName = "Cantidad" Then
+                ' 2. Forzamos el enfoque del TextBox. 
+                ' Usamos BeginInvoke para asegurarnos de que se ejecute al final de la cola de eventos.
+                Me.BeginInvoke(Sub()
+                                   TXT_BuscarProducto.Focus()
+                                   TXT_BuscarProducto.SelectAll()
+                               End Sub)
+            End If
         End Sub
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
@@ -396,31 +479,36 @@ Namespace SistemaFacturacion.Forms.Caja
                 Return
             End If
 
-            B_Producto.ModProd = True
-            B_Producto.Show()
-            B_Producto.Select()
-            B_Producto.LBL_IDProd.Text = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
-            B_Producto.idModProd = DGV_Caja.SelectedRows(0).Cells(0).Value.ToString()
-            B_Producto.TXT_BuscarProd.Text = DGV_Caja.SelectedRows(0).Cells(2).Value.ToString()
-            B_Producto.TXT_CantProd.Text = DGV_Caja.SelectedRows(0).Cells(4).Value.ToString()
+            Using searchProd As New B_Producto
+                searchProd.ModProd = True
+                searchProd.LBL_IDProd.Text = DGV_Caja.SelectedRows(0).Cells("ID").Value.ToString()
+                searchProd.idModProd = DGV_Caja.SelectedRows(0).Cells("ID").Value.ToString()
+                searchProd.TXT_BuscarProd.Text = DGV_Caja.SelectedRows(0).Cells("Producto").Value.ToString()
+                searchProd.TXT_CantProd.Text = DGV_Caja.SelectedRows(0).Cells("Cantidad").Value.ToString()
+                Dim result As DialogResult = B_Producto.ShowDialog()
+                If result = DialogResult.OK Then
+                    EditProduct(searchProd.producto)
+                End If
+            End Using
+
             ValidarListView()
-            CargarTotal()
+            getTotal()
         End Sub
 
         Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
             'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
             If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
-                msgError("Se debe de seleccionar un producto, no se puede eliminar una fila vacía")
-                Return
+                msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
+                Exit Sub
             End If
 
-            'Se remuevela fila en el indice seleccionado
-            DGV_Caja.Rows.RemoveAt(DGV_Caja.SelectedRows(0).Index)
+            binCaja.RemoveCurrent()
 
-            'Se valida la información de datagrid y se actualiza elt otal de la factura
             ValidarListView()
-            CargarTotal()
+            getTotal()
         End Sub
+
+
 #End Region
 
 #Region "Cuentas por cobrar"
@@ -533,29 +621,31 @@ Namespace SistemaFacturacion.Forms.Caja
                     Console.WriteLine("Se presionó el botón OK")
                     Comentario = dlg.ComentarioIngresado
 
+                    'Se obtiene la lista de productos
+                    Dim listaProductos As New List(Of Cls_DetalleProductoCxC)
+                    For Each row As DataGridViewRow In DGV_Caja.Rows
+                        Dim prod As New Cls_DetalleProductoCxC With {
+                            .ID = row.Cells(0).Value,
+                            .cantidad = row.Cells(4).Value,
+                            .Precio = row.Cells(5).Value,
+                            .total = row.Cells(4).Value * row.Cells(5).Value
+                        }
+
+                        listaProductos.Add(prod)
+                    Next
+
                     'Se crea el objeto de la nueva cuenta por cobrar con los datos básicos
                     Dim cuentaXCobrar As New Cls_CuentasXCobrar With {
                         .ID_Cliente = idCliente,
                         .fecha_creacion = DateTime.Now,
                         .saldo_total = totalCaja,
                         .comentario = Comentario,
-                        .listaPagos = New List(Of Cls_CxCPagos)
+                        .listaPagos = New List(Of Cls_CxCPagos),
+                        .listaProductos = listaProductos
                     }
 
-                    'Se obtiene la lista de productos
-                    Dim listaProductos As New List(Of Cls_ProductoCaja)
-                    For Each row As DataGridViewRow In DGV_Caja.Rows
-                        Dim prod As New Cls_ProductoCaja With {
-                            .ID = row.Cells(0).Value,
-                            .Cantidad = row.Cells(4).Value,
-                            .Precio = row.Cells(5).Value
-                        }
-
-                        listaProductos.Add(prod)
-                    Next
-
                     'Se Guarda el resultado del return de la función de guardado, si es una actualización o un guardado nuevo y la lista de productos
-                    Dim resultado As String = Await cuentaXCobrar.agregarActualizarCuenta(actualizar_factura_cobrar, listaProductos)
+                    Dim resultado As String = Await cuentaXCobrar.agregarActualizarCuenta(actualizar_factura_cobrar)
                     'Si devuelve OK la acción de guardado se limpia la información se cierra el dialogo y se termina la ejecución de la función
                     If resultado Is "OK" Then
                         LIMPIAR()
@@ -652,15 +742,22 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #Region "Busquedas"
         Private Sub TXT_BuscarCliente_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarCliente.DoubleClick
-            B_Cliente.Show()
-            B_Cliente.Select()
-            B_Cliente.LIMPIAR()
+            Using searchCliente As New B_Cliente
+                searchCliente.Owner = Me
+                searchCliente.LIMPIAR()
+                searchCliente.ShowDialog()
+            End Using
         End Sub
 
         Private Sub TXT_BuscarProducto_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarProducto.DoubleClick
-            B_Producto.Show()
-            B_Producto.Select()
-            B_Producto.LIMPIAR()
+            Using searchProd As New B_Producto
+                searchProd.Owner = Me
+                searchProd.LIMPIAR()
+                Dim result As DialogResult = searchProd.ShowDialog()
+                If result = DialogResult.OK Then
+                    AddProduct(searchProd.producto)
+                End If
+            End Using
         End Sub
 
 #End Region

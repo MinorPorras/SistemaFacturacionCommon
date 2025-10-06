@@ -1,6 +1,9 @@
-﻿Imports System.Threading.Tasks
+﻿Imports System.Globalization
+Imports System.Threading.Tasks
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
+Imports TheArtOfDevHtmlRenderer.Adapters.RGraphicsPath
 
 Namespace SistemaFacturacion.Forms.Busqueda
     Public Class B_Producto
@@ -8,6 +11,7 @@ Namespace SistemaFacturacion.Forms.Busqueda
         Dim cant As Integer
         Friend idModProd As Integer
         Private searchTimer As Timer
+        Public producto As New Cls_ProductoCaja
 
         ' Método para inicializar el temporizador y otros componentes necesarios
         Private Sub InicializarComponentes()
@@ -110,66 +114,44 @@ Namespace SistemaFacturacion.Forms.Busqueda
         End Sub
 
         Private Sub BTN_RegresarPrd_Click(sender As Object, e As EventArgs) Handles BTN_RegresarPrd.Click
-            P_Caja.Show()
-            P_Caja.Select()
-            P_Caja.TXT_BuscarProducto.SelectAll()
-            Me.Close()
+            If TypeOf (Owner) Is P_Caja Then
+                Dim typedOwner = CType(Owner, P_Caja)
+                typedOwner.TXT_BuscarProducto.SelectAll()
+            End If
+            Me.DialogResult = DialogResult.Cancel
         End Sub
 
         Private Sub BTN_SelectProd_Click(sender As Object, e As EventArgs) Handles BTN_SelectProd.Click
-            If Integer.TryParse(TXT_CantProd.Text, cant) Then
-                If Not ModProd Then
-                    P_Caja.cantProd = Convert.ToInt32(TXT_CantProd.Text)
-                    If TXT_Precio.Text = "Variable" Then
-                        E_ProductoVariable.LBL_Cod.Text = TXT_codigo.Text
-                        E_ProductoVariable.LBL_Producto.Text = TXT_Nombre.Text
-                        E_ProductoVariable.LBL_ID.Text = DGV_BProd.SelectedRows(0).Cells(0).Value.ToString()
-                        ModProd = False
-                        LIMPIAR()
-                        E_ProductoVariable.Show()
-                        E_ProductoVariable.Select()
-                    Else
-                        P_Caja.Buscar_DatosProd(TXT_codigo, True)
-                        ModProd = False
-                        LIMPIAR()
-                        P_Caja.Show()
-                        P_Caja.Select()
-                        P_Caja.TXT_BuscarProducto.SelectAll()
-                    End If
-                    P_Caja.ValidarListView()
-                    Me.Close()
+            If TXT_Precio.Text = "Variable" Then
+                Dim prodVariableForm As New E_ProductoVariable
+                prodVariableForm.LBL_Cod.Text = TXT_codigo.Text
+                prodVariableForm.LBL_Producto.Text = TXT_Nombre.Text
+                prodVariableForm.LBL_ID.Text = DGV_BProd.SelectedRows(0).Cells("ID").Value
+                prodVariableForm.Owner = Owner
+                prodVariableForm.cant = TXT_CantProd.Text
+                Dim result As DialogResult = prodVariableForm.ShowDialog()
+                If result = DialogResult.OK Then
+                    producto = prodVariableForm.producto
+                    Me.DialogResult = DialogResult.OK
                 Else
-                    P_Caja.DGV_Caja.SelectedRows(0).Cells(0).Value = LBL_IDProd.Text
-                    P_Caja.DGV_Caja.SelectedRows(0).Cells(1).Value = TXT_codigo.Text
-                    P_Caja.DGV_Caja.SelectedRows(0).Cells(2).Value = TXT_Nombre.Text
-                    If Not TXT_Precio.Text = "Variable" Then
-                        P_Caja.DGV_Caja.SelectedRows(0).Cells(3).Value = TXT_Precio.Text
-                    Else
-                        P_Caja.DGV_Caja.SelectedRows(0).Cells(3).Value = P_Caja.DGV_Caja.SelectedRows(0).Cells(3).Value
-                    End If
-                    P_Caja.DGV_Caja.SelectedRows(0).Cells(4).Value = TXT_CantProd.Text
-                    Dim subtotal As Double
-                    If Not TXT_Precio.Text = "Variable" Then
-                        subtotal = Convert.ToDouble(TXT_CantProd.Text) * Convert.ToDouble(TXT_Precio.Text)
-                    Else
-                        subtotal = Convert.ToDouble(TXT_CantProd.Text) * Convert.ToDouble(P_Caja.DGV_Caja.SelectedRows(0).Cells(3).Value)
-                    End If
-                    P_Caja.DGV_Caja.SelectedRows(0).Cells(5).Value = subtotal.ToString()
-                    ModProd = False
-                    LIMPIAR()
-                    P_Caja.Show()
-                    P_Caja.Select()
-                    P_Caja.TXT_BuscarProducto.SelectAll()
-                    Me.Close()
+                    Me.DialogResult = DialogResult.Cancel
                 End If
-            Else
-                E_ProductoVariable.LBL_Cod.Text = TXT_codigo.Text
-                E_ProductoVariable.LBL_Producto.Text = TXT_Nombre.Text
-                E_ProductoVariable.LBL_ID.Text = DGV_BProd.SelectedRows(0).Cells(0).Value.ToString()
-                E_ProductoVariable.Show()
-                E_ProductoVariable.Select()
-                Me.Close()
+                LIMPIAR()
+                Exit Sub
             End If
+
+            Dim prod As New Cls_ProductoCaja With {
+                    .ID = LBL_IDProd.Text,
+                    .Codigo = TXT_codigo.Text,
+                    .Producto = TXT_Nombre.Text,
+                    .Precio = Convert.ToDecimal(TXT_Precio.Text),
+                    .Cantidad = CInt(TXT_CantProd.Text),
+                    .total = Convert.ToDecimal(TXT_Precio.Text) * CInt(TXT_CantProd.Text)
+            }
+            prod.formated_precio = prod.Precio.ToString("C", New CultureInfo("es-CR"))
+            prod.formated_total = prod.total.ToString("C", New CultureInfo("es-CR"))
+            producto = prod
+            Me.DialogResult = DialogResult.OK
         End Sub
 
         Private Sub BTN_MasCant_Click(sender As Object, e As EventArgs) Handles BTN_MasCant.Click
@@ -205,14 +187,14 @@ Namespace SistemaFacturacion.Forms.Busqueda
 
         Private Sub DGV_BMarca_SelectionChanged(sender As Object, e As EventArgs) Handles DGV_BProd.SelectionChanged
             Try
-                TXT_codigo.Text = DGV_BProd.SelectedRows(0).Cells(1).Value.ToString()
-                TXT_Nombre.Text = DGV_BProd.SelectedRows(0).Cells(2).Value.ToString()
-                If DGV_BProd.SelectedRows(0).Cells(4).Value.ToString() = "Si" Then
+                TXT_codigo.Text = DGV_BProd.SelectedRows(0).Cells("Código").Value.ToString()
+                TXT_Nombre.Text = DGV_BProd.SelectedRows(0).Cells("Nombre").Value.ToString()
+                If DGV_BProd.SelectedRows(0).Cells("Variable").Value.ToString() = "Si" Then
                     TXT_Precio.Text = "Variable"
                 Else
-                    TXT_Precio.Text = DGV_BProd.SelectedRows(0).Cells(3).Value.ToString()
+                    TXT_Precio.Text = DGV_BProd.SelectedRows(0).Cells("Precio de venta").Value.ToString()
                 End If
-                LBL_IDProd.Text = DGV_BProd.SelectedRows(0).Cells(0).Value.ToString()
+                LBL_IDProd.Text = DGV_BProd.SelectedRows(0).Cells("ID").Value.ToString()
             Catch ex As Exception
                 TXT_codigo.Text = ""
                 TXT_Nombre.Text = ""

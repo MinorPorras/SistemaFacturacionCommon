@@ -191,22 +191,67 @@ Namespace SistemaFacturacion.Modules
         ' Obtiene el siguiente valor de PK para una tabla
         Friend Function OBTENERPK(ByVal TABLA As String, ByVal PK As String) As Integer
             Try
-                If EXISTE(TABLA, PK) = True Then
-                    Using data As New DataSet
-                        SQL = "SELECT MAX(" & PK & ") FROM " & TABLA
-                        Cargar_Tabla(data, SQL)
-                        If data.Tables(0).Rows.Count > 0 AndAlso Not IsDBNull(data.Tables(0).Rows(0).Item(0)) Then
-                            OBTENERPK = data.Tables(0).Rows(0).Item(0) + 1
-                        Else
-                            OBTENERPK = 1
-                        End If
-                    End Using
-                Else
-                    OBTENERPK = 1
+                If Not EXISTE(TABLA, PK) = True Then
+                    Return 1
                 End If
+
+                SQL = "SELECT MAX(" & PK & ") FROM " & TABLA
+
+                Using data As New DataSet
+                    Cargar_Tabla(data, SQL)
+
+                    If Not data.Tables(0).Rows.Count > 0 OrElse IsDBNull(data.Tables(0).Rows(0).Item(0)) Then
+                        Return 1
+                    End If
+
+                    Return data.Tables(0).Rows(0).Item(0) + 1
+                End Using
+
             Catch ex As Exception
                 MsgBox("Error al cargar los datos desde la base de datos" & vbCrLf & ex.ToString(), vbOKOnly, "Error")
-                OBTENERPK = 1
+                Return 1
+            End Try
+        End Function
+
+        Friend Function GetLastInsertedID(ByVal dbConnection As SQLiteConnection) As Integer
+            Dim idResultado As Integer = 0
+
+            Try
+                Using cmd As New SQLiteCommand("SELECT last_insert_rowid()", dbConnection)
+                    Dim result As Object = cmd.ExecuteScalar()
+
+                    If Not IsDBNull(result) AndAlso result IsNot Nothing Then
+                        idResultado = Convert.ToInt32(result)
+                    End If
+                End Using
+
+                Return idResultado
+
+            Catch ex As Exception
+                ' Manejo de errores simplificado
+                MsgBox("Error al obtener el último ID insertado: " & vbCrLf & ex.Message, vbOKOnly, "Error")
+                Return 0
+            End Try
+        End Function
+
+        Friend Function GetLastInsertedID_Transaction(ByVal dbConnection As SQLiteConnection, ByVal transaction As SQLiteTransaction) As Integer
+            Dim idResultado As Integer = 0
+
+            Try
+                Using cmd As New SQLiteCommand("SELECT last_insert_rowid()", dbConnection, transaction)
+                    Dim result As Object = cmd.ExecuteScalar()
+
+                    If Not IsDBNull(result) AndAlso result IsNot Nothing Then
+                        idResultado = Convert.ToInt32(result)
+                    End If
+                End Using
+
+                Return idResultado
+
+            Catch ex As Exception
+                ' Manejo de errores simplificado
+                MsgBox("Error al obtener el último ID insertado: " & vbCrLf & ex.Message, vbOKOnly, "Error")
+                Return 0
             End Try
         End Function
 

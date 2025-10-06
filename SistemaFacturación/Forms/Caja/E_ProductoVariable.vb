@@ -1,24 +1,37 @@
-﻿Namespace SistemaFacturacion.Forms.Caja
+﻿Imports System.Globalization
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
+
+Namespace SistemaFacturacion.Forms.Caja
 
     Public Class E_ProductoVariable
-        Dim cant As Integer
+        Public cant As Integer
+        Dim culturaCR As New CultureInfo("es-CR")
+        Public producto As Cls_ProductoCaja
         Private Sub E_ProductoVariable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
             VALIDAR()
             TXT_PrecioVenta.Select()
         End Sub
 
         Private Sub BTN_RegresarPrd_Click(sender As Object, e As EventArgs) Handles BTN_RegresarPrd.Click
-            P_Caja.Show()
-            P_Caja.Select()
-            Me.Close()
+            Me.DialogResult = DialogResult.Cancel
         End Sub
 
         Private Sub BTN_SelectProd_Click(sender As Object, e As EventArgs) Handles BTN_SelectProd.Click
-            P_Caja.AgregarProd(LBL_ID.Text, LBL_Cod.Text, LBL_Producto.Text, TXT_PrecioVenta.Text, 1)
+            Dim prod As New Cls_ProductoCaja With {
+                .ID = LBL_ID.Text,
+                .Codigo = LBL_Cod.Text,
+                .Producto = LBL_Producto.Text,
+                .Precio = Convert.ToDecimal(TXT_PrecioVenta.Text),
+                .Cantidad = cant,
+                .total = Convert.ToDecimal(TXT_PrecioVenta.Text) * cant
+            }
+            prod.formated_precio = prod.Precio.ToString("C", culturaCR)
+            prod.formated_total = prod.total.ToString("C", culturaCR)
+
+            producto = prod
+
             TXT_PrecioVenta.Clear()
-            P_Caja.Show()
-            P_Caja.Select()
-            Me.Close()
+            Me.DialogResult = DialogResult.OK
         End Sub
 
         Private Sub TXT_PrecioVenta_TextChanged(sender As Object, e As EventArgs) Handles TXT_PrecioVenta.TextChanged
