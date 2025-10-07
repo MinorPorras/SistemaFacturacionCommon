@@ -272,6 +272,7 @@
     <Compile Include="Data\Cls_ReporteVentas.vb" />
     <Compile Include="Data\Cls_SaldoCaja.vb" />
     <Compile Include="Data\Cls_Sucursal.vb" />
+    <Compile Include="Data\Cls_Ventas.vb" />
     <Compile Include="Forms\Caja\P_GenerarCierreCaja.Designer.vb">
       <DependentUpon>P_GenerarCierreCaja.vb</DependentUpon>
     </Compile>
@@ -326,6 +327,7 @@
     <Compile Include="Forms\Mantenimiento\E_NuevoConcepto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\Md_Arqueos.vb" />
     <Compile Include="Modules\Md_formating.vb" />
     <Compile Include="Modules\Md_Reportes.vb" />
     <Compile Include="Forms\CuentasXCobrar\P_CuentasCobrar.Designer.vb">

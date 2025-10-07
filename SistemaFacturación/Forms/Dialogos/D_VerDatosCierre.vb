@@ -23,7 +23,7 @@ Namespace SistemaFacturacion.Forms.Dialogos
 
             'Se obtiene la información de las entradas y salidas de efectivo en caja
             'Primero se obtienen los totales
-            datosCierre.ObtenerTotalMovimientosCaja()
+            Await datosCierre.ObtenerTotalMovimientosCaja()
 
             'Se calcula el total esperado y la diferencia
             Dim saldo_esperado = datosCierre.CargarTotalEsperadoYDiferencia()

@@ -381,10 +381,10 @@ Namespace SistemaFacturacion.Forms.Caja
             End If
         End Sub
 
-        Private Sub getTotal()
+        Private Sub GetTotal()
             totalCaja = 0
             For Each producto As Cls_ProductoCaja In prodList
-                totalCaja += producto.total
+                totalCaja += producto.Total
             Next
             TXT_Total.Text = totalCaja.ToString("C", culturaCR)
         End Sub
@@ -661,39 +661,47 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
             ' Establece P_Caja (Me) como el dueño de frmReimprimirFact
             Dim frmReimprimirFact As New P_ReimprimirFact With {
-            .Owner = Me
-        }
+                .Owner = Me
+            }
             frmReimprimirFact.Show()
-            isDialogOpen = True
             frmReimprimirFact.Select()
             Me.Hide()
         End Sub
 
         Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
-            P_TerminarVenta.Owner = Me
-            P_TerminarVenta.LIMPIAR()
-            Dim precio As String() = TXT_Total.Text.Split(" "c)
-            'Si se está terminando la venta de una cuenta por cobrar se asigna el ID que ya existe
-            If idEncabezadoCC <> 0 Then
-                P_TerminarVenta.idFactura = idEncabezadoCC
-                P_TerminarVenta.isCuentaPorCobrar = True
-            End If
-            If DGV_Caja.Rows.Count > 1 Then
-                P_TerminarVenta.total = totalCaja
-                P_TerminarVenta.TXT_ETotal.Text = TXT_Total.Text
-                P_TerminarVenta.TXT_TTotal.Text = TXT_Total.Text
-                P_TerminarVenta.TXT_STotal.Text = TXT_Total.Text
-                P_TerminarVenta.TXT_DTotal.Text = TXT_Total.Text
-                P_TerminarVenta.TXT_MTotal.Text = TXT_Total.Text
-                P_TerminarVenta.NumFactura = NumFactura
-                P_TerminarVenta.idCLiente = idCliente
+            Using endVentaForm As New P_TerminarVenta
+                endVentaForm.Owner = Me
+                If DGV_Caja.Rows.Count < 1 Then
+                    Exit Sub
+                End If
+
+                endVentaForm.venta = New Cls_Ventas With {
+                    .ID = OBTENERPK("factura", "ID"),
+                    .ID_Cliente = idCliente,
+                    .ID_Cajero = idUsu,
+                    .Fecha_creacion = Date.Now,
+                    .ListaProductos = prodList,
+                    .Saldo_total = totalCaja,
+                    .Num_factura = NumFactura,
+                    .Formated_num_factura = StrNumFactura,
+                    .Tipo_pago = 1
+                }
+                endVentaForm.isCuentaPorCobrar = False
+
                 'Se pasa el datagrid completo para obtener los datos
-                P_TerminarVenta.dgvProductos = DGV_Caja
-                isDialogOpen = True
-                P_TerminarVenta.Show()
-                P_TerminarVenta.Select()
-                P_TerminarVenta.TXT_ECliente.SelectAll()
-            End If
+                Dim result As DialogResult = endVentaForm.ShowDialog()
+                If result = DialogResult.OK Then
+                    ' Limpia la interfaz de la caja y la prepara para una nueva venta
+                    LIMPIAR()
+                    CargarNumFactura()
+                    Me.Refresh()
+                    BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
+
+                    mensaje("Vuelto: ₡ " & endVentaForm.venta.Vuelto, vbOKOnly, "Venta completada")
+                    TXT_BuscarProducto.Select()
+                    TXT_BuscarProducto.SelectAll()
+                End If
+            End Using
         End Sub
 
         Private Sub BTN_DelFactura_Click(sender As Object, e As EventArgs) Handles BTN_DelFactura.Click
@@ -705,11 +713,6 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-            ' Se asegura de que los atajos solo se ejecuten si no hay un diálogo abierto.
-            If isDialogOpen Then
-                Return
-            End If
-
             Select Case e.KeyCode
                 Case Keys.F1
                     BTN_Reprint.PerformClick()
@@ -730,13 +733,6 @@ Namespace SistemaFacturacion.Forms.Caja
                 Case Keys.F9
                     BTN_GuardarCuenta.PerformClick()
             End Select
-        End Sub
-
-        Private Sub BTN_RegresarCliente_Click(sender As Object, e As EventArgs)
-            Timer1.Stop()
-            M_Inicio.Show()
-            M_Inicio.Select()
-            Me.Close()
         End Sub
 #End Region
 
@@ -764,165 +760,19 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #Region "Movimientos caja"
         Private Sub BTN_AperturaCaja_Click(sender As Object, e As EventArgs) Handles BTN_AperturaCaja.Click
-            Using frmAperturaCaja As New D_AperturaCaja()
-                frmAperturaCaja.Owner = Me
-                isDialogOpen = True
-                frmAperturaCaja.ShowDialog()
-                If frmAperturaCaja.ResultadoDelDialogo = DialogResult.OK Then
-                    Dim saldo As Integer = CInt(frmAperturaCaja.TXT_SaldoSiguiente.Text)
-                    If IngresarApertura(saldo) Then
-                        mensaje("Apertura de caja registrada con éxito", vbOKOnly, "Apertura de caja")
-                        isDialogOpen = False
-                    End If
-                Else
-                    Console.WriteLine("Se presionó el botón Cancel")
-                    isDialogOpen = False
-                    Return
-                End If
-            End Using
+            showAperturaDialog(Me)
         End Sub
-
-        Private Function IngresarApertura(saldo As Integer) As Boolean
-            'Hacer el ingreso a la base de datos de la información
-            'Se ingresa el nuevo ID, ID_Usuario, fondo_inicial, hora_apertura
-            Using db As New SQLiteConnection(GetConnectionString())
-                db.Open()
-                Dim transaction = db.BeginTransaction()
-                Dim insertSQL As String = "INSERT INTO Arqueo_Caja (ID, ID_Usuario, fondo_inicial, hora_apertura) VALUES (@id, @idUsu, @fondo, @hora)"
-                Dim param As New Dictionary(Of String, Object) From {
-                {"id", OBTENERPK("Arqueo_Caja", "ID")},
-                {"idUsu", idUsu},
-                {"fondo", saldo},
-                {"hora", DateTime.Now}
-            }
-                Try
-                    Using cmd As New SQLiteCommand(insertSQL, db, transaction)
-                        For Each p In param
-                            cmd.Parameters.AddWithValue("@" & p.Key, p.Value)
-                        Next
-                        cmd.ExecuteNonQuery()
-                    End Using
-                    transaction.Commit()
-                Catch ex As Exception
-                    transaction.Rollback()
-                    msgError("Error al registrar la apertura de caja: " & ex.Message)
-                    Return False
-                Finally
-                    If db.State = ConnectionState.Open Then
-                        db.Close()
-                    End If
-                End Try
-            End Using
-
-            Return True
-        End Function
-
-        Private Sub RegistroMovimientos(esEntrada As Boolean)
-            Using formMovimiento As New D_MovimientoCaja
-                formMovimiento.isEntrada = esEntrada
-                formMovimiento.Owner = Me
-                isDialogOpen = True
-                Dim resultado = formMovimiento.ShowDialog()
-
-                If resultado = DialogResult.OK Then
-                    Dim movimiento As New Cls_MovimientosCaja With {
-                        .id = 0,
-                        .monto = CInt(formMovimiento.NUD_Monto.Value),
-                        .tipoMovimiento = If(esEntrada, 1, 2),
-                        .ID_Concepto = CInt(formMovimiento.CBX_tipoConcepto.SelectedValue),
-                        .ID_Arqueo = 0,
-                        .referencia = formMovimiento.TXT_Referencia.Text,
-                        .fecha = DateTime.Now
-                    }
-                    If IngresarMovimientoCaja(movimiento) Then
-                        mensaje("Ingreso registrado con éxito", vbOKOnly, "Ingreso a caja")
-                        isDialogOpen = False
-                    End If
-                Else
-                    Console.WriteLine("Se presionó el botón Cancel")
-                    isDialogOpen = False
-                    Return
-                End If
-
-            End Using
-        End Sub
-
-        Private Function IngresarMovimientoCaja(movimiento As Cls_MovimientosCaja) As Boolean
-            ' Se define un delegado que contiene todas las operaciones
-            Dim operacionesDeGuardado As Action(Of SQLiteConnection, SQLiteTransaction) =
-            Sub(conn, transaction)
-                CrearMovimiento(conn, transaction, movimiento)
-            End Sub
-
-            ' Se llama al método para ejecutar la transacción de forma segura
-            If Not EJECUTAR_TRANSACCION(operacionesDeGuardado) Then
-                Return False
-            End If
-
-            Return True
-        End Function
-
-        Private Function CrearMovimiento(conn As SQLiteConnection, transaction As SQLiteTransaction, movimiento As Cls_MovimientosCaja)
-            'Hacer el ingreso a la base de datos de la información
-            'Se ingresa el nuevo ID, monto, ID_Tipo_Movimiento, ID_Concepto, ID_arqueo, referencia
-            Dim insertSQL As String = "INSERT INTO Movimientos_Caja (ID, monto, ID_Tipo_Movimiento, ID_Concepto, ID_arqueo, referencia, fecha_hora) " &
-                                        "VALUES (@id, @monto, @tipo, @concepto, @arqueo, @referencia, @fecha)"
-            Dim param As New Dictionary(Of String, Object) From {
-                {"id", OBTENERPK("Movimientos_Caja", "ID")},
-                {"monto", movimiento.monto},
-                {"tipo", movimiento.tipoMovimiento}, ' 1 para entrada, 2 para salida
-                {"concepto", movimiento.ID_Concepto},
-                {"arqueo", OBTENERULTIMOARQUEO(conn)},
-                {"referencia", movimiento.referencia},
-                {"fecha", movimiento.fecha}
-            }
-            Return EJECUTAR_PARAMETROS_TRANSACCION(insertSQL, param, conn, transaction)
-        End Function
-
-        Private Function OBTENERULTIMOARQUEO(conn As SQLiteConnection) As Object
-            SQL = "SELECT ID FROM Arqueo_Caja ORDER BY ID DESC LIMIT 1"
-            Dim cmd As New SQLiteCommand(SQL, conn)
-            Dim result = cmd.ExecuteScalar()
-            If result IsNot Nothing Then
-                Return Convert.ToInt32(result)
-            Else
-                msgError("No se encontró un arqueo de caja abierto. Por favor, realice una apertura de caja primero.")
-                Throw New Exception("No se encontró un arqueo de caja abierto.")
-            End If
-        End Function
 
         Private Sub BTN_RegistrarIngreso_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarIngreso.Click
-            RegistroMovimientos(True)
+            RegistroMovimientos(True, Me)
         End Sub
 
         Private Sub BTN_RegistrarSalida_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarSalida.Click
-            RegistroMovimientos(False)
+            RegistroMovimientos(False, Me)
         End Sub
 
-        Private Async Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
-            Dim clsCierre As New Cls_CierreCaja()
-            If Not clsCierre.verificarCajaAbierta() Then
-                msgError("No se puede realizar el cierre de caja porque no hay una caja abierta. Por favor, realice una apertura de caja primero.")
-                Return
-            End If
-            Using frmCierre As New P_GenerarCierreCaja
-                frmCierre.Owner = Me
-                isDialogOpen = True
-                Dim result = frmCierre.ShowDialog()
-
-                If result <> DialogResult.OK Then
-                    Console.WriteLine("Se presionó el botón Cancel")
-                    isDialogOpen = False
-                    Exit Sub
-                End If
-
-                If Await frmCierre.infoCierre.guardarCierre() Then
-                    mensaje("Cierre de caja registrado con éxito", vbOKOnly, "Cierre de caja")
-                    isDialogOpen = False
-                    'Se abre el formulario de apertura de caja para iniciar una nueva sesión
-                    BTN_AperturaCaja.PerformClick()
-                End If
-            End Using
+        Private Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
+            ShowCierreDialog(Me)
         End Sub
 #End Region
 

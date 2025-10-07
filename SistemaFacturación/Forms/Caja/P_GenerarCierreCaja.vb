@@ -75,7 +75,7 @@ Namespace SistemaFacturacion.Forms.Caja
             ' Guardar el cierre de caja
             If Not Await infoCierre.guardarCierre() Then
                 msgError("Error interno al realizar el cierre")
-                Return
+                Me.DialogResult = DialogResult.Cancel
             End If
 
             Me.DialogResult = DialogResult.OK

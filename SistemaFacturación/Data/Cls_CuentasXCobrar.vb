@@ -8,6 +8,7 @@ Namespace SistemaFacturacion.Data
         Public Property ID As Integer
         Public Property ID_Cliente As Integer
         Public Property Cliente As String
+        Public Property ID_Cajero As Integer
         Public Property fecha_creacion As DateTime
         Public Property saldo_total As Decimal
         Public Property formated_saldo_total As String

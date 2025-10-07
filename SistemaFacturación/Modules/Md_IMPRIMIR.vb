@@ -123,7 +123,7 @@ Namespace SistemaFacturacion.Modules
         End Function
 
         Private Function crearEncabezadoFactura(factura As Cls_DatosFactura, sucursal As Cls_Sucursal) As String
-            Return "-------------------------------------------" & vbCrLf &
+            Return "------------------------------------------" & vbCrLf &
                                     "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
                                     "-------- " & sucursal.Nombre & " ---------" & vbCrLf & vbCrLf &
                                     "Nº de Factura: " & factura.NumFactura & vbCrLf &

@@ -9,8 +9,7 @@ Namespace SistemaFacturacion.Forms.Dialogos
         Friend saldoSiguiente As New Cls_SaldoCaja()
 
         Private Sub BTN_RegresarAperturaCaja_Click(sender As Object, e As EventArgs) Handles BTN_RegresarAperturaCaja.Click
-            Me.ResultadoDelDialogo = DialogResult.Cancel
-            Me.Close()
+            Me.DialogResult = DialogResult.Cancel
         End Sub
 
         Private Sub D_AperturaCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -20,8 +19,7 @@ Namespace SistemaFacturacion.Forms.Dialogos
 
         Private Sub BTN_AbrirSesionCaja_Click(sender As Object, e As EventArgs) Handles BTN_AbrirSesionCaja.Click
             ' Si la validación es exitosa, establece el resultado y cierra el formulario.
-            Me.ResultadoDelDialogo = DialogResult.OK
-            Me.Close()
+            Me.DialogResult = DialogResult.OK
         End Sub
 
 

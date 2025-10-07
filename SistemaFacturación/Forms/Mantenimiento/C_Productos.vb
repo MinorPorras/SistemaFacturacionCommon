@@ -51,7 +51,6 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
             TXT_BuscarMarca.Enabled = False
             TXT_BuscarCat.Enabled = False
             TXT_BuscarProv.Enabled = False
-            REFRESCAR()
             TXT_BuscarProd.Select()
         End Sub
 
@@ -412,6 +411,10 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
             entrarConfig(2, Me)
+        End Sub
+
+        Private Sub C_Productos_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+            REFRESCAR()
         End Sub
     End Class
 End Namespace
