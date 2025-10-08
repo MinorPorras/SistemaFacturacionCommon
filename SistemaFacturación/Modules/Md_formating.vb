@@ -17,11 +17,7 @@ Namespace SistemaFacturacion.Modules
                 End If
             Next
 
-            For Each formatedName In formatedNames
-                If DGV.Columns.Contains(formatedName.Key) Then
-                    DGV.Columns(formatedName.Key).HeaderText = formatedName.Value
-                End If
-            Next
+            formatHeaderText(formatedNames, DGV)
 
             DGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 

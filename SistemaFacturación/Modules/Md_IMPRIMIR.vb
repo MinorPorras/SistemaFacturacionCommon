@@ -26,22 +26,22 @@ Namespace SistemaFacturacion.Modules
         ' reimprimir: True si es reimpresión, False si es impresión normal
         Public Sub GENERAR_FACTURA(id_factura As Integer)
             LIMPIAR()
-            Dim factura As New Cls_DatosFactura()
-            factura = ObtenerDatosGeneralesFactura(id_factura)
+            Dim Factura As New Cls_DatosFactura()
+            Factura = ObtenerDatosGeneralesFactura(id_factura)
 
-            Dim strVenta As String
+            Dim StrVenta As String
             ' Determinar el tipo de venta en texto
             Select Case factura.TipoPago
                 Case 0
-                    strVenta = "Efectivo"
+                    StrVenta = "Efectivo"
                 Case 1
-                    strVenta = "Tarjeta"
+                    StrVenta = "Tarjeta"
                 Case 2
-                    strVenta = "Sinpe"
+                    StrVenta = "Sinpe"
                 Case 3
-                    strVenta = "Depósito"
+                    StrVenta = "Depósito"
                 Case 4
-                    strVenta = "Mixto"
+                    StrVenta = "Mixto"
                 Case Else
                     strVenta = "Efectivo"
             End Select
@@ -122,7 +122,7 @@ Namespace SistemaFacturacion.Modules
             Return sucursal
         End Function
 
-        Private Function crearEncabezadoFactura(factura As Cls_DatosFactura, sucursal As Cls_Sucursal) As String
+        Private Function CrearEncabezadoFactura(factura As Cls_DatosFactura, sucursal As Cls_Sucursal) As String
             Return "------------------------------------------" & vbCrLf &
                                     "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
                                     "-------- " & sucursal.Nombre & " ---------" & vbCrLf & vbCrLf &
@@ -141,7 +141,7 @@ Namespace SistemaFacturacion.Modules
                                     "------------------------------------------" & vbCrLf
         End Function
 
-        Private Function crearFinFactura(factura As Cls_DatosFactura, comentario As String) As String
+        Private Function CrearFinFactura(factura As Cls_DatosFactura, comentario As String) As String
             Dim finFact As String = "-----------------------------------------" & vbCrLf &
                           "Total de la venta: ₡ " & factura.TotalCaja & vbCrLf &
                           vbCrLf
@@ -166,7 +166,7 @@ Namespace SistemaFacturacion.Modules
 
             ' Usamos AddHandler para pasar los parámetros de la factura al controlador de eventos
             AddHandler printDoc.PrintPage, Sub(sender, e)
-                                               printDocument_PrintPage(sender, e, encabezado, productos, fin)
+                                               PrintDocument_PrintPage(e, encabezado, productos, fin)
                                            End Sub
             ' 1. ANCHO: 80 mm (3.15 in) = 227 puntos.
             ' 2. ALTO: Se mantiene un valor simbólicamente grande para rollo continuo.
@@ -200,7 +200,7 @@ Namespace SistemaFacturacion.Modules
         End Sub
 
         ' Manejador del evento PrintPage que ahora recibe los parámetros de la factura
-        Private Sub printDocument_PrintPage(sender As Object, e As Printing.PrintPageEventArgs, encabezado As String, productos As List(Of String), fin As String)
+        Private Sub PrintDocument_PrintPage(e As Printing.PrintPageEventArgs, encabezado As String, productos As List(Of String), fin As String)
             Dim font As New Font("Arial", 12)
             Dim fontProds As New Font("Segoe UI", 9)
             Dim brush As New SolidBrush(Color.Black)
@@ -264,15 +264,15 @@ Namespace SistemaFacturacion.Modules
 
                     ' 2. Dibujar Cantidad (Izquierda) - Usa stringFormatWrap o Near
                     Dim rectCant As New RectangleF(leftMargin, yPos, colWidthCant, maxHeight)
-                    e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap) ' <--- OK con stringFormatWrap
+                    e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap)
 
                     ' 3. Dibujar Precio (Derecha) - ¡Usa stringFormatRight!
                     Dim rectPrecio As New RectangleF(leftMargin + colWidthCant + colWidthDesc, yPos, colWidthPrecio, maxHeight)
-                    e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatRight) ' <--- CAMBIO
+                    e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatRight)
 
                     ' 4. Dibujar Total (Derecha) - ¡Usa stringFormatRight!
                     Dim rectTotal As New RectangleF(leftMargin + colWidthCant + colWidthDesc + colWidthPrecio, yPos, colWidthTotal, maxHeight)
-                    e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatRight) ' <--- CAMBIO
+                    e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatRight)
 
                     yPos += maxHeight + 2
                 End If

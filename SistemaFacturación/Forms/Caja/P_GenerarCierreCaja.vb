@@ -10,7 +10,7 @@ Namespace SistemaFacturacion.Forms.Caja
         Dim listTxtDenominaciones As New Dictionary(Of Integer, Guna2NumericUpDown)
         Friend infoCierre As Cls_CierreCaja
 
-        Private Sub inicializarListaTxtDenominaciones()
+        Private Sub InicializarListaTxtDenominaciones()
             ' Añadir cada NumericUpDown de denominación a la lista
             listTxtDenominaciones.Add(5, NUD_Moneda5)
             listTxtDenominaciones.Add(10, NUD_Moneda10)

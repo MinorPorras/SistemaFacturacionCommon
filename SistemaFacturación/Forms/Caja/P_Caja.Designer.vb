@@ -61,6 +61,9 @@
             Me.Guna2HtmlLabel5 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.TXT_BuscarCliente = New Guna.UI2.WinForms.Guna2TextBox()
             Me.DGV_Caja = New Guna.UI2.WinForms.Guna2DataGridView()
+            Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
+            Me.MNU_MODIFICAR = New System.Windows.Forms.ToolStripMenuItem()
+            Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
             Me.Panel1 = New System.Windows.Forms.Panel()
             Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
             Me.PAN_AddProd = New System.Windows.Forms.Panel()
@@ -71,22 +74,19 @@
             Me.PAN_HeaderFavProd = New Guna.UI2.WinForms.Guna2Panel()
             Me.lbl_tituloProdFav = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.FLW_FavProdBtn = New Syncfusion.Windows.Forms.Tools.FlowLayout(Me.components)
-            Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
-            Me.MNU_MODIFICAR = New System.Windows.Forms.ToolStripMenuItem()
-            Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
             CType(Me.PIC_Logo, System.ComponentModel.ISupportInitialize).BeginInit()
             Me.TableLayoutPanel1.SuspendLayout()
             Me.TableLayoutPanel2.SuspendLayout()
             Me.Guna2Panel2.SuspendLayout()
             Me.Guna2Panel3.SuspendLayout()
             CType(Me.DGV_Caja, System.ComponentModel.ISupportInitialize).BeginInit()
+            Me.MNU_CONTX.SuspendLayout()
             Me.Panel1.SuspendLayout()
             Me.Guna2Panel1.SuspendLayout()
             Me.PAN_AddProd.SuspendLayout()
             Me.PAN_FavProd.SuspendLayout()
             Me.PAN_HeaderFavProd.SuspendLayout()
             CType(Me.FLW_FavProdBtn, System.ComponentModel.ISupportInitialize).BeginInit()
-            Me.MNU_CONTX.SuspendLayout()
             Me.SuspendLayout()
             '
             'Guna2BorderlessForm1
@@ -337,7 +337,7 @@
             Me.BTN_GuardarCuenta.Name = "BTN_GuardarCuenta"
             Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(441, 56)
             Me.BTN_GuardarCuenta.TabIndex = 113
-            Me.BTN_GuardarCuenta.Text = "[F9] Guardar cuenta"
+            Me.BTN_GuardarCuenta.Text = " [F9] Guardar cuenta"
             '
             'BTN_TVenta
             '
@@ -617,6 +617,42 @@
             Me.DGV_Caja.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(229, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.DGV_Caja.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(94, Byte), Integer))
             '
+            'MNU_CONTX
+            '
+            Me.MNU_CONTX.ImageScalingSize = New System.Drawing.Size(20, 20)
+            Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_MODIFICAR, Me.MNU_ELIMINAR})
+            Me.MNU_CONTX.Name = "MNU_CONTX"
+            Me.MNU_CONTX.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.MNU_CONTX.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
+            Me.MNU_CONTX.RenderStyle.ColorTable = Nothing
+            Me.MNU_CONTX.RenderStyle.RoundedEdges = True
+            Me.MNU_CONTX.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
+            Me.MNU_CONTX.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
+            Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
+            Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+            Me.MNU_CONTX.Size = New System.Drawing.Size(136, 56)
+            '
+            'MNU_MODIFICAR
+            '
+            Me.MNU_MODIFICAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.MNU_MODIFICAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
+            Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
+            Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
+            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
+            Me.MNU_MODIFICAR.Text = "Modificar"
+            '
+            'MNU_ELIMINAR
+            '
+            Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
+            Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
+            Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
+            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(135, 26)
+            Me.MNU_ELIMINAR.Text = "Eliminar"
+            '
             'Panel1
             '
             Me.Panel1.Controls.Add(Me.PIC_Logo)
@@ -751,42 +787,6 @@
             '
             Me.FLW_FavProdBtn.ContainerControl = Me.PAN_FavProdBTNContainer
             '
-            'MNU_CONTX
-            '
-            Me.MNU_CONTX.ImageScalingSize = New System.Drawing.Size(20, 20)
-            Me.MNU_CONTX.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MNU_MODIFICAR, Me.MNU_ELIMINAR})
-            Me.MNU_CONTX.Name = "MNU_CONTX"
-            Me.MNU_CONTX.RenderStyle.ArrowColor = System.Drawing.Color.FromArgb(CType(CType(151, Byte), Integer), CType(CType(143, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.MNU_CONTX.RenderStyle.BorderColor = System.Drawing.Color.Gainsboro
-            Me.MNU_CONTX.RenderStyle.ColorTable = Nothing
-            Me.MNU_CONTX.RenderStyle.RoundedEdges = True
-            Me.MNU_CONTX.RenderStyle.SelectionArrowColor = System.Drawing.Color.White
-            Me.MNU_CONTX.RenderStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
-            Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
-            Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-            Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
-            '
-            'MNU_MODIFICAR
-            '
-            Me.MNU_MODIFICAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-            Me.MNU_MODIFICAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
-            Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
-            Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
-            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(184, 26)
-            Me.MNU_MODIFICAR.Text = "Modificar"
-            '
-            'MNU_ELIMINAR
-            '
-            Me.MNU_ELIMINAR.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-            Me.MNU_ELIMINAR.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
-            Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
-            Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
-            Me.MNU_ELIMINAR.Text = "Eliminar"
-            '
             'P_Caja
             '
             Me.AcceptButton = Me.BTN_NProd
@@ -812,6 +812,7 @@
             Me.Guna2Panel3.ResumeLayout(False)
             Me.Guna2Panel3.PerformLayout()
             CType(Me.DGV_Caja, System.ComponentModel.ISupportInitialize).EndInit()
+            Me.MNU_CONTX.ResumeLayout(False)
             Me.Panel1.ResumeLayout(False)
             Me.Panel1.PerformLayout()
             Me.Guna2Panel1.ResumeLayout(False)
@@ -821,7 +822,6 @@
             Me.PAN_HeaderFavProd.ResumeLayout(False)
             Me.PAN_HeaderFavProd.PerformLayout()
             CType(Me.FLW_FavProdBtn, System.ComponentModel.ISupportInitialize).EndInit()
-            Me.MNU_CONTX.ResumeLayout(False)
             Me.ResumeLayout(False)
 
         End Sub

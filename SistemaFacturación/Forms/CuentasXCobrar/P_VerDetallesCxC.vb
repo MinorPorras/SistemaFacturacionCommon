@@ -86,6 +86,14 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
             formatDGV(DGV_ListaAbonos, hiddenColumns, formatedNames, columnSizes)
         End Sub
+
+        Private Sub BTN_ActualizarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_ActualizarCuenta.Click
+            Using cajaForm As New P_CajaCxC
+                cajaForm.idCuenta = ID
+                cajaForm.ShowDialog()
+                Me.Select()
+            End Using
+        End Sub
     End Class
 
 

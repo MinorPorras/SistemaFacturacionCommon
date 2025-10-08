@@ -22,11 +22,8 @@ Namespace SistemaFacturacion.Forms.Caja
                 .Codigo = LBL_Cod.Text,
                 .Producto = LBL_Producto.Text,
                 .Precio = Convert.ToDecimal(TXT_PrecioVenta.Text),
-                .Cantidad = cant,
-                .total = Convert.ToDecimal(TXT_PrecioVenta.Text) * cant
+                .Cantidad = cant
             }
-            prod.formated_precio = prod.Precio.ToString("C", culturaCR)
-            prod.formated_total = prod.total.ToString("C", culturaCR)
 
             producto = prod
 

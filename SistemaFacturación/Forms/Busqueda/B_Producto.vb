@@ -2,13 +2,13 @@
 Imports System.Threading.Tasks
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Mantenimiento
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 Imports TheArtOfDevHtmlRenderer.Adapters.RGraphicsPath
 
 Namespace SistemaFacturacion.Forms.Busqueda
     Public Class B_Producto
         Friend ModProd As Boolean
-        Dim cant As Integer
         Friend idModProd As Integer
         Private searchTimer As Timer
         Public producto As New Cls_ProductoCaja
@@ -21,6 +21,11 @@ Namespace SistemaFacturacion.Forms.Busqueda
             }
             ' Medio segundo
             AddHandler searchTimer.Tick, AddressOf OnSearchTimerTick
+            TXT_BuscarProd.Text = producto.Producto
+            TXT_codigo.Text = producto.Codigo
+            TXT_Nombre.Text = producto.Producto
+            TXT_CantProd.Text = producto.Cantidad
+            TXT_Precio.Text = producto.Precio
         End Sub
 
         Private Sub OnSearchTimerTick(sender As Object, e As EventArgs)
@@ -118,6 +123,12 @@ Namespace SistemaFacturacion.Forms.Busqueda
                 Dim typedOwner = CType(Owner, P_Caja)
                 typedOwner.TXT_BuscarProducto.SelectAll()
             End If
+
+            If TypeOf (Owner) Is P_CajaCxC Then
+                Dim typedOwner = CType(Owner, P_CajaCxC)
+                typedOwner.TXT_BuscarProducto.SelectAll()
+            End If
+
             Me.DialogResult = DialogResult.Cancel
         End Sub
 
@@ -145,20 +156,17 @@ Namespace SistemaFacturacion.Forms.Busqueda
                     .Codigo = TXT_codigo.Text,
                     .Producto = TXT_Nombre.Text,
                     .Precio = Convert.ToDecimal(TXT_Precio.Text),
-                    .Cantidad = CInt(TXT_CantProd.Text),
-                    .total = Convert.ToDecimal(TXT_Precio.Text) * CInt(TXT_CantProd.Text)
+                    .Cantidad = CInt(TXT_CantProd.Text)
             }
-            prod.formated_precio = prod.Precio.ToString("C", New CultureInfo("es-CR"))
-            prod.formated_total = prod.total.ToString("C", New CultureInfo("es-CR"))
             producto = prod
             Me.DialogResult = DialogResult.OK
         End Sub
 
         Private Sub BTN_MasCant_Click(sender As Object, e As EventArgs) Handles BTN_MasCant.Click
             Try
-                cant = Convert.ToInt32(TXT_CantProd.Text)
-                cant += 1
-                TXT_CantProd.Text = cant
+                producto.Cantidad = Convert.ToInt32(TXT_CantProd.Text)
+                producto.Cantidad += 1
+                TXT_CantProd.Text = producto.Cantidad
             Catch ex As Exception
 
             End Try
@@ -167,10 +175,10 @@ Namespace SistemaFacturacion.Forms.Busqueda
 
         Private Sub BTN_MenosCant_Click(sender As Object, e As EventArgs) Handles BTN_MenosCant.Click
             Try
-                cant = Convert.ToInt32(TXT_CantProd.Text)
-                If cant >= 1 Then
-                    cant -= 1
-                    TXT_CantProd.Text = cant
+                producto.Cantidad = Convert.ToInt32(TXT_CantProd.Text)
+                If producto.Cantidad >= 1 Then
+                    producto.Cantidad -= 1
+                    TXT_CantProd.Text = producto.Cantidad
                 End If
             Catch ex As Exception
 

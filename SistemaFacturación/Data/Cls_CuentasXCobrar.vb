@@ -9,17 +9,35 @@ Namespace SistemaFacturacion.Data
         Public Property ID_Cliente As Integer
         Public Property Cliente As String
         Public Property ID_Cajero As Integer
-        Public Property fecha_creacion As DateTime
-        Public Property saldo_total As Decimal
-        Public Property formated_saldo_total As String
-        Public Property comentario As String
-        Public Property listaProductos As List(Of Cls_DetalleProductoCxC)
-        Public Property listaPagos As List(Of Cls_CxCPagos)
+        Public Property Fecha_creacion As DateTime
+        Public Property Saldo_total As Decimal = 0
+        Public ReadOnly Property Formated_saldo_total As String
+            Get
+                Return Saldo_total.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
+        Public Property Comentario As String
+        Public Property ListaProductos As List(Of Cls_DetalleProductoCxC)
+        Public Property ListaPagos As List(Of Cls_CxCPagos)
+        Public ReadOnly Property Saldo_restante As Decimal
+            Get
+                Dim saldo = Saldo_total
+                For Each pago In ListaPagos
+                    saldo -= pago.total
+                Next
+                Return saldo
+            End Get
+        End Property
+        Public ReadOnly Property Formated_Saldo_restante As String
+            Get
+                Return Saldo_restante.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
 
-        Private culturaCR As New CultureInfo("es-CR")
+        Private ReadOnly CulturaCR As New CultureInfo("es-CR")
 
 
-        Friend Async Function agregarActualizarCuenta(actualizar_factura_cobrar As Boolean) As Task(Of String)
+        Friend Async Function AgregarActualizarCuenta(actualizar_factura_cobrar As Boolean) As Task(Of String)
             Return Await Task.Run(Function()
                                       ' Iniciar una transacción de base de datos
                                       Dim dbConnection As New SQLiteConnection(GetConnectionString())
@@ -35,8 +53,8 @@ Namespace SistemaFacturacion.Data
                                               Dim parametrosFactura As New Dictionary(Of String, Object) From {
                                                   {"FechaCreacion", DateTime.Now},
                                                   {"IDCliente", ID_Cliente},
-                                                  {"SaldoTotal", saldo_total},
-                                                  {"comentario", comentario}
+                                                  {"SaldoTotal", Saldo_total},
+                                                  {"comentario", Comentario}
                                               }
                                               EJECUTAR_PARAMETROS_TRANSACCION(insertFacturaSQL, parametrosFactura, dbConnection, transaction)
 
@@ -50,9 +68,9 @@ Namespace SistemaFacturacion.Data
                                                                                 WHERE ID = @IDEncabezado;"
                                               'Obtener el PK del numFactura actual
                                               Dim parametrosUpdate As New Dictionary(Of String, Object) From {
-                                                  {"comentario", comentario},
+                                                  {"comentario", Comentario},
                                                   {"IDCliente", ID_Cliente},
-                                                  {"SaldoTotal", saldo_total},
+                                                  {"SaldoTotal", Saldo_total},
                                                   {"IDEncabezado", ID}
                                               }
                                               EJECUTAR_PARAMETROS_TRANSACCION(updateFacturaSQL, parametrosUpdate, dbConnection, transaction)
@@ -68,7 +86,7 @@ Namespace SistemaFacturacion.Data
                                           Dim insertProductoSQL As String = "INSERT INTO CC_DetalleProducto 
                                                                                 (ID_Encabezado, ID_Producto, cantidad, precio, total_linea) 
                                                                                 VALUES (@IDEncabezado, @IDProducto, @Cantidad, @Precio, @TotalLinea);"
-                                          For Each prod In listaProductos
+                                          For Each prod In ListaProductos
                                               Dim paramProds As New Dictionary(Of String, Object) From {
                                                 {"IDEncabezado", ID},
                                                 {"IDProducto", prod.ID},
@@ -94,18 +112,18 @@ Namespace SistemaFacturacion.Data
                                   End Function)
         End Function
 
-        Friend Sub getDetailsWithID(ID_CxC As Integer)
+        Friend Sub GetDetailsWithID(ID_CxC As Integer)
             Try
                 ID = ID_CxC
                 If Not getEncabezado(ID) Then Throw New Exception("No se encontró la información inicial de la cuenta por cobrar")
-                listaProductos = getListaProductos(ID)
-                listaPagos = getListaPagos(ID)
+                ListaProductos = getListaProductos(ID)
+                ListaPagos = getListaPagos(ID)
             Catch ex As Exception
                 Console.WriteLine($"Error al obtener los datos de la cuenta por cobrar: {ex.Message}")
             End Try
         End Sub
 
-        Friend Function getEncabezado(ID_CxC As Integer) As Boolean
+        Friend Function GetEncabezado(ID_CxC As Integer) As Boolean
             SQL = "SELECT CE.ID_Cliente , C.nombre , CE.fecha_creacion , CE.saldo_total , CE.comentario 
             FROM CC_Encabezado ce 
             LEFT JOIN clientes c ON CE.ID_Cliente = C.ID
@@ -120,14 +138,13 @@ Namespace SistemaFacturacion.Data
             End If
             ID_Cliente = T.Tables(0).Rows(0)("ID_Cliente")
             Cliente = T.Tables(0).Rows(0)("Nombre")
-            fecha_creacion = T.Tables(0).Rows(0)("fecha_creacion")
-            saldo_total = T.Tables(0).Rows(0)("saldo_total")
-            comentario = T.Tables(0).Rows(0)("comentario")
-            formated_saldo_total = saldo_total.ToString("C", culturaCR)
+            Fecha_creacion = T.Tables(0).Rows(0)("fecha_creacion")
+            Saldo_total = T.Tables(0).Rows(0)("saldo_total")
+            Comentario = T.Tables(0).Rows(0)("comentario")
             Return True
         End Function
 
-        Friend Function getListaProductos(ID_CxC As Integer) As List(Of Cls_DetalleProductoCxC)
+        Friend Function GetListaProductos(ID_CxC As Integer) As List(Of Cls_DetalleProductoCxC)
             SQL = "SELECT cdp.ID_Producto , p.codigo As Código , p.nombre As Nombre , cdp.precio As Precio , cdp.cantidad As Cantidad , cdp.total_linea As Total
                     FROM CC_DetalleProducto cdp 
                     LEFT JOIN producto p ON P.ID = cdp.ID_Producto 
@@ -146,26 +163,16 @@ Namespace SistemaFacturacion.Data
                     .Codigo = fila.Item("Código"),
                     .Nombre = fila.Item("Nombre"),
                     .Precio = fila.Item("Precio"),
-                    .cantidad = fila.Item("Cantidad"),
-                    .total = fila.Item("Total")
+                    .Cantidad = fila.Item("Cantidad")
                 }
-                producto.formated_Precio = producto.Precio.ToString("C", culturaCR)
-                producto.formated_total = producto.total.ToString("C", culturaCR)
                 listaProd.Add(producto)
             Next
             Return listaProd
         End Function
 
-        Friend Function getListaPagos(ID_CxC As Integer) As List(Of Cls_CxCPagos)
-            SQL = "SELECT cp.ID , cp.fecha As Fecha , CP.tipo_venta, 
-                    CASE
-	                    WHEN cp.tipo_venta = 0 THEN 'Efectivo'
-	                    WHEN cp.tipo_venta = 1 THEN 'Tarjeta'
-	                    WHEN cp.tipo_venta = 2 THEN 'Depósito'
-	                    WHEN cp.tipo_venta = 3 THEN 'Sinpe'
-	                    WHEN cp.tipo_venta = 4 THEN 'Mixto'
-	                    ELSE 'No válido'
-                    END As 'TipoVenta', cp.monto_efectivo As Efectivo , cp.monto_tarjeta As Tarjeta , cp.comentario As Comentario
+        Friend Function GetListaPagos(ID_CxC As Integer) As List(Of Cls_CxCPagos)
+            SQL = "SELECT cp.ID , cp.fecha As Fecha , CP.tipo_venta, cp.monto_efectivo As Efectivo , 
+                    cp.monto_tarjeta As Tarjeta , cp.comentario As Comentario
                     FROM CC_Pagos cp WHERE CP.ID_Encabezado = @id "
             Dim paramList As New List(Of SQLiteParameter) From {
                 {New SQLiteParameter("@id", ID_CxC)}
@@ -178,23 +185,19 @@ Namespace SistemaFacturacion.Data
             For Each fila As DataRow In T.Tables(0).Rows
                 Dim pago As New Cls_CxCPagos With {
                     .ID = fila.Item("ID"),
-                    .fecha = fila.Item("Fecha"),
-                    .tipo_venta = fila.Item("Tipo Venta"),
-                    .tipo_venta_value = fila.Item("TipoVenta"),
-                    .monto_efectivo = fila.Item("Efectivo"),
-                    .monto_tarjeta = fila.Item("Tarjeta"),
-                    .total = fila.Item("Efectivo") + fila.Item("Tarjeta"),
+                    .Fecha = fila.Item("Fecha"),
+                    .Tipo_venta = fila.Item("Tipo Venta"),
+                    .Monto_efectivo = fila.Item("Efectivo"),
+                    .Monto_tarjeta = fila.Item("Tarjeta"),
+                    .Total = fila.Item("Efectivo") + fila.Item("Tarjeta"),
                     .Comentario = fila.Item("Comentario")
                 }
-                pago.formated_monto_efectivo = pago.monto_efectivo.ToString("C", culturaCR)
-                pago.formated_monto_tarjeta = pago.monto_tarjeta.ToString("C", culturaCR)
-                pago.formated_total = pago.total.ToString("C", culturaCR)
                 listaPago.Add(pago)
             Next
             Return listaPago
         End Function
 
-        Friend Function obtenerSaldoPendiente() As Decimal
+        Friend Function ObtenerSaldoPendiente() As Decimal
             SQL = "SELECT 
                         ce.saldo_total - IFNULL(SUM(cp.monto_efectivo + cp.monto_tarjeta), 0) AS Saldo_Pendiente
                     FROM

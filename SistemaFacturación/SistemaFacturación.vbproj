@@ -258,7 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Data\Cls_AtrFactura.vb" />
     <Compile Include="Data\Cls_CierreCaja.vb" />
     <Compile Include="Data\Cls_ConceptoCaja.vb" />
     <Compile Include="Data\Cls_CuentasXCobrar.vb" />
@@ -277,6 +276,18 @@
       <DependentUpon>P_GenerarCierreCaja.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Caja\P_GenerarCierreCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_AbonarCxC.Designer.vb">
+      <DependentUpon>P_AbonarCxC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_AbonarCxC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_CajaCxC.Designer.vb">
+      <DependentUpon>P_CajaCxC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_CajaCxC.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CuentasXCobrar\P_VerDetallesCxC.Designer.vb">
@@ -671,6 +682,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Caja\P_GenerarCierreCaja.resx">
       <DependentUpon>P_GenerarCierreCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CuentasXCobrar\P_AbonarCxC.resx">
+      <DependentUpon>P_AbonarCxC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CuentasXCobrar\P_CajaCxC.resx">
+      <DependentUpon>P_CajaCxC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CuentasXCobrar\P_VerDetallesCxC.resx">
       <DependentUpon>P_VerDetallesCxC.vb</DependentUpon>

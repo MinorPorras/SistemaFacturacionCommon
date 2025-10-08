@@ -250,7 +250,7 @@ Namespace SistemaFacturacion.Modules
 
 #Region "Metodos de migración generales"
 
-        Friend Sub inicializarDB()
+        Friend Sub InicializarDB()
             Dim dbPersistentePath As String = GetDbPath()
 
             If Not File.Exists(dbPersistentePath) Then
@@ -296,6 +296,39 @@ Namespace SistemaFacturacion.Modules
             Return exists
         End Function
 
+        ' Función para verificar si una columna existe en una tabla específica en la base de datos
+        Private Function ColumnExists(tableName As String, columnName As String) As Boolean
+            Dim exists As Boolean = False
+
+            Try
+                Using conn As New SQLiteConnection(GetConnectionString())
+                    conn.Open()
+
+                    ' PRAGMA table_info(nombre_de_la_tabla) devuelve metadatos sobre todas las columnas de esa tabla.
+                    ' El segundo campo ('name') del resultado contiene el nombre de la columna.
+                    Dim sql As String = $"PRAGMA table_info('{tableName}');"
+
+                    Using cmd As New SQLiteCommand(sql, conn)
+                        Using reader As SQLiteDataReader = cmd.ExecuteReader()
+                            ' Itera sobre todas las filas (columnas) devueltas
+                            While reader.Read()
+                                ' La columna que contiene el nombre de la columna en PRAGMA table_info es la segunda (índice 1).
+                                ' Verifica si el nombre de la columna leída (reader.GetString(1)) coincide con el nombre buscado.
+                                If String.Equals(reader.GetString(1), columnName, StringComparison.OrdinalIgnoreCase) Then
+                                    exists = True
+                                    Exit While ' Columna encontrada, podemos salir del bucle
+                                End If
+                            End While
+                        End Using
+                    End Using
+                End Using
+            Catch ex As Exception
+                ' Mostrar el error si la conexión falla o la tabla no existe (opcional, para depuración)
+                MessageBox.Show($"Error al verificar la existencia de la columna '{columnName}' en '{tableName}': {ex.Message}", "Error de Base de Datos")
+            End Try
+
+            Return exists
+        End Function
 
         Friend Sub CheckAndMigrateDatabase()
             Try
@@ -311,7 +344,7 @@ Namespace SistemaFacturacion.Modules
                 ' 3. Creación de las tablas para el manejo de las cuentas por cobrar
                 If Not inicializarCuentasXCobrar() Then
                     ' Si falla la inicialización (devuelve False)
-                    Throw New Exception("Fallo en la inicialización de la tabla 'producto_favorito'.")
+                    Throw New Exception("Fallo en la inicialización de las cuentas por cobrar.")
                 End If
 
             Catch ex As Exception
@@ -491,18 +524,19 @@ Namespace SistemaFacturacion.Modules
 
 #Region "Inicialización de cuentas por cobrar"
 
-        Private Function inicializarCuentasXCobrar() As Boolean
+        Private Function InicializarCuentasXCobrar() As Boolean
             If TableExists("CC_Encabezado") Then Return True
             Dim op As Action(Of SQLiteConnection, SQLiteTransaction) =
                 Sub(conn, transaccion)
                     If Not inicializarTablaCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Encabezado.")
                     If Not inicializarDetalleCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_DetalleProducto.")
                     If Not inicializarPagosCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Pagos.")
+                    If Not deleteCobradaColumn(conn, transaccion) Then Throw New Exception("Fallo aleliminar la columna 'cobrada'")
                 End Sub
             Return EJECUTAR_TRANSACCION(op)
         End Function
 
-        Private Function inicializarTablaCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
+        Private Function InicializarTablaCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
             SQL = "CREATE TABLE CC_Encabezado (
                     ID INTEGER PRIMARY KEY AUTOINCREMENT,
                     ID_Cliente INTEGER NOT NULL,
@@ -514,7 +548,7 @@ Namespace SistemaFacturacion.Modules
             Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
         End Function
 
-        Private Function inicializarDetalleCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
+        Private Function InicializarDetalleCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
             SQL = "CREATE TABLE CC_DetalleProducto (
                     ID INTEGER PRIMARY KEY AUTOINCREMENT,
                     ID_Encabezado INTEGER NOT NULL,
@@ -528,18 +562,30 @@ Namespace SistemaFacturacion.Modules
             Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
         End Function
 
-        Private Function inicializarPagosCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
+        Private Function InicializarPagosCuentasXCobrar(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
             SQL = "CREATE TABLE CC_Pagos (
                     ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ID_Usuario INTEGER NOT NULL,
                     ID_Encabezado INTEGER NOT NULL,
                     fecha DATETIME NOT NULL,
+                    tipo_venta NVARCHAR(50),
                     monto_efectivo DECIMAL(10, 2),
                     monto_tarjeta DECIMAL(10, 2),
-                    tipo_venta NVARCHAR(50),
+                    vuelto DECIMAL(10, 2),
                     comentario NVARCHAR(255),
-                    FOREIGN KEY (ID_Encabezado) REFERENCES CC_Encabezado(ID) ON DELETE CASCADE)"
+                    FOREIGN KEY (ID_Encabezado) REFERENCES CC_Encabezado(ID) ON DELETE CASCADE,
+                    FOREIGN KEY (ID_Usuario) REFERENCES usuario(ID))"
             Dim param As New Dictionary(Of String, Object)
             Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
+        End Function
+
+        Private Function DeleteCobradaColumn(db As SQLiteConnection, transaction As SQLiteTransaction) As Boolean
+            If ColumnExists("factura", "cobrada") Then
+                SQL = "ALTER TABLE factura DROP COLUMN cobrada"
+                Dim param As New Dictionary(Of String, Object)
+                Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
+            End If
+            Return True
         End Function
 #End Region
 #End Region

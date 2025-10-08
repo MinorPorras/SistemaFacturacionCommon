@@ -12,15 +12,53 @@ Namespace SistemaFacturacion.Data
         Friend Property ID_Usuario As Integer
         Friend Property Cajero As String = ""
         Friend Property Fondo_inicial As Integer
+        Public ReadOnly Property Formated_Fondo_inicial As String
+            Get
+                Return Fondo_inicial.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
         Friend Property IngresoEfectivo As Decimal = 0
+        Public ReadOnly Property Formated_IngresoEfectivo As String
+            Get
+                Return IngresoEfectivo.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
+
         Friend Property EntradasEfectivo As Decimal = 0
+        Public ReadOnly Property Formated_EntradasEfectivo As String
+            Get
+                Return EntradasEfectivo.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
         Friend Property SalidasEfectivo As Decimal = 0
+        Public ReadOnly Property Formated_SalidasEfectivo As String
+            Get
+                Return SalidasEfectivo.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
         Friend Property IngresoTarjeta As Decimal = 0
+        Public ReadOnly Property Formated_IngresoTarjeta As String
+            Get
+                Return IngresoTarjeta.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
         Friend Property Hora_apertura As Date
         Friend Property Hora_cierre As Date
         Friend Property Efectivo_contado As Integer = 0
-        Friend Property Diferencia As Decimal = 0
+        Public ReadOnly Property Formated_Efectivo_contado As String
+            Get
+                Return Efectivo_contado.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
+        Public Property Diferencia As Decimal
+        Public ReadOnly Property Formated_Diferencia As String
+            Get
+                Return Diferencia.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
         Friend Property DiferenciaPorcentaje As Decimal = 0
+
+        Private ReadOnly CulturaCR As New CultureInfo("es-CR")
 
 
 #Region "getInfo"

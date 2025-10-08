@@ -8,7 +8,7 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
     Public Class P_CuentasCobrar
-        Private Sub btn_Regresar_Click(sender As Object, e As EventArgs) Handles btn_Regresar.Click
+        Private Sub Btn_Regresar_Click(sender As Object, e As EventArgs) Handles btn_Regresar.Click
             Owner.Show()
             Me.Close()
         End Sub
@@ -150,7 +150,7 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             Next
         End Sub
 
-        Private Function obtenerSaldoPendiente(ID As Integer) As Decimal
+        Private Function ObtenerSaldoPendiente(ID As Integer) As Decimal
             SQL = "SELECT 
                         ce.saldo_total - IFNULL((
                             SELECT SUM(cp.monto) 
@@ -210,19 +210,19 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             btn.FillColor = Color.FromArgb(255, 64, 64)
         End Sub
 
-        Private Sub btnVerDetalles_MouseLeave(sender As Object, e As EventArgs)
+        Private Sub BtnVerDetalles_MouseLeave(sender As Object, e As EventArgs)
             Dim btn As Guna2Button = CType(sender, Guna2Button)
             ' Restaura el color base
             btn.FillColor = Color.FromArgb(128, 128, 255)
         End Sub
 
-        Private Sub btnVerDetalles_MouseEnter(sender As Object, e As EventArgs)
+        Private Sub BtnVerDetalles_MouseEnter(sender As Object, e As EventArgs)
             Dim btn As Guna2Button = CType(sender, Guna2Button)
             ' Cambia a un color rojo más oscuro
             btn.FillColor = Color.FromArgb(110, 110, 255)
         End Sub
 
-        Private Sub btnVerDetalles_Click(sender As Object, e As EventArgs)
+        Private Sub BtnVerDetalles_Click(sender As Object, e As EventArgs)
             'Se obtiene el nombre del botón que se presionó
             Dim btnDetalleNombre As String = sender.name
             ' Se hace un substring para obtener el ID de la factura que está en el nombre del botón
@@ -279,7 +279,7 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             CrearBotones()
         End Sub
 
-        Private Async Sub Label_Click_Select_Cuenta(sender As Object, e As EventArgs)
+        Private Sub Label_Click_Select_Cuenta(sender As Object, e As EventArgs)
             ' 1. Obtener el Label que fue clickeado
             Dim label As Label = CType(sender, Label)
 
@@ -287,53 +287,15 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             Dim panel As Panel = CType(label.Parent, Panel)
 
             ' 3. Extraer el ID de la factura del nombre del Panel
-            Dim idFactura As String = panel.Name.Replace("PAN_", "")
+            Dim idCuenta As String = panel.Name.Replace("PAN_", "")
 
-            Dim controlEncontrado() As Control = panel.Controls.Find($"lblComentario_{idFactura}", True)
-            Dim comentarioTexto As String = ""
-            ' Se verifica si se encontró el control
-            If controlEncontrado.Length > 0 AndAlso TypeOf controlEncontrado(0) Is Label Then
-                ' Se obtiene el objeto Label y se accede a su propiedad Text
-                Dim lblComentario As Label = CType(controlEncontrado(0), Label)
-                comentarioTexto = lblComentario.Text
-            End If
-            Dim SQLFact = $"SELECT num_factura, total, ID_Cliente FROM factura WHERE ID = {idFactura}"
-            Dim tareaFactura As Task(Of DataSet) = Task.Run(Function()
-                                                                ' 4. Consultar los detalles de la factura y los productos (la lógica es la misma)
-                                                                Dim tablaFact As New DataSet
-                                                                Cargar_Tabla(tablaFact, SQLFact)
-                                                                Return tablaFact
-                                                            End Function)
-
-            Dim SQLProd = $"SELECT ID_Producto, cant, precio_venta FROM factura_producto WHERE ID_Factura = {idFactura}"
-            Dim tareaProductos As Task(Of DataSet) = Task.Run(Function()
-                                                                  Dim tablaProd As New DataSet
-                                                                  Cargar_Tabla(tablaProd, SQLProd)
-                                                                  Return tablaProd
-                                                              End Function)
-
-            Await Task.WhenAll(tareaFactura, tareaProductos)
-
-            Dim T_Factura = tareaFactura.Result
-            Dim T_Productos = tareaProductos.Result
-
-            ' 5. Pasar los datos a la caja
-            If T_Productos.Tables(0).Rows.Count > 0 And T_Factura.Tables(0).Rows.Count > 0 Then
-                Dim cajaForm As P_Caja = CType(Me.Owner, P_Caja)
-                cajaForm.CargarFacturaDesdeCuentas(T_Productos.Tables(0), T_Factura.Tables(0).Rows(0)("num_factura"), T_Factura.Tables(0).Rows(0)("total"),
-                                                   idFactura, T_Factura.Tables(0).Rows(0)("ID_Cliente"), comentarioTexto)
-                If TypeOf Owner Is P_Caja Then
-                    Dim caja = CType(Owner, P_Caja)
-                    caja.isDialogOpen = False
-                End If
-                Me.Close()
-            Else
-                If TypeOf Owner Is P_Caja Then
-                    Dim caja = CType(Owner, P_Caja)
-                    caja.isDialogOpen = False
-                End If
-                MSG.msgError("No se encontraron datos para esta factura.")
-            End If
+            Using cajaForm As New P_CajaCxC
+                cajaForm.idCuenta = idCuenta
+                cajaForm.ShowDialog()
+                Me.Select()
+                LimpiarBotones()
+                CrearBotones()
+            End Using
         End Sub
     End Class
 

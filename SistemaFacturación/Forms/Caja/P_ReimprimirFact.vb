@@ -7,6 +7,8 @@ Namespace SistemaFacturacion.Forms.Caja
 
     Public Class P_ReimprimirFact
         Private searchTimer As Timer
+        Private binFacts As New BindingSource With {.DataSource = Nothing}
+        Dim listaVentas As New List(Of Cls_Ventas)
 
         ' Método para inicializar el temporizador y otros componentes necesarios
         Private Sub InicializarComponentes()
@@ -16,6 +18,8 @@ Namespace SistemaFacturacion.Forms.Caja
             }
             ' Medio segundo
             AddHandler searchTimer.Tick, AddressOf OnSearchTimerTick
+
+            DGV_ReimprimirFact.DataSource = binFacts
         End Sub
 
         Private Sub OnSearchTimerTick(sender As Object, e As EventArgs)
@@ -39,42 +43,13 @@ Namespace SistemaFacturacion.Forms.Caja
             ' Ejecutar la tarea en un hilo de fondo
             Task.Run(Sub()
                          Try
-                             ' Crear la consulta SQL de forma segura
-                             Dim consulta As String = "SELECT f.ID, printf('%015d', CAST(f.num_factura AS INTEGER)) AS 'Num factura', " &
-                                         "strftime('%d-%m-%Y %H:%M:%S', f.fecha_emision) AS 'Fecha de emisión', c.nombre AS 'Cliente', u.usuario AS 'Cajero', " &
-                                         "f.efectivo_cliente AS 'Pago efectivo', f.tarjeta_cliente AS 'Pago tarjeta', f.vuelto AS 'Vuelto', " &
-                                         "fc.comentario AS 'Comentario', f.total AS 'Total', CASE WHEN f.tipo_venta = 0 THEN 'Efectivo' " &
-                                         "WHEN f.tipo_venta = 1 THEN 'Tarjeta' " &
-                                         "WHEN f.tipo_venta = 2 THEN 'Sinpe' " &
-                                         "WHEN f.tipo_venta = 3 THEN 'Depósito' " &
-                                         "WHEN f.tipo_venta = 4 THEN 'Mixto' " &
-                                         "ELSE 'Efectivo' END AS 'Tipo venta', " &
-                                         "f.cobrada AS 'Cobrada' " &
-                                         "FROM factura f " &
-                                         "LEFT JOIN clientes c ON c.ID = f.ID_CLIENTE " &
-                                         "LEFT JOIN usuario u ON u.ID = f.ID_USUARIO " &
-                                         "LEFT JOIN factura_comentario fc ON fc.ID_Factura = f.ID "
-
-                             Dim parametros As New List(Of SQLiteParameter)()
                              Dim busqueda As String = ""
+                             Dim cant As String = ""
+
 
                              ' Usamos Invoke para acceder al control TXT_BuscarFact en el hilo de la UI
                              Invoke(Sub()
                                         busqueda = TXT_BuscarFact.Text.Trim()
-                                    End Sub)
-
-                             ' Construir la cláusula WHERE y añadir el parámetro de búsqueda
-                             Dim condicionBusqueda As String
-                             If Not String.IsNullOrWhiteSpace(busqueda) Then
-                                 condicionBusqueda = "WHERE f.cobrada = 1 AND printf('%015d', CAST(f.num_factura AS INTEGER)) LIKE @busqueda "
-                                 parametros.Add(New SQLiteParameter("@busqueda", "%" & busqueda & "%"))
-                             Else
-                                 condicionBusqueda = "WHERE f.cobrada = 1 "
-                             End If
-
-                             ' Añadir el ORDER BY y el LIMIT
-                             Dim cant As String = ""
-                             Invoke(Sub()
                                         If RDB_200.Checked Then
                                             cant = "LIMIT 200"
                                         ElseIf RDB_100.Checked Then
@@ -86,27 +61,51 @@ Namespace SistemaFacturacion.Forms.Caja
                                         End If
                                     End Sub)
 
-                             ' Unir todas las partes de la consulta
-                             consulta &= condicionBusqueda & "ORDER BY CAST(f.num_factura AS INTEGER) DESC " & cant & ";"
+                             Dim consulta = "SELECT f.ID, f.num_factura, f.fecha_emision, c.nombre AS 'Cliente', u.usuario AS 'Cajero', f.tipo_venta, " &
+                                         "f.efectivo_cliente, f.tarjeta_cliente , f.vuelto , " &
+                                         "fc.comentario, f.total " &
+                                         "FROM factura f " &
+                                         "LEFT JOIN clientes c ON c.ID = f.ID_CLIENTE " &
+                                         "LEFT JOIN usuario u ON u.ID = f.ID_USUARIO " &
+                                         "LEFT JOIN factura_comentario fc ON fc.ID_Factura = f.ID WHERE f.num_factura LIKE @busqueda " &
+                                         "ORDER BY CAST(f.num_factura AS INTEGER) DESC " & cant
 
-                             ' Limpiar la tabla antes de cargar nuevos datos
-                             T.Tables.Clear()
+                             Dim parametros As New List(Of SQLiteParameter) From {{New SQLiteParameter("@busqueda", "%" & busqueda & "%")}}
 
                              ' Cargar los datos de forma segura usando el método CargarTablaParam
                              CargarTablaParam(T, consulta, parametros)
 
                              ' Invocar al hilo de la UI para actualizar el DataGridView
                              Invoke(Sub()
-                                        MNU_REIMPRIMIR.Visible = False
-                                        MNU_Datos.Visible = False
-                                        If T.Tables.Count > 0 AndAlso T.Tables(0).Rows.Count > 0 Then
-                                            Dim bin As New BindingSource With {.DataSource = T.Tables(0)}
-                                            DGV_ReimprimirFact.DataSource = bin
-                                            MNU_REIMPRIMIR.Visible = True
-                                            MNU_Datos.Visible = True
-                                        Else
-                                            DGV_ReimprimirFact.DataSource = Nothing
+                                        ' Lógica CORREGIDA: verifica que T, la tabla y las filas existan
+                                        If T Is Nothing OrElse T.Tables.Count = 0 OrElse T.Tables(0).Rows.Count = 0 Then
+                                            binFacts.DataSource = listaVentas ' Mostrar lista vacía
+                                            Exit Sub
                                         End If
+
+                                        For Each venta As DataRow In T.Tables(0).Rows
+                                            Dim factura As New Cls_Ventas With {
+                                                .ID = venta("ID"),
+                                                .Num_factura = venta("num_factura"),
+                                                .Fecha_creacion = venta("fecha_emision"),
+                                                .Cliente = venta("Cliente"),
+                                                .Cajero = venta("Cajero"),
+                                                .Saldo_total = venta("total"),
+                                                .Efectivo = venta("efectivo_cliente"),
+                                                .Tarjeta = venta("tarjeta_cliente"),
+                                                .Vuelto = venta("vuelto"),
+                                                .Tipo_pago = venta("tipo_venta"),
+                                                .Comentario = If(IsDBNull(venta("Comentario")), "", venta("Comentario"))
+                                            }
+
+                                            listaVentas.Add(factura)
+                                        Next
+
+                                        binFacts.DataSource = listaVentas
+                                        binFacts.ResetBindings(False)
+
+                                        MNU_REIMPRIMIR.Visible = True
+                                        MNU_Datos.Visible = True
                                         TXT_BuscarFact.Select()
                                     End Sub)
 
@@ -127,41 +126,48 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Sub DGV_ReimprimirFact_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_ReimprimirFact.DataBindingComplete
             Me.BeginInvoke(New MethodInvoker(Sub()
                                                  Try
+                                                     Dim hiddenColumns As New List(Of String) From {
+                                                        "ID",
+                                                        "Num_factura",
+                                                        "ID_Cliente",
+                                                        "ID_Cajero",
+                                                        "saldo_total",
+                                                        "Efectivo",
+                                                        "Tarjeta",
+                                                        "Tipo_pago",
+                                                        "ID_CxC",
+                                                        "vuelto",
+                                                        "saldo_restante",
+                                                        "Formated_saldo_restante"
+                                                     }
+
+                                                     Dim formatedNames As New Dictionary(Of String, String) From {
+                                                        {"Formated_num_factura", "# Factura"},
+                                                        {"Fecha_creacion", "Fecha"},
+                                                        {"Cajero", "Cajero"},
+                                                        {"Cliente", "Cliente"},
+                                                        {"Formated_Efectivo", "Efectivo"},
+                                                        {"Formated_Tarjeta", "Tarjeta"},
+                                                        {"Formated_vuelto", "Vuelto"},
+                                                        {"Formated_saldo_total", "Total"},
+                                                        {"Formated_tipo_pago", "Método"},
+                                                        {"Comentario", "Comentario"}
+                                                     }
+
+                                                     Dim columnSize As New Dictionary(Of String, Integer) From {
+                                                        {"Comentario", 40},
+                                                        {"Fecha_Creacion", 20}
+                                                     }
+                                                     formatDGV(DGV_ReimprimirFact, hiddenColumns, formatedNames, columnSize)
+
+
                                                      Dim selectedRowIndex As Integer = -1
                                                      If DGV_ReimprimirFact.SelectedRows.Count > 0 Then
                                                          selectedRowIndex = DGV_ReimprimirFact.SelectedRows(0).Index
                                                      End If
-                                                     For i As Integer = 0 To DGV_ReimprimirFact.Columns.Count - 1
-                                                         DGV_ReimprimirFact.Columns(i).ReadOnly = True
-                                                         Select Case i
-                                                             Case 1
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 60
-                                                             Case 2
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 60
-                                                             Case 3
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 70
-                                                             Case 4
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 70
-                                                             Case 5
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 100
-                                                             Case 6
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 40
-                                                             Case 7
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 40
-                                                             Case 8
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 30
-                                                             Case 9
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 30
-                                                             Case 10
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 40
-                                                             Case 11
-                                                                 DGV_ReimprimirFact.Columns(i).Width = 50
-                                                         End Select
-                                                     Next
                                                      DGV_ReimprimirFact.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                                                      DGV_ReimprimirFact.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
                                                      DGV_ReimprimirFact.GridColor = Color.DarkGray
-                                                     DGV_ReimprimirFact.Columns(0).Visible = False
                                                      If selectedRowIndex >= 0 AndAlso selectedRowIndex < DGV_ReimprimirFact.Rows.Count Then
                                                          DGV_ReimprimirFact.Rows(selectedRowIndex).Selected = True
                                                          DGV_ReimprimirFact.FirstDisplayedScrollingRowIndex = selectedRowIndex
@@ -210,29 +216,19 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
-            Dim datosFactura As New Cls_DatosFactura With {
-                .IdFactura = DGV_ReimprimirFact.SelectedRows(0).Cells(0).Value.ToString(),
-                .NumFactura = DGV_ReimprimirFact.SelectedRows(0).Cells(1).Value.ToString(),
-                .Fecha = DGV_ReimprimirFact.SelectedRows(0).Cells(2).Value.ToString(),
-                .Cliente = DGV_ReimprimirFact.SelectedRows(0).Cells(3).Value.ToString(),
-                .Cajero = DGV_ReimprimirFact.SelectedRows(0).Cells(4).Value.ToString(),
-                .Comentario = DGV_ReimprimirFact.SelectedRows(0).Cells(5).Value.ToString(),
-                .TotalCaja = DGV_ReimprimirFact.SelectedRows(0).Cells(6).Value.ToString(),
-                .Efectivo = DGV_ReimprimirFact.SelectedRows(0).Cells(7).Value.ToString(),
-                .Tarjeta = DGV_ReimprimirFact.SelectedRows(0).Cells(8).Value.ToString(),
-                .Vuelto = DGV_ReimprimirFact.SelectedRows(0).Cells(9).Value.ToString(),
-                .TipoPago = DGV_ReimprimirFact.SelectedRows(0).Cells(10).Value.ToString()
-            }
-            ' Crea la instancia del formulario
-            Dim frmDatosFactura As New P_DatosFactura With {
-                .Owner = Me
-            }
 
-            ' Llama a la nueva subrutina para cargar los datos en el formulario
-            frmDatosFactura.CargarDatos(datosFactura)
+            Dim index = DGV_ReimprimirFact.SelectedRows(0).Index
+            Dim ventaData As Cls_Ventas = listaVentas(index)
 
-            ' Muestra el formulario
-            frmDatosFactura.Show()
+            Using frmDatosFactura As New P_DatosFactura
+                frmDatosFactura.Owner = Me
+                ' Llama a la nueva subrutina para cargar los datos en el formulario
+                frmDatosFactura.CargarDatos(ventaData)
+
+                ' Muestra el formulario
+                frmDatosFactura.ShowDialog()
+                Me.Select()
+            End Using
         End Sub
 
 
@@ -251,7 +247,7 @@ Namespace SistemaFacturacion.Forms.Caja
             Me.Close()
         End Sub
 
-        Private Sub reiniciarTimer()
+        Private Sub ReiniciarTimer()
             If searchTimer IsNot Nothing Then
                 searchTimer.Stop()
                 searchTimer.Start()

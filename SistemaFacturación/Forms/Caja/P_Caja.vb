@@ -188,16 +188,12 @@ Namespace SistemaFacturacion.Forms.Caja
             If Not isVariable Then
                 'Si el producto no es variable
                 Dim producto As New Cls_ProductoCaja With {
-                .ID = btnFav.Tag,
-                .Codigo = T.Tables(0).Rows(0).Item("codigo"),
-                .Producto = btnFav.Text,
-                .Precio = T.Tables(0).Rows(0).Item("precio_venta"),
-                .Cantidad = 1,
-                .total = T.Tables(0).Rows(0).Item("precio_venta")
-            }
-
-                producto.formated_precio = producto.Precio.ToString("C", culturaCR)
-                producto.formated_total = producto.total.ToString("C", culturaCR)
+                    .ID = btnFav.Tag,
+                    .Codigo = T.Tables(0).Rows(0).Item("codigo"),
+                    .Producto = btnFav.Text,
+                    .Precio = T.Tables(0).Rows(0).Item("precio_venta"),
+                    .Cantidad = 1
+                }
 
                 AddProduct(producto)
                 Exit Sub
@@ -291,7 +287,7 @@ Namespace SistemaFacturacion.Forms.Caja
             Cargar_Tabla(T, SQL)
             If T.Tables(0).Rows.Count > 0 Then
                 If T.Tables(0).Rows(0).Item("variable") = 0 Then
-                    Buscar_DatosProd(TXT_BuscarProducto, False)
+                    Buscar_DatosProd(TXT_BuscarProducto, 1)
                 Else
                     Using prodVariableForm As New E_ProductoVariable
                         prodVariableForm.LBL_Cod.Text = TXT_BuscarProducto.Text
@@ -323,11 +319,9 @@ Namespace SistemaFacturacion.Forms.Caja
                         .Codigo = txtCodProd.Text,
                         .Producto = T.Tables(0).Rows(0).Item("nombre"),
                         .Precio = T.Tables(0).Rows(0).Item("precio_venta"),
-                        .Cantidad = cant,
-                        .total = T.Tables(0).Rows(0).Item("precio_venta") * cantProd
+                        .Cantidad = cant
                     }
                     AddProduct(producto)
-                    cantProd = 1
                     TXT_BuscarProducto.SelectAll()
                 Else
                     msgError("El código que colocó está mal escrito o no existe")
@@ -343,10 +337,6 @@ Namespace SistemaFacturacion.Forms.Caja
             If productoExistente IsNot Nothing Then
                 ' 2. Si el producto ya existe, actualiza la cantidad y el total
                 productoExistente.Cantidad += producto.Cantidad
-                productoExistente.total = productoExistente.Cantidad * productoExistente.Precio
-
-                productoExistente.formated_precio = productoExistente.Precio.ToString("C", culturaCR)
-                productoExistente.formated_total = productoExistente.total.ToString("C", culturaCR)
 
                 ' Notificar al BindingSource que un elemento fue modificado
                 binCaja.ResetBindings(False)
@@ -361,21 +351,18 @@ Namespace SistemaFacturacion.Forms.Caja
             getTotal()
         End Sub
 
-        Private Sub EditProduct(newProd As Cls_ProductoCaja)
+        Private Sub EditProduct(newProd As Cls_ProductoCaja, index As Integer)
 
-            ' 1. Buscar el ÍNDICE del producto en la lista
-            Dim indexAEditar As Integer = prodList.FindIndex(Function(p) p.ID = newProd.ID)
-
-            If indexAEditar >= 0 Then
+            If index >= 0 Then
                 ' 2. Reemplazar el objeto antiguo en la lista con el objeto nuevo
-                prodList(indexAEditar) = newProd
+                prodList(index) = newProd
 
                 ' 3. Notificar al BindingSource
                 '    Usamos ResetItem(index) para que el BindingSource solo recargue esa fila.
-                binCaja.ResetItem(indexAEditar)
+                binCaja.ResetItem(index)
 
                 ' Acciones posteriores
-                getTotal()
+                GetTotal()
             Else
                 msgError($"No se encontró el producto con ID {newProd.ID}.")
             End If
@@ -448,8 +435,6 @@ Namespace SistemaFacturacion.Forms.Caja
             End If
 
             productoAEditar.Cantidad = nuevaCantidad
-            productoAEditar.total = productoAEditar.Precio * nuevaCantidad
-            productoAEditar.formated_total = productoAEditar.total.ToString("C", culturaCR)
 
             binCaja.ResetItem(e.RowIndex)
 
@@ -481,13 +466,17 @@ Namespace SistemaFacturacion.Forms.Caja
 
             Using searchProd As New B_Producto
                 searchProd.ModProd = True
-                searchProd.LBL_IDProd.Text = DGV_Caja.SelectedRows(0).Cells("ID").Value.ToString()
+                searchProd.producto = New Cls_ProductoCaja With {
+                    .ID = DGV_Caja.SelectedRows(0).Cells("ID").Value,
+                    .Producto = DGV_Caja.SelectedRows(0).Cells("Producto").Value,
+                    .Cantidad = DGV_Caja.SelectedRows(0).Cells("Cantidad").Value,
+                    .Codigo = DGV_Caja.SelectedRows(0).Cells("Codigo").Value,
+                    .Precio = DGV_Caja.SelectedRows(0).Cells("Precio").Value
+                }
                 searchProd.idModProd = DGV_Caja.SelectedRows(0).Cells("ID").Value.ToString()
-                searchProd.TXT_BuscarProd.Text = DGV_Caja.SelectedRows(0).Cells("Producto").Value.ToString()
-                searchProd.TXT_CantProd.Text = DGV_Caja.SelectedRows(0).Cells("Cantidad").Value.ToString()
-                Dim result As DialogResult = B_Producto.ShowDialog()
+                Dim result As DialogResult = searchProd.ShowDialog()
                 If result = DialogResult.OK Then
-                    EditProduct(searchProd.producto)
+                    EditProduct(searchProd.producto, DGV_Caja.SelectedRows(0).Index)
                 End If
             End Using
 
@@ -602,22 +591,12 @@ Namespace SistemaFacturacion.Forms.Caja
                 Exit Sub
             End If
             Using dlg As New D_GuardarCuenta()
-                ' Establece el propietario del diálogo
-                dlg.Owner = Me
-                Dim actualizar_factura_cobrar As Boolean = Not String.IsNullOrEmpty(Comentario)
-                ' Si está vació sigifica que la cuenta no se ha guardado antes = false
-                ' Si no está vacio significa que la cuenta si se ha guardado antes, por lo que = true
-
-                If actualizar_factura_cobrar Then
-                    ' Se trata de una cuenta por cobrar ya registrada
-                    dlg.TXT_Comentario.Text = Comentario
-                End If
                 isDialogOpen = True
                 ' Muestra el diálogo
-                dlg.ShowDialog()
+                Dim result As DialogResult = dlg.ShowDialog()
 
                 ' Verifica el resultado del dialogo
-                If dlg.ResultadoDelDialogo = DialogResult.OK Then
+                If result = DialogResult.OK Then
                     Console.WriteLine("Se presionó el botón OK")
                     Comentario = dlg.ComentarioIngresado
 
@@ -625,10 +604,9 @@ Namespace SistemaFacturacion.Forms.Caja
                     Dim listaProductos As New List(Of Cls_DetalleProductoCxC)
                     For Each row As DataGridViewRow In DGV_Caja.Rows
                         Dim prod As New Cls_DetalleProductoCxC With {
-                            .ID = row.Cells(0).Value,
-                            .cantidad = row.Cells(4).Value,
-                            .Precio = row.Cells(5).Value,
-                            .total = row.Cells(4).Value * row.Cells(5).Value
+                            .ID = row.Cells("ID").Value,
+                            .Cantidad = row.Cells("Cantidad").Value,
+                            .Precio = row.Cells("Precio").Value
                         }
 
                         listaProductos.Add(prod)
@@ -637,25 +615,22 @@ Namespace SistemaFacturacion.Forms.Caja
                     'Se crea el objeto de la nueva cuenta por cobrar con los datos básicos
                     Dim cuentaXCobrar As New Cls_CuentasXCobrar With {
                         .ID_Cliente = idCliente,
-                        .fecha_creacion = DateTime.Now,
-                        .saldo_total = totalCaja,
-                        .comentario = Comentario,
-                        .listaPagos = New List(Of Cls_CxCPagos),
-                        .listaProductos = listaProductos
+                        .Fecha_creacion = DateTime.Now,
+                        .Saldo_total = totalCaja,
+                        .Comentario = Comentario,
+                        .ListaPagos = New List(Of Cls_CxCPagos),
+                        .ListaProductos = listaProductos
                     }
 
                     'Se Guarda el resultado del return de la función de guardado, si es una actualización o un guardado nuevo y la lista de productos
-                    Dim resultado As String = Await cuentaXCobrar.agregarActualizarCuenta(actualizar_factura_cobrar)
+                    Dim resultado As String = Await cuentaXCobrar.AgregarActualizarCuenta(False)
                     'Si devuelve OK la acción de guardado se limpia la información se cierra el dialogo y se termina la ejecución de la función
                     If resultado Is "OK" Then
                         LIMPIAR()
-                        isDialogOpen = False
                         Exit Sub
                     End If
                 End If
             End Using
-            'Si algo no funciona simplemente se cierra el dialogo
-            isDialogOpen = False
         End Sub
 
         Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
@@ -668,7 +643,7 @@ Namespace SistemaFacturacion.Forms.Caja
             Me.Hide()
         End Sub
 
-        Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
+        Private Async Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
             Using endVentaForm As New P_TerminarVenta
                 endVentaForm.Owner = Me
                 If DGV_Caja.Rows.Count < 1 Then
@@ -683,14 +658,17 @@ Namespace SistemaFacturacion.Forms.Caja
                     .ListaProductos = prodList,
                     .Saldo_total = totalCaja,
                     .Num_factura = NumFactura,
-                    .Formated_num_factura = StrNumFactura,
                     .Tipo_pago = 1
                 }
                 endVentaForm.isCuentaPorCobrar = False
 
                 'Se pasa el datagrid completo para obtener los datos
                 Dim result As DialogResult = endVentaForm.ShowDialog()
-                If result = DialogResult.OK Then
+                If result = DialogResult.Cancel Then
+                    Exit Sub
+                End If
+
+                If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura, False) Then
                     ' Limpia la interfaz de la caja y la prepara para una nueva venta
                     LIMPIAR()
                     CargarNumFactura()
@@ -741,7 +719,11 @@ Namespace SistemaFacturacion.Forms.Caja
             Using searchCliente As New B_Cliente
                 searchCliente.Owner = Me
                 searchCliente.LIMPIAR()
-                searchCliente.ShowDialog()
+                Dim result As DialogResult = searchCliente.ShowDialog()
+                If result = DialogResult.OK Then
+                    idCliente = searchCliente.DGV_BCliente.SelectedRows(0).Cells(0).Value.ToString()
+                    TXT_BuscarCliente.Text = searchCliente.TXT_Nombre.Text
+                End If
             End Using
         End Sub
 

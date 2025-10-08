@@ -2,13 +2,13 @@
 
 
     Public Class Cls_MovimientosCaja
-        Public Property id As Integer
-        Public Property monto As Decimal
-        Public Property tipoMovimiento As String
+        Public Property Id As Integer
+        Public Property Monto As Decimal
+        Public Property TipoMovimiento As String
         Public Property ID_Concepto As Integer
         Public Property ID_Arqueo As Integer
-        Public Property referencia As String
-        Public Property fecha As DateTime
+        Public Property Referencia As String
+        Public Property Fecha As DateTime
 
     End Class
 End Namespace

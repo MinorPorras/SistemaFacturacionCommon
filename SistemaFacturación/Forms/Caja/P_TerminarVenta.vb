@@ -9,6 +9,7 @@ Namespace SistemaFacturacion.Forms.Caja
         ' Estas variables se mantienen durante todo el ciclo de vida del formulario
         Friend isCuentaPorCobrar As Boolean
         Friend venta As Cls_Ventas
+        Friend imprimir_factura As Boolean
 
         ' Variables para el contenido de la factura (impresión)
         Friend encabezadoFactura As String
@@ -18,7 +19,7 @@ Namespace SistemaFacturacion.Forms.Caja
 
         Private btnTotalesList As List(Of Guna2TileButton)
         Private btnRestanteList As List(Of Guna2TileButton)
-        Private txtcalcVuelto As List(Of Guna2TextBox)
+        Private nudcalcVuelto As List(Of Guna2NumericUpDown)
         Private txtShowTotal As List(Of Guna2TextBox)
 
         ' Manejador del evento Load del formulario
@@ -32,13 +33,13 @@ Namespace SistemaFacturacion.Forms.Caja
             }
             btnRestanteList = New List(Of Guna2TileButton) From {BTN_RestanteEfectivo, BTN_RestanteTarjeta}
 
-            txtcalcVuelto = New List(Of Guna2TextBox) From {
-                TXT_ECliente,
-                TXT_TCliente,
-                TXT_SCliente,
-                TXT_DCliente,
-                TXT_PagoTarjeta,
-                TXT_PagoEfectivo
+            nudcalcVuelto = New List(Of Guna2NumericUpDown) From {
+                NUD_ECliente,
+                NUD_TCliente,
+                NUD_SCliente,
+                NUD_DCliente,
+                NUD_MEfectivo,
+                NUD_MTarjeta
             }
             txtShowTotal = New List(Of Guna2TextBox) From {
                 TXT_ETotal,
@@ -48,7 +49,7 @@ Namespace SistemaFacturacion.Forms.Caja
                 TXT_MTotal
             }
             ' Valida el estado inicial del pago y habilita/deshabilita los botones de venta
-            VALIDAR(TXT_ECliente, TXT_ECliente, venta.Saldo_total, False)
+            BTN_TVenta.Enabled = NUD_ECliente.Value > 0
         End Sub
         Private Sub P_TerminarVenta_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
             ' Añade los manejadores de eventos (handlers) para los botones de "Colocar Total"
@@ -64,182 +65,140 @@ Namespace SistemaFacturacion.Forms.Caja
 
             ' Añade los manejadores de eventos para los cambios en los TextBox de pago
             ' Esto asegura que el cálculo del vuelto y la validación se actualicen automáticamente
-            For Each txt As Guna2TextBox In txtcalcVuelto
-                AddHandler txt.TextChanged, AddressOf RecalcularVueltoYValidar
+            For Each txt As Guna2NumericUpDown In nudcalcVuelto
+                AddHandler txt.ValueChanged, AddressOf RecalcularVueltoYValidar
             Next
 
+            Dim saldo = If(isCuentaPorCobrar, venta.Saldo_restante, venta.Saldo_total)
             'Se coloca el total en todas las textbox de total
             For Each txt As Guna2TextBox In txtShowTotal
-                txt.Text = venta.Saldo_total
+                txt.Text = saldo
             Next
         End Sub
 
-        ' Manejador de evento unificado para los botones de "Colocar Total"
-        ' "sender" es el botón que ha sido presionado
-        Private Sub ColocarTotal(sender As Object, e As EventArgs)
-            ' Convierte el objeto sender al tipo de control Guna2Button
-            Dim btn As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
+#Region "Calculos y validaciones"
 
-            ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
-            Select Case btn.Name
-                Case "BTN_EColocarTotal"
-                    TXT_ECliente.Text = venta.saldo_total
-                Case "BTN_TColocarTotal"
-                    TXT_TCliente.Text = venta.saldo_total
-                Case "BTN_SColocarTotal"
-                    TXT_SCliente.Text = venta.saldo_total
-                Case "BTN_DColocarTotal"
-                    TXT_DCliente.Text = venta.saldo_total
-            End Select
+        Private Sub GetVuelto(entregaCliente As Decimal, txtVuelto As Guna2TextBox)
+            venta.Vuelto = entregaCliente - venta.Saldo_total
+            If venta.Vuelto > 0 Then
+                txtVuelto.Text = venta.Formated_vuelto
+            Else
+                txtVuelto.Text = "0"
+            End If
         End Sub
 
         ' Manejador de evento unificado para los cambios en los TextBox de pago
         Private Sub RecalcularVueltoYValidar(sender As Object, e As EventArgs)
             ' Convierte el objeto sender al tipo de control Guna2TextBox
-            Dim txt As Guna.UI2.WinForms.Guna2TextBox = CType(sender, Guna.UI2.WinForms.Guna2TextBox)
+            Dim nud As Guna2NumericUpDown = CType(sender, Guna2NumericUpDown)
 
-            ' Usa un Select Case para determinar qué TextBox se modificó
-            Select Case txt.Name
-                Case "TXT_ECliente"
-                    CalcVuelto(TXT_ECliente, TXT_EVuelto)
-                    VALIDAR(TXT_ECliente, TXT_ECliente, venta.saldo_total, False)
-                Case "TXT_TCliente"
-                    CalcVuelto(TXT_TCliente, TXT_TVuelto)
-                    VALIDAR(TXT_TCliente, TXT_TCliente, venta.saldo_total, False)
-                Case "TXT_SCliente"
-                    CalcVuelto(TXT_SCliente, TXT_SVuelto)
-                    VALIDAR(TXT_SCliente, TXT_SCliente, venta.saldo_total, False)
-                Case "TXT_DCliente"
-                    CalcVuelto(TXT_DCliente, TXT_DVuelto)
-                    VALIDAR(TXT_DCliente, TXT_DCliente, venta.saldo_total, False)
-                Case "TXT_PagoTarjeta", "TXT_PagoEfectivo"
-                    ' El cálculo para el pago mixto se maneja con ambos TextBox
-                    CalcVuelto(TXT_DCliente, TXT_MVuelto) ' Se usa TXT_DCliente como placeholder para la primera caja, ya que su valor no es relevante aquí
-                    VALIDAR(TXT_PagoTarjeta, TXT_PagoEfectivo, venta.saldo_total, True)
+            Dim entregaCliente As Decimal = nud.Value
+            If nud.Name = "TXT_PagoTarjeta" Or nud.Name = "TXT_PagoEfectivo" Then
+                entregaCliente = NUD_MEfectivo.Value + NUD_MTarjeta.Value
+            End If
+            Dim txtVuelto As Guna2TextBox
+
+            Select Case nud.Name
+                Case "NUD_ECliente"
+                    entregaCliente = nud.Value
+                    txtVuelto = TXT_EVuelto
+                Case "NUD_TCliente"
+                    entregaCliente = nud.Value
+                    txtVuelto = TXT_TVuelto
+                Case "NUD_SCliente"
+                    entregaCliente = nud.Value
+                    txtVuelto = TXT_SVuelto
+                Case "NUD_DCliente"
+                    entregaCliente = nud.Value
+                    txtVuelto = TXT_DVuelto
+                Case Else
+                    entregaCliente = NUD_MEfectivo.Value + NUD_MTarjeta.Value
+                    txtVuelto = TXT_MVuelto
+            End Select
+
+            BTN_TVenta.Enabled = nud.Value > 0
+
+            getVuelto(nud.Value, txtVuelto)
+        End Sub
+        ' Manejador de evento unificado para los botones de "Colocar Total"
+        ' "sender" es el botón que ha sido presionado
+        Private Sub ColocarTotal(sender As Object, e As EventArgs)
+            ' Convierte el objeto sender al tipo de control Guna2Button
+            Dim btn As Guna2Button = CType(sender, Guna2Button)
+
+            ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
+            Select Case btn.Name
+                Case "BTN_EColocarTotal"
+                    NUD_ECliente.Value = venta.Saldo_total
+                Case "BTN_TColocarTotal"
+                    NUD_TCliente.Value = venta.Saldo_total
+                Case "BTN_SColocarTotal"
+                    NUD_SCliente.Value = venta.Saldo_total
+                Case "BTN_DColocarTotal"
+                    NUD_DCliente.Value = venta.Saldo_total
             End Select
         End Sub
 
-        ' Calcula el vuelto basado en el monto entregado por el cliente
-        Private Sub CalcVuelto(txtEntregaCliente As Guna.UI2.WinForms.Guna2TextBox, txtVuelto As Guna.UI2.WinForms.Guna2TextBox)
-            Dim eCliente As Double
-            ' Lógica para tipos de pago no mixtos (Efectivo, Tarjeta, Sinpe, Depósito)
-            If Not TabControlTVenta.SelectedIndex = 4 Then
-                If Double.TryParse(txtEntregaCliente.Text, eCliente) Then
-                    venta.Vuelto = eCliente - venta.Saldo_total
-                    If venta.Vuelto > 0 Then
-                        txtVuelto.Text = venta.Vuelto.ToString()
-                    Else
-                        txtVuelto.Text = "0"
-                    End If
+        ' Calcula el monto restante para pago mixto
+        Private Sub CargarRestante(efectivo As Boolean)
+            Dim restante As Double
+            If efectivo Then ' Si el botón de efectivo restante fue presionado
+                restante = venta.Saldo_total - NUD_MTarjeta.Value
+                If restante < 0 Then
+                    restante = 0
                 End If
-            Else ' Lógica para el pago mixto
-                Dim eCliente2 As Double
-                If Double.TryParse(TXT_PagoTarjeta.Text, eCliente) AndAlso Double.TryParse(TXT_PagoEfectivo.Text, eCliente2) Then
-                    Dim EntregaCliente As Double = eCliente + eCliente2
-                    venta.Vuelto = EntregaCliente - venta.Saldo_total
-                    If venta.Vuelto > 0 Then
-                        txtVuelto.Text = venta.Vuelto.ToString()
-                    Else
-                        txtVuelto.Text = "0"
-                    End If
+                NUD_MEfectivo.Value = restante
+            Else ' Si el botón de tarjeta restante fue presionado
+                restante = venta.Saldo_total - NUD_MEfectivo.Value
+                If restante < 0 Then
+                    restante = 0
                 End If
+                NUD_MTarjeta.Value = restante
             End If
         End Sub
 
-        ' Valida si el monto de pago es suficiente para habilitar los botones de venta
-        Private Sub VALIDAR(txtEntregaCliente As Guna.UI2.WinForms.Guna2TextBox, txtEntregaCliente2 As Guna.UI2.WinForms.Guna2TextBox, Total As Double, mixto As Boolean)
-            Try
-                ' Si el TextBox principal está vacío, lo inicializa a 0 para evitar errores de conversión
-                If String.IsNullOrEmpty(txtEntregaCliente.Text) Then
-                    txtEntregaCliente.Text = 0
-                End If
-
-                If mixto Then ' Lógica de validación para pago mixto
-                    If String.IsNullOrEmpty(txtEntregaCliente2.Text) Then
-                        txtEntregaCliente2.Text = 0
-                    End If
-
-                    If Convert.ToDouble(txtEntregaCliente.Text) + Convert.ToDouble(txtEntregaCliente2.Text) >= Total Then
-                        BTN_TVenta.Enabled = True
-                        BTN_TVentaImp.Enabled = True
-                    Else
-                        BTN_TVenta.Enabled = False
-                        BTN_TVentaImp.Enabled = False
-                    End If
-                Else ' Lógica de validación para pagos únicos
-                    If Convert.ToDouble(txtEntregaCliente.Text) >= Total Then
-                        BTN_TVenta.Enabled = True
-                        BTN_TVentaImp.Enabled = True
-                    Else
-                        BTN_TVenta.Enabled = False
-                        BTN_TVentaImp.Enabled = False
-                    End If
-                End If
-            Catch ex As Exception
-                MsgBox("Error: " & ex.Message, vbCritical + vbOKOnly, "Error")
-            End Try
+        'Se agrega el restante al campo correspondiente
+        Private Sub AgregarRestante(sender As Object, e As EventArgs)
+            ' Convierte el objeto sender al tipo de control Guna2Button
+            Dim btn As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
+            ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
+            Select Case btn.Name
+                Case "BTN_RestanteTarjeta"
+                    CargarRestante(False)
+                Case "BTN_RestanteEfectivo"
+                    CargarRestante(True)
+            End Select
+            Dim entregaCliente As Decimal = NUD_MEfectivo.Value + NUD_MTarjeta.Value
+            ' Recalcula el vuelto y valida los montos después de agregar el restante
+            getVuelto(entregaCliente, TXT_MVuelto)
         End Sub
+#End Region
+
 
 #Region "TerminarVenta_ImprimirFactura"
-
-        ' Subrutina principal para guardar la factura
-        Private Async Sub GuardarFactura(imprimir As Boolean, esCuentaPorCobrar As Boolean)
-            If MsgBox("¿Desea terminar la venta?", vbOKCancel + vbDefaultButton1, "Confirmar") = MsgBoxResult.Cancel Then
-                Exit Sub
-            End If
-
-            If venta.ListaProductos.Count < 1 Then
-                msgError("No se puede Guardar una factura vacía.")
-                Exit Sub
-            End If
-
-            Try
-                venta.Comentario = TXT_Comentario.Text
-
-                Dim resultado As String = Await venta.GuardarFacturaDB(esCuentaPorCobrar)
-                'Si dió algún tipo de error al guardar la factura, se muestra el mensaje y se sale del sub
-                If resultado <> "OK" Then
-                    msgError("Error al guardar la factura: " & resultado)
-                    Return
-                End If
-
-                ' Si se seleccionó la opción de imprimir, genera e imprime la factura
-                If imprimir Then
-                    GENERAR_FACTURA(venta.ID)
-                End If
-
-                Me.DialogResult = DialogResult.OK
-            Catch ex As Exception
-                msgError("Error: " & ex.Message)
-                Me.DialogResult = DialogResult.Cancel
-            End Try
-        End Sub
 
         Private Sub TerminarVenta(imprimir As Boolean)
             venta.tipo_pago = TabControlTVenta.SelectedIndex
             Select Case venta.Tipo_pago
                 Case 0 ' Efectivo
-                    venta.Efectivo = Convert.ToDecimal(TXT_ECliente.Text)
+                    venta.Efectivo = NUD_ECliente.Value
                     venta.Vuelto = Convert.ToDecimal(TXT_EVuelto.Text)
-                    GuardarFactura(imprimir, isCuentaPorCobrar)
                 Case 1 ' Tarjeta
-                    venta.Tarjeta = Convert.ToDecimal(TXT_TCliente.Text)
+                    venta.Tarjeta = NUD_TCliente.Value
                     venta.Vuelto = Convert.ToDecimal(TXT_TVuelto.Text)
-                    GuardarFactura(imprimir, isCuentaPorCobrar)
                 Case 2 ' Sinpe
-                    venta.Tarjeta = Convert.ToDecimal(TXT_TCliente.Text)
+                    venta.Tarjeta = NUD_SCliente.Value
                     venta.Vuelto = Convert.ToDecimal(TXT_TVuelto.Text)
-                    GuardarFactura(imprimir, isCuentaPorCobrar)
                 Case 3 ' Depósito
-                    venta.Tarjeta = Convert.ToDecimal(TXT_TCliente.Text)
+                    venta.Tarjeta = NUD_DCliente.Value
                     venta.Vuelto = Convert.ToDecimal(TXT_TVuelto.Text)
-                    GuardarFactura(imprimir, isCuentaPorCobrar)
                 Case 4 ' Mixto
-                    venta.Efectivo = Convert.ToDecimal(TXT_TCliente.Text)
-                    venta.Tarjeta = Convert.ToDecimal(TXT_TCliente.Text)
-                    venta.Vuelto = Convert.ToDecimal(TXT_TVuelto.Text)
-                    GuardarFactura(imprimir, isCuentaPorCobrar)
+                    venta.Efectivo = NUD_MEfectivo.Value
+                    venta.Tarjeta = NUD_MTarjeta.Value
+                    venta.Vuelto = Convert.ToDecimal(TXT_MVuelto.Text)
             End Select
+            imprimir_factura = imprimir
+            Me.DialogResult = DialogResult.OK
         End Sub
 
         Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
@@ -256,51 +215,6 @@ Namespace SistemaFacturacion.Forms.Caja
             Me.DialogResult = DialogResult.Cancel
         End Sub
 
-        ' Calcula el monto restante para pago mixto
-        Private Function CargarRestante(efectivo As Boolean) As Double
-            ' Si los campos están vacíos, los inicializa a 0
-            If String.IsNullOrEmpty(TXT_PagoEfectivo.Text) Then
-                TXT_PagoEfectivo.Text = 0
-            End If
-            If String.IsNullOrEmpty(TXT_PagoTarjeta.Text) Then
-                TXT_PagoTarjeta.Text = 0
-            End If
-
-            Dim restante As Double
-            Dim pEfectivo As Double = Convert.ToDouble(TXT_PagoEfectivo.Text)
-            Dim pTarjeta As Double = Convert.ToDouble(TXT_PagoTarjeta.Text)
-
-            If efectivo Then ' Si el botón de efectivo restante fue presionado
-                restante = venta.saldo_total - pTarjeta
-                If restante < 0 Then
-                    restante = 0
-                End If
-                Return restante
-            Else ' Si el botón de tarjeta restante fue presionado
-                restante = venta.saldo_total - pEfectivo
-                If restante < 0 Then
-                    restante = 0
-                End If
-                Return restante
-            End If
-
-        End Function
-
-        'Se agrega el restante al campo correspondiente
-        Private Sub AgregarRestante(sender As Object, e As EventArgs)
-            ' Convierte el objeto sender al tipo de control Guna2Button
-            Dim btn As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
-            ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
-            Select Case btn.Name
-                Case "BTN_RestanteTarjeta"
-                    TXT_PagoTarjeta.Text = CargarRestante(False)
-                Case "BTN_RestanteEfectivo"
-                    TXT_PagoEfectivo.Text = CargarRestante(True)
-            End Select
-            ' Recalcula el vuelto y valida los montos después de agregar el restante
-            CalcVuelto(TXT_DCliente, TXT_MVuelto)
-            VALIDAR(TXT_PagoTarjeta, TXT_PagoEfectivo, venta.saldo_total, True)
-        End Sub
 
         ' Manejador de eventos de teclado para atajos de teclado
         Private Sub P_TerminarVenta_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
