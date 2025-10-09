@@ -37,11 +37,7 @@ Namespace SistemaFacturacion.Forms.Dialogos
                 Exit Sub
             End If
 
-            If msgGuardar() Then
-                Me.DialogResult = DialogResult.OK
-            Else
-                Me.DialogResult = DialogResult.Cancel
-            End If
+            Me.DialogResult = If(msgGuardar(), DialogResult.OK, DialogResult.Cancel)
         End Sub
     End Class
 

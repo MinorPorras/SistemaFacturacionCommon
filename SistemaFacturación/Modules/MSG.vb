@@ -14,6 +14,14 @@ Namespace SistemaFacturacion.Modules
             End If
         End Function
 
+        Public Function msgCambiarEstadoCuenta(estado As String, especificacion As String) As Boolean
+            If MsgBox($"Desea {estado} la cuenta: {especificacion}", vbOKCancel, "Cambio de estado de la cuenta por cobrar") = MsgBoxResult.Ok Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+
         Public Function msgEliminar(objeto As String) As Boolean
             If MsgBox("Desea eliminar " & objeto, vbOKCancel, "Eliminar") = MsgBoxResult.Ok Then
                 Return True

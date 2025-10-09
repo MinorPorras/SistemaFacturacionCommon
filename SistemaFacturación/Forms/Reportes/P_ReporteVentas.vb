@@ -87,32 +87,35 @@ Namespace SistemaFacturacion.Forms.Reportes
             dgv.EnableHeadersVisualStyles = False
 
             ' Estilo para todas las filas
-            Dim rowStyle As New DataGridViewCellStyle()
-            rowStyle.Font = New Font("Segoe UI", 12)
-            rowStyle.BackColor = Color.White
-            rowStyle.SelectionBackColor = Color.FromArgb(240, 240, 240) ' Un gris muy claro
-            rowStyle.SelectionForeColor = Color.Black
-            rowStyle.ForeColor = Color.Black
-            rowStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+            Dim rowStyle As New DataGridViewCellStyle With {
+                .Font = New Font("Segoe UI", 12),
+                .BackColor = Color.White,
+                .SelectionBackColor = Color.FromArgb(240, 240, 240), ' Un gris muy claro
+                .SelectionForeColor = Color.Black,
+                .ForeColor = Color.Black,
+                .Alignment = DataGridViewContentAlignment.MiddleLeft
+            }
             dgv.DefaultCellStyle = rowStyle
 
             ' Estilo para las filas alternas (asegurando que sea igual al estilo de fila predeterminado)
-            Dim alternatingRowStyle As New DataGridViewCellStyle()
-            alternatingRowStyle.Font = New Font("Segoe UI", 12)
-            alternatingRowStyle.BackColor = Color.White
-            alternatingRowStyle.SelectionBackColor = Color.FromArgb(240, 240, 240)
-            alternatingRowStyle.SelectionForeColor = Color.Black
-            alternatingRowStyle.ForeColor = Color.Black
-            alternatingRowStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+            Dim alternatingRowStyle As New DataGridViewCellStyle With {
+                .Font = New Font("Segoe UI", 12),
+                .BackColor = Color.White,
+                .SelectionBackColor = Color.FromArgb(240, 240, 240),
+                .SelectionForeColor = Color.Black,
+                .ForeColor = Color.Black,
+                .Alignment = DataGridViewContentAlignment.MiddleLeft
+            }
             dgv.AlternatingRowsDefaultCellStyle = alternatingRowStyle
 
             ' Estilo para el encabezado de las columnas
-            Dim headerStyle As New DataGridViewCellStyle()
-            headerStyle.Font = New Font("Segoe UI", 12, FontStyle.Bold)
-            headerStyle.BackColor = Color.FromArgb(255, 128, 0) ' Naranja
-            headerStyle.SelectionBackColor = Color.FromArgb(255, 128, 0) ' Naranja (El color de la selección del encabezado)
-            headerStyle.ForeColor = Color.Black
-            headerStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+            Dim headerStyle As New DataGridViewCellStyle With {
+                .Font = New Font("Segoe UI", 12, FontStyle.Bold),
+                .BackColor = Color.FromArgb(255, 128, 0), ' Naranja
+                .SelectionBackColor = Color.FromArgb(255, 128, 0), ' Naranja (El color de la selección del encabezado)
+                .ForeColor = Color.Black,
+                .Alignment = DataGridViewContentAlignment.MiddleLeft
+            }
             dgv.ColumnHeadersDefaultCellStyle = headerStyle
 
             ' Configuración de la apariencia general y altura de filas
@@ -211,34 +214,23 @@ Namespace SistemaFacturacion.Forms.Reportes
             If DGV_FactReporte.CurrentRow IsNot Nothing Then
                 Dim idFactura As Integer = Convert.ToInt32(DGV_FactReporte.CurrentRow.Cells("IdFactura").Value)
                 ' Llamada directa a la función del módulo
-                Md_IMPRIMIR.GENERAR_FACTURA(idFactura)
+                Md_IMPRIMIR.GENERAR_FACTURA(idFactura, "Comun")
             End If
         End Sub
 
         Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_DATOS.Click
-            Dim datosFactura As New Cls_DatosFactura With {
-                .IdFactura = DGV_FactReporte.SelectedRows(0).Cells(0).Value.ToString(),
-                .NumFactura = DGV_FactReporte.SelectedRows(0).Cells(1).Value.ToString(),
-                .Fecha = DGV_FactReporte.SelectedRows(0).Cells(2).Value.ToString(),
-                .Cliente = DGV_FactReporte.SelectedRows(0).Cells(3).Value.ToString(),
-                .Cajero = DGV_FactReporte.SelectedRows(0).Cells(4).Value.ToString(),
-                .Comentario = DGV_FactReporte.SelectedRows(0).Cells(5).Value.ToString(),
-                .Efectivo = DGV_FactReporte.SelectedRows(0).Cells(6).Value.ToString(),
-                .Tarjeta = DGV_FactReporte.SelectedRows(0).Cells(7).Value.ToString(),
-                .TotalCaja = DGV_FactReporte.SelectedRows(0).Cells(8).Value.ToString(),
-                .TipoPago = DGV_FactReporte.SelectedRows(0).Cells(9).Value.ToString(),
-                .Vuelto = DGV_FactReporte.SelectedRows(0).Cells(10).Value.ToString()
-            }
-            ' Crea la instancia del formulario
-            Dim frmDatosFactura As New P_DatosFactura With {
-                .Owner = Me
-            }
+            Dim ventaData As New Cls_Ventas
+            Dim id = DGV_FactReporte.SelectedRows(0).Cells("ID").Value
+            ventaData.CargarDataFactura(id)
+            Using frmDatosFactura As New P_DatosFactura
+                frmDatosFactura.Owner = Me
+                ' Llama a la nueva subrutina para cargar los datos en el formulario
+                frmDatosFactura.CargarDatos(ventaData)
 
-            ' Llama a la nueva subrutina para cargar los datos en el formulario
-            frmDatosFactura.CargarDatos(datosFactura)
-
-            ' Muestra el formulario
-            frmDatosFactura.Show()
+                ' Muestra el formulario
+                frmDatosFactura.ShowDialog()
+                Me.Select()
+            End Using
         End Sub
 
         Private Sub BTN_GenerarReporteVentaPDF_Click(sender As Object, e As EventArgs) Handles BTN_GenerarReporteVentaPDF.Click
@@ -374,13 +366,29 @@ Namespace SistemaFacturacion.Forms.Reportes
             Task.Run(Sub()
                          T.Tables.Clear()
                          'Se inicializa el comando SQL para obtener la información
-                         SQL = "SELECT ac.ID, ac.ID_Usuario, u.usuario As 'Cajero', ac.fondo_inicial As 'Fondo Inicial', ac.hora_apertura As 'Hora Apertura', " &
-                                "ac.hora_cierre As 'Hora Cierre', SUM(mc.ID) As '# Movimientos', ac.efectivo_contado As 'Efectivo contado', ac.diferencia As 'Diferencia' " &
-                                "FROM Arqueo_Caja ac  LEFT JOIN usuario u ON U.ID = AC.ID_Usuario  LEFT JOIN Movimientos_Caja mc  ON mc.ID_arqueo  = AC.ID " &
-                                "WHERE (@usuario IS NULL OR u.usuario LIKE '%' || @usuario || '%') AND" &
-                                "(@fecha IS NULL OR DATE(ac.hora_cierre) = DATE(@fecha) OR DATE(ac.hora_apertura) = DATE(@fecha)) " &
-                                "GROUP BY ac.ID ORDER BY ac.hora_cierre
-"
+                         SQL = "SELECT " &
+                                "    ac.ID, " &
+                                "    ac.ID_Usuario, " &
+                                "    u.usuario AS 'Cajero', " &
+                                "    ac.fondo_inicial AS 'Fondo Inicial', " &
+                                "    ac.hora_apertura AS 'Hora Apertura', " &
+                                "    ac.hora_cierre AS 'Hora Cierre', " &
+                                "    COUNT(mc.ID_arqueo) AS '# Movimientos', " &
+                                "    ac.efectivo_contado AS 'Efectivo contado', " &
+                                "    ac.diferencia AS 'Diferencia' " &
+                                "FROM " &
+                                "    Arqueo_Caja ac " &
+                                "LEFT JOIN " &
+                                "    usuario u ON u.ID = ac.ID_Usuario " &
+                                "LEFT JOIN " &
+                                "    Movimientos_Caja mc ON mc.ID_arqueo = ac.ID " &
+                                "WHERE " &
+                                "    (@usuario IS NULL OR u.usuario LIKE '%' || @usuario || '%') AND " &
+                                "    (@fecha IS NULL OR DATE(ac.hora_cierre) = DATE(@fecha) OR DATE(ac.hora_apertura) = DATE(@fecha)) " &
+                                "GROUP BY " &
+                                "    ac.ID " &
+                                "ORDER BY " &
+                                "    ac.hora_cierre"
 
                          'Se crea el parámetro para el comentario y para la fecha
                          Dim usuario As New SQLiteParameter("@usuario")

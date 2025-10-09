@@ -1,7 +1,5 @@
 ﻿Namespace SistemaFacturacion.Forms.Dialogos
     Public Class D_GuardarCuenta
-        Public Property ResultadoDelDialogo As DialogResult
-
         Public ReadOnly Property ComentarioIngresado As String
             Get
                 Return Me.TXT_Comentario.Text
@@ -15,15 +13,13 @@
                 MessageBox.Show("El comentario debe tener al menos 5 caracteres.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
                 ' Si la validación es exitosa, establece el resultado y cierra el formulario.
-                Me.ResultadoDelDialogo = DialogResult.OK
-                Me.Close()
+                Me.DialogResult = DialogResult.OK
             End If
         End Sub
 
         Private Sub BTN_RegresarMarca_Click(sender As Object, e As EventArgs) Handles BTN_RegresarMarca.Click
             ' Establece el resultado en Cancel y cierra el formulario.
-            Me.ResultadoDelDialogo = DialogResult.Cancel
-            Me.Close()
+            Me.DialogResult = DialogResult.Cancel
         End Sub
     End Class
 End Namespace

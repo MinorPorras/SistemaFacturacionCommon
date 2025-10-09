@@ -3,8 +3,10 @@
 ' Obtiene los datos de la factura, cliente, sucursal y productos para mostrar
 ' en la vista previa de impresión o reimpresión.
 ' -----------------------------------------------------------------------------
+Imports System.Data.SQLite
 Imports System.Drawing.Printing
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Namespace SistemaFacturacion.Modules
 
     Module Md_IMPRIMIR
@@ -24,38 +26,46 @@ Namespace SistemaFacturacion.Modules
         ' Genera el contenido de la factura para impresión o reimpresión
         ' id_factura: ID de la factura a imprimir
         ' reimprimir: True si es reimpresión, False si es impresión normal
-        Public Sub GENERAR_FACTURA(id_factura As Integer)
+        Public Sub GENERAR_FACTURA(ID As Integer, tipo As String)
             LIMPIAR()
-            Dim factura As New Cls_DatosFactura()
-            factura = ObtenerDatosGeneralesFactura(id_factura)
 
-            Dim strVenta As String
-            ' Determinar el tipo de venta en texto
-            Select Case factura.TipoPago
-                Case 0
-                    strVenta = "Efectivo"
-                Case 1
-                    strVenta = "Tarjeta"
-                Case 2
-                    strVenta = "Sinpe"
-                Case 3
-                    strVenta = "Depósito"
-                Case 4
-                    strVenta = "Mixto"
+            Select Case tipo
+                Case "Abono"
+                    ImprimirFacturaAbono(ID)
                 Case Else
-                    strVenta = "Efectivo"
+                    ImprimirFacturaVenta(ID)
             End Select
 
-            Dim comentario As String = ObtenerComentario(id_factura)
+            ImprimirFactura(encabezadoFactura, facturaContenido, finFactura)
+        End Sub
+
+        Private Sub ImprimirFacturaVenta(id_Factura As Integer)
+            Dim Factura As Cls_DatosFactura = ObtenerDatosGeneralesFactura(id_Factura)
+
+            Dim comentario As String = ObtenerComentario(id_Factura)
 
             ' Definir el contenido de la factura para impresión normal
-            encabezadoFactura = crearEncabezadoFactura(factura, ObtenerDatosSucursal())
+            encabezadoFactura = CrearEncabezadoFactura(Factura, ObtenerDatosSucursal())
 
-            CargarProds(id_factura)
+            CargarProds(id_Factura)
 
-            finFactura = crearFinFactura(factura, comentario)
+            finFactura = CrearFinFactura(Factura, comentario)
+        End Sub
 
-            ImprimirFactura(encabezadoFactura, facturaContenido, finFactura)
+        Private Sub ImprimirFacturaAbono(ID_pago As Integer)
+
+            Dim pago As New Cls_CxCPagos
+            pago.GetDetailsWithID(ID_pago)
+
+            Dim cuenta As New Cls_CuentasXCobrar
+            cuenta.GetDetailsWithID(pago.ID_CxC)
+
+            ' Definir el contenido de la factura para impresión normal
+            encabezadoFactura = CrearEncabezadoAbono(pago, ObtenerDatosSucursal(), cuenta)
+
+            CargarProdsAbono(cuenta.ID)
+
+            finFactura = CrearFinAbono(pago, cuenta)
         End Sub
 
         Private Function ObtenerDatosGeneralesFactura(id_factura As Integer) As Cls_DatosFactura
@@ -122,8 +132,8 @@ Namespace SistemaFacturacion.Modules
             Return sucursal
         End Function
 
-        Private Function crearEncabezadoFactura(factura As Cls_DatosFactura, sucursal As Cls_Sucursal) As String
-            Return "-------------------------------------------" & vbCrLf &
+        Private Function CrearEncabezadoFactura(factura As Cls_DatosFactura, sucursal As Cls_Sucursal) As String
+            Return "------------------------------------------" & vbCrLf &
                                     "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
                                     "-------- " & sucursal.Nombre & " ---------" & vbCrLf & vbCrLf &
                                     "Nº de Factura: " & factura.NumFactura & vbCrLf &
@@ -141,11 +151,51 @@ Namespace SistemaFacturacion.Modules
                                     "------------------------------------------" & vbCrLf
         End Function
 
-        Private Function crearFinFactura(factura As Cls_DatosFactura, comentario As String) As String
+        Private Function CrearEncabezadoAbono(pago As Cls_CxCPagos, sucursal As Cls_Sucursal, cuentas As Cls_CuentasXCobrar) As String
+            Return "------------------------------------------" & vbCrLf &
+                                    "        FACTURA DE VENTA" & vbCrLf & vbCrLf &
+                                    "-------- " & sucursal.Nombre & " ---------" & vbCrLf & vbCrLf &
+                                    "Cajero: " & pago.Cajero & vbCrLf &
+                                    "Ced. Jurídica: " & sucursal.Cedula & vbCrLf &
+                                    "Dirección: " & sucursal.Direccion & vbCrLf &
+                                    "Teléfono: " & sucursal.Telefono & vbCrLf &
+                                    "Email: " & sucursal.Email & vbCrLf &
+                                    "Fecha: " & pago.Fecha & vbCrLf &
+                                    vbCrLf &
+                                    "Cliente:" & cuentas.Cliente & vbCrLf &
+                                    vbCrLf &
+                                    "------------------------------------------" & vbCrLf &
+                                    "Descripción de Productos" & vbCrLf &
+                                    "------------------------------------------" & vbCrLf
+        End Function
+
+        Private Function CrearFinAbono(pago As Cls_CxCPagos, cuenta As Cls_CuentasXCobrar) As String
+            Dim finFact As String = "-----------------------------------------" & vbCrLf &
+                          "Total de la cuenta: " & pago.Formated_total & vbCrLf & vbCrLf
+            If pago.Tipo_venta = 0 Then
+                finFact += "Pago del cliente: " & pago.Formated_monto_efectivo & vbCrLf
+
+            ElseIf pago.Tipo_venta = 4 Then
+                finFact += "Pago en efectivo: " & pago.Formated_monto_efectivo & vbCrLf &
+                    vbCrLf &
+                     "Pago en tarjeta: " & pago.Formated_monto_tarjeta & vbCrLf
+                finFact += "Total Abonado: " & pago.Total & vbCrLf
+            Else
+                finFact += "Pago en tarjeta: " & pago.Formated_monto_tarjeta & vbCrLf
+            End If
+
+            finFact += "Saldo Restante: " & cuenta.Formated_Saldo_restante & vbCrLf
+
+            finFact += $"Comentario: {pago.Comentario}"
+
+            Return finFact
+        End Function
+
+        Private Function CrearFinFactura(factura As Cls_DatosFactura, comentario As String) As String
             Dim finFact As String = "-----------------------------------------" & vbCrLf &
                           "Total de la venta: ₡ " & factura.TotalCaja & vbCrLf &
                           vbCrLf
-            If factura.TipoPago = 1 Then
+            If factura.TipoPago = 0 Then
                 finFact += "Pago del cliente: ₡ " & factura.Efectivo & vbCrLf
 
             ElseIf factura.TipoPago = 4 Then
@@ -166,7 +216,7 @@ Namespace SistemaFacturacion.Modules
 
             ' Usamos AddHandler para pasar los parámetros de la factura al controlador de eventos
             AddHandler printDoc.PrintPage, Sub(sender, e)
-                                               printDocument_PrintPage(sender, e, encabezado, productos, fin)
+                                               PrintDocument_PrintPage(e, encabezado, productos, fin)
                                            End Sub
             ' 1. ANCHO: 80 mm (3.15 in) = 227 puntos.
             ' 2. ALTO: Se mantiene un valor simbólicamente grande para rollo continuo.
@@ -200,7 +250,7 @@ Namespace SistemaFacturacion.Modules
         End Sub
 
         ' Manejador del evento PrintPage que ahora recibe los parámetros de la factura
-        Private Sub printDocument_PrintPage(sender As Object, e As Printing.PrintPageEventArgs, encabezado As String, productos As List(Of String), fin As String)
+        Private Sub PrintDocument_PrintPage(e As Printing.PrintPageEventArgs, encabezado As String, productos As List(Of String), fin As String)
             Dim font As New Font("Arial", 12)
             Dim fontProds As New Font("Segoe UI", 9)
             Dim brush As New SolidBrush(Color.Black)
@@ -264,15 +314,15 @@ Namespace SistemaFacturacion.Modules
 
                     ' 2. Dibujar Cantidad (Izquierda) - Usa stringFormatWrap o Near
                     Dim rectCant As New RectangleF(leftMargin, yPos, colWidthCant, maxHeight)
-                    e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap) ' <--- OK con stringFormatWrap
+                    e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap)
 
                     ' 3. Dibujar Precio (Derecha) - ¡Usa stringFormatRight!
                     Dim rectPrecio As New RectangleF(leftMargin + colWidthCant + colWidthDesc, yPos, colWidthPrecio, maxHeight)
-                    e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatRight) ' <--- CAMBIO
+                    e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatRight)
 
                     ' 4. Dibujar Total (Derecha) - ¡Usa stringFormatRight!
                     Dim rectTotal As New RectangleF(leftMargin + colWidthCant + colWidthDesc + colWidthPrecio, yPos, colWidthTotal, maxHeight)
-                    e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatRight) ' <--- CAMBIO
+                    e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatRight)
 
                     yPos += maxHeight + 2
                 End If
@@ -312,6 +362,41 @@ Namespace SistemaFacturacion.Modules
                     facturaContenido.Add(datosProducto)
                 Next
             End If
+        End Sub
+
+        Private Sub CargarProdsAbono(idfact As Integer)
+            T.Tables.Clear()
+            SQL = "SELECT p.nombre, cdp.precio , cdp.cantidad , cdp.total_linea 
+                    FROM CC_DetalleProducto cdp 
+                    left join producto p ON cdp.ID_Producto = p.ID
+                    WHERE cdp.ID_Encabezado = @ID"
+            Dim paramList As New List(Of SQLiteParameter) From {
+                    {New SQLiteParameter("@ID", idfact)}
+            }
+            CargarTablaParam(T, SQL, paramList)
+
+            If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+                Exit Sub
+            End If
+
+            For Each row As DataRow In T.Tables(0).Rows
+                Dim producto As New Cls_DetalleProductoCxC With {
+                    .Cantidad = row("cantidad"),
+                    .Nombre = row("nombre"),
+                    .Precio = row("precio")
+                }
+
+                ' Formatear la línea de producto. Usaremos tabulaciones o espacios fijos 
+                ' para la vista previa, pero en el PrintPage lo dibujaremos en columnas.
+                Dim lineaFormateada As String = $"{producto.Cantidad} | {producto.Nombre} | {producto.Precio:N2} | {producto.Total:N2}"
+
+                ' Lo importante es guardar los datos de la línea en un formato que 
+                ' nos permita procesar las columnas correctamente después. 
+                ' Para simplificar, usaremos un carácter que NO aparezca en los nombres.
+                Dim datosProducto As String = $"{producto.Cantidad}*{producto.Nombre}*{producto.Precio:N2}*{producto.Total:N2}" ' Separador de asterisco
+
+                facturaContenido.Add(datosProducto)
+            Next
         End Sub
 
         Public Class ImpresionHabladores

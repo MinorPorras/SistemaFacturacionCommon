@@ -258,10 +258,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Data\Cls_AtrFactura.vb" />
     <Compile Include="Data\Cls_CierreCaja.vb" />
     <Compile Include="Data\Cls_ConceptoCaja.vb" />
+    <Compile Include="Data\Cls_CuentasXCobrar.vb" />
+    <Compile Include="Data\Cls_CxCPagos.vb" />
     <Compile Include="Data\Cls_DatosFactura.vb" />
+    <Compile Include="Data\Cls_DetalleProductoCxC.vb" />
     <Compile Include="Data\Cls_MovimientosCaja.vb" />
     <Compile Include="Data\Cls_MovimientosEfectivo.vb" />
     <Compile Include="Data\Cls_ProductoCaja.vb" />
@@ -269,10 +271,29 @@
     <Compile Include="Data\Cls_ReporteVentas.vb" />
     <Compile Include="Data\Cls_SaldoCaja.vb" />
     <Compile Include="Data\Cls_Sucursal.vb" />
+    <Compile Include="Data\Cls_Ventas.vb" />
     <Compile Include="Forms\Caja\P_GenerarCierreCaja.Designer.vb">
       <DependentUpon>P_GenerarCierreCaja.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Caja\P_GenerarCierreCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_AbonarCxC.Designer.vb">
+      <DependentUpon>P_AbonarCxC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_AbonarCxC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_CajaCxC.Designer.vb">
+      <DependentUpon>P_CajaCxC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_CajaCxC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_VerDetallesCxC.Designer.vb">
+      <DependentUpon>P_VerDetallesCxC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CuentasXCobrar\P_VerDetallesCxC.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Dialogos\D_AperturaCaja.Designer.vb">
@@ -317,11 +338,13 @@
     <Compile Include="Forms\Mantenimiento\E_NuevoConcepto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\Md_Arqueos.vb" />
+    <Compile Include="Modules\Md_formating.vb" />
     <Compile Include="Modules\Md_Reportes.vb" />
-    <Compile Include="Forms\Caja\P_CuentasCobrar.Designer.vb">
+    <Compile Include="Forms\CuentasXCobrar\P_CuentasCobrar.Designer.vb">
       <DependentUpon>P_CuentasCobrar.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Caja\P_CuentasCobrar.vb">
+    <Compile Include="Forms\CuentasXCobrar\P_CuentasCobrar.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Caja\P_DatosFactura.Designer.vb">
@@ -630,6 +653,7 @@
     <None Include="Resources\ICO_Menos.png" />
     <None Include="Resources\ICO_Unlock.png" />
     <None Include="Resources\ICO_Lock.png" />
+    <None Include="Resources\ICO_Search.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -658,6 +682,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Caja\P_GenerarCierreCaja.resx">
       <DependentUpon>P_GenerarCierreCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CuentasXCobrar\P_AbonarCxC.resx">
+      <DependentUpon>P_AbonarCxC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CuentasXCobrar\P_CajaCxC.resx">
+      <DependentUpon>P_CajaCxC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CuentasXCobrar\P_VerDetallesCxC.resx">
+      <DependentUpon>P_VerDetallesCxC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogos\D_MovimientoCaja.resx">
       <DependentUpon>D_MovimientoCaja.vb</DependentUpon>
@@ -695,7 +728,7 @@
     <EmbeddedResource Include="Forms\Caja\P_Caja.resx">
       <DependentUpon>P_Caja.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Caja\P_CuentasCobrar.resx">
+    <EmbeddedResource Include="Forms\CuentasXCobrar\P_CuentasCobrar.resx">
       <DependentUpon>P_CuentasCobrar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Caja\P_DatosFactura.resx">

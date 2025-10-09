@@ -97,7 +97,7 @@ Namespace SistemaFacturacion.Modules
         End Sub
 #End Region
 
-#Region "Gestión de Facturas"
+#Region "Gestión de Facturas y cuentas por cobrar"
         ' Guarda una factura con los datos proporcionados
         Friend Sub GUARDAR_FACT(ByVal TABLA As String, ByVal DATOS As String)
             SQL = "INSERT INTO " & TABLA & " VALUES (" & DATOS & ")"
@@ -151,27 +151,119 @@ Namespace SistemaFacturacion.Modules
                                       Return resultado
                                   End Function)
         End Function
+
+        ' Función asíncrona para eliminar una cuenta por cobrar
+        Friend Async Function ELIMINAR_CxC(ByVal ID As Integer) As Task(Of Boolean)
+            Return Await Task.Run(Function()
+                                      Dim resultado As Boolean = False
+
+                                      Using db As New SQLiteConnection(GetConnectionString())
+                                          ' Se inicia un proceso de transacción
+                                          db.Open()
+                                          Dim transaction As SQLiteTransaction = db.BeginTransaction()
+
+                                          Try
+                                              ' 1. Eliminar la cuenta por cobrar
+                                              Dim deleteComentarioSql As String = "DELETE FROM CC_Encabezado WHERE ID = @id"
+                                              Using cmd As New SQLiteCommand(deleteComentarioSql, db, transaction)
+                                                  cmd.Parameters.AddWithValue("@id", ID)
+                                                  cmd.ExecuteNonQuery()
+                                              End Using
+
+                                              ' Si todo salió bien, confirma la transacción
+                                              transaction.Commit()
+                                              resultado = True
+
+                                          Catch ex As Exception
+                                              ' Si algo falla, revierte la transacción
+                                              transaction.Rollback()
+                                              Console.WriteLine("Error al eliminar la cuenta por cobrar: " & ex.Message)
+                                              msgError("Error al eliminar la cuenta por cobrar: " & ex.Message)
+                                              resultado = False
+                                          End Try
+                                      End Using
+                                      Return resultado
+                                  End Function)
+        End Function
+
+        Friend Function SwitchEstadoCuenta(ID As Integer, estado As Integer) As Boolean
+            SQL = "UPDATE CC_ENCABEZADO SET Estado = @estado WHERE ID = @ID"
+            Dim paramList = New Dictionary(Of String, Object) From {
+                {"ID", ID},
+                {"estado", estado}
+            }
+            If EJECUTAR_PARAMETROS(SQL, paramList) Then
+                Return True
+            End If
+            Return False
+        End Function
 #End Region
 
 #Region "Obtención de PK y Validaciones"
         ' Obtiene el siguiente valor de PK para una tabla
         Friend Function OBTENERPK(ByVal TABLA As String, ByVal PK As String) As Integer
             Try
-                If EXISTE(TABLA, PK) = True Then
-                    T.Clear()
-                    SQL = "SELECT MAX(" & PK & ") FROM " & TABLA
-                    Cargar_Tabla(T, SQL)
-                    If T.Tables(0).Rows.Count > 0 AndAlso Not IsDBNull(T.Tables(0).Rows(0).Item(0)) Then
-                        OBTENERPK = T.Tables(0).Rows(0).Item(0) + 1
-                    Else
-                        OBTENERPK = 1
-                    End If
-                Else
-                    OBTENERPK = 1
+                If Not EXISTE(TABLA, PK) = True Then
+                    Return 1
                 End If
+
+                SQL = "SELECT MAX(" & PK & ") FROM " & TABLA
+
+                Using data As New DataSet
+                    Cargar_Tabla(data, SQL)
+
+                    If Not data.Tables(0).Rows.Count > 0 OrElse IsDBNull(data.Tables(0).Rows(0).Item(0)) Then
+                        Return 1
+                    End If
+
+                    Return data.Tables(0).Rows(0).Item(0) + 1
+                End Using
+
             Catch ex As Exception
                 MsgBox("Error al cargar los datos desde la base de datos" & vbCrLf & ex.ToString(), vbOKOnly, "Error")
-                OBTENERPK = 1
+                Return 1
+            End Try
+        End Function
+
+        Friend Function GetLastInsertedID(ByVal dbConnection As SQLiteConnection) As Integer
+            Dim idResultado As Integer = 0
+
+            Try
+                Using cmd As New SQLiteCommand("SELECT last_insert_rowid()", dbConnection)
+                    Dim result As Object = cmd.ExecuteScalar()
+
+                    If Not IsDBNull(result) AndAlso result IsNot Nothing Then
+                        idResultado = Convert.ToInt32(result)
+                    End If
+                End Using
+
+                Return idResultado
+
+            Catch ex As Exception
+                ' Manejo de errores simplificado
+                MsgBox("Error al obtener el último ID insertado: " & vbCrLf & ex.Message, vbOKOnly, "Error")
+                Return 0
+            End Try
+        End Function
+
+        Friend Function GetLastInsertedID_Transaction(ByVal dbConnection As SQLiteConnection, ByVal transaction As SQLiteTransaction) As Integer
+            Dim idResultado As Integer = 0
+
+            Try
+                Using cmd As New SQLiteCommand("SELECT last_insert_rowid()", dbConnection, transaction)
+                    Dim result As Object = cmd.ExecuteScalar()
+
+                    If Not IsDBNull(result) AndAlso result IsNot Nothing Then
+                        idResultado = Convert.ToInt32(result)
+                    End If
+                End Using
+
+                Return idResultado
+
+            Catch ex As Exception
+                ' Manejo de errores simplificado
+                MsgBox("Error al obtener el último ID insertado: " & vbCrLf & ex.Message, vbOKOnly, "Error")
+                Return 0
             End Try
         End Function
 

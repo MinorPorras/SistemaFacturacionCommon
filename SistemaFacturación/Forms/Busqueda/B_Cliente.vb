@@ -91,17 +91,11 @@ Namespace SistemaFacturacion.Forms.Busqueda
         End Sub
 
         Private Sub BTN_RegresarBCLiente_Click(sender As Object, e As EventArgs) Handles BTN_RegresarBCLiente.Click
-            P_Caja.Show()
-            P_Caja.Select()
-            Me.Close()
+            Me.DialogResult = DialogResult.Cancel
         End Sub
 
         Private Sub BTN_SelectCliente_Click(sender As Object, e As EventArgs) Handles BTN_SelectCliente.Click
-            P_Caja.Show()
-            P_Caja.idCliente = DGV_BCliente.SelectedRows(0).Cells(0).Value.ToString()
-            P_Caja.TXT_BuscarCliente.Text = TXT_codigo.Text
-            P_Caja.Select()
-            Me.Close()
+            Me.DialogResult = DialogResult.OK
         End Sub
 
         Private Sub TXT_BuscarCliente_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarCliente.TextChanged

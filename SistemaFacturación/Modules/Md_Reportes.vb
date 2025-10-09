@@ -14,7 +14,6 @@ Namespace SistemaFacturacion.Modules
         Dim pag As PdfPage
         Dim graficos As PdfGraphics
         Dim pos As New PointF(10, 10)
-        Dim ultimaFilaDibujada As Integer = -1
 
 #Region "Obtención de datos"
         Friend Async Function GenerarReporte(desde As Date, hasta As Date, t As DataSet) As Task(Of Cls_ReporteVentas)
@@ -81,8 +80,7 @@ Namespace SistemaFacturacion.Modules
 	                                                                    factura_comentario fc  ON fc.ID_Factura  =f.ID 
                                                                     WHERE 
                                                                         f.fecha_emision >= @fechaInicio
-                                                                        AND f.fecha_emision <  @fechaFin
-                                                                        AND f.cobrada != 0;"
+                                                                        AND f.fecha_emision <  @fechaFin;"
 
                                       Dim paramList As New List(Of SQLiteParameter) From {
                                           New SQLiteParameter("@fechaInicio", desde),
@@ -142,7 +140,7 @@ Namespace SistemaFacturacion.Modules
                                   End Function)
         End Function
 
-        Friend Async Function getProductosMasVendido(LIMIT As Integer, desde As Date, hasta As Date, orderBy As Integer) As Task(Of List(Of Cls_ProductosMasVendidos))
+        Friend Async Function GetProductosMasVendido(LIMIT As Integer, desde As Date, hasta As Date, orderBy As Integer) As Task(Of List(Of Cls_ProductosMasVendidos))
             Return Await Task.Run(Function()
                                       Dim listProductosMasVendidos As New List(Of Cls_ProductosMasVendidos)
                                       Try
@@ -206,11 +204,11 @@ Namespace SistemaFacturacion.Modules
             Dim cultura As New CultureInfo("es-CR")
 
             Dim listaFiltrada = reporte.ListaVentas.Select(Function(venta) New With {
-                    .NumFactura = venta.NumFactura,
-                    .Fecha = venta.Fecha,
-                    .Cajero = venta.Cajero,
-                    .Cliente = venta.Cliente,
-                    .TipoPago = venta.TipoPago,
+                    venta.NumFactura,
+                    venta.Fecha,
+                    venta.Cajero,
+                    venta.Cliente,
+                    venta.TipoPago,
                     .TotalCaja = venta.TotalCaja.ToString("C", New CultureInfo("es-CR"))})
 
             'Se obtienen los datos de la sucursal
