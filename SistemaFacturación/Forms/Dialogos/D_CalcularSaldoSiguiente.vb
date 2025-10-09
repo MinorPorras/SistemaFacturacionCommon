@@ -64,25 +64,6 @@ Namespace SistemaFacturacion.Forms.Dialogos
             TXT_SaldoSiguiente.Text = saldoSiguiente.Total
         End Sub
 
-        Private Sub CalcularMonto()
-            saldoSiguiente.Total = 0
-            For Each denominacion In listTxtDenominaciones
-                ' Obtiene el valor del control NumericUpDown (Decimal)
-                Dim valorContado As Decimal = denominacion.Value.Value
-
-                ' La clave del diccionario es un entero, lo usamos directamente para el case
-                Dim valorDenominacion As Integer = denominacion.Key
-
-                ' Se asigna la cantidad de monedas o billetes a la propiedad específica
-                AsignarCantidadDenomincacion(valorContado, valorDenominacion)
-
-                ' Se suma el valor total de esa denominación
-                saldoSiguiente.Total += valorDenominacion * valorContado
-            Next
-
-            TXT_SaldoSiguiente.Text = saldoSiguiente.Total.ToString("C", New CultureInfo("es-CR"))
-        End Sub
-
         Private Sub AsignarCantidadDenomincacion(valorContado As Decimal, valorDenominacion As Integer)
             Select Case valorDenominacion
                 Case 5
@@ -114,7 +95,35 @@ Namespace SistemaFacturacion.Forms.Dialogos
 
         'Al cambiar el valor del NUD se actualiza el total
         Private Sub NUD_ValueChanged(sender As Object, e As EventArgs)
-            CalcularMonto()
+            Dim denominacionModificada As Integer
+            Select Case sender.name
+                Case "NUD_Moneda5"
+                    denominacionModificada = 5
+                Case "NUD_Moneda10"
+                    denominacionModificada = 10
+                Case "NUD_Moneda25"
+                    denominacionModificada = 25
+                Case "NUD_Moneda50"
+                    denominacionModificada = 50
+                Case "NUD_Moneda100"
+                    denominacionModificada = 100
+                Case "NUD_Moneda500"
+                    denominacionModificada = 500
+                Case "NUD_Billete1"
+                    denominacionModificada = 1000
+                Case "NUD_Billete2"
+                    denominacionModificada = 2000
+                Case "NUD_Billete5"
+                    denominacionModificada = 5000
+                Case "NUD_Billete10"
+                    denominacionModificada = 10000
+                Case "NUD_Billete20"
+                    denominacionModificada = 20000
+                Case "NUD_Billete50"
+                    denominacionModificada = 50000
+            End Select
+
+            AsignarCantidadDenomincacion(sender.value, denominacionModificada)
         End Sub
 
         Private Sub Guna2Button3_Click(sender As Object, e As EventArgs) Handles Guna2Button3.Click

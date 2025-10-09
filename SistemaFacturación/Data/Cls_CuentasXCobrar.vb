@@ -9,6 +9,7 @@ Namespace SistemaFacturacion.Data
         Public Property ID_Cliente As Integer
         Public Property Cliente As String
         Public Property ID_Cajero As Integer
+        Public Property Cajero As String
         Public Property Fecha_creacion As DateTime
         Public Property Saldo_total As Decimal = 0
         Public ReadOnly Property Formated_saldo_total As String
@@ -18,12 +19,15 @@ Namespace SistemaFacturacion.Data
         End Property
         Public Property Comentario As String
         Public Property ListaProductos As List(Of Cls_DetalleProductoCxC)
-        Public Property ListaPagos As List(Of Cls_CxCPagos)
+        Public Property ListaPagos As New List(Of Cls_CxCPagos)
         Public ReadOnly Property Saldo_restante As Decimal
             Get
                 Dim saldo = Saldo_total
                 For Each pago In ListaPagos
-                    saldo -= pago.total
+                    saldo -= pago.Total
+                    If saldo <= 0 Then
+                        Return 0
+                    End If
                 Next
                 Return saldo
             End Get
@@ -33,6 +37,12 @@ Namespace SistemaFacturacion.Data
                 Return Saldo_restante.ToString("C", CulturaCR) ' "C" es formato de moneda
             End Get
         End Property
+
+        Public Property Estado As Integer
+        '0 = Inactiva
+        '1 = Activa
+        '2 = Cobrada
+        '3 = Todas
 
         Private ReadOnly CulturaCR As New CultureInfo("es-CR")
 
@@ -48,8 +58,8 @@ Namespace SistemaFacturacion.Data
                                           If Not actualizar_factura_cobrar Then
                                               ' Caso: Guardar por primera vez
                                               Dim insertFacturaSQL As String = "INSERT INTO CC_Encabezado 
-                                                                                (ID_Cliente, fecha_creacion, saldo_total, comentario) 
-                                                                                VALUES (@IDCliente, @FechaCreacion, @SaldoTotal, @comentario);"
+                                                                                (ID_Cliente, fecha_creacion, saldo_total, comentario, estado) 
+                                                                                VALUES (@IDCliente, @FechaCreacion, @SaldoTotal, @comentario, 1);"
                                               Dim parametrosFactura As New Dictionary(Of String, Object) From {
                                                   {"FechaCreacion", DateTime.Now},
                                                   {"IDCliente", ID_Cliente},
@@ -64,14 +74,16 @@ Namespace SistemaFacturacion.Data
                                               Dim updateFacturaSQL As String = "UPDATE CC_Encabezado SET
                                                                                 ID_Cliente = @IDCliente,
                                                                                 saldo_total = @SaldoTotal,
-                                                                                comentario = @comentario
+                                                                                comentario = @comentario,
+                                                                                estado = @Estado
                                                                                 WHERE ID = @IDEncabezado;"
                                               'Obtener el PK del numFactura actual
                                               Dim parametrosUpdate As New Dictionary(Of String, Object) From {
                                                   {"comentario", Comentario},
                                                   {"IDCliente", ID_Cliente},
                                                   {"SaldoTotal", Saldo_total},
-                                                  {"IDEncabezado", ID}
+                                                  {"IDEncabezado", ID},
+                                                  {"Estado", Estado}
                                               }
                                               EJECUTAR_PARAMETROS_TRANSACCION(updateFacturaSQL, parametrosUpdate, dbConnection, transaction)
 
@@ -97,7 +109,10 @@ Namespace SistemaFacturacion.Data
                                               EJECUTAR_PARAMETROS_TRANSACCION(insertProductoSQL, paramProds, dbConnection, transaction)
                                           Next
 
-
+                                          If ID = 0 Then
+                                              transaction.Rollback()
+                                              Return "Error en la transacción: Cuenta no almacenada"
+                                          End If
                                           transaction.Commit()
                                           Return "OK"
 
@@ -124,7 +139,7 @@ Namespace SistemaFacturacion.Data
         End Sub
 
         Friend Function GetEncabezado(ID_CxC As Integer) As Boolean
-            SQL = "SELECT CE.ID_Cliente , C.nombre , CE.fecha_creacion , CE.saldo_total , CE.comentario 
+            SQL = "SELECT CE.ID_Cliente , C.nombre , CE.fecha_creacion , CE.saldo_total , CE.comentario, CE.Estado 
             FROM CC_Encabezado ce 
             LEFT JOIN clientes c ON CE.ID_Cliente = C.ID
             where ce.ID = @id"
@@ -141,6 +156,7 @@ Namespace SistemaFacturacion.Data
             Fecha_creacion = T.Tables(0).Rows(0)("fecha_creacion")
             Saldo_total = T.Tables(0).Rows(0)("saldo_total")
             Comentario = T.Tables(0).Rows(0)("comentario")
+            Estado = T.Tables(0).Rows(0)("Estado")
             Return True
         End Function
 
@@ -172,7 +188,7 @@ Namespace SistemaFacturacion.Data
 
         Friend Function GetListaPagos(ID_CxC As Integer) As List(Of Cls_CxCPagos)
             SQL = "SELECT cp.ID , cp.fecha As Fecha , CP.tipo_venta, cp.monto_efectivo As Efectivo , 
-                    cp.monto_tarjeta As Tarjeta , cp.comentario As Comentario
+                    cp.monto_tarjeta As Tarjeta, cp.vuelto, cp.comentario As Comentario
                     FROM CC_Pagos cp WHERE CP.ID_Encabezado = @id "
             Dim paramList As New List(Of SQLiteParameter) From {
                 {New SQLiteParameter("@id", ID_CxC)}
@@ -186,11 +202,11 @@ Namespace SistemaFacturacion.Data
                 Dim pago As New Cls_CxCPagos With {
                     .ID = fila.Item("ID"),
                     .Fecha = fila.Item("Fecha"),
-                    .Tipo_venta = fila.Item("Tipo Venta"),
+                    .Tipo_venta = fila.Item("tipo_venta"),
                     .Monto_efectivo = fila.Item("Efectivo"),
                     .Monto_tarjeta = fila.Item("Tarjeta"),
-                    .Total = fila.Item("Efectivo") + fila.Item("Tarjeta"),
-                    .Comentario = fila.Item("Comentario")
+                    .Comentario = fila.Item("Comentario"),
+                    .Vuelto = fila.Item("vuelto")
                 }
                 listaPago.Add(pago)
             Next

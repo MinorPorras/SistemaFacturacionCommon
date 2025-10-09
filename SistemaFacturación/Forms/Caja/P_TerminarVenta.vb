@@ -182,20 +182,15 @@ Namespace SistemaFacturacion.Forms.Caja
             Select Case venta.Tipo_pago
                 Case 0 ' Efectivo
                     venta.Efectivo = NUD_ECliente.Value
-                    venta.Vuelto = Convert.ToDecimal(TXT_EVuelto.Text)
                 Case 1 ' Tarjeta
                     venta.Tarjeta = NUD_TCliente.Value
-                    venta.Vuelto = Convert.ToDecimal(TXT_TVuelto.Text)
                 Case 2 ' Sinpe
                     venta.Tarjeta = NUD_SCliente.Value
-                    venta.Vuelto = Convert.ToDecimal(TXT_TVuelto.Text)
                 Case 3 ' Depósito
                     venta.Tarjeta = NUD_DCliente.Value
-                    venta.Vuelto = Convert.ToDecimal(TXT_TVuelto.Text)
                 Case 4 ' Mixto
                     venta.Efectivo = NUD_MEfectivo.Value
                     venta.Tarjeta = NUD_MTarjeta.Value
-                    venta.Vuelto = Convert.ToDecimal(TXT_MVuelto.Text)
             End Select
             imprimir_factura = imprimir
             Me.DialogResult = DialogResult.OK

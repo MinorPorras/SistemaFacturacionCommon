@@ -56,16 +56,73 @@ Namespace SistemaFacturacion.Forms.Caja
 
             infoCierre.LimpiarDatos()
         End Sub
+        Private Sub AsignarCantidadDenomincacion(valorContado As Decimal, valorDenominacion As Integer)
+            Select Case valorDenominacion
+                Case 5
+                    infoCierre.saldoSiguienteTurno.Moneda5 = valorContado
+                Case 10
+                    infoCierre.saldoSiguienteTurno.Moneda10 = valorContado
+                Case 25
+                    infoCierre.saldoSiguienteTurno.Moneda25 = valorContado
+                Case 50
+                    infoCierre.saldoSiguienteTurno.Moneda50 = valorContado
+                Case 100
+                    infoCierre.saldoSiguienteTurno.Moneda100 = valorContado
+                Case 500
+                    infoCierre.saldoSiguienteTurno.Moneda500 = valorContado
+                Case 1000
+                    infoCierre.saldoSiguienteTurno.Billete1 = valorContado
+                Case 2000
+                    infoCierre.saldoSiguienteTurno.Billete2 = valorContado
+                Case 5000
+                    infoCierre.saldoSiguienteTurno.Billete5 = valorContado
+                Case 10000
+                    infoCierre.saldoSiguienteTurno.Billete10 = valorContado
+                Case 20000
+                    infoCierre.saldoSiguienteTurno.Billete20 = valorContado
+                Case 50000
+                    infoCierre.saldoSiguienteTurno.Billete50 = valorContado
+            End Select
+        End Sub
 
         'Al cambiar el valor del NUD se actualiza el total
         Private Sub NUD_ValueChanged(sender As Object, e As EventArgs)
+            Dim denominacionModificada As Integer
+            Select Case sender.name
+                Case "NUD_Moneda5"
+                    denominacionModificada = 5
+                Case "NUD_Moneda10"
+                    denominacionModificada = 10
+                Case "NUD_Moneda25"
+                    denominacionModificada = 25
+                Case "NUD_Moneda50"
+                    denominacionModificada = 50
+                Case "NUD_Moneda100"
+                    denominacionModificada = 100
+                Case "NUD_Moneda500"
+                    denominacionModificada = 500
+                Case "NUD_Billete1"
+                    denominacionModificada = 1000
+                Case "NUD_Billete2"
+                    denominacionModificada = 2000
+                Case "NUD_Billete5"
+                    denominacionModificada = 5000
+                Case "NUD_Billete10"
+                    denominacionModificada = 10000
+                Case "NUD_Billete20"
+                    denominacionModificada = 20000
+                Case "NUD_Billete50"
+                    denominacionModificada = 50000
+            End Select
+
+            AsignarCantidadDenomincacion(sender.value, denominacionModificada)
             'Se calcula el total de dinero real en caja según las denominaciones
-            TXT_DineroReal.Text = infoCierre.CalcularMontoEfectivoCajaReal(listTxtDenominaciones)
+            TXT_DineroReal.Text = infoCierre.saldoSiguienteTurno.formated_total
 
             'Se obtienen los datos de saldo esperado y diferencias desde la misma función
             TXT_SaldoEsperado.Text = infoCierre.CargarTotalEsperadoYDiferencia()
-            TXT_DiferenciaAbsoluta.Text = infoCierre.diferencia.ToString("0.00")
-            TXT_DiferenciaPorcentual.Text = infoCierre.diferenciaPorcentaje.ToString("0.00")
+            TXT_DiferenciaAbsoluta.Text = infoCierre.Diferencia.ToString("0.00")
+            TXT_DiferenciaPorcentual.Text = infoCierre.DiferenciaPorcentaje.ToString("0.00")
         End Sub
 #End Region
 
@@ -77,6 +134,23 @@ Namespace SistemaFacturacion.Forms.Caja
                 msgError("Error interno al realizar el cierre")
                 Me.DialogResult = DialogResult.Cancel
             End If
+
+            Dim listaDenominaciones As New Cls_SaldoCaja With {
+                .Moneda5 = NUD_Moneda5.Value,
+                .Moneda10 = NUD_Moneda10.Value,
+                .Moneda25 = NUD_Moneda25.Value,
+                .Moneda50 = NUD_Moneda50.Value,
+                .Moneda100 = NUD_Moneda100.Value,
+                .Moneda500 = NUD_Moneda500.Value,
+                .Billete1 = NUD_Billete1.Value,
+                .Billete2 = NUD_Billete2.Value,
+                .Billete5 = NUD_Billete5.Value,
+                .Billete10 = NUD_Billete10.Value,
+                .Billete20 = NUD_Billete20.Value,
+                .Billete50 = NUD_Billete50.Value
+            }
+
+            infoCierre.saldoSiguienteTurno = listaDenominaciones
 
             Me.DialogResult = DialogResult.OK
         End Sub

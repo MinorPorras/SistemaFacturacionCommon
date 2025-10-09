@@ -8,23 +8,24 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
     Public Class P_CuentasCobrar
-        Private Sub Btn_Regresar_Click(sender As Object, e As EventArgs) Handles btn_Regresar.Click
-            Owner.Show()
-            Me.Close()
-        End Sub
-
+        Dim estadoIndex As Integer
         Private Sub P_CuentasCobrar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-            CrearBotones()
+            REFRESCAR()
         End Sub
 
         Private Sub CrearBotones()
-            SQL = "SELECT e.ID , c.nombre , e.comentario 
-                    FROM CC_Encabezado e
-                    LEFT JOIN clientes c ON c.codigo = e.ID_Cliente"
-            T1.Tables.Clear()
-            Cargar_Tabla(T1, SQL)
-            If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
-                MsgBox("No hay facturas por cobrar", MsgBoxStyle.Information, "Aviso")
+            If T1 Is Nothing OrElse T1.Tables.Count <= 0 OrElse T1.Tables(0).Rows.Count <= 0 Then
+                Dim lblNohayCxC As New Label With {
+                    .Text = "No hay cuentas por cobrar",
+                    .Name = $"lblNoHayCxC",
+                    .ForeColor = Color.White,
+                    .TextAlign = ContentAlignment.MiddleCenter,
+                    .AutoSize = False,
+                    .Font = New Font("Segoe UI", 22, FontStyle.Bold),
+                    .Size = pan_CuentasCobrar.ClientSize
+                }
+                pan_CuentasCobrar.Controls.Add(lblNohayCxC)
+                lblNohayCxC.BringToFront()
                 Exit Sub
             End If
 
@@ -32,13 +33,27 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                 Dim cxc As New Cls_CuentasXCobrar With {
                     .ID = T1.Tables(0).Rows(i)("ID").ToString(),
                     .Cliente = T1.Tables(0).Rows(i)("nombre").ToString(),
-                    .comentario = T1.Tables(0).Rows(i)("comentario").ToString()
+                    .Comentario = T1.Tables(0).Rows(i)("comentario").ToString(),
+                    .Estado = Convert.ToInt32(T1.Tables(0).Rows(i)("estado"))
                 }
+
+                Dim mainColor As Color
+                Select Case cxc.Estado
+                    Case 0 'Inactivo
+                        mainColor = Color.IndianRed
+                    Case 1 'Activo
+                        mainColor = Color.MediumSeaGreen
+                    Case 2 'Cobrada
+                        mainColor = Color.FromArgb(255, 128, 0)
+                    Case Else
+                        mainColor = Color.Gray
+                End Select
                 ' 1. Crea el panel que contendrá todo (panel normal)
                 Dim panelContenedor As New Guna2GroupBox With {
                     .Size = New Size(400, 180),
                     .BorderStyle = BorderStyle.FixedSingle,
-                    .CustomBorderColor = Color.FromArgb(255, 128, 0),
+                    .CustomBorderColor = mainColor,
+                    .BorderColor = mainColor,
                     .Text = T1.Tables(0).Rows(i)("nombre").ToString(),
                     .ForeColor = Color.White,
                     .Font = New Font("Segoe UI", 16, FontStyle.Bold),
@@ -65,31 +80,49 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                     .Size = New Size(panelContenedor.Width, 30)
                 }
 
-                ' 3. Crea el botón (con Dock.Bottom)
-                Dim btnEliminar As New Guna2Button With {
-                    .Name = "BTN_Del" & cxc.ID,
-                    .Text = "Eliminar",
-                    .Size = New Size(198, 30),
-                    .Location = New Point(5, 70),
-                    .Dock = DockStyle.Left,
-                    .FillColor = Color.FromArgb(255, 64, 64),
-                    .ForeColor = Color.White,
-                    .Font = New Font("Segoe UI", 16, FontStyle.Bold),
-                    .ImageAlign = HorizontalAlignment.Center,
-                    .Image = My.Resources.ICO_Eliminar,
-                    .Cursor = Cursors.Hand
-                }
-                AddHandler btnEliminar.Click, AddressOf BtnEliminar_Click
-                AddHandler btnEliminar.MouseEnter, AddressOf BtnEliminar_MouseEnter
-                AddHandler btnEliminar.MouseLeave, AddressOf BtnEliminar_MouseLeave
+                Dim btnSwitchEstado As Guna2Button
 
+                Select Case cxc.Estado
+                    Case 0 'Inactivo
+                        btnSwitchEstado = New Guna2Button With {
+                            .Name = "BTN_Del" & cxc.ID,
+                            .Text = "Activar",
+                            .Size = New Size(198, 30),
+                            .Location = New Point(5, 70),
+                            .Dock = DockStyle.Left,
+                            .FillColor = Color.MediumSeaGreen,
+                            .ForeColor = Color.White,
+                            .Font = New Font("Segoe UI", 16, FontStyle.Bold),
+                            .ImageAlign = HorizontalAlignment.Center,
+                            .Image = My.Resources.ICO_Eliminar,
+                            .Cursor = Cursors.Hand
+                        }
+                    Case Else 'Activo
+                        btnSwitchEstado = New Guna2Button With {
+                            .Name = "BTN_Del" & cxc.ID,
+                            .Text = "Desactivar",
+                            .Size = New Size(198, 30),
+                            .Location = New Point(5, 70),
+                            .Dock = DockStyle.Left,
+                            .FillColor = Color.IndianRed,
+                            .ForeColor = Color.White,
+                            .Font = New Font("Segoe UI", 16, FontStyle.Bold),
+                            .ImageAlign = HorizontalAlignment.Center,
+                            .Image = My.Resources.ICO_Eliminar,
+                            .Cursor = Cursors.Hand
+                        }
+                End Select
+
+                AddHandler btnSwitchEstado.Click, AddressOf BtnSwitchActive_Click
+                AddHandler btnSwitchEstado.MouseEnter, AddressOf BtnSwitchEstado_MouseEnter
+                AddHandler btnSwitchEstado.MouseLeave, AddressOf BtnSwitchEstado_MouseLeave
                 ' 3. Crea el botón (con Dock.Bottom)
                 Dim btnVerDetalles As New Guna2Button With {
                     .Name = "BTN_Detalles" & cxc.ID,
                     .Text = "Detalles",
                     .Size = New Size(198, 30),
                     .Location = New Point(5, 70),
-                    .Dock = DockStyle.Right,
+                    .Dock = If(cxc.Estado <> 2, DockStyle.Right, DockStyle.Fill),
                     .ForeColor = Color.White,
                     .FillColor = Color.FromArgb(128, 128, 255),
                     .Font = New Font("Segoe UI", 16, FontStyle.Bold),
@@ -97,12 +130,12 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                     .Image = My.Resources.ICO_Search,
                     .Cursor = Cursors.Hand
                 }
-                AddHandler btnVerDetalles.Click, AddressOf btnVerDetalles_Click
-                AddHandler btnVerDetalles.MouseEnter, AddressOf btnVerDetalles_MouseEnter
-                AddHandler btnVerDetalles.MouseLeave, AddressOf btnVerDetalles_MouseLeave
+                AddHandler btnVerDetalles.Click, AddressOf BtnVerDetalles_Click
+                AddHandler btnVerDetalles.MouseEnter, AddressOf BtnVerDetalles_MouseEnter
+                AddHandler btnVerDetalles.MouseLeave, AddressOf BtnVerDetalles_MouseLeave
 
                 Dim lblComentario As New Label With {
-                    .Text = cxc.comentario,
+                    .Text = cxc.Comentario,
                     .Name = $"lblComentario_{cxc.ID}",
                     .ForeColor = Color.White,
                     .TextAlign = ContentAlignment.MiddleCenter,
@@ -119,7 +152,7 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
                 Dim lblSaldoRestante As New Label With {
                     .Name = $"lblSaldoRestante_{cxc.ID}",
-                    .Text = $"Pendiente: {cxc.obtenerSaldoPendiente()}",
+                    .Text = $"Pendiente: {cxc.ObtenerSaldoPendiente()}",
                     .ForeColor = Color.White,
                     .TextAlign = ContentAlignment.MiddleCenter,
                     .AutoSize = False,
@@ -132,7 +165,10 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                 AddHandler lblSaldoRestante.MouseLeave, AddressOf PanelLabels_MouseLeave
 
                 ' Agregar los botones al panel de botones
-                panelButtons.Controls.Add(btnEliminar)
+                If cxc.Estado <> 2 Then
+                    panelButtons.Controls.Add(btnSwitchEstado)
+                End If
+
                 panelButtons.Controls.Add(btnVerDetalles)
 
                 ' 1. Añade el panel de botones (Dock.Bottom)
@@ -196,18 +232,22 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             control.Parent.BackColor = Color.FromArgb(38, 38, 38)
         End Sub
 
-        ' Esta subrutina se ejecuta cuando el mouse entra al botón
-        Private Sub BtnEliminar_MouseEnter(sender As Object, e As EventArgs)
+        Private Sub BtnSwitchEstado_MouseEnter(sender As Object, e As EventArgs)
             Dim btn As Guna2Button = CType(sender, Guna2Button)
-            ' Restaura el color base
-            btn.FillColor = Color.FromArgb(215, 16, 0)
+            If btn.Text = "Desactivar" Then ' Estado Activo/Otros -> Es el botón ROJO
+                btn.FillColor = Color.FromArgb(215, 16, 0) ' Rojo más oscuro
+            ElseIf btn.Text = "Activar" Then ' Estado Inactivo -> Es el botón VERDE
+                btn.FillColor = Color.FromArgb(0, 192, 0) ' Verde más oscuro
+            End If
         End Sub
 
-        ' Esta subrutina se ejecuta cuando el mouse sale del botón
-        Private Sub BtnEliminar_MouseLeave(sender As Object, e As EventArgs)
+        Private Sub BtnSwitchEstado_MouseLeave(sender As Object, e As EventArgs)
             Dim btn As Guna2Button = CType(sender, Guna2Button)
-            ' Restaura el color base
-            btn.FillColor = Color.FromArgb(255, 64, 64)
+            If btn.Text = "Desactivar" Then ' Estado Activo/Otros -> Es el botón ROJO
+                btn.FillColor = Color.FromArgb(255, 64, 64) ' Rojo original
+            ElseIf btn.Text = "Activar" Then ' Estado Inactivo -> Es el botón VERDE
+                btn.FillColor = Color.FromArgb(64, 255, 64) ' Verde original
+            End If
         End Sub
 
         Private Sub BtnVerDetalles_MouseLeave(sender As Object, e As EventArgs)
@@ -240,7 +280,7 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             pan_CuentasCobrar.Controls.Clear()
         End Sub
 
-        Private Async Sub BtnEliminar_Click(sender As Object, e As EventArgs)
+        Private Sub BtnSwitchActive_Click(sender As Object, e As EventArgs)
             'Se obtiene el nombre del botón que se presionó
             Dim btnDelNombre As String = sender.name
             ' Se hace un substring para obtener el ID de la factura que está en el nombre del botón
@@ -259,24 +299,26 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             Dim lblComentario As Label = CType(controlesEncontrados(0), Label)
             Dim comentarioTexto As String = lblComentario.Text
 
+
             ' Se verifica que el usuario desea eliminar la cuenta, si no, se sale del sub
-            If Not MSG.msgEliminar($"la cuenta con el comentario: {comentarioTexto}") Then
-                Return
+            If Not msgCambiarEstadoCuenta(sender.text, comentarioTexto) Then
+                Exit Sub
             End If
 
-            Dim CuentaEliminada As Boolean = Await ELIMINAR_CxC(idEncabezado)
+            Dim nuevoEstadoID As Integer = 0
+            Select Case sender.text
+                Case "Desactivar"
+                    nuevoEstadoID = 0
+                Case "Activar"
+                    nuevoEstadoID = 1
+            End Select
+            Dim CuentaEliminada As Boolean = SwitchEstadoCuenta(idEncabezado, nuevoEstadoID)
 
             'Se elimina la cuenta de la base de datos
             If Not CuentaEliminada Then
                 MSG.msgError("No se pudo eliminar correctamente la cuenta")
             End If
-
-
-            ' 1. Limpia todos los botones existentes
-            LimpiarBotones()
-
-            ' 2. Vuelve a cargar los botones desde la base de datos
-            CrearBotones()
+            REFRESCAR()
         End Sub
 
         Private Sub Label_Click_Select_Cuenta(sender As Object, e As EventArgs)
@@ -292,10 +334,39 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             Using cajaForm As New P_CajaCxC
                 cajaForm.idCuenta = idCuenta
                 cajaForm.ShowDialog()
-                Me.Select()
-                LimpiarBotones()
-                CrearBotones()
+                REFRESCAR()
             End Using
+        End Sub
+
+        Private Sub BTN_Regresar_Click(sender As Object, e As EventArgs) Handles BTN_Regresar.Click
+            Owner.Show()
+            Me.Close()
+        End Sub
+
+
+
+        Private Sub REFRESCAR()
+            SQL = "SELECT e.ID , c.nombre , e.comentario, e.estado
+                    FROM CC_Encabezado e
+                    LEFT JOIN clientes c ON c.codigo = e.ID_Cliente"
+            If estadoIndex <> 1 And estadoIndex <> 0 And estadoIndex <> 2 Then
+                Cargar_Tabla(T1, SQL)
+            Else
+                SQL += " WHERE e.estado = @estado"
+
+                Dim paramList As New List(Of SQLiteParameter) From {
+                    {New SQLiteParameter("@estado", estadoIndex)}
+                }
+                CargarTablaParam(T1, SQL, paramList)
+            End If
+
+            LimpiarBotones()
+            CrearBotones()
+        End Sub
+
+        Private Sub CBX_EstadoCuenta_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CBX_EstadoCuenta.SelectedIndexChanged
+            estadoIndex = CBX_EstadoCuenta.SelectedIndex
+            REFRESCAR()
         End Sub
     End Class
 

@@ -59,7 +59,7 @@ Namespace SistemaFacturacion.Forms.Dialogos
             NUD_Billete20.Value = saldoSiguiente.Billete20
             NUD_Billete50.Value = saldoSiguiente.Billete50
 
-            TXT_SaldoSiguiente.Text = saldoSiguiente.Total
+            TXT_SaldoSiguiente.Text = saldoSiguiente.formated_total
         End Sub
 
         Private Sub AsignarCantidadDenomincacion(valorContado As Decimal, valorDenominacion As Integer)
@@ -93,8 +93,36 @@ Namespace SistemaFacturacion.Forms.Dialogos
 
         'Al cambiar el valor del NUD se actualiza el total
         Private Sub NUD_ValueChanged(sender As Object, e As EventArgs)
-            Dim CierreCaja As New Cls_CierreCaja
-            TXT_SaldoSiguiente.Text = CierreCaja.CalcularMontoEfectivoCajaReal(listTxtDenominaciones)
+            Dim denominacionModificada As Integer
+            Select Case sender.name
+                Case "NUD_Moneda5"
+                    denominacionModificada = 5
+                Case "NUD_Moneda10"
+                    denominacionModificada = 10
+                Case "NUD_Moneda25"
+                    denominacionModificada = 25
+                Case "NUD_Moneda50"
+                    denominacionModificada = 50
+                Case "NUD_Moneda100"
+                    denominacionModificada = 100
+                Case "NUD_Moneda500"
+                    denominacionModificada = 500
+                Case "NUD_Billete1"
+                    denominacionModificada = 1000
+                Case "NUD_Billete2"
+                    denominacionModificada = 2000
+                Case "NUD_Billete5"
+                    denominacionModificada = 5000
+                Case "NUD_Billete10"
+                    denominacionModificada = 10000
+                Case "NUD_Billete20"
+                    denominacionModificada = 20000
+                Case "NUD_Billete50"
+                    denominacionModificada = 50000
+            End Select
+
+            AsignarCantidadDenomincacion(sender.value, denominacionModificada)
+            TXT_SaldoSiguiente.Text = saldoSiguiente.formated_total
         End Sub
     End Class
 End Namespace

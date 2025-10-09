@@ -760,7 +760,7 @@
             Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
             Me.Name = "D_AperturaCaja"
             Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-            Me.Text = "D_AperturaCaja"
+            Me.Text = "Iniciar Turno"
             Me.TableLayoutPanel1.ResumeLayout(False)
             Me.TBL_IngresoEfectivoReal.ResumeLayout(False)
             Me.PAN_Moneda5.ResumeLayout(False)

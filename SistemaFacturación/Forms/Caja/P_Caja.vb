@@ -586,7 +586,7 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Async Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
-            If DGV_Caja.Rows.Count <= 1 Then
+            If DGV_Caja.Rows.Count <= 0 Then
                 msgError("No se puede Guardar una factura vacía")
                 Exit Sub
             End If
@@ -627,6 +627,7 @@ Namespace SistemaFacturacion.Forms.Caja
                     'Si devuelve OK la acción de guardado se limpia la información se cierra el dialogo y se termina la ejecución de la función
                     If resultado Is "OK" Then
                         LIMPIAR()
+                        mensaje("Cuenta por cobrar guardada correctamente en la base de datos", vbOKOnly, "Cuenta por cobrar guardada")
                         Exit Sub
                     End If
                 End If
@@ -742,7 +743,7 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #Region "Movimientos caja"
         Private Sub BTN_AperturaCaja_Click(sender As Object, e As EventArgs) Handles BTN_AperturaCaja.Click
-            showAperturaDialog(Me)
+            ShowAperturaDialog(Me, New Cls_SaldoCaja)
         End Sub
 
         Private Sub BTN_RegistrarIngreso_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarIngreso.Click

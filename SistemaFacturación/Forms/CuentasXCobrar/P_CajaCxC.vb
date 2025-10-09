@@ -18,6 +18,7 @@ Public Class P_CajaCxC
     Private culturaCR As New CultureInfo("es-CR")
 
 
+
     Private Sub P_CajaCxC_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Cuenta.GetDetailsWithID(idCuenta)
 
@@ -367,7 +368,7 @@ Public Class P_CajaCxC
         Me.DialogResult = DialogResult.Cancel
     End Sub
 
-    Private Async Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
+    Private Async Sub BTN_TVenta_Click(sender As Object, e As EventArgs)
         Using endVentaForm As New P_TerminarVenta
             endVentaForm.Owner = Me
             If DGV_Caja.Rows.Count < 1 Then
@@ -393,6 +394,7 @@ Public Class P_CajaCxC
             Dim result As DialogResult = endVentaForm.ShowDialog()
             If result = DialogResult.Cancel Then
                 Me.DialogResult = DialogResult.Cancel
+                Exit Sub
             End If
 
             If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura, True) Then
@@ -489,7 +491,7 @@ Public Class P_CajaCxC
             Dim result As DialogResult = searchCliente.ShowDialog()
             If result = DialogResult.OK Then
                 Cuenta.ID_Cliente = searchCliente.DGV_BCliente.SelectedRows(0).Cells(0).Value.ToString()
-                Cuenta.Cliente = searchCliente.TXT_codigo.Text
+                Cuenta.Cliente = searchCliente.TXT_Nombre.Text
                 TXT_BuscarCliente.Text = Cuenta.Cliente
             End If
         End Using
@@ -540,7 +542,8 @@ Public Class P_CajaCxC
             .Saldo_total = Cuenta.Saldo_total,
             .Comentario = TXT_Comentario.Text,
             .ListaPagos = New List(Of Cls_CxCPagos),
-            .ListaProductos = listaProds
+            .ListaProductos = listaProds,
+            .Estado = Cuenta.Estado
         }
 
         Dim resultado As String = Await cuentaXCobrar.AgregarActualizarCuenta(True)
@@ -548,15 +551,107 @@ Public Class P_CajaCxC
         msgDatoAlm()
     End Sub
 
-    Private Sub BTN_Abonar_Click(sender As Object, e As EventArgs) Handles BTN_Abonar.Click
+    Private Async Sub BTN_Abonar_Click(sender As Object, e As EventArgs) Handles BTN_Abonar.Click
         Using abonarForm As New P_AbonarCxC
             abonarForm.Owner = Me
-            Dim venta As New Cls_Ventas With {
+            abonarForm.venta = New Cls_Ventas With {
                 .ID_CxC = Cuenta.ID,
                 .ID_Cajero = idUsuActual,
                 .ID_Cliente = Cuenta.ID_Cliente,
-                .Fecha_creacion = Date.Now
+                .Fecha_creacion = Date.Now,
+                .Saldo_restante = Cuenta.Saldo_restante
             }
+
+            Dim result As DialogResult = abonarForm.ShowDialog()
+
+            If result = DialogResult.Cancel Then
+                Exit Sub
+            End If
+
+            'Pasar venta a cls_pagosCxC
+            Dim abono As New Cls_CxCPagos With {
+                .Fecha = Date.Now,
+                .ID_CxC = Cuenta.ID,
+                .ID_Usuario = idUsuActual,
+                .Monto_efectivo = abonarForm.venta.Efectivo,
+                .Monto_tarjeta = abonarForm.venta.Tarjeta,
+                .Tipo_venta = abonarForm.venta.Tipo_pago,
+                .Vuelto = abonarForm.venta.Vuelto,
+                .Comentario = abonarForm.TXT_Comentario.Text
+            }
+
+            'Guardar El pago en la BD
+            Dim ID_Pago = Await abono.Guardar()
+            If ID_Pago = 0 Then
+                msgError("Error al guardar el pago abonado a esta cuenta por cobrar")
+                Exit Sub
+            End If
+
+            If abonarForm.Terminar_venta Then
+                Dim numFactura As Integer = CargarNumFactura()
+                Dim venta As New Cls_Ventas With {
+                    .ID = OBTENERPK("factura", "ID"),
+                    .ID_Cliente = Cuenta.ID_Cliente,
+                    .ID_Cajero = idUsuActual,
+                    .Fecha_creacion = Date.Now,
+                    .ListaProductos = prodList,
+                    .Saldo_total = Cuenta.Saldo_total,
+                    .Num_factura = numFactura,
+                    .Tipo_pago = 1,
+                    .ID_CxC = idCuenta,
+                    .Saldo_restante = Cuenta.Saldo_restante,
+                    .Efectivo = abonarForm.venta.Efectivo,
+                    .Tarjeta = abonarForm.venta.Tarjeta,
+                    .Vuelto = abonarForm.venta.Vuelto
+                }
+
+                If Await venta.GuardarFactura(abonarForm.imprimir_factura, True) Then
+                    Me.DialogResult = DialogResult.OK
+                End If
+
+                SwitchEstadoCuenta(Cuenta.ID, 2) ' Se pasa el estado a cobrada
+                Me.DialogResult = DialogResult.OK
+            Else
+                'En caso de que se necesite imprimir la factura Se imprime de la siguiente forma
+                Using db As New SQLiteConnection(GetConnectionString())
+                    Try
+                        If abonarForm.imprimir_factura Then
+                            db.Open()
+                            GENERAR_FACTURA(ID_Pago, "Abono")
+                        End If
+                    Catch ex As Exception
+                        msgError($"Error al imprimir la factura: {ex.Message}")
+                    Finally
+                        db.Close()
+                    End Try
+                End Using
+
+                binCaja.ResetBindings(False)
+                Cuenta.ListaPagos = Cuenta.GetListaPagos(Cuenta.ID)
+                GetSaldoRestante()
+                mensaje("Vuelto: ₡ " & abonarForm.venta.Vuelto, vbOKOnly, "Venta completada")
+                TXT_BuscarProducto.Select()
+                TXT_BuscarProducto.SelectAll()
+            End If
         End Using
+    End Sub
+
+    Friend Sub LIMPIAR()
+
+        'Se desabilitann botones que tiene activaciones condicionales
+        BTN_TVenta.Enabled = False
+        BTN_GuardarCuenta.Enabled = False
+
+        TXT_BuscarProducto.Clear()
+        TXT_Total.Clear()
+        TXT_BuscarCliente.Text = "0001"
+        DGV_Caja.Rows.Clear()
+
+        TXT_BuscarProducto.SelectAll()
+        BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
+
+        ValidarListView()
+        GetTotal()
+
     End Sub
 End Class

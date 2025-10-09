@@ -214,7 +214,7 @@ Namespace SistemaFacturacion.Forms.Reportes
             If DGV_FactReporte.CurrentRow IsNot Nothing Then
                 Dim idFactura As Integer = Convert.ToInt32(DGV_FactReporte.CurrentRow.Cells("IdFactura").Value)
                 ' Llamada directa a la función del módulo
-                Md_IMPRIMIR.GENERAR_FACTURA(idFactura)
+                Md_IMPRIMIR.GENERAR_FACTURA(idFactura, "Comun")
             End If
         End Sub
 
@@ -366,13 +366,29 @@ Namespace SistemaFacturacion.Forms.Reportes
             Task.Run(Sub()
                          T.Tables.Clear()
                          'Se inicializa el comando SQL para obtener la información
-                         SQL = "SELECT ac.ID, ac.ID_Usuario, u.usuario As 'Cajero', ac.fondo_inicial As 'Fondo Inicial', ac.hora_apertura As 'Hora Apertura', " &
-                                "ac.hora_cierre As 'Hora Cierre', SUM(mc.ID) As '# Movimientos', ac.efectivo_contado As 'Efectivo contado', ac.diferencia As 'Diferencia' " &
-                                "FROM Arqueo_Caja ac  LEFT JOIN usuario u ON U.ID = AC.ID_Usuario  LEFT JOIN Movimientos_Caja mc  ON mc.ID_arqueo  = AC.ID " &
-                                "WHERE (@usuario IS NULL OR u.usuario LIKE '%' || @usuario || '%') AND" &
-                                "(@fecha IS NULL OR DATE(ac.hora_cierre) = DATE(@fecha) OR DATE(ac.hora_apertura) = DATE(@fecha)) " &
-                                "GROUP BY ac.ID ORDER BY ac.hora_cierre
-"
+                         SQL = "SELECT " &
+                                "    ac.ID, " &
+                                "    ac.ID_Usuario, " &
+                                "    u.usuario AS 'Cajero', " &
+                                "    ac.fondo_inicial AS 'Fondo Inicial', " &
+                                "    ac.hora_apertura AS 'Hora Apertura', " &
+                                "    ac.hora_cierre AS 'Hora Cierre', " &
+                                "    COUNT(mc.ID_arqueo) AS '# Movimientos', " &
+                                "    ac.efectivo_contado AS 'Efectivo contado', " &
+                                "    ac.diferencia AS 'Diferencia' " &
+                                "FROM " &
+                                "    Arqueo_Caja ac " &
+                                "LEFT JOIN " &
+                                "    usuario u ON u.ID = ac.ID_Usuario " &
+                                "LEFT JOIN " &
+                                "    Movimientos_Caja mc ON mc.ID_arqueo = ac.ID " &
+                                "WHERE " &
+                                "    (@usuario IS NULL OR u.usuario LIKE '%' || @usuario || '%') AND " &
+                                "    (@fecha IS NULL OR DATE(ac.hora_cierre) = DATE(@fecha) OR DATE(ac.hora_apertura) = DATE(@fecha)) " &
+                                "GROUP BY " &
+                                "    ac.ID " &
+                                "ORDER BY " &
+                                "    ac.hora_cierre"
 
                          'Se crea el parámetro para el comentario y para la fecha
                          Dim usuario As New SQLiteParameter("@usuario")

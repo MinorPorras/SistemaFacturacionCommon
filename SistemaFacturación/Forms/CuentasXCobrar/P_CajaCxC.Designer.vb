@@ -67,7 +67,6 @@ Partial Class P_CajaCxC
         Me.PAN_HeaderFavProd = New Guna.UI2.WinForms.Guna2Panel()
         Me.lbl_tituloProdFav = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_GuardarCuenta = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_Abonar = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_RegresarCaja = New Guna.UI2.WinForms.Guna2Button()
@@ -698,13 +697,11 @@ Partial Class P_CajaCxC
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 4
+        Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel2.SetColumnSpan(Me.TableLayoutPanel1, 2)
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_GuardarCuenta, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_Abonar, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarCaja, 0, 0)
@@ -715,25 +712,6 @@ Partial Class P_CajaCxC
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1188, 57)
         Me.TableLayoutPanel1.TabIndex = 130
-        '
-        'BTN_TVenta
-        '
-        Me.BTN_TVenta.BorderRadius = 10
-        Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_TVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_TVenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
-        Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
-        Me.BTN_TVenta.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_TVenta.Location = New System.Drawing.Point(894, 3)
-        Me.BTN_TVenta.Name = "BTN_TVenta"
-        Me.BTN_TVenta.Size = New System.Drawing.Size(291, 51)
-        Me.BTN_TVenta.TabIndex = 132
-        Me.BTN_TVenta.Text = "[F4] Terminar venta"
         '
         'BTN_GuardarCuenta
         '
@@ -748,9 +726,9 @@ Partial Class P_CajaCxC
         Me.BTN_GuardarCuenta.ForeColor = System.Drawing.Color.White
         Me.BTN_GuardarCuenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Export
         Me.BTN_GuardarCuenta.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_GuardarCuenta.Location = New System.Drawing.Point(597, 3)
+        Me.BTN_GuardarCuenta.Location = New System.Drawing.Point(795, 3)
         Me.BTN_GuardarCuenta.Name = "BTN_GuardarCuenta"
-        Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(291, 51)
+        Me.BTN_GuardarCuenta.Size = New System.Drawing.Size(390, 51)
         Me.BTN_GuardarCuenta.TabIndex = 131
         Me.BTN_GuardarCuenta.Text = "[F3] Actualizar cuenta"
         '
@@ -767,9 +745,9 @@ Partial Class P_CajaCxC
         Me.BTN_Abonar.ForeColor = System.Drawing.Color.White
         Me.BTN_Abonar.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Dolar
         Me.BTN_Abonar.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Abonar.Location = New System.Drawing.Point(300, 3)
+        Me.BTN_Abonar.Location = New System.Drawing.Point(399, 3)
         Me.BTN_Abonar.Name = "BTN_Abonar"
-        Me.BTN_Abonar.Size = New System.Drawing.Size(291, 51)
+        Me.BTN_Abonar.Size = New System.Drawing.Size(390, 51)
         Me.BTN_Abonar.TabIndex = 128
         Me.BTN_Abonar.Text = "[F2] Abonar"
         '
@@ -788,7 +766,7 @@ Partial Class P_CajaCxC
         Me.BTN_RegresarCaja.ImageSize = New System.Drawing.Size(40, 40)
         Me.BTN_RegresarCaja.Location = New System.Drawing.Point(3, 3)
         Me.BTN_RegresarCaja.Name = "BTN_RegresarCaja"
-        Me.BTN_RegresarCaja.Size = New System.Drawing.Size(291, 51)
+        Me.BTN_RegresarCaja.Size = New System.Drawing.Size(390, 51)
         Me.BTN_RegresarCaja.TabIndex = 114
         Me.BTN_RegresarCaja.Text = "[F1] Regresar"
         '
@@ -868,7 +846,6 @@ Partial Class P_CajaCxC
     Friend WithEvents lbl_tituloProdFav As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents BTN_RegresarCaja As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_GuardarCuenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_Abonar As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents FLW_FavProdBtn As Syncfusion.Windows.Forms.Tools.FlowLayout

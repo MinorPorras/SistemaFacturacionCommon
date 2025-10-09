@@ -191,7 +191,7 @@ Namespace SistemaFacturacion.Modules
         End Function
 
         ' Abre la ventana de configuración general y selecciona la pestaña indicada
-        Public Sub entrarConfig(index As Integer, owner As Form)
+        Public Sub EntrarConfig(index As Integer, owner As Form)
             Dim frmConf As New ConfigGeneral With {
                 .InitialTabIndex = index
             }
@@ -543,6 +543,7 @@ Namespace SistemaFacturacion.Modules
                     fecha_creacion DATETIME NOT NULL,
                     saldo_total DECIMAL(10, 2) NOT NULL,
                     comentario TEXT,
+                    estado INTEGER NOT NULL,
                     FOREIGN KEY (ID_Cliente) REFERENCES Clientes(ID))"
             Dim param As New Dictionary(Of String, Object)
             Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)

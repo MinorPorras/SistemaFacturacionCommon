@@ -2,6 +2,7 @@
 Imports Guna.UI2.WinForms
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_formating
+Imports Syncfusion.Windows.Forms.Tools
 
 Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
@@ -11,24 +12,29 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
 
         Private Sub D_VerDetallesCxC_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-            getData()
+            GetData()
         End Sub
 
-        Private Sub getData()
+        Private Sub GetData()
+            Try
+
+            Catch ex As Exception
+
+            End Try
             Dim cxc As New Cls_CuentasXCobrar
-            cxc.getDetailsWithID(ID)
+            cxc.GetDetailsWithID(ID)
             lblCliente.Text = cxc.Cliente
-            lblFechaCreacion.Text = cxc.fecha_creacion.ToString("dd/MM/yyyy hh:mm:ss tt")
+            lblFechaCreacion.Text = cxc.Fecha_creacion.ToString("dd/MM/yyyy hh:mm:ss tt")
 
-            TXT_Total.Text = cxc.formated_saldo_total
-            TXT_Comentario.Text = cxc.comentario
+            TXT_Total.Text = cxc.Formated_saldo_total
+            TXT_Comentario.Text = cxc.Comentario
 
-            lblCantProds.Text = cxc.listaProductos.Count
-            Dim binProd As New BindingSource With {.DataSource = cxc.listaProductos}
+            lblCantProds.Text = cxc.ListaProductos.Count
+            Dim binProd As New BindingSource With {.DataSource = cxc.ListaProductos}
             DGV_ListProds.DataSource = binProd
 
-            lblSaldoRestante.Text = cxc.obtenerSaldoPendiente().ToString("C", culturaCR)
-            Dim binAbono As New BindingSource With {.DataSource = cxc.listaPagos}
+            lblSaldoRestante.Text = cxc.ObtenerSaldoPendiente().ToString("C", culturaCR)
+            Dim binAbono As New BindingSource With {.DataSource = cxc.ListaPagos}
             DGV_ListaAbonos.DataSource = binAbono
 
         End Sub
@@ -62,7 +68,10 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
 
             Dim hiddenColumns As New List(Of String) From {
                 {"ID"},
+                {"ID_CxC"},
+                {"ID_Usuario"},
                 {"tipo_venta"},
+                {"Vuelto"},
                 {"monto_efectivo"},
                 {"monto_tarjeta"},
                 {"total"}
@@ -73,18 +82,20 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                 {"formated_monto_efectivo", "Efectivo"},
                 {"formated_monto_tarjeta", "Tarjeta"},
                 {"formated_total", "Total"},
+                {"formated_vuelto", "Vuelto"},
                 {"Comentario", "Comentario"}
             }
             Dim columnSizes As New Dictionary(Of String, Integer) From {
-                {"Comentario", 600},
-                {"Fecha", 60},
-                {"tipo_venta_value", 70},
-                {"formated_monto_efectivo", 60},
-                {"formated_monto_tarjeta", 60},
-                {"formated_total", 60}
+                {"Comentario", 500},
+                {"Fecha", 90},
+                {"tipo_venta_value", 100},
+                {"formated_monto_efectivo", 90},
+                {"formated_monto_tarjeta", 90},
+                {"formated_total", 90}
             }
 
             formatDGV(DGV_ListaAbonos, hiddenColumns, formatedNames, columnSizes)
+            DGV_ListaAbonos.RowHeadersDefaultCellStyle.Alignment = TextAlignment.Center
         End Sub
 
         Private Sub BTN_ActualizarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_ActualizarCuenta.Click
@@ -92,6 +103,7 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                 cajaForm.idCuenta = ID
                 cajaForm.ShowDialog()
                 Me.Select()
+                getData()
             End Using
         End Sub
     End Class

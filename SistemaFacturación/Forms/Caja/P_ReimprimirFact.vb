@@ -203,7 +203,7 @@ Namespace SistemaFacturacion.Forms.Caja
                 msgError("No se encontró ninguna factura reciente.")
             End If
 
-            Md_IMPRIMIR.GENERAR_FACTURA(idFact)
+            Md_IMPRIMIR.GENERAR_FACTURA(idFact, "Comun")
         End Sub
 
         Private Sub MNU_REIMPRIMIR_Click(sender As Object, e As EventArgs) Handles MNU_REIMPRIMIR.Click
@@ -211,7 +211,7 @@ Namespace SistemaFacturacion.Forms.Caja
             If DGV_ReimprimirFact.CurrentRow IsNot Nothing Then
                 Dim idFactura As Integer = Convert.ToInt32(DGV_ReimprimirFact.CurrentRow.Cells("ID").Value)
                 ' Llamada directa a la función del módulo
-                Md_IMPRIMIR.GENERAR_FACTURA(idFactura)
+                Md_IMPRIMIR.GENERAR_FACTURA(idFactura, "Comun")
             End If
         End Sub
 

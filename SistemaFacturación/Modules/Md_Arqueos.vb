@@ -6,14 +6,15 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Namespace SistemaFacturacion.Modules
     Module Md_Arqueos
 #Region "Dialog"
-        Public Sub ShowAperturaDialog(owner As Form)
+        Public Sub ShowAperturaDialog(owner As Form, denominaciones As Cls_SaldoCaja)
             Using frmAperturaCaja As New D_AperturaCaja()
                 frmAperturaCaja.Owner = owner
+                frmAperturaCaja.saldoSiguiente = denominaciones
                 Dim result As DialogResult = frmAperturaCaja.ShowDialog()
                 If result = DialogResult.OK Then
                     Dim apertura As New Cls_CierreCaja With {
                         .ID_Usuario = idUsuActual,
-                        .Fondo_inicial = CInt(frmAperturaCaja.TXT_SaldoSiguiente.Text)
+                        .Fondo_inicial = CInt(frmAperturaCaja.saldoSiguiente.Total)
                     }
                     If apertura.IngresarApertura() Then
                         mensaje("Apertura de caja registrada con éxito", vbOKOnly, "Apertura de caja")
@@ -42,7 +43,7 @@ Namespace SistemaFacturacion.Modules
                 If Await frmCierre.infoCierre.guardarCierre() Then
                     mensaje("Cierre de caja registrado con éxito", vbOKOnly, "Cierre de caja")
                     'Se abre el formulario de apertura de caja para iniciar una nueva sesión
-                    showAperturaDialog(Owner)
+                    ShowAperturaDialog(Owner, frmCierre.infoCierre.saldoSiguienteTurno)
                 End If
             End Using
         End Sub

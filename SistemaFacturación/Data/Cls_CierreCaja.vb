@@ -23,7 +23,6 @@ Namespace SistemaFacturacion.Data
                 Return IngresoEfectivo.ToString("C", CulturaCR) ' "C" es formato de moneda
             End Get
         End Property
-
         Friend Property EntradasEfectivo As Decimal = 0
         Public ReadOnly Property Formated_EntradasEfectivo As String
             Get
@@ -44,12 +43,6 @@ Namespace SistemaFacturacion.Data
         End Property
         Friend Property Hora_apertura As Date
         Friend Property Hora_cierre As Date
-        Friend Property Efectivo_contado As Integer = 0
-        Public ReadOnly Property Formated_Efectivo_contado As String
-            Get
-                Return Efectivo_contado.ToString("C", CulturaCR) ' "C" es formato de moneda
-            End Get
-        End Property
         Public Property Diferencia As Decimal
         Public ReadOnly Property Formated_Diferencia As String
             Get
@@ -57,6 +50,13 @@ Namespace SistemaFacturacion.Data
             End Get
         End Property
         Friend Property DiferenciaPorcentaje As Decimal = 0
+        Friend Property Efectivo_contado As Integer
+        Public ReadOnly Property Formated_Efectivo_Contado As String
+            Get
+                Return Efectivo_contado.ToString("C", CulturaCR) ' "C" es formato de moneda
+            End Get
+        End Property
+        Friend Property SaldoSiguienteTurno As Cls_SaldoCaja
 
         Private ReadOnly CulturaCR As New CultureInfo("es-CR")
 
@@ -159,6 +159,7 @@ Namespace SistemaFacturacion.Data
             Hora_cierre = fechaFin
             IngresoEfectivo = ventasEfectivo
             IngresoTarjeta = ventasTarjeta
+            SaldoSiguienteTurno = New Cls_SaldoCaja()
             Efectivo_contado = 0
             Diferencia = 0
             DiferenciaPorcentaje = 0
@@ -182,12 +183,12 @@ Namespace SistemaFacturacion.Data
                                       }
                                       CargarTablaParam(T, SQL, paramList)
 
-                                      For Each row As DataRow In T1.Tables(0).Rows
-                                          Dim idTipo As Integer = Convert.ToInt32(row.Item("ID_Tipo_Movimiento"))
+                                      For Each row As DataRow In T.Tables(0).Rows
+                                          Dim idTipo As Integer = Convert.ToInt32(row.Item("ID"))
                                           If idTipo = 1 Then ' Asumiendo 1 = Entrada
-                                              EntradasEfectivo = row.Item("total")
+                                              EntradasEfectivo = row.Item("monto")
                                           ElseIf idTipo = 2 Then ' Asumiendo 2 = Salida
-                                              SalidasEfectivo = row.Item("total")
+                                              SalidasEfectivo = row.Item("monto")
                                           End If
                                       Next
 
@@ -205,7 +206,7 @@ Namespace SistemaFacturacion.Data
                                                                 " diferencia = @diferencia WHERE ID = @ID"
                                           Dim exito = EJECUTAR_PARAMETROS(consulta, New Dictionary(Of String, Object) From {
                                               {"fechaFin", Hora_cierre},
-                                              {"efectivoContado", Efectivo_contado},
+                                              {"efectivoContado", saldoSiguienteTurno.Total},
                                               {"diferencia", Diferencia},
                                               {"ID", ID}
                                           })
@@ -268,11 +269,12 @@ Namespace SistemaFacturacion.Data
             ingresoTarjeta = 0
             hora_apertura = Date.MinValue
             hora_cierre = Date.MinValue
-            efectivo_contado = 0
-            diferencia = 0
+            saldoSiguienteTurno = New Cls_SaldoCaja()
+            Diferencia = 0
             diferenciaPorcentaje = 0
             EntradasEfectivo = 0
             SalidasEfectivo = 0
+            Efectivo_Contado = 0
 
             'Se recarga la información inicial
             Await obtenerInfoInicial()
@@ -280,20 +282,6 @@ Namespace SistemaFacturacion.Data
 #End Region
 
 #Region "Calculos"
-
-        Friend Function CalcularMontoEfectivoCajaReal(listTxtDenominaciones As Dictionary(Of Integer, Guna2NumericUpDown)) As String
-            ' Reinicia el totalCajaReal a cero antes de cada cálculo
-            efectivo_contado = 0
-            For Each denominacion In listTxtDenominaciones
-                Dim valorContado As Decimal = denominacion.Value.Value
-                Dim valorDenominacion As Integer = denominacion.Key
-
-                ' Multiplica el valor del billete o la moneda por la cantidad contada
-                efectivo_contado += valorDenominacion * valorContado
-            Next
-
-            Return efectivo_contado.ToString("C", New CultureInfo("es-CR"))
-        End Function
 
         Friend Function CargarTotalEsperadoYDiferencia() As String
             'Se obtienen los datos de saldo inicial, ventas en efectivo
@@ -306,14 +294,39 @@ Namespace SistemaFacturacion.Data
             Dim saldoEsperado = saldoInicial + ventaEfectivo + Entradas - Salidas
 
             'Se obtiene el valor del saldo real contado de la caja
-            Dim saldoReal As Decimal = efectivo_contado
+            Dim saldoReal As Decimal = saldoSiguienteTurno.Total
             'Diferencia absoluta = saldoEsperado - saldoReal
-            diferencia = saldoReal - saldoEsperado
+            Diferencia = saldoReal - saldoEsperado
             'Diferencia porcentual = saldoReal * 100 / saldoEsperado
             If saldoEsperado <> 0 Then
                 diferenciaPorcentaje = (diferencia / Math.Abs(saldoEsperado)) * 100
             Else
                 diferenciaPorcentaje = 0
+            End If
+
+            'Se devuelve el saldo esperado formateado
+            Return saldoEsperado.ToString("C", New CultureInfo("es-CR"))
+        End Function
+
+        Friend Function CargarTotalEsperadoYDiferenciaDetalles() As String
+            'Se obtienen los datos de saldo inicial, ventas en efectivo
+            Dim saldoInicial As Decimal = Fondo_inicial
+            Dim ventaEfectivo As Decimal = IngresoEfectivo
+            Dim Salidas As Decimal = SalidasEfectivo
+            Dim Entradas As Decimal = EntradasEfectivo
+
+            'Saldo esperado = saldoInicial + Ventas - salidas
+            Dim saldoEsperado = saldoInicial + ventaEfectivo + Entradas - Salidas
+
+            'Se obtiene el valor del saldo real contado de la caja
+            Dim saldoReal As Decimal = Efectivo_contado
+            'Diferencia absoluta = saldoEsperado - saldoReal
+            Diferencia = saldoReal - saldoEsperado
+            'Diferencia porcentual = saldoReal * 100 / saldoEsperado
+            If saldoEsperado <> 0 Then
+                DiferenciaPorcentaje = (Diferencia / Math.Abs(saldoEsperado)) * 100
+            Else
+                DiferenciaPorcentaje = 0
             End If
 
             'Se devuelve el saldo esperado formateado

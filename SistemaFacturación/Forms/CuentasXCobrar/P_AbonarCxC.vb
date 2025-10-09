@@ -5,6 +5,8 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
 Public Class P_AbonarCxC
 
     Friend venta As Cls_Ventas
+    Friend imprimir_factura As Boolean
+    Friend Terminar_venta As Boolean
 
     ' Variables para el contenido de la factura (impresión)
     Friend encabezadoFactura As String
@@ -64,7 +66,7 @@ Public Class P_AbonarCxC
         Next
         'Se coloca el total en todas las textbox de total
         For Each txt As Guna2TextBox In txtShowTotal
-            txt.Text = venta.Saldo_restante
+            txt.Text = venta.Formated_saldo_restante
         Next
     End Sub
 
@@ -98,18 +100,18 @@ Public Class P_AbonarCxC
                 txtVuelto = TXT_MVuelto
         End Select
 
-        BTN_TVenta.Enabled = nud.Value > 0
-
         GetVuelto(nud.Value, txtVuelto)
+        BTN_TVenta.Enabled = nud.Value > 0
     End Sub
 
     Private Sub GetVuelto(entregaCliente As Decimal, txtVuelto As Guna2TextBox)
-        venta.Vuelto = entregaCliente - venta.Saldo_total
-        If venta.Vuelto > 0 Then
-            txtVuelto.Text = venta.Formated_vuelto
+        If entregaCliente >= venta.Saldo_restante Then
+            venta.Vuelto = entregaCliente - venta.Saldo_restante
         Else
-            txtVuelto.Text = "0"
+            venta.Vuelto = 0
         End If
+
+        txtVuelto.Text = venta.Formated_vuelto
     End Sub
 
     ' Manejador de evento unificado para los botones de "Colocar Total"
@@ -121,13 +123,13 @@ Public Class P_AbonarCxC
         ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
         Select Case btn.Name
             Case "BTN_EColocarTotal"
-                NUD_ECliente.Value = venta.Saldo_total
+                NUD_ECliente.Value = venta.Saldo_restante
             Case "BTN_TColocarTotal"
-                NUD_TCliente.Value = venta.Saldo_total
+                NUD_TCliente.Value = venta.Saldo_restante
             Case "BTN_SColocarTotal"
-                NUD_SCliente.Value = venta.Saldo_total
+                NUD_SCliente.Value = venta.Saldo_restante
             Case "BTN_DColocarTotal"
-                NUD_DCliente.Value = venta.Saldo_total
+                NUD_DCliente.Value = venta.Saldo_restante
         End Select
     End Sub
 
@@ -135,17 +137,17 @@ Public Class P_AbonarCxC
     Private Sub CargarRestante(efectivo As Boolean)
         Dim restante As Double
         If efectivo Then ' Si el botón de efectivo restante fue presionado
-            restante = venta.Saldo_total - NUD_MTarjeta.Value
-            If restante < 0 Then
-                restante = 0
-            End If
-            NUD_MEfectivo.Value = restante
-        Else ' Si el botón de tarjeta restante fue presionado
-            restante = venta.Saldo_total - NUD_MEfectivo.Value
+            restante = venta.Saldo_restante - NUD_MEfectivo.Value
             If restante < 0 Then
                 restante = 0
             End If
             NUD_MTarjeta.Value = restante
+        Else ' Si el botón de tarjeta restante fue presionado
+            restante = venta.Saldo_restante - NUD_MTarjeta.Value
+            If restante < 0 Then
+                restante = 0
+            End If
+            NUD_MEfectivo.Value = restante
         End If
     End Sub
 
@@ -156,9 +158,9 @@ Public Class P_AbonarCxC
         ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
         Select Case btn.Name
             Case "BTN_RestanteTarjeta"
-                CargarRestante(False)
-            Case "BTN_RestanteEfectivo"
                 CargarRestante(True)
+            Case "BTN_RestanteEfectivo"
+                CargarRestante(False)
         End Select
         Dim entregaCliente As Decimal = NUD_MEfectivo.Value + NUD_MTarjeta.Value
         ' Recalcula el vuelto y valida los montos después de agregar el restante
@@ -169,8 +171,36 @@ Public Class P_AbonarCxC
         Me.DialogResult = DialogResult.Cancel
     End Sub
 
-    Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
+    Private Sub TerminarVenta(imprimir As Boolean)
+        venta.Tipo_pago = TabControlTVenta.SelectedIndex
+        Select Case venta.Tipo_pago
+            Case 0 ' Efectivo
+                venta.Efectivo = NUD_ECliente.Value
+                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
+            Case 1 ' Tarjeta
+                venta.Tarjeta = NUD_TCliente.Value
+                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
+            Case 2 ' Sinpe
+                venta.Tarjeta = NUD_SCliente.Value
+                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
+            Case 3 ' Depósito
+                venta.Tarjeta = NUD_DCliente.Value
+                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
+            Case 4 ' Mixto
+                venta.Efectivo = NUD_MEfectivo.Value
+                venta.Tarjeta = NUD_MTarjeta.Value
+                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
+        End Select
+        Terminar_venta = (venta.Efectivo + venta.Tarjeta) >= venta.Saldo_restante
+        imprimir_factura = imprimir
+        Me.DialogResult = DialogResult.OK
+    End Sub
 
+    Private Sub BTN_TVentaImp_Click(sender As Object, e As EventArgs) Handles BTN_TVentaImp.Click
+        TerminarVenta(True)
+    End Sub
+    Private Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click
+        TerminarVenta(False)
     End Sub
 
     ' Manejador de eventos de teclado para atajos de teclado

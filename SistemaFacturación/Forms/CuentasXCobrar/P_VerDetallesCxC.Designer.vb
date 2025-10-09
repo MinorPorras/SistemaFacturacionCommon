@@ -360,7 +360,9 @@
             Me.DGV_ListaAbonos.GridColor = System.Drawing.Color.White
             Me.DGV_ListaAbonos.Location = New System.Drawing.Point(29, 0)
             Me.DGV_ListaAbonos.Margin = New System.Windows.Forms.Padding(8)
+            Me.DGV_ListaAbonos.MultiSelect = False
             Me.DGV_ListaAbonos.Name = "DGV_ListaAbonos"
+            Me.DGV_ListaAbonos.ReadOnly = True
             Me.DGV_ListaAbonos.RowHeadersVisible = False
             Me.DGV_ListaAbonos.Size = New System.Drawing.Size(1135, 129)
             Me.DGV_ListaAbonos.TabIndex = 132
@@ -377,7 +379,7 @@
             Me.DGV_ListaAbonos.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White
             Me.DGV_ListaAbonos.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing
             Me.DGV_ListaAbonos.ThemeStyle.HeaderStyle.Height = 15
-            Me.DGV_ListaAbonos.ThemeStyle.ReadOnly = False
+            Me.DGV_ListaAbonos.ThemeStyle.ReadOnly = True
             Me.DGV_ListaAbonos.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White
             Me.DGV_ListaAbonos.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
             Me.DGV_ListaAbonos.ThemeStyle.RowsStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

@@ -26,19 +26,19 @@ Namespace SistemaFacturacion.Forms.Dialogos
             Await datosCierre.ObtenerTotalMovimientosCaja()
 
             'Se calcula el total esperado y la diferencia
-            Dim saldo_esperado = datosCierre.CargarTotalEsperadoYDiferencia()
+            Dim saldo_esperado = datosCierre.CargarTotalEsperadoYDiferenciaDetalles()
 
             ' Se asignan los valores a las cajas de texto
-            TXT_SaldoInicial.Text = datosCierre.fondo_inicial.ToString("C", New CultureInfo("es-CR"))
-            TXT_VentaTarjeta.Text = datosCierre.ingresoEfectivo.ToString("C", New CultureInfo("es-CR"))
-            TXT_VentaEfectivo.Text = datosCierre.ingresoTarjeta.ToString("C", New CultureInfo("es-CR"))
+            TXT_SaldoInicial.Text = datosCierre.Formated_Fondo_inicial
+            TXT_VentaTarjeta.Text = datosCierre.Formated_IngresoTarjeta
+            TXT_VentaEfectivo.Text = datosCierre.Formated_IngresoEfectivo
 
-            TXT_SalidasRegistradas.Text = datosCierre.SalidasEfectivo.ToString("C", New CultureInfo("es-CR"))
-            TXT_EntradasRegistradas.Text = datosCierre.EntradasEfectivo.ToString("C", New CultureInfo("es-CR"))
+            TXT_SalidasRegistradas.Text = datosCierre.Formated_SalidasEfectivo
+            TXT_EntradasRegistradas.Text = datosCierre.Formated_EntradasEfectivo
 
             LBL_Usuario.Text = datosCierre.Cajero
             TXT_SaldoEsperado.Text = saldo_esperado
-            TXT_SaldoReal.Text = datosCierre.efectivo_contado.ToString("C", New CultureInfo("es-CR"))
+            TXT_SaldoReal.Text = datosCierre.Formated_Efectivo_Contado
 
             TXT_DiferenciaAbsoluta.Text = datosCierre.diferencia.ToString("#0.00")
             TXT_DiferenciaPorcentual.Text = datosCierre.diferenciaPorcentaje.ToString("#0.00") & "%"

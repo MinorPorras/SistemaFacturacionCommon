@@ -73,6 +73,7 @@ Partial Class P_AbonarCxC
         Me.BTN_RegresarVenta = New Guna.UI2.WinForms.Guna2Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_TVentaImp = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.TabControlTVenta.SuspendLayout()
         Me.Efectivo.SuspendLayout()
@@ -865,16 +866,18 @@ Partial Class P_AbonarCxC
         Me.BTN_RegresarVenta.ImageSize = New System.Drawing.Size(45, 45)
         Me.BTN_RegresarVenta.Location = New System.Drawing.Point(3, 3)
         Me.BTN_RegresarVenta.Name = "BTN_RegresarVenta"
-        Me.BTN_RegresarVenta.Size = New System.Drawing.Size(448, 60)
+        Me.BTN_RegresarVenta.Size = New System.Drawing.Size(297, 60)
         Me.BTN_RegresarVenta.TabIndex = 132
         Me.BTN_RegresarVenta.Text = "[F1] Regresar"
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 1, 0)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVentaImp, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarVenta, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 496)
@@ -898,11 +901,32 @@ Partial Class P_AbonarCxC
         Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
         Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
         Me.BTN_TVenta.ImageSize = New System.Drawing.Size(45, 45)
-        Me.BTN_TVenta.Location = New System.Drawing.Point(457, 3)
+        Me.BTN_TVenta.Location = New System.Drawing.Point(609, 3)
         Me.BTN_TVenta.Name = "BTN_TVenta"
-        Me.BTN_TVenta.Size = New System.Drawing.Size(449, 60)
-        Me.BTN_TVenta.TabIndex = 134
+        Me.BTN_TVenta.Size = New System.Drawing.Size(297, 60)
+        Me.BTN_TVenta.TabIndex = 139
         Me.BTN_TVenta.Text = "[F2] Abonar pago"
+        '
+        'BTN_TVentaImp
+        '
+        Me.BTN_TVentaImp.BorderColor = System.Drawing.Color.Red
+        Me.BTN_TVentaImp.BorderRadius = 10
+        Me.BTN_TVentaImp.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_TVentaImp.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVentaImp.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVentaImp.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_TVentaImp.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_TVentaImp.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_TVentaImp.FillColor = System.Drawing.Color.DarkOrange
+        Me.BTN_TVentaImp.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
+        Me.BTN_TVentaImp.ForeColor = System.Drawing.Color.White
+        Me.BTN_TVentaImp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
+        Me.BTN_TVentaImp.ImageSize = New System.Drawing.Size(45, 45)
+        Me.BTN_TVentaImp.Location = New System.Drawing.Point(307, 3)
+        Me.BTN_TVentaImp.Name = "BTN_TVentaImp"
+        Me.BTN_TVentaImp.Size = New System.Drawing.Size(296, 60)
+        Me.BTN_TVentaImp.TabIndex = 133
+        Me.BTN_TVentaImp.Text = "[F4] Abonar e imprimir"
         '
         'Guna2BorderlessForm1
         '
@@ -992,7 +1016,6 @@ Partial Class P_AbonarCxC
     Friend WithEvents Guna2HtmlLabel15 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents BTN_RegresarVenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
     Friend WithEvents NUD_ECliente As Guna.UI2.WinForms.Guna2NumericUpDown
     Friend WithEvents NUD_TCliente As Guna.UI2.WinForms.Guna2NumericUpDown
@@ -1000,4 +1023,6 @@ Partial Class P_AbonarCxC
     Friend WithEvents NUD_DCliente As Guna.UI2.WinForms.Guna2NumericUpDown
     Friend WithEvents NUD_MEfectivo As Guna.UI2.WinForms.Guna2NumericUpDown
     Friend WithEvents NUD_MTarjeta As Guna.UI2.WinForms.Guna2NumericUpDown
+    Friend WithEvents BTN_TVentaImp As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
 End Class

@@ -93,7 +93,7 @@ Public Class Cls_Ventas
 
             ' Si se seleccionó la opción de imprimir, genera e imprime la factura
             If imprimir Then
-                GENERAR_FACTURA(ID)
+                GENERAR_FACTURA(ID, "Comun")
             End If
             Return True
         Catch ex As Exception
@@ -117,10 +117,6 @@ Public Class Cls_Ventas
 
                                           ' 3. Guardar el comentario.
                                           GuardarComentario(db, transaction)
-
-                                          If esCuentaPorCobrar Then
-                                              EliminarCuentaPorCobrar(db, transaction)
-                                          End If
 
                                           transaction.Commit()
                                           Return "OK"
@@ -201,13 +197,6 @@ Public Class Cls_Ventas
                 cmd.ExecuteNonQuery()
             End Using
         End If
-    End Sub
-
-    Private Sub EliminarCuentaPorCobrar(db As SQLiteConnection, transaction As SQLiteTransaction)
-        Using cmd As New SQLiteCommand("DELETE FROM CC_Encabezado WHERE ID = @ID;", db, transaction)
-            cmd.Parameters.AddWithValue("@ID", ID_CxC)
-            cmd.ExecuteNonQuery()
-        End Using
     End Sub
 
     Friend Sub CargarDataFactura(id As Integer)

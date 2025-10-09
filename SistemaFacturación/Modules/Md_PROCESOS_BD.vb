@@ -185,6 +185,18 @@ Namespace SistemaFacturacion.Modules
                                       Return resultado
                                   End Function)
         End Function
+
+        Friend Function SwitchEstadoCuenta(ID As Integer, estado As Integer) As Boolean
+            SQL = "UPDATE CC_ENCABEZADO SET Estado = @estado WHERE ID = @ID"
+            Dim paramList = New Dictionary(Of String, Object) From {
+                {"ID", ID},
+                {"estado", estado}
+            }
+            If EJECUTAR_PARAMETROS(SQL, paramList) Then
+                Return True
+            End If
+            Return False
+        End Function
 #End Region
 
 #Region "Obtención de PK y Validaciones"
