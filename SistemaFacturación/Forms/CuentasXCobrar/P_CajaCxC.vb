@@ -250,12 +250,10 @@ Public Class P_CajaCxC
     Friend Sub ValidarListView()
         Dim itemCount = prodList.Count
         If itemCount >= 1 Then
-            BTN_TVenta.Enabled = True
             BTN_GuardarCuenta.Enabled = True
             MNU_CONTX.Enabled = True
         Else
             BTN_GuardarCuenta.Enabled = False
-            BTN_TVenta.Enabled = False
             MNU_CONTX.Enabled = False
         End If
     End Sub
@@ -505,8 +503,6 @@ Public Class P_CajaCxC
                 BTN_Abonar.PerformClick()
             Case Keys.F3
                 BTN_GuardarCuenta.PerformClick()
-            Case Keys.F4
-                BTN_TVenta.PerformClick()
         End Select
     End Sub
 
@@ -639,7 +635,6 @@ Public Class P_CajaCxC
     Friend Sub LIMPIAR()
 
         'Se desabilitann botones que tiene activaciones condicionales
-        BTN_TVenta.Enabled = False
         BTN_GuardarCuenta.Enabled = False
 
         TXT_BuscarProducto.Clear()
