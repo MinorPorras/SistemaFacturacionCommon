@@ -2,17 +2,134 @@
 Imports System.Data.SQLite
 Imports System.IO
 Imports System.Net
-Imports System.Web.Util
+Imports System.Threading
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
-Imports Squirrel
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_CONEXION
+Imports Velopack
 
 ' -----------------------------------------------------------------------------
 ' Módulo de inicialización y utilidades de configuración de la aplicación
 ' Incluye funciones para actualización, configuración y acceso a settings
 ' -----------------------------------------------------------------------------
 Namespace SistemaFacturacion.Modules
-
     Module Md_Inicializacion
+        'Subrutina de inicio del proyecto debe de llamarse así y ser Public
+        Public Sub Main()
+
+            'Definición del Mutex de para la instanciación única
+            Const MutexName As String = "MiAplicacionFacturacionUnica"
+
+            Dim createdNew As Boolean = False
+
+            Dim m As New Mutex(True, MutexName, createdNew)
+
+            If Not createdNew Then
+                ' Si el Mutex ya existía, otra instancia se está ejecutando
+                MessageBox.Show("Esta aplicación ya se está ejecutando.", "Sistema de Facturación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return ' Sale del Sub Main inmediatamente
+            End If
+
+            'Lógica de Velopack
+            VelopackApp.Build().Run()
+
+            ' Inicio de la aplicación
+            Application.EnableVisualStyles()
+            Application.SetCompatibleTextRenderingDefault(False)
+
+            ' **Manejador Global de Excepciones**
+            AddHandler Application.ThreadException, AddressOf Application_ThreadException
+            AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf CurrentDomain_UnhandledException
+
+            'Inicializaciones de la aplicación
+            ' 1. Crear y mostrar la SplashScreen.
+            Dim frmSplash As New P_SplashScreen
+            frmSplash.Show()
+            ' 2. Ejecutar la tarea de inicialización en segundo plano.
+            ThreadPool.QueueUserWorkItem(AddressOf RealizarInicializaciones, frmSplash)
+
+            ' Inicia la aplicación con el formulario que le indiquemos
+            Application.Run()
+
+            ' Ejemplo: Liberar recursos globales
+            LimpiarConexionesDeBaseDeDatos()
+
+            ' Ejemplo: Escribir un log de cierre
+            Console.WriteLine("La aplicación ha finalizado su ciclo de ejecución.")
+
+            'Liberamos el Mutex
+            If createdNew Then m.ReleaseMutex()
+        End Sub
+
+        Private Sub RealizarInicializaciones(stateInfo As Object)
+            ' Obtener la referencia a la SplashScreen que pasamos.
+            Dim frmSplash As P_SplashScreen = CType(stateInfo, P_SplashScreen)
+            Try
+                frmSplash.SwitchStateProgressIndicator(True)
+
+                frmSplash.UpdateStatus("Revisando por actualizaciones del sistema")
+                CheckForUpdates().Wait()
+                frmSplash.UpdateStatus("Inicializando la base de datos")
+                InicializarDB()
+                frmSplash.UpdateStatus("Inicializando configuraciones")
+                InitConfigVaribles()
+                frmSplash.UpdateStatus("Revisando la estructura de la base de datos" & vbCrLf & " y ejecutando migraciones")
+                CheckAndMigrateDatabase()
+                frmSplash.UpdateStatus("Inicialización finalizada")
+
+                frmSplash.SwitchStateProgressIndicator(False)
+
+                ' Usamos Invoke porque estamos en un hilo secundario y necesitamos
+                ' interactuar con la interfaz de usuario.
+                frmSplash.Invoke(Sub()
+                                     Dim frmInicial As New P_SelectUsu
+                                     frmInicial.Show()
+                                     frmSplash.Close()
+                                 End Sub)
+
+            Catch ex As Exception
+
+            End Try
+        End Sub
+
+        Private Sub LimpiarConexionesDeBaseDeDatos()
+            ' Lista de las variables de conexión a limpiar (asumiendo que son SQLiteConnection)
+            Dim conexiones = {Md_CONEXION.T, Md_CONEXION.T1, Md_CONEXION.T2,
+                      Md_CONEXION.T3, Md_CONEXION.T4, Md_CONEXION.T5}
+
+            ' Recorre todas las conexiones
+            For Each conn In conexiones
+                If conn IsNot Nothing Then
+                    Try
+                        conn.Dispose() ' Esto llama a Close() y libera recursos.
+                    Catch ex As Exception
+                        ' Opcional: Registrar el error si el dispose falla.
+                        Console.WriteLine($"Error al liberar conexión: {ex.Message}")
+                    End Try
+                End If
+            Next
+
+            ' Limpieza de estado de la aplicación
+            Md_CONEXION.idUsuActual = 0
+            Md_CONEXION.nomUsuActual = "" ' Asignar cadena vacía es suficiente, no necesitas el If Not String.IsNullOrEmpty
+            Md_CONEXION.CuentaAdmin = False
+            Md_CONEXION.SQL = ""
+        End Sub
+
+        Private Sub Application_ThreadException(ByVal sender As Object, ByVal e As Threading.ThreadExceptionEventArgs)
+            'Maneja errores en el hilo principal de la UI
+            MessageBox.Show($"Error en la Interfaz de Usuario: {e.Exception.Message}",
+                            "Error de UI", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Sub
+
+        Private Sub CurrentDomain_UnhandledException(ByVal sender As Object, ByVal e As UnhandledExceptionEventArgs)
+            ' Captura errores no manejados en hilos secundarios
+            Dim ex As Exception = CType(e.ExceptionObject, Exception)
+            MessageBox.Show($"Error Fatal de Aplicación: {ex.Message}{vbCrLf}La aplicación debe cerrarse.",
+                            "Error No Controlado", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            ' Forzar la salida si es un error fatal de hilo
+            Application.Exit()
+        End Sub
+
 
 #Region "Actualizaciones"
 
@@ -38,103 +155,28 @@ Namespace SistemaFacturacion.Modules
         End Function
 
         ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
-        Async Sub AutoUpdate()
+        Friend Async Function CheckForUpdates() As Task(Of Boolean)
             Dim AutoUpdate As String = GetAppSetting("AutoUpdate")
             If AutoUpdate = False Then
-                Return
+                Return False
             End If
-            ' Verifica si la aplicación se está ejecutando en modo de depuración.
-            ' Si es así, se omite la búsqueda de actualizaciones para evitar sobrescribir los archivos
-            ' de desarrollo con los de una versión publicada.
-#If DEBUG Then
-            Return
-#End If
-
-
-            ' Verifica la conexión a Internet primero
-            If Not HayConexionInternet() Then
-                MessageBox.Show("No hay conexión a internet. No se puede buscar actualizaciones.", "Sin conexión", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return
-            End If
-
-            ' Usa un bloque Try...Catch para manejar cualquier error durante el proceso de actualización
-            Try
-                Using mgr = Await UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon", prerelease:=True)
-
-                    ' 1. Verificamos si hay una actualización disponible
-                    Dim updateInfo = Await mgr.CheckForUpdate()
-
-                    ' 2. Si no hay actualizaciones, salimos de la función sin hacer nada
-                    If updateInfo.ReleasesToApply.Count = 0 Then
-                        MessageBox.Show("Tu aplicación está actualizada.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Return
-                    End If
-
-                    ' 3. Si hay actualizaciones, la descargamos y la aplicamos
-                    Dim newVersion = updateInfo.ReleasesToApply.Max().Version
-                    MessageBox.Show($"¡Nueva versión {newVersion} disponible! Descargando actualización...", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Await mgr.UpdateApp()
-
-                    MessageBox.Show("Actualización completada. Por favor, reinicia la aplicación para aplicar los cambios.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                End Using
-
-            Catch ex As Exception
-                ' En caso de un error (como no encontrar el repositorio o un problema de conexión),
-                ' no mostramos el error al usuario y simplemente salimos.
-                ' Si lo deseas, puedes registrar el error en un archivo de log.
-                MessageBox.Show("Ocurrió un error al buscar actualizaciones: " & ex.Message, "Error de actualización", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                ' Puedes agregar aquí una línea para registrar el error si lo necesitas.
-            End Try
-        End Sub
-
-        ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
-        Async Sub CheckForUpdates()
             ' Verifica si la aplicación se está ejecutando en modo de depuración.
             ' Si es así, se omite la búsqueda de actualizaciones para evitar sobrescribir los archivos
             ' de desarrollo con los de una versión publicada.
 #If DEBUG Then
             MessageBox.Show("Está en modo Debug no se revisan nuevas versiones para evitar actualizaciónes que puedan perjudicar el código de nuevas versiones",
                             "Modo DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Return
+            Return False
 #End If
 
             ' Verifica la conexión a Internet primero
             If Not HayConexionInternet() Then
                 MessageBox.Show("No hay conexión a internet. No se puede buscar actualizaciones.", "Sin conexión", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return
+                Return False
             End If
 
-            ' Usa un bloque Try...Catch para manejar cualquier error durante el proceso de actualización
-            Try
-                Using mgr = Await UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon", prerelease:=True)
-
-                    ' 1. Verificamos si hay una actualización disponible
-                    Dim updateInfo = Await mgr.CheckForUpdate()
-
-                    ' 2. Si no hay actualizaciones, salimos de la función sin hacer nada
-                    If updateInfo.ReleasesToApply.Count = 0 Then
-                        MessageBox.Show("Tu aplicación está actualizada.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Return
-                    End If
-
-                    ' 3. Si hay actualizaciones, la descargamos y la aplicamos
-                    Dim newVersion = updateInfo.ReleasesToApply.Max().Version
-                    MessageBox.Show($"¡Nueva versión {newVersion} disponible! Descargando actualización...", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    Await mgr.UpdateApp()
-
-                    MessageBox.Show("Actualización completada. Por favor, reinicia la aplicación para aplicar los cambios.", "Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                End Using
-
-            Catch ex As Exception
-                ' En caso de un error (como no encontrar el repositorio o un problema de conexión),
-                ' no mostramos el error al usuario y simplemente salimos.
-                ' Si lo deseas, puedes registrar el error en un archivo de log.
-                MessageBox.Show("Ocurrió un error al buscar actualizaciones: " & ex.Message, "Error de actualización", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                ' Puedes agregar aquí una línea para registrar el error si lo necesitas.
-            End Try
-        End Sub
+            Return True
+        End Function
 #End Region
 
 #Region "Configuraciones"
@@ -251,12 +293,12 @@ Namespace SistemaFacturacion.Modules
 #Region "Metodos de migración generales"
 
         Friend Sub InicializarDB()
-            Dim dbPersistentePath As String = GetDbPath()
+            Dim dbPersistentPath As String = GetDbPath()
 
-            If Not File.Exists(dbPersistentePath) Then
+            If Not File.Exists(dbPersistentPath) Then
                 Try
                     ' 1. Obtiene la ruta del directorio donde se guardará la base de datos.
-                    Dim dbDirectory As String = Path.GetDirectoryName(dbPersistentePath)
+                    Dim dbDirectory As String = Path.GetDirectoryName(dbPersistentPath)
 
                     ' 2. Crea el directorio si no existe. Esto incluye la carpeta \DB.
                     If Not Directory.Exists(dbDirectory) Then
@@ -265,7 +307,7 @@ Namespace SistemaFacturacion.Modules
 
                     ' 3. Ahora sí, copia la base de datos inicial a la ruta persistente.
                     Dim dbInicialPath As String = Path.Combine(Application.StartupPath, "bd\dbSistemaFacturacion.db")
-                    File.Copy(dbInicialPath, dbPersistentePath)
+                    File.Copy(dbInicialPath, dbPersistentPath)
                 Catch ex As Exception
                     MsgBox("Error al inicializar la base de datos: " & ex.Message, MsgBoxStyle.Exclamation, "Error")
                 End Try
@@ -342,14 +384,14 @@ Namespace SistemaFacturacion.Modules
                 Update_cierre_caja()
 
                 ' 3. Creación de las tablas para el manejo de las cuentas por cobrar
-                If Not inicializarCuentasXCobrar() Then
+                If Not InicializarCuentasXCobrar() Then
                     ' Si falla la inicialización (devuelve False)
                     Throw New Exception("Fallo en la inicialización de las cuentas por cobrar.")
                 End If
 
             Catch ex As Exception
                 ' Maneja cualquier error que ocurra durante la verificación o migración
-                msgError("Error general al verificar o migrar la base de datos: " & vbCrLf & vbCrLf & ex.Message)
+                MsgError("Error general al verificar o migrar la base de datos: " & vbCrLf & vbCrLf & ex.Message)
             End Try
         End Sub
 #End Region
@@ -528,10 +570,10 @@ Namespace SistemaFacturacion.Modules
             If TableExists("CC_Encabezado") Then Return True
             Dim op As Action(Of SQLiteConnection, SQLiteTransaction) =
                 Sub(conn, transaccion)
-                    If Not inicializarTablaCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Encabezado.")
-                    If Not inicializarDetalleCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_DetalleProducto.")
-                    If Not inicializarPagosCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Pagos.")
-                    If Not deleteCobradaColumn(conn, transaccion) Then Throw New Exception("Fallo aleliminar la columna 'cobrada'")
+                    If Not InicializarTablaCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Encabezado.")
+                    If Not InicializarDetalleCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_DetalleProducto.")
+                    If Not InicializarPagosCuentasXCobrar(conn, transaccion) Then Throw New Exception("Fallo al crear CC_Pagos.")
+                    If Not DeleteCobradaColumn(conn, transaccion) Then Throw New Exception("Fallo aleliminar la columna 'cobrada'")
                 End Sub
             Return EJECUTAR_TRANSACCION(op)
         End Function

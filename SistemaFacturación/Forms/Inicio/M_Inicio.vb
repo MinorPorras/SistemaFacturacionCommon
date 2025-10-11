@@ -198,7 +198,6 @@ Namespace SistemaFacturacion.Forms.Inicio
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
             msgCerrarApp()
-
         End Sub
 
         Private Sub BTN_Mantenimiento_Click(sender As Object, e As EventArgs) Handles BTN_Mantenimiento.Click

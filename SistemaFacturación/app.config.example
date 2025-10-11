@@ -11,7 +11,7 @@
 		<add name="conexionString" connectionString="Data Source=|DataDirectory|\bd\dbSistemaFacturacion.db" providerName="System.Data.SQLite" />
 	</connectionStrings>
 	<appSettings>
-		<add key="Syncfusion.Licensing" value="------Tu licencia aquí------" />
+		<add key="Syncfusion.Licensing" value="Ngo9BigBOggjHTQxAR8/V1JFaF5cXGRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWH9eeXVTR2dcVkBxW0RWYEg=" />
 	</appSettings>
 	<system.web>
 		<membership defaultProvider="ClientAuthenticationMembershipProvider">

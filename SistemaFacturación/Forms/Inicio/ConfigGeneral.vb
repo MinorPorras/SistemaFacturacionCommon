@@ -293,8 +293,8 @@ Namespace SistemaFacturacion.Forms.Inicio
             MessageBox.Show(message, "Configuración Actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End Sub
 
-        Private Sub BTN_CheckForUpdates_Click(sender As Object, e As EventArgs) Handles BTN_CheckForUpdates.Click
-            Md_Inicializacion.CheckForUpdates()
+        Private Async Sub BTN_CheckForUpdates_Click(sender As Object, e As EventArgs) Handles BTN_CheckForUpdates.Click
+            Await CheckForUpdates()
         End Sub
 
         Private Sub btn_RegInfoConfig_Click(sender As Object, e As EventArgs) Handles btn_RegInfoConfig.Click
