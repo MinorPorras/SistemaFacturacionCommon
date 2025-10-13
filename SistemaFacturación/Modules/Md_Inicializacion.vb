@@ -77,7 +77,10 @@ Namespace SistemaFacturacion.Modules
                 End If
 
                 frmSplash.UpdateStatus("Revisando por actualizaciones del sistema")
-                CheckForUpdates().Wait()
+                Dim AutoUpdate As String = GetAppSetting("AutoUpdate")
+                If AutoUpdate = "True" Then
+                    CheckForUpdates().Wait()
+                End If
                 frmSplash.UpdateStatus("Inicializando la base de datos")
                 InicializarDB()
                 frmSplash.UpdateStatus("Inicializando configuraciones")
@@ -157,16 +160,12 @@ Namespace SistemaFacturacion.Modules
 
         ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
         Friend Async Function CheckForUpdates() As Task(Of Boolean)
-            Dim AutoUpdate As String = GetAppSetting("AutoUpdate")
-            If AutoUpdate = "False" Then
-                Return False
-            End If
             ' Verifica si la aplicación se está ejecutando en modo de depuración.
             ' Si es así, se omite la búsqueda de actualizaciones para evitar sobrescribir los archivos
             ' de desarrollo con los de una versión publicada.
 #If DEBUG Then
             MessageBox.Show("Está en modo Debug no se revisan nuevas versiones para evitar actualizaciónes que puedan perjudicar el código de nuevas versiones",
-                            "Modo DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    "Modo DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return False
 #End If
 
@@ -178,7 +177,7 @@ Namespace SistemaFacturacion.Modules
 
             'verificar por medio de velopack si hay actualizaciones recientes
             Const REPO_OWNER As String = "MinorPorras"
-            Const REPO_NAME As String = "SistemaFacturacion"
+            Const REPO_NAME As String = "SistemaFacturacionCommon"
 
             Dim mgr As New UpdateManager(
                 source:=New GithubSource(
