@@ -26,6 +26,7 @@ Partial Class P_SplashScreen
         Me.Guna2PictureBox1 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.PrgIndicator = New Guna.UI2.WinForms.Guna2ProgressIndicator()
         Me.LBL_Info = New System.Windows.Forms.Label()
+        Me.LBL_Version = New System.Windows.Forms.Label()
         CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -60,12 +61,24 @@ Partial Class P_SplashScreen
         Me.LBL_Info.Text = "Inicializando el sistema"
         Me.LBL_Info.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
+        'LBL_Version
+        '
+        Me.LBL_Version.AutoSize = True
+        Me.LBL_Version.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_Version.ForeColor = System.Drawing.SystemColors.Control
+        Me.LBL_Version.Location = New System.Drawing.Point(13, 424)
+        Me.LBL_Version.Name = "LBL_Version"
+        Me.LBL_Version.Size = New System.Drawing.Size(47, 20)
+        Me.LBL_Version.TabIndex = 3
+        Me.LBL_Version.Text = "Ver: "
+        '
         'P_SplashScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.LBL_Version)
         Me.Controls.Add(Me.LBL_Info)
         Me.Controls.Add(Me.PrgIndicator)
         Me.Controls.Add(Me.Guna2PictureBox1)
@@ -76,10 +89,12 @@ Partial Class P_SplashScreen
         Me.Text = "Common Sistema de facturación"
         CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents Guna2PictureBox1 As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents PrgIndicator As Guna.UI2.WinForms.Guna2ProgressIndicator
     Friend WithEvents LBL_Info As Label
+    Friend WithEvents LBL_Version As Label
 End Class

@@ -4,8 +4,11 @@ Imports System.IO
 Imports System.Net
 Imports System.Threading
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_CONEXION
 Imports Velopack
+Imports Velopack.Sources
+Imports Velopack.Locators
+Imports Velopack.Logging
+Imports NuGet.Versioning
 
 ' -----------------------------------------------------------------------------
 ' Módulo de inicialización y utilidades de configuración de la aplicación
@@ -66,6 +69,13 @@ Namespace SistemaFacturacion.Modules
             Try
                 frmSplash.SwitchStateProgressIndicator(True)
 
+                Dim locator As IVelopackLocator = VelopackLocator.Current
+                Dim version As SemanticVersion = locator.CurrentlyInstalledVersion
+
+                If version IsNot Nothing Then
+                    frmSplash.setVersionLabel(version.ToString())
+                End If
+
                 frmSplash.UpdateStatus("Revisando por actualizaciones del sistema")
                 CheckForUpdates().Wait()
                 frmSplash.UpdateStatus("Inicializando la base de datos")
@@ -87,7 +97,7 @@ Namespace SistemaFacturacion.Modules
                                  End Sub)
 
             Catch ex As Exception
-
+                MsgError("Error durante la inicialización: " & ex.Message)
             End Try
         End Sub
 
@@ -133,15 +143,6 @@ Namespace SistemaFacturacion.Modules
 
 #Region "Actualizaciones"
 
-        'Private Async Function checkForUpdate() As Task
-        '    Using mgr = UpdateManager.GitHubUpdateManager("https://github.com/MinorPorras/SistemaFacturacionCommon")
-
-        '    End Using
-        'End Function
-
-
-
-        'Comprueba si hay conexión a internet intentando acceder a un sitio conocido
         Function HayConexionInternet() As Boolean
             Try
                 Using client As New WebClient()
@@ -157,7 +158,7 @@ Namespace SistemaFacturacion.Modules
         ' Verifica si existe una nueva versión del instalador y pregunta al usuario si desea actualizar
         Friend Async Function CheckForUpdates() As Task(Of Boolean)
             Dim AutoUpdate As String = GetAppSetting("AutoUpdate")
-            If AutoUpdate = False Then
+            If AutoUpdate = "False" Then
                 Return False
             End If
             ' Verifica si la aplicación se está ejecutando en modo de depuración.
@@ -175,7 +176,44 @@ Namespace SistemaFacturacion.Modules
                 Return False
             End If
 
+            'verificar por medio de velopack si hay actualizaciones recientes
+            Const REPO_OWNER As String = "MinorPorras"
+            Const REPO_NAME As String = "SistemaFacturacion"
+
+            Dim mgr As New UpdateManager(
+                source:=New GithubSource(
+                    repoUrl:=$"https://github.com/{REPO_OWNER}/{REPO_NAME}",
+                    accessToken:="", prerelease:=False))
+
+            ' Si la aplicación no está instalada o si esta no está disponible
+            ' para revisar o instalar actualizaciones
+            If Not mgr.IsInstalled Then
+                Return False
+            End If
+            Dim update As UpdateInfo = Await mgr.CheckForUpdatesAsync()
+            ' SI no hya una nueva versión retorna false
+            If update Is Nothing Then
+                Return False
+            End If
+
+            ' Notificar al usuario sobre la actualización disponible
+            Dim frmUpdateAvailable As New P_UpdateAvailable()
+
+            Dim htmlNotes As String = update.TargetFullRelease.NotesHTML
+            frmUpdateAvailable.LoadReleaseNotes(update.TargetFullRelease.Version.ToString(), htmlNotes)
+
+            Dim result = frmUpdateAvailable.ShowDialog()
+            If result = DialogResult.Cancel Then
+                ' El usuario decidió no actualizar
+                Return False
+            End If
+
+            Await mgr.DownloadUpdatesAsync(update)
+
+            'Aplicar la actualización y reiniciar el sistema
+            mgr.ApplyUpdatesAndExit(update.TargetFullRelease)
             Return True
+
         End Function
 #End Region
 

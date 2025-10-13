@@ -1,4 +1,6 @@
-﻿Public Class P_SplashScreen
+﻿Imports Velopack
+
+Public Class P_SplashScreen
 
     Public Sub SwitchStateProgressIndicator(isActive As Boolean)
         If Not Me.PrgIndicator.InvokeRequired Then
@@ -31,6 +33,15 @@
             ' Si ya estamos en el hilo de la UI simplemente actualiza el texto
             LBL_Info.Text = text
             LBL_Info.Refresh()
+        End If
+    End Sub
+    Public Sub setVersionLabel(ver As String)
+        If LBL_Version.InvokeRequired Then
+            Me.Invoke(Sub()
+                          LBL_Version.Text += ver
+                      End Sub)
+        Else
+            LBL_Version.Text += ver
         End If
     End Sub
 End Class
