@@ -130,8 +130,8 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
                     precioVenta.Add(DGV_Hablador.Rows(i).Cells(3).Value.ToString())
                     cantidad.Add(Convert.ToInt32(DGV_Hablador.Rows(i).Cells(4).Value))
                 Next
-
-                ImpresionHabladores.CREAR_HABLADORES(DGV_Hablador, productos, precioVenta, cantidad)
+                Dim clsImpresionHabladores As New Cls_ImpresionHabladores()
+                clsImpresionHabladores.CREAR_HABLADORES(DGV_Hablador, productos, precioVenta, cantidad)
             End If
         End Sub
 

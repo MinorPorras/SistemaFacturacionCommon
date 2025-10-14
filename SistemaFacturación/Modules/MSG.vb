@@ -1,4 +1,6 @@
 ﻿
+Imports Serilog
+
 Namespace SistemaFacturacion.Modules
 
     Module MSG
@@ -31,11 +33,13 @@ Namespace SistemaFacturacion.Modules
         End Function
         Public Sub MsgCerrarApp()
             If MsgBox("¿Desea cerra la aplicación?", vbOKCancel + vbQuestion, "Cerrar sistema") = MsgBoxResult.Ok Then
+                Log.Information("Cierre de la aplicación")
                 Application.Exit()
             End If
         End Sub
 
         Public Sub MsgError(texto As String)
+            Log.Error(texto)
             MsgBox(texto, vbOKOnly + vbCritical, "Error")
         End Sub
 
