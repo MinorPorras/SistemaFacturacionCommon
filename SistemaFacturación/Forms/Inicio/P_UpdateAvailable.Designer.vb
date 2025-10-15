@@ -30,6 +30,9 @@ Partial Class P_UpdateAvailable
         Me.BTN_Login = New Guna.UI2.WinForms.Guna2Button()
         Me.BTN_RegresarLogin = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.PB_DownloadProgress = New Guna.UI2.WinForms.Guna2ProgressBar()
+        Me.Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.LBL_Percent = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.SuspendLayout()
         '
         'Guna2BorderlessForm1
@@ -76,7 +79,7 @@ Partial Class P_UpdateAvailable
         Me.BTN_Login.ForeColor = System.Drawing.SystemColors.Control
         Me.BTN_Login.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Download
         Me.BTN_Login.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_Login.Location = New System.Drawing.Point(312, 406)
+        Me.BTN_Login.Location = New System.Drawing.Point(312, 489)
         Me.BTN_Login.Name = "BTN_Login"
         Me.BTN_Login.Size = New System.Drawing.Size(305, 62)
         Me.BTN_Login.TabIndex = 114
@@ -99,7 +102,7 @@ Partial Class P_UpdateAvailable
         Me.BTN_RegresarLogin.ForeColor = System.Drawing.SystemColors.Control
         Me.BTN_RegresarLogin.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Cerrar
         Me.BTN_RegresarLogin.ImageSize = New System.Drawing.Size(40, 40)
-        Me.BTN_RegresarLogin.Location = New System.Drawing.Point(12, 406)
+        Me.BTN_RegresarLogin.Location = New System.Drawing.Point(12, 489)
         Me.BTN_RegresarLogin.Name = "BTN_RegresarLogin"
         Me.BTN_RegresarLogin.Size = New System.Drawing.Size(294, 62)
         Me.BTN_RegresarLogin.TabIndex = 113
@@ -118,12 +121,48 @@ Partial Class P_UpdateAvailable
         Me.Guna2HtmlLabel2.Text = "Si procede con la actualización al terminar el proceso la aplicación se reiniciar" &
     "á"
         '
+        'PB_DownloadProgress
+        '
+        Me.PB_DownloadProgress.Location = New System.Drawing.Point(12, 443)
+        Me.PB_DownloadProgress.Name = "PB_DownloadProgress"
+        Me.PB_DownloadProgress.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.PB_DownloadProgress.ProgressColor2 = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.PB_DownloadProgress.Size = New System.Drawing.Size(605, 30)
+        Me.PB_DownloadProgress.TabIndex = 116
+        Me.PB_DownloadProgress.Text = "Guna2ProgressBar1"
+        Me.PB_DownloadProgress.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+        '
+        'Guna2HtmlLabel1
+        '
+        Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Guna2HtmlLabel1.ForeColor = System.Drawing.SystemColors.Control
+        Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(12, 407)
+        Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
+        Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(205, 26)
+        Me.Guna2HtmlLabel1.TabIndex = 117
+        Me.Guna2HtmlLabel1.Text = "Progreso de instalación:"
+        '
+        'LBL_Percent
+        '
+        Me.LBL_Percent.BackColor = System.Drawing.Color.Transparent
+        Me.LBL_Percent.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LBL_Percent.ForeColor = System.Drawing.SystemColors.Control
+        Me.LBL_Percent.Location = New System.Drawing.Point(223, 406)
+        Me.LBL_Percent.Name = "LBL_Percent"
+        Me.LBL_Percent.Size = New System.Drawing.Size(19, 27)
+        Me.LBL_Percent.TabIndex = 118
+        Me.LBL_Percent.Text = "%"
+        '
         'P_UpdateAvailable
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(629, 480)
+        Me.ClientSize = New System.Drawing.Size(629, 563)
+        Me.Controls.Add(Me.LBL_Percent)
+        Me.Controls.Add(Me.Guna2HtmlLabel1)
+        Me.Controls.Add(Me.PB_DownloadProgress)
         Me.Controls.Add(Me.Guna2HtmlLabel2)
         Me.Controls.Add(Me.BTN_Login)
         Me.Controls.Add(Me.BTN_RegresarLogin)
@@ -136,6 +175,7 @@ Partial Class P_UpdateAvailable
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "¡Actualización disponible!"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -145,4 +185,7 @@ Partial Class P_UpdateAvailable
     Friend WithEvents BTN_Login As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_RegresarLogin As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents PB_DownloadProgress As Guna.UI2.WinForms.Guna2ProgressBar
+    Friend WithEvents LBL_Percent As Guna.UI2.WinForms.Guna2HtmlLabel
 End Class

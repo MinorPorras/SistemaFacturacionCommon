@@ -146,6 +146,9 @@ Public Class Cls_ImpresionHabladores
                 printProducts = Nothing
                 printPrices = Nothing
                 printQuantities = Nothing
+                currentProductIndex = 0
+                currentQuantityIndex = 0
+                Log.Information("Variables de estado limpiadas.")
             End If
         End Using
 

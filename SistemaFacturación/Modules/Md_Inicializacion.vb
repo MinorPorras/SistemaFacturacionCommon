@@ -19,6 +19,14 @@ Imports Serilog.Context
 ' -----------------------------------------------------------------------------
 Namespace SistemaFacturacion.Modules
     Module Md_Inicializacion
+        Friend UpdateManagerInstance As UpdateManager
+        Private Const REPO_OWNER As String = "MinorPorras"
+        Private Const REPO_NAME As String = "SistemaFacturacionCommon"
+
+        ' URL de las últimas releases en GitHub
+        Friend ReadOnly GITHUB_REPO_URL As String = $"https://github.com/{REPO_OWNER}/{REPO_NAME}"
+        Friend ReadOnly GITHUB_RELEASES_URL As String = $"{GITHUB_REPO_URL}/releases/latest"
+
         'Subrutina de inicio del proyecto debe de llamarse así y ser Public
         Public Sub Main()
             'Inicialización de configuración de serilog
@@ -39,9 +47,16 @@ Namespace SistemaFacturacion.Modules
 
             'Lógica de Velopack
             Using LogContext.PushProperty("Feature", "Velopack")
-                VelopackApp.Build().Run()
+                VelopackApp.Build() _
+                .OnFirstRun(AddressOf Md_VelopackHandlers.HandleFirstRun) _
+                .OnBeforeUpdateFastCallback(AddressOf Md_VelopackHandlers.HandleBeforeUpdate) _
+                .OnBeforeUninstallFastCallback(AddressOf Md_VelopackHandlers.HandleBeforeUninstall) _
+                .OnRestarted(AddressOf Md_VelopackHandlers.HandleRestarted) _
+                .OnAfterInstallFastCallback(AddressOf Md_VelopackHandlers.HandleInstall) _
+                .Run()
             End Using
 
+            UpdateManagerInstance = New UpdateManager(New GithubSource(GITHUB_REPO_URL, Nothing, False))
 
             ' Inicio de la aplicación
             Application.EnableVisualStyles()
@@ -113,7 +128,7 @@ Namespace SistemaFacturacion.Modules
             End Try
         End Sub
 
-        Private Sub LimpiarConexionesDeBaseDeDatos()
+        Friend Sub LimpiarConexionesDeBaseDeDatos()
             ' Lista de las variables de conexión a limpiar (asumiendo que son SQLiteConnection)
             Dim conexiones = {Md_CONEXION.T, Md_CONEXION.T1, Md_CONEXION.T2,
                       Md_CONEXION.T3, Md_CONEXION.T4, Md_CONEXION.T5}
@@ -185,14 +200,7 @@ Namespace SistemaFacturacion.Modules
                 Return False
             End If
 
-            'verificar por medio de velopack si hay actualizaciones recientes
-            Const REPO_OWNER As String = "MinorPorras"
-            Const REPO_NAME As String = "SistemaFacturacionCommon"
-
-            Dim mgr As New UpdateManager(
-                source:=New GithubSource(
-                    repoUrl:=$"https://github.com/{REPO_OWNER}/{REPO_NAME}",
-                    accessToken:="", prerelease:=False))
+            Dim mgr = UpdateManagerInstance
 
             ' Si la aplicación no está instalada o si esta no está disponible
             ' para revisar o instalar actualizaciones
@@ -204,6 +212,7 @@ Namespace SistemaFacturacion.Modules
             ' SI no hya una nueva versión retorna false
             If update Is Nothing Then
                 Log.Information("No hay versiones nuevas que instalar")
+                Mensaje("La aplicación ya está actualizada.", "Sin actualizaciones", MessageBoxButtons.OK)
                 Return False
             End If
 
@@ -219,8 +228,12 @@ Namespace SistemaFacturacion.Modules
                 Return False
             End If
 
+            Dim progressReporter As New Action(Of Integer)(Sub(percent)
+                                                               frmUpdateAvailable.updateDownloadProgress(percent) ' Asume que tienes este método
+                                                           End Sub)
+
             Log.Information("escargando datos de la versión {version}", update.TargetFullRelease.Version)
-            Await mgr.DownloadUpdatesAsync(update)
+            Await mgr.DownloadUpdatesAsync(update, progressReporter)
 
             Log.Information("Aplicando cambios de la versión {version} y reiniciando el sistema", update.TargetFullRelease.Version)
             'Aplicar la actualización y reiniciar el sistema
@@ -348,6 +361,12 @@ Namespace SistemaFacturacion.Modules
 #Region "Migraciones e inicialización de base de datos"
 
 #Region "Metodos de migración generales"
+        ' Se asumiría que esta lógica iría en un módulo de utilidades o archivo aparte
+        Friend Sub MigrateDataFilesBeforeUpdate()
+            ' Lógica omitida, ya que usas %AppData%. 
+            ' Si no usaras %AppData%, aquí moverías archivos de la versión anterior a un lugar seguro.
+            Log.Information("Omisión de migración de archivos: Los datos persistentes residen en %AppData% y no serán afectados por la actualización.")
+        End Sub
 
         Friend Sub InicializarDB()
             Dim dbPersistentPath As String = GetDbPath()

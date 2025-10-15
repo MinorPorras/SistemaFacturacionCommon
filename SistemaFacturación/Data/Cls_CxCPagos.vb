@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SQLite
 Imports System.Globalization
+Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 
 Namespace SistemaFacturacion.Data
@@ -37,7 +38,7 @@ Namespace SistemaFacturacion.Data
         Public Property Vuelto As Decimal
         Public ReadOnly Property Formated_vuelto As String
             Get
-                Return vuelto.ToString("C", culturaCR)
+                Return Vuelto.ToString("C", culturaCR)
             End Get
         End Property
 
@@ -67,6 +68,8 @@ Namespace SistemaFacturacion.Data
                                       ' 1. USANDO la conexión para asegurar que se cierre.
                                       Using db As New SQLiteConnection(GetConnectionString())
                                           db.Open() ' Abrir la conexión
+                                          Log.Debug("Conexión a la base de datos abierta para guardar pago. UsuarioID={UserID}, CxCID={CxCID}, MontoEfectivo={Efectivo}, MontoTarjeta={Tarjeta}, Comentario={Comentario}",
+                                                    ID_Usuario, ID_CxC, Monto_efectivo, Monto_tarjeta, If(String.IsNullOrEmpty(Comentario), "N/A", Comentario))
 
                                           ' 2. USANDO la transacción para asegurar que se libere, incluso si hay Rollback o error.
                                           ' Se requiere pasar la conexión abierta (db) al BeginTransaction
@@ -90,13 +93,15 @@ Namespace SistemaFacturacion.Data
 
                                                   ' Nota: Asegúrate de que las claves del diccionario de parámetros incluyan el "@" 
                                                   ' si tu helper EJECUTAR_PARAMETROS_TRANSACCION lo necesita.
-
+                                                  Log.Information("Ejecutando inserción de pago en la base de datos.")
                                                   If EJECUTAR_PARAMETROS_TRANSACCION(consulta, paramList, db, transaction) Then
                                                       Dim idResultado = GetLastInsertedID_Transaction(db, transaction)
+                                                      Log.Information("Pago guardado con éxito. PagoID={PaymentID}", idResultado)
                                                       transaction.Commit()
                                                       Return idResultado
                                                   Else
                                                       ' Si el helper devuelve False, se hace Rollback
+                                                      Log.Error("Fallo al guardar el pago en la base de datos. Realizando rollback.")
                                                       transaction.Rollback()
                                                       Return 0
                                                   End If
@@ -104,13 +109,12 @@ Namespace SistemaFacturacion.Data
                                               Catch ex As Exception
                                                   ' Si ocurre CUALQUIER error, hacemos Rollback
                                                   transaction.Rollback()
-                                                  ' Podrías loggear o manejar la excepción aquí.
-                                                  Console.WriteLine("Error al guardar pago: " & ex.Message)
+                                                  Log.Error(ex, "Excepción al guardar el pago. Realizando rollback.")
                                                   Return 0
                                               End Try
 
-                                          End Using ' Libera la transacción
-                                      End Using ' Libera la conexión (db.Close() y db.Dispose() implícitos)
+                                          End Using
+                                      End Using
 
                                   End Function)
         End Function
@@ -142,6 +146,30 @@ Namespace SistemaFacturacion.Data
             Vuelto = If(IsDBNull(T.Tables(0).Rows(0).Item("vuelto")), 0, T.Tables(0).Rows(0).Item("vuelto"))
             Comentario = T.Tables(0).Rows(0).Item("comentario")
             Return True
+        End Function
+
+        Friend Function GetListaTotalesAbonosByDate(fechaInicio As Date, fechaFin As Date) As DataTable
+            SQL = "SELECT SUM(p.monto_efectivo) AS total_efectivo, 
+	                    SUM(p.monto_tarjeta) AS total_tarjeta, 
+	                    COUNT(p.ID) AS total_pagos 
+                    FROM CC_Pagos p
+                    INNER JOIN CC_Encabezado ce on CE.ID = p.ID_Encabezado 
+                    WHERE 
+	                    ce.estado <> 2 AND
+	                    date(p.fecha) BETWEEN date(@fechaInicio) AND date(@fechaFin);"
+            Dim paramList As New List(Of SQLiteParameter) From {
+                {New SQLiteParameter("@fechaInicio", fechaInicio.ToString("yyyy-MM-dd"))},
+                {New SQLiteParameter("@fechaFin", fechaFin.ToString("yyyy-MM-dd"))}
+            }
+            Log.Information("Obteniendo totales de abonos entre {StartDate} y {EndDate}", fechaInicio.ToString("yyyy-MM-dd"), fechaFin.ToString("yyyy-MM-dd"))
+            CargarTablaParam(T, SQL, paramList)
+            If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+                Log.Warning("No se encontraron totales de abonos en el rango de fechas especificado.")
+                Return Nothing
+            End If
+
+            Log.Information("Totales de abonos obtenidos con éxito.")
+            Return T.Tables(0)
         End Function
     End Class
 End Namespace

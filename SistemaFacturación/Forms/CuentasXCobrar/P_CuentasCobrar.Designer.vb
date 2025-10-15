@@ -49,9 +49,9 @@
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.pan_CuentasCobrar.AutoScroll = True
-            Me.pan_CuentasCobrar.Location = New System.Drawing.Point(1, 101)
+            Me.pan_CuentasCobrar.Location = New System.Drawing.Point(1, 119)
             Me.pan_CuentasCobrar.Name = "pan_CuentasCobrar"
-            Me.pan_CuentasCobrar.Size = New System.Drawing.Size(936, 396)
+            Me.pan_CuentasCobrar.Size = New System.Drawing.Size(936, 364)
             Me.pan_CuentasCobrar.TabIndex = 0
             '
             'Label1
@@ -134,6 +134,7 @@
             '
             'Guna2Shapes1
             '
+            Me.Guna2Shapes1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
             Me.Guna2Shapes1.BorderColor = System.Drawing.Color.MediumSeaGreen
             Me.Guna2Shapes1.FillColor = System.Drawing.Color.MediumSeaGreen
             Me.Guna2Shapes1.Location = New System.Drawing.Point(7, 503)
@@ -148,6 +149,7 @@
             '
             'Guna2Shapes2
             '
+            Me.Guna2Shapes2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
             Me.Guna2Shapes2.BorderColor = System.Drawing.Color.IndianRed
             Me.Guna2Shapes2.FillColor = System.Drawing.Color.IndianRed
             Me.Guna2Shapes2.Location = New System.Drawing.Point(112, 503)
@@ -162,6 +164,7 @@
             '
             'Guna2Shapes3
             '
+            Me.Guna2Shapes3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
             Me.Guna2Shapes3.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
             Me.Guna2Shapes3.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
             Me.Guna2Shapes3.Location = New System.Drawing.Point(228, 503)
@@ -176,6 +179,7 @@
             '
             'Guna2HtmlLabel1
             '
+            Me.Guna2HtmlLabel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
             Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel1.ForeColor = System.Drawing.SystemColors.Control
@@ -188,6 +192,7 @@
             '
             'Guna2HtmlLabel2
             '
+            Me.Guna2HtmlLabel2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
             Me.Guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel2.ForeColor = System.Drawing.SystemColors.Control
@@ -200,6 +205,7 @@
             '
             'Guna2HtmlLabel3
             '
+            Me.Guna2HtmlLabel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
             Me.Guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel3.ForeColor = System.Drawing.SystemColors.Control

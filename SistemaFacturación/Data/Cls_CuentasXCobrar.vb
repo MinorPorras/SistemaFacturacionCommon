@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SQLite
 Imports System.Globalization
+Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
@@ -29,6 +30,7 @@ Namespace SistemaFacturacion.Data
                         Return 0
                     End If
                 Next
+                Log.Debug("Saldo restante calculado para la cuenta por cobrar ID {ID}: {SaldoRestante}", ID, saldo)
                 Return saldo
             End Get
         End Property
@@ -52,6 +54,7 @@ Namespace SistemaFacturacion.Data
                                       ' Iniciar una transacción de base de datos
                                       Dim dbConnection As New SQLiteConnection(GetConnectionString())
                                       dbConnection.Open()
+                                      Log.Debug("Iniciando transacción para agregar/actualizar cuenta por cobrar. Actualizar: {Actualizar}", actualizar_factura_cobrar)
                                       Dim transaction As SQLiteTransaction = dbConnection.BeginTransaction()
 
                                       Try
@@ -66,6 +69,7 @@ Namespace SistemaFacturacion.Data
                                                   {"SaldoTotal", Saldo_total},
                                                   {"comentario", Comentario}
                                               }
+                                              Log.Debug("Insertando nueva cuenta por cobrar para el cliente ID {IDCliente} con saldo total {SaldoTotal}", ID_Cliente, Saldo_total)
                                               EJECUTAR_PARAMETROS_TRANSACCION(insertFacturaSQL, parametrosFactura, dbConnection, transaction)
 
                                               ID = GetLastInsertedID_Transaction(dbConnection, transaction)
@@ -85,6 +89,7 @@ Namespace SistemaFacturacion.Data
                                                   {"IDEncabezado", ID},
                                                   {"Estado", Estado}
                                               }
+                                              Log.Debug("Actualizando cuenta por cobrar ID {ID}. Nuevo saldo total: {SaldoTotal}, Estado: {Estado}", ID, Saldo_total, Estado)
                                               EJECUTAR_PARAMETROS_TRANSACCION(updateFacturaSQL, parametrosUpdate, dbConnection, transaction)
 
                                               ' Eliminar productos anteriores
@@ -92,12 +97,15 @@ Namespace SistemaFacturacion.Data
                                               Dim paramDeleteProds As New Dictionary(Of String, Object) From {
                                                 {"IDEncabezado", ID}
                                               }
+                                              Log.Debug("Eliminando productos anteriores para la cuenta por cobrar ID {ID}", ID)
                                               EJECUTAR_PARAMETROS_TRANSACCION(deleteProductosSQL, paramDeleteProds, dbConnection, transaction)
                                           End If
 
                                           Dim insertProductoSQL As String = "INSERT INTO CC_DetalleProducto 
                                                                                 (ID_Encabezado, ID_Producto, cantidad, precio, total_linea) 
                                                                                 VALUES (@IDEncabezado, @IDProducto, @Cantidad, @Precio, @TotalLinea);"
+                                          ' Insertar los productos actuales
+                                          Log.Debug("Insertando productos para la cuenta por cobrar ID {ID}", ID)
                                           For Each prod In ListaProductos
                                               Dim paramProds As New Dictionary(Of String, Object) From {
                                                 {"IDEncabezado", ID},
@@ -110,17 +118,23 @@ Namespace SistemaFacturacion.Data
                                           Next
 
                                           If ID = 0 Then
+                                              Log.Error("Error al obtener el ID de la cuenta por cobrar después de la inserción.")
                                               transaction.Rollback()
                                               Return "Error en la transacción: Cuenta no almacenada"
                                           End If
+
+                                          ' Si todo sale bien
+                                          Log.Debug("Transacción completada con éxito para la cuenta por cobrar ID {ID}", ID)
                                           transaction.Commit()
                                           Return "OK"
 
                                       Catch ex As Exception
                                           transaction.Rollback()
+                                          Log.Error(ex, "Error al agregar/actualizar la cuenta por cobrar")
                                           Return "Error en la transacción: " & ex.Message
                                       Finally
                                           If dbConnection.State = ConnectionState.Open Then
+                                              Log.Debug("Cerrando conexión de base de datos.")
                                               dbConnection.Close()
                                           End If
                                       End Try
@@ -130,11 +144,17 @@ Namespace SistemaFacturacion.Data
         Friend Sub GetDetailsWithID(ID_CxC As Integer)
             Try
                 ID = ID_CxC
-                If Not getEncabezado(ID) Then Throw New Exception("No se encontró la información inicial de la cuenta por cobrar")
-                ListaProductos = getListaProductos(ID)
-                ListaPagos = getListaPagos(ID)
+                If Not GetEncabezado(ID) Then
+                    Log.Error("No se encontró la información inicial de la cuenta por cobrar con ID {ID}", ID)
+                    Throw New Exception("No se encontró la información inicial de la cuenta por cobrar")
+                End If
+                ListaProductos = GetListaProductos(ID)
+                ListaPagos = GetListaPagos(ID)
+
+                Log.Information("Datos de la cuenta por cobrar ID {ID} obtenidos exitosamente. Cliente: {Cliente}, Productos: {ProductoCount}, Pagos: {PagoCount}",
+                                    ID, Cliente, If(ListaProductos IsNot Nothing, ListaProductos.Count, 0), If(ListaPagos IsNot Nothing, ListaPagos.Count, 0))
             Catch ex As Exception
-                Console.WriteLine($"Error al obtener los datos de la cuenta por cobrar: {ex.Message}")
+                Log.Error(ex, "Error al obtener los detalles de la cuenta por cobrar con ID {ID}", ID_CxC)
             End Try
         End Sub
 
@@ -147,8 +167,10 @@ Namespace SistemaFacturacion.Data
                 {New SQLiteParameter("@id", ID_CxC)}
             }
 
+            Log.Information("Obteniendo encabezado de la cuenta por cobrar con ID {ID}", ID_CxC)
             CargarTablaParam(T, SQL, paramList)
             If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+                Log.Warning("No se encontró la cuenta por cobrar con ID {ID}", ID_CxC)
                 Return False
             End If
             ID_Cliente = T.Tables(0).Rows(0)("ID_Cliente")
@@ -157,6 +179,8 @@ Namespace SistemaFacturacion.Data
             Saldo_total = T.Tables(0).Rows(0)("saldo_total")
             Comentario = T.Tables(0).Rows(0)("comentario")
             Estado = T.Tables(0).Rows(0)("Estado")
+            Log.Debug("Encabezado de la cuenta por cobrar ID {ID} obtenido: ClienteID={ClienteID}, Fecha={Fecha}, SaldoTotal={SaldoTotal}, Estado={Estado}",
+                        ID, ID_Cliente, Fecha_creacion, Saldo_total, Estado)
             Return True
         End Function
 
@@ -168,8 +192,10 @@ Namespace SistemaFacturacion.Data
             Dim paramList As New List(Of SQLiteParameter) From {
                 {New SQLiteParameter("@id", ID_CxC)}
             }
+            Log.Information("Obteniendo lista de productos para la cuenta por cobrar con ID {ID}", ID_CxC)
             CargarTablaParam(T, SQL, paramList)
             If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+                Log.Warning("No se encontraron productos para la cuenta por cobrar con ID {ID}, devolviendo lista vacía", ID_CxC)
                 Return New List(Of Cls_DetalleProductoCxC)
             End If
             Dim listaProd As New List(Of Cls_DetalleProductoCxC)
@@ -183,18 +209,29 @@ Namespace SistemaFacturacion.Data
                 }
                 listaProd.Add(producto)
             Next
+            Log.Debug("Lista de productos obtenida para la cuenta por cobrar ID {ID}. Total productos: {ProductoCount}", ID_CxC, listaProd.Count)
             Return listaProd
         End Function
 
         Friend Function GetListaPagos(ID_CxC As Integer) As List(Of Cls_CxCPagos)
-            SQL = "SELECT cp.ID , cp.fecha As Fecha , CP.tipo_venta, cp.monto_efectivo As Efectivo , 
-                    cp.monto_tarjeta As Tarjeta, cp.vuelto, cp.comentario As Comentario
-                    FROM CC_Pagos cp WHERE CP.ID_Encabezado = @id "
+            SQL = "SELECT cp.ID , 
+	                    cp.fecha As Fecha , 
+	                    u.usuario ,
+	                    CP.tipo_venta, 
+	                    cp.monto_efectivo As Efectivo , 
+	                    cp.monto_tarjeta As Tarjeta, 
+	                    cp.vuelto, 
+	                    cp.comentario As Comentario
+                    FROM CC_Pagos cp 
+                    LEFT JOIN usuario u ON  u.ID = cp.ID_Usuario 
+                    WHERE CP.ID_Encabezado = @id"
             Dim paramList As New List(Of SQLiteParameter) From {
                 {New SQLiteParameter("@id", ID_CxC)}
             }
+            Log.Information("Obteniendo lista de pagos para la cuenta por cobrar con ID {ID}", ID_CxC)
             CargarTablaParam(T, SQL, paramList)
             If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+                Log.Warning("No se encontraron pagos para la cuenta por cobrar con ID {ID}, devolviendo lista vacía", ID_CxC)
                 Return New List(Of Cls_CxCPagos)
             End If
             Dim listaPago As New List(Of Cls_CxCPagos)
@@ -202,14 +239,16 @@ Namespace SistemaFacturacion.Data
                 Dim pago As New Cls_CxCPagos With {
                     .ID = fila.Item("ID"),
                     .Fecha = fila.Item("Fecha"),
+                    .Cajero = fila.Item("usuario"),
                     .Tipo_venta = fila.Item("tipo_venta"),
-                    .Monto_efectivo = fila.Item("Efectivo"),
-                    .Monto_tarjeta = fila.Item("Tarjeta"),
-                    .Comentario = fila.Item("Comentario"),
-                    .Vuelto = fila.Item("vuelto")
+                    .Monto_efectivo = If(fila.Item("Efectivo") Is DBNull.Value, 0D, fila.Item("Efectivo")),
+                    .Monto_tarjeta = If(fila.Item("Tarjeta") Is DBNull.Value, 0D, fila.Item("Tarjeta")),
+                    .Comentario = If(fila.Item("Comentario") Is DBNull.Value, " ", fila.Item("Comentario")),
+                    .Vuelto = If(fila.Item("vuelto") Is DBNull.Value, 0D, fila.Item("vuelto"))
                 }
                 listaPago.Add(pago)
             Next
+            Log.Debug("Lista de pagos obtenida para la cuenta por cobrar ID {ID}. Total pagos: {PagoCount}", ID_CxC, listaPago.Count)
             Return listaPago
         End Function
 
@@ -227,22 +266,29 @@ Namespace SistemaFacturacion.Data
             Dim paramList As New List(Of SQLiteParameter) From {
                 {New SQLiteParameter("@ID", ID)}
             }
+            Log.Information("Obteniendo saldo pendiente para la cuenta por cobrar con ID {ID}", ID)
             CargarTablaParam(T, SQL, paramList)
             'Se revisa que exista la tabla
             If T Is Nothing OrElse T.Tables.Count <= 0 Then
+                Log.Warning("No se pudo obtener el saldo pendiente para la cuenta por cobrar con ID {ID}", ID)
                 Return 0
             End If
             'Se revisa que haya al menos una fila
             If T.Tables(0).Rows.Count <= 0 Then
+                Log.Warning("No se encontraron registros para calcular el saldo pendiente de la cuenta por cobrar con ID {ID}", ID)
                 Return 0
             End If
-            'Se obtiene el saldo y se revisa si este no es null
-            Dim saldo As Object = T.Tables(0).Rows(0).Item("Saldo_Pendiente")
 
-            If IsDBNull(saldo) Then
+            If IsDBNull(T.Tables(0).Rows(0).Item("Saldo_Pendiente")) Then
+                Log.Warning("El saldo pendiente para la cuenta por cobrar con ID {ID} es NULL, devolviendo 0", ID)
                 Return 0
             End If
+
+            'Se obtiene el saldo y se revisa si este no es null
+            Dim saldo As Object = If(T.Tables(0).Rows(0).Item("Saldo_Pendiente") < 0, 0, T.Tables(0).Rows(0).Item("Saldo_Pendiente"))
             'Se retorna el saldo como decimal
+            Log.Debug("Saldo pendiente para la cuenta por cobrar ID {ID} obtenido: {SaldoPendiente}", ID, Convert.ToDecimal(saldo))
+
             Return Convert.ToDecimal(saldo)
         End Function
     End Class

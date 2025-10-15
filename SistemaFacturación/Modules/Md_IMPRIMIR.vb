@@ -190,8 +190,7 @@ Namespace SistemaFacturacion.Modules
         End Function
 
         Private Function CrearFinAbono(pago As Cls_CxCPagos, cuenta As Cls_CuentasXCobrar) As String
-            Dim finFact As String = "-----------------------------------------" & vbCrLf &
-                          "Total de la cuenta: " & pago.Formated_total & vbCrLf & vbCrLf
+            Dim finFact As String = "-----------------------------------------" & vbCrLf
             If pago.Tipo_venta = 0 Then
                 finFact += "Pago del cliente: " & pago.Formated_monto_efectivo & vbCrLf
 
@@ -222,7 +221,7 @@ Namespace SistemaFacturacion.Modules
             ElseIf factura.TipoPago = 4 Then
                 finFact += "Pago en efectivo: ₡ " & factura.Efectivo & vbCrLf &
                     vbCrLf &
-                     "Pago en tarjeta: ₡ " & factura.Tarjeta
+                     "Pago en tarjeta: ₡ " & factura.Tarjeta & vbCrLf
             Else
                 finFact += "Pago en tarjeta: ₡ " & factura.Tarjeta & vbCrLf
             End If

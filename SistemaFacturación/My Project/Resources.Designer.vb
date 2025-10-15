@@ -153,6 +153,16 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property ICO_Code() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_Code", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property ICO_Config() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ICO_Config", resourceCulture)
@@ -276,6 +286,16 @@ Namespace My.Resources
         Friend ReadOnly Property ICO_Favoritos() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ICO_Favoritos", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ICO_List() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ICO_List", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

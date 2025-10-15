@@ -71,9 +71,11 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                     .Cursor = Cursors.Hand, ' Cambia el cursor a mano para indicar que es clickeable
                     .Dock = Dock.Fill
                 }
-                AddHandler panelLabels.Click, AddressOf Label_Click_Select_Cuenta
-                AddHandler panelLabels.MouseEnter, AddressOf PanelLabels_MouseEnter
-                AddHandler panelLabels.MouseLeave, AddressOf PanelLabels_MouseLeave
+                If cxc.Estado <> 2 Then
+                    AddHandler panelLabels.Click, AddressOf Label_Click_Select_Cuenta
+                    AddHandler panelLabels.MouseEnter, AddressOf PanelLabels_MouseEnter
+                    AddHandler panelLabels.MouseLeave, AddressOf PanelLabels_MouseLeave
+                End If
 
                 Dim panelButtons As New Panel With {
                     .Dock = DockStyle.Bottom,
@@ -145,10 +147,6 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                     .Dock = DockStyle.Top
                 }
 
-                'Asigna los eventos de hover y click a lblComentario
-                AddHandler lblComentario.Click, AddressOf Label_Click_Select_Cuenta
-                AddHandler lblComentario.MouseEnter, AddressOf PanelLabels_MouseEnter
-                AddHandler lblComentario.MouseLeave, AddressOf PanelLabels_MouseLeave
 
                 Dim lblSaldoRestante As New Label With {
                     .Name = $"lblSaldoRestante_{cxc.ID}",
@@ -160,12 +158,18 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
                     .Size = New Size(panelLabels.Width, panelLabels.Height / 2),
                     .Dock = DockStyle.Top
                 }
-                AddHandler lblSaldoRestante.Click, AddressOf Label_Click_Select_Cuenta
-                AddHandler lblSaldoRestante.MouseEnter, AddressOf PanelLabels_MouseEnter
-                AddHandler lblSaldoRestante.MouseLeave, AddressOf PanelLabels_MouseLeave
-
-                ' Agregar los botones al panel de botones
                 If cxc.Estado <> 2 Then
+                    'Asigna los eventos de hover y click a lblComentario
+                    AddHandler lblComentario.Click, AddressOf Label_Click_Select_Cuenta
+                    AddHandler lblComentario.MouseEnter, AddressOf PanelLabels_MouseEnter
+                    AddHandler lblComentario.MouseLeave, AddressOf PanelLabels_MouseLeave
+
+                    ' Asigna los eventos de hover y click a lblSaldoRestante
+                    AddHandler lblSaldoRestante.Click, AddressOf Label_Click_Select_Cuenta
+                    AddHandler lblSaldoRestante.MouseEnter, AddressOf PanelLabels_MouseEnter
+                    AddHandler lblSaldoRestante.MouseLeave, AddressOf PanelLabels_MouseLeave
+
+                    ' Agregar los botones al panel de botones
                     panelButtons.Controls.Add(btnSwitchEstado)
                 End If
 

@@ -673,6 +673,8 @@
     <None Include="Resources\ICO_Unlock.png" />
     <None Include="Resources\ICO_Lock.png" />
     <None Include="Resources\ICO_Search.png" />
+    <None Include="Resources\ICO_Code.png" />
+    <None Include="Resources\ICO_List.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

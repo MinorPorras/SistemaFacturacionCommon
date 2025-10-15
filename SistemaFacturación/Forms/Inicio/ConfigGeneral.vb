@@ -1,11 +1,13 @@
 ﻿Imports System.Data.SQLite
 Imports Guna.UI2.WinForms
+Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 
 Namespace SistemaFacturacion.Forms.Inicio
 
     Public Class ConfigGeneral
+
         Private nudCodMappings As Dictionary(Of Guna2NumericUpDown, String)
         Private nudHabladorMappings As New Dictionary(Of Guna.UI2.WinForms.Guna2NumericUpDown, String)
 
@@ -96,7 +98,7 @@ Namespace SistemaFacturacion.Forms.Inicio
         End Sub
 
         Private Sub Guna2ImageButton1_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            MsgCerrarApp()
         End Sub
 
 #Region "TabDB"
@@ -144,7 +146,7 @@ Namespace SistemaFacturacion.Forms.Inicio
             If Not OFD_ImportarDB.FileName = "" Then
                 Dim NuevaDB As String = OFD_ImportarDB.FileName
                 Md_BackupDB.ImportarDB(NuevaDB)
-                msgRestart()
+                MsgRestart()
             End If
         End Sub
 
@@ -175,7 +177,7 @@ Namespace SistemaFacturacion.Forms.Inicio
                 Md_Inicializacion.SetAppSetting(key, folderPath)
 
                 MessageBox.Show("Carpeta seleccionada: " & folderPath)
-                msgRestart()
+                MsgRestart()
             End If
         End Sub
 #End Region
@@ -220,7 +222,7 @@ Namespace SistemaFacturacion.Forms.Inicio
                 Dim appSettingName As String = entry.Value
                 Md_Inicializacion.SetAppSetting(appSettingName, nud.Value)
             Next
-            msgDatoAlm()
+            MsgDatoAlm()
         End Sub
 
         Private Sub BTN_Regresar_Click(sender As Object, e As EventArgs) Handles BTN_Regresar.Click
@@ -247,7 +249,7 @@ Namespace SistemaFacturacion.Forms.Inicio
                 Dim appSettingName As String = entry.Value
                 Md_Inicializacion.SetAppSetting(appSettingName, nud.Value)
             Next
-            msgDatoAlm()
+            MsgDatoAlm()
         End Sub
         Private Sub SWT_ModHablador_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_ModHablador.CheckedChanged
             ' Habilita o deshabilita los controles y el botón en un solo bucle
@@ -303,6 +305,28 @@ Namespace SistemaFacturacion.Forms.Inicio
 
         Private Sub BTN_ConfigRegHablador_Click(sender As Object, e As EventArgs) Handles BTN_ConfigRegHablador.Click
             Me.Close()
+        End Sub
+
+        Private Sub BTN_CodFuente_Click(sender As Object, e As EventArgs)
+            OpenUrlInBrowser(GITHUB_REPO_URL)
+        End Sub
+
+        Private Sub BTN_ListaCambios_Click(sender As Object, e As EventArgs)
+            OpenUrlInBrowser(GITHUB_RELEASES_URL)
+        End Sub
+
+        ''' <summary>
+        ''' Abre la URL especificada en el navegador web predeterminado del sistema.
+        ''' </summary>
+        Friend Sub OpenUrlInBrowser(ByVal url As String)
+            Try
+                ' Usa Process.Start(url) para abrir el URL con el programa predeterminado (el navegador).
+                Process.Start(url)
+                Log.Information($"Abriendo URL: {url} en el navegador.")
+            Catch ex As Exception
+                ' Muestra un mensaje al usuario si el proceso falla (por ejemplo, si no hay navegador configurado)
+                MsgError($"No se pudo abrir el enlace. Por favor, verifica tu navegador web. Error: {ex.Message}")
+            End Try
         End Sub
 
 #End Region
@@ -386,7 +410,7 @@ Namespace SistemaFacturacion.Forms.Inicio
                                         If DGV_BProd.IsHandleCreated Then
                                             If ex.Message <> "InvalidArgument=El valor de '0' no es válido para 'index'." & vbCrLf & "Nombre del parámetro: index" Then
                                                 ' Mostrar un mensaje de error genérico
-                                                msgError("Error al cargar la lista de clientes: " & ex.Message)
+                                                MsgError("Error al cargar la lista de clientes: " & ex.Message)
                                             End If
                                         End If
                                     End Sub)
@@ -413,7 +437,7 @@ Namespace SistemaFacturacion.Forms.Inicio
             For Each row As DataGridViewRow In DGV_FavProd.Rows
                 If row.Cells(0).Value IsNot Nothing AndAlso DGV_BProd.SelectedRows(0).Cells(0).Value IsNot Nothing Then
                     If row.Cells(0).Value.ToString() = DGV_BProd.SelectedRows(0).Cells(0).Value.ToString() Then
-                        msgError("El producto ya está en la lista de favoritos.")
+                        MsgError("El producto ya está en la lista de favoritos.")
                         Return
                     End If
                 End If
@@ -557,12 +581,12 @@ Namespace SistemaFacturacion.Forms.Inicio
 
                     ' 4. Confirma la transacción.
                     transaction.Commit()
-                    MSG.mensaje("Se ha guardado el nuevo orden de productos favoritos.", vbOKOnly, "Favoritos guardados")
+                    MSG.Mensaje("Se ha guardado el nuevo orden de productos favoritos.", vbOKOnly, "Favoritos guardados")
 
                 Catch ex As Exception
                     ' 5. Revierte la transacción SÓLO si fue inicializada correctamente.
                     transaction?.Rollback()
-                    msgError("Error al guardar el nuevo orden: " & ex.Message)
+                    MsgError("Error al guardar el nuevo orden: " & ex.Message)
 
                 Finally
                     If TypeOf Me.Owner Is P_Caja Then

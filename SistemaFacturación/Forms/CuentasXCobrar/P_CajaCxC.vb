@@ -595,15 +595,13 @@ Public Class P_CajaCxC
                     .Num_factura = numFactura,
                     .Tipo_pago = 1,
                     .ID_CxC = idCuenta,
-                    .Saldo_restante = Cuenta.Saldo_restante,
+                    .Saldo_restante = 0,
                     .Efectivo = abonarForm.venta.Efectivo,
                     .Tarjeta = abonarForm.venta.Tarjeta,
                     .Vuelto = abonarForm.venta.Vuelto
                 }
 
-                If Await venta.GuardarFactura(abonarForm.imprimir_factura, True) Then
-                    Me.DialogResult = DialogResult.OK
-                End If
+                Await venta.GuardarFactura(abonarForm.imprimir_factura, True)
 
                 SwitchEstadoCuenta(Cuenta.ID, 2) ' Se pasa el estado a cobrada
                 Me.DialogResult = DialogResult.OK

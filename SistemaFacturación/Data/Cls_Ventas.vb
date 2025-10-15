@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SQLite
 Imports System.Globalization
+Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 Imports Syncfusion.CompoundFile.XlsIO.Native
@@ -73,6 +74,7 @@ Public Class Cls_Ventas
     ' Subrutina principal para guardar la factura
     Friend Async Function GuardarFactura(imprimir As Boolean, esCuentaPorCobrar As Boolean) As Task(Of Boolean)
         If MsgBox("¿Desea terminar la venta?", vbOKCancel + vbDefaultButton1, "Confirmar") = MsgBoxResult.Cancel Then
+            Log.Information("Guardado de factura cancelado por el usuario.")
             Return False
         End If
 
@@ -82,22 +84,24 @@ Public Class Cls_Ventas
         End If
 
         Try
-            Comentario = Comentario
-
             Dim resultado As String = Await GuardarFacturaDB(esCuentaPorCobrar)
             'Si dió algún tipo de error al guardar la factura, se muestra el mensaje y se sale del sub
             If resultado <> "OK" Then
-                msgError("Error al guardar la factura: " & resultado)
+                MsgError("Error al guardar la factura: " & resultado)
                 Return False
             End If
 
             ' Si se seleccionó la opción de imprimir, genera e imprime la factura
             If imprimir Then
+                Log.Information("Factura guardada con éxito. ID={FacturaID}, NumFactura={NumFactura}, ClienteID={ClienteID}, Total={Total}, Efectivo={Efectivo}, Tarjeta={Tarjeta}, Vuelto={Vuelto}, TipoPago={TipoPago}",
+                                ID, Num_factura, ID_Cliente, Saldo_total, Efectivo, Tarjeta, Vuelto, Formated_tipo_pago)
                 GENERAR_FACTURA(ID, "Comun")
             End If
+
+            Log.Information("Proceso de guardado de factura completado con éxito.")
             Return True
         Catch ex As Exception
-            msgError("Error: " & ex.Message)
+            MsgError("Error al guardar o generar la factura: " & ex.Message)
             Return False
         End Try
     End Function
@@ -106,17 +110,24 @@ Public Class Cls_Ventas
 
                                   Using db As New SQLiteConnection(GetConnectionString())
                                       db.Open()
+                                      Log.Debug("Conexión a la base de datos abierta para guardar factura. UsuarioID={UserID}, ClienteID={ClienteID}, Total={Total}, Efectivo={Efectivo}, Tarjeta={Tarjeta}, Vuelto={Vuelto}, TipoPago={TipoPago}",
+                                                ID_Cajero, ID_Cliente, Saldo_total, Efectivo, Tarjeta, Vuelto, Formated_tipo_pago)
                                       Dim transaction As SQLiteTransaction = db.BeginTransaction()
 
                                       Try
                                           ' 1. Guardar o actualizar la factura principal.
                                           GuardarFactura(db, transaction)
+                                          Log.Information("Factura principal guardada con éxito. ID={FacturaID}", ID)
 
                                           ' 2. Guardar los productos y actualizar el inventario.
                                           GuardarProductos(db, transaction)
+                                          Log.Information("Productos de la factura guardados y inventario actualizado con éxito. FacturaID={FacturaID}, NumProductos={NumProductos}",
+                                                            ID, ListaProductos.Count)
 
                                           ' 3. Guardar el comentario.
                                           GuardarComentario(db, transaction)
+                                          Log.Information("Comentario de la factura guardado con éxito. FacturaID={FacturaID}, Comentario={Comentario}",
+                                                                ID, If(String.IsNullOrEmpty(Comentario), "N/A", Comentario))
 
                                           transaction.Commit()
                                           Return "OK"
@@ -134,6 +145,7 @@ Public Class Cls_Ventas
         Dim insertFacturaSQL As String = "INSERT INTO factura 
             (ID, num_factura, fecha_emision, ID_Cliente, ID_usuario, total, efectivo_cliente, tarjeta_cliente, vuelto, tipo_venta) 
             VALUES (@id, @num_factura, @fecha, @idCliente, @idUsu, @total, @efectivo, @tarjeta, @vuelto, @tipo_venta)"
+        Log.Debug("Preparando comando SQL para insertar/actualizar factura: {SQL}", insertFacturaSQL)
         Using cmd As New SQLiteCommand(insertFacturaSQL, db, transaction)
             cmd.Parameters.AddWithValue("@id", ID)
             cmd.Parameters.AddWithValue("@num_factura", Num_factura)
@@ -152,6 +164,7 @@ Public Class Cls_Ventas
     ' Elimina los productos anteriores y guarda los nuevos, actualizando el inventario.
     Private Sub GuardarProductos(db As SQLiteConnection, transaction As SQLiteTransaction)
         Dim deleteProductosSQL As String = "DELETE FROM factura_producto WHERE ID_Factura = @idFactura"
+        Log.Information("Eliminando productos anteriores de la factura ID={FacturaID} antes de insertar nuevos productos.", ID)
         Using cmd As New SQLiteCommand(deleteProductosSQL, db, transaction)
             cmd.Parameters.AddWithValue("@idFactura", ID)
             cmd.ExecuteNonQuery()
@@ -159,6 +172,8 @@ Public Class Cls_Ventas
 
         For Each producto As Cls_ProductoCaja In ListaProductos
             Dim insertProductoSQL As String = "INSERT INTO factura_producto (ID_Factura, ID_Producto, cant, precio_venta) VALUES (@idFactura, @idProducto, @cantidad, @precioVenta)"
+            Log.Information("Insertando producto en factura. FacturaID={FacturaID}, ProductoID={ProductoID}, Cantidad={Cantidad}, PrecioVenta={PrecioVenta}",
+                            ID, producto.ID, producto.Cantidad, producto.Precio)
             Using cmd As New SQLiteCommand(insertProductoSQL, db, transaction)
                 cmd.Parameters.AddWithValue("@idFactura", ID)
                 cmd.Parameters.AddWithValue("@idProducto", producto.ID)
@@ -167,7 +182,9 @@ Public Class Cls_Ventas
                 cmd.ExecuteNonQuery()
             End Using
 
-            Dim updateInventarioSQL As String = "UPDATE producto SET inventario = inventario - @cantidad WHERE ID = @idProducto"
+            Dim updateInventarioSQL As String = "UPDATE producto Set inventario = inventario - @cantidad WHERE ID = @idProducto"
+            Log.Information("Actualizando inventario del producto. ProductoID={ProductoID}, CantidadRestada={CantidadRestada}",
+                            producto.ID, producto.Cantidad)
             Using cmd As New SQLiteCommand(updateInventarioSQL, db, transaction)
                 cmd.Parameters.AddWithValue("@cantidad", producto.Cantidad)
                 cmd.Parameters.AddWithValue("@idProducto", producto.ID)
@@ -179,28 +196,31 @@ Public Class Cls_Ventas
     ' Guarda o actualiza el comentario de la factura.
     Private Sub GuardarComentario(db As SQLiteConnection, transaction As SQLiteTransaction)
         Dim countComentario As Integer = 0
-        Using cmd As New SQLiteCommand("SELECT COUNT(*) FROM factura_comentario WHERE ID_Factura = @idFactura", db, transaction)
+        Using cmd As New SQLiteCommand("Select COUNT(*) FROM factura_comentario WHERE ID_Factura = @idFactura", db, transaction)
             cmd.Parameters.AddWithValue("@idFactura", ID)
+            Log.Information("Verificando existencia de comentario para la factura ID={FacturaID}", ID)
             countComentario = Convert.ToInt32(cmd.ExecuteScalar())
         End Using
 
         If countComentario > 0 Then
-            Using cmd As New SQLiteCommand("UPDATE factura_comentario SET comentario = @comentario WHERE ID_Factura = @idFactura", db, transaction)
+            Using cmd As New SQLiteCommand("UPDATE factura_comentario Set comentario = @comentario WHERE ID_Factura = @idFactura", db, transaction)
                 cmd.Parameters.AddWithValue("@comentario", Comentario)
                 cmd.Parameters.AddWithValue("@idFactura", ID)
+                Log.Information("Actualizando comentario existente para la factura ID={FacturaID}", ID)
                 cmd.ExecuteNonQuery()
             End Using
         ElseIf countComentario = 0 And Not String.IsNullOrEmpty(Comentario) Then
             Using cmd As New SQLiteCommand("INSERT INTO factura_comentario (ID_Factura, comentario) VALUES (@idFactura, @comentario)", db, transaction)
                 cmd.Parameters.AddWithValue("@comentario", Comentario)
                 cmd.Parameters.AddWithValue("@idFactura", ID)
+                Log.Information("Insertando nuevo comentario para la factura ID={FacturaID}", ID)
                 cmd.ExecuteNonQuery()
             End Using
         End If
     End Sub
 
     Friend Sub CargarDataFactura(id As Integer)
-        Dim consulta = "SELECT f.ID, f.num_factura, f.fecha_emision, c.ID As 'ID_Cliente' c.nombre AS 'Cliente', " &
+        Dim consulta = "Select f.ID, f.num_factura, f.fecha_emision, c.ID As 'ID_Cliente' c.nombre AS 'Cliente', " &
             "u.ID AS 'ID_Usuario', u.usuario AS 'Cajero', f.tipo_venta, " &
             "f.efectivo_cliente, f.tarjeta_cliente , f.vuelto , fc.comentario, f.total " &
             "FROM factura f " &
@@ -211,9 +231,11 @@ Public Class Cls_Ventas
         Dim paramList As New List(Of SQLiteParameter) From {
             {New SQLiteParameter("@ID", id)}
         }
+        Log.Information("Cargando datos de la factura ID={FacturaID} desde la base de datos.", id)
         CargarTablaParam(T, consulta, paramList)
 
         If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+            MsgError("No se encontró la factura especificada.")
             Exit Sub
         End If
 
@@ -229,8 +251,14 @@ Public Class Cls_Ventas
         Tarjeta = fact("tarjeta_cliente")
         Vuelto = fact("vuelto")
         Saldo_total = fact("total")
+        Cajero = fact("Cajero")
+        Comentario = If(IsDBNull(fact("comentario")), "", fact("comentario"))
 
-        getListaProductos()
+        Log.Information("Datos de la factura cargados: NumFactura={NumFactura}, ClienteID={ClienteID}, CajeroID={CajeroID}, Total={Total}, Efectivo={Efectivo}, Tarjeta={Tarjeta}, Vuelto={Vuelto}, TipoPago={TipoPago}",
+                        Num_factura, ID_Cliente, ID_Cajero, Saldo_total, Efectivo, Tarjeta, Vuelto, Formated_tipo_pago)
+
+        Log.Information("Cargando lista de productos para la factura ID={FacturaID}", id)
+        GetListaProductos()
     End Sub
 
     Friend Sub GetListaProductos()
@@ -242,10 +270,11 @@ Public Class Cls_Ventas
         Dim paramList As New List(Of SQLiteParameter) From {
             {New SQLiteParameter("@ID", ID)}
         }
-
+        Log.Information("Ejecutando consulta para obtener productos de la factura ID={FacturaID}", ID)
         CargarTablaParam(T, SQL, paramList)
 
         If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+            Log.Warning("No se encontraron productos asociados a la factura ID={FacturaID}. Devolviendo la lista vacía", ID)
             ListaProductos = New List(Of Cls_ProductoCaja)
         End If
 
@@ -260,6 +289,8 @@ Public Class Cls_Ventas
 
             ListaProductos.Add(prod)
         Next
+
+        Log.Information("Productos cargados para la factura ID={FacturaID}. NumProductos={NumProductos}", ID, ListaProductos.Count)
     End Sub
 
 End Class
