@@ -28,7 +28,8 @@ jobs:
       # Ejecutar la restauración de paquetes
       - name: Run NuGet Restore
         shell: pwsh
-        run: nuget restore "SistemaFacturación/SistemaFacturación.vbproj"
+        run: |
+          nuget restore "SistemaFacturación/SistemaFacturación.vbproj" -PackagesDirectory "packages
 
       - name: Get Version from Project File
         id: get-version
