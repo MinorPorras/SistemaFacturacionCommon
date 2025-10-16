@@ -82,7 +82,7 @@ jobs:
         shell: pwsh
         run: |
           vpk pack `
-            -u "SistemaFacturacionCommon" `
+            -u "CommonSistemaFacturacion" `
             -v "${{ steps.get-version.outputs.version }}" `
             -p "SistemaFacturación\publish" `
             -e "Sistema de Facturación Common.exe" `
