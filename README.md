@@ -9,6 +9,7 @@
 [![Estado](https://img.shields.io/badge/estado-En%20producción-brightgreen)](https://github.com/MinorPorras/SistemaFacturacionCommon)
 
 ![Logo SU Common](docs/assets/logoCompletoSFCommonTransparent.png)
+
 Este programa y sistema cuenta con diversas capacidades para el manejo de inventarios y de la facturación y ventas de varios tipos de negocios. Está diseñado de forma específica para panaderías, pero este taambién resulta muy útil y eficiente para el trabajo en supermercados, restaurantes y más.
 
 ## Instalación
@@ -17,7 +18,7 @@ https://github.com/MinorPorras/SistemaFacturacionCommon/releases/latest
 
 ## Requisitos del sistema
 - Windows 10 o superior
-- .NET Framework 4.8 (o especifica la versión que uses)
+- .NET Framework 4.7.2
 - Impresora térmica compatible (opcional, para facturas/habladores)
 - Conexión a internet únicamente necesaria para actualizaciones (las actualizaciones también se pueden descargar manualmente desde la página de lanzamientos, sin necesidad de conexión a internet.)
 
