@@ -48,13 +48,21 @@ jobs:
       - name: Create Dummy App.config
         shell: pwsh
         run: |
-          $configPath = "SistemaFacturación/app.config" 
-          # Concatenación de strings original con alineación YAML segura
+          $configPath = "SistemaFacturación/app.config"
+          
+          # La clave se obtiene de forma segura de GitHub Secrets
+          $syncfusionKey = "${{ secrets.SYNCFUSION_LICENSE }}"
+          
           $xmlContent = '<?xml version="1.0" encoding="utf-8" ?>' + "`n" + `
             '<configuration>' + "`n" + `
+            '  <appSettings>' + "`n" + `
+            "    <add key=`"Syncfusion.Licensing`" value=`"$syncfusionKey`" />" + "`n" + `
+            '    <add key="ClientSettingsProvider.ServiceUri" value="" />' + "`n" + `
+            '  </appSettings>' + "`n" + `
             '</configuration>'
+          
           $xmlContent | Out-File -FilePath $configPath -Encoding UTF8
-          Write-Host "Dummy app.config creado en $configPath para el build."
+          Write-Host "Dummy app.config creado y licencia Syncfusion inyectada."
 
       # --- PASO: COMPILAR PROYECTO ---
       - name: Build Project with MSBuild
