@@ -1,0 +1,71 @@
+name: Deploy Velopack Release to GitHub
+
+on:
+  push:
+    branches: [ stock ]
+  workflow_dispatch:
+
+jobs:
+  deploy-to-github-releases:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Get Version from Project File
+        id: get-version
+        shell: pwsh
+        run: |
+          $content = Get-Content -Path "SistemaFacturación\SistemaFacturación.vbproj" -Raw
+          if ($content -match '<ApplicationVersion>([^<]+)</ApplicationVersion>') {
+            echo "version=$($matches[1])" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Error "ApplicationVersion not found in .vbproj"
+            exit 1
+          }
+
+      - name: Build Project with MSBuild
+        shell: pwsh
+        run: |
+          msbuild "SistemaFacturación\SistemaFacturación.vbproj" /p:Configuration=Release /p:OutDir="publish\"
+
+      - name: Verify Executable Exists
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "publish\Sistema de Facturación Common.exe")) {
+            Write-Error "Executable not found! Check project output name."
+            exit 1
+          }
+
+      - name: Install Velopack CLI (vpk)
+        shell: pwsh
+        run: |
+          dotnet tool install -g vpk
+
+      - name: Create and Upload Release with Velopack
+        shell: pwsh
+        run: |
+          vpk pack `
+            -u "SistemaFacturacionCommon" `
+            -v "${{ steps.get-version.outputs.version }}" `
+            -p "publish" `
+            -e "Sistema de Facturación Common.exe" `
+            -f "net472" `
+            --packTitle "Sistema Facturación Common" `
+            -i "SistemaFacturación\Resources\logoSFCommonSimple_1_.ico" `
+            -s "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" `
+            --releaseNotes "RELEASENOTES.md" `
+            --shortcuts "Desktop,StartMenuRoot"
+
+          vpk upload github `
+            --repoUrl "https://github.com/${{ github.repository }}" `
+            --publish `
+            --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" `
+            --tag "v${{ steps.get-version.outputs.version }}" `
+            --token "${{ secrets.GITHUB_TOKEN }}"
