@@ -18,31 +18,25 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      - name: Restore NuGet Packages
+      # --- PASO CRÍTICO: RESTAURAR PAQUETES ---
+      - name: Restore NuGet Packages Setup
         uses: nuget/setup-nuget@v2
-        with:
-          # Especificamos que busque el archivo .sln o .vbproj en la ruta
-          # NuGet busca automáticamente los archivos .config para saber qué restaurar.
-          nuget-api-key: ${{ secrets.NUGET_API_KEY }} # Opcional si usas feeds privados
-          
-      # Ejecutar la restauración de paquetes
+
       - name: Run NuGet Restore
         shell: pwsh
         run: nuget restore "SistemaFacturación/SistemaFacturación.vbproj" -PackagesDirectory "packages"
-        
+
+      # --- PASO: OBTENER VERSIÓN Y RECORTAR (SEMVER2) ---
       - name: Get Version from Project File
-        id: get-version
-        shell: pwsh
-        run: |
+        id: get-version
+        shell: pwsh
+        run: |
           $content = Get-Content -Path "SistemaFacturación\SistemaFacturación.vbproj" -Raw
           if ($content -match '<ApplicationVersion>([^<]+)</ApplicationVersion>') {
             # Obtiene la versión completa (ej: 2.1.2.0)
             $fullVersion = $matches[1]
-          
-            # Divide la versión por el punto, toma los primeros tres elementos (índices 0 a 2) y los une.
-            # Esto transforma '2.1.2.0' a '2.1.2'
+            # Recorta la versión a SemVer2 (3 partes)
             $semVer = ($fullVersion -split '\.')[0..2] -join '.'
-          
             Write-Host "Versión SemVer2 extraída: $semVer"
             echo "version=$semVer" >> $env:GITHUB_OUTPUT
           } else {
@@ -50,34 +44,34 @@ jobs:
             exit 1
           }
 
-      - name: Create Dummy App.config 
+      # --- PASO: CREAR DUMMY CONFIG ---
+      - name: Create Dummy App.config
         shell: pwsh
         run: |
-          # La ruta es relativa a la raíz del repositorio
           $configPath = "SistemaFacturación/app.config" 
-          
-          # Contenido XML concatenado. Esto evita cualquier problema de indentación YAML.
+          # Concatenación de strings original con alineación YAML segura
           $xmlContent = '<?xml version="1.0" encoding="utf-8" ?>' + "`n" + `
-                        '<configuration>' + "`n" + `
-                        '</configuration>'
-          
-          # Escribe el archivo en la ruta que MSBuild espera
+            '<configuration>' + "`n" + `
+            '</configuration>'
           $xmlContent | Out-File -FilePath $configPath -Encoding UTF8
           Write-Host "Dummy app.config creado en $configPath para el build."
-          
+
+      # --- PASO: COMPILAR PROYECTO ---
       - name: Build Project with MSBuild
         shell: pwsh
         run: |
-          # msbuild coloca el ejecutable directamente en la carpeta 'publish'
-          msbuild "SistemaFacturación\SistemaFacturación.vbproj" /p:Configuration=Release /p:OutDir="./publish/"
+          msbuild "SistemaFacturación\SistemaFacturación.vbproj" /p:Configuration=Release /p:OutDir="publish\"
 
+      # --- PASO: VERIFICAR EJECUTABLE ---
       - name: Verify Executable Exists
         shell: pwsh
         run: |
-          if (-not (Test-Path "SistemaFacturación\publish\Sistema de Facturación Common.exe")) {
-            Write-Error: Executable not found! Check project output name.
+          if (-not (Test-Path "publish\Sistema de Facturación Common.exe")) {
+            Write-Error "Executable not found! Check project output name."
+            exit 1
           }
 
+      # --- PASO: VELOPACK PACK Y UPLOAD ---
       - name: Install Velopack CLI (vpk)
         shell: pwsh
         run: |
