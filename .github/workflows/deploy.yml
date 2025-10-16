@@ -42,6 +42,21 @@ jobs:
             exit 1
           }
 
+      - name: Create Dummy App.config
+        shell: pwsh
+        run: |
+          # La ruta es relativa a la raíz del repositorio
+          $configPath = "SistemaFacturación/app.config" 
+          
+          # Contenido XML concatenado. Esto evita cualquier problema de indentación YAML.
+          $xmlContent = '<?xml version="1.0" encoding="utf-8" ?>' + "`n" + `
+                        '<configuration>' + "`n" + `
+                        '</configuration>'
+          
+          # Escribe el archivo en la ruta que MSBuild espera
+          $xmlContent | Out-File -FilePath $configPath -Encoding UTF8
+          Write-Host "Dummy app.config creado en $configPath para el build."
+          
       # (PASO NUEVO) 4. Crear un app.config temporal para satisfacer a MSBuild
       - name: Create Dummy App.config
         shell: pwsh
