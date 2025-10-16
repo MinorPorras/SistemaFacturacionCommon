@@ -121,9 +121,6 @@
   <data name="ICO_Box" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Box.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ICO_card" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\..\Downloads\icos_Common\ICO_card.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ICO_Check" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\recursos\ICO_Check.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -214,9 +211,6 @@
   <data name="ICO_LogoutCol" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_LogoutCol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logoSFCommonSimple_1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logoSFCommonSimple_1_.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ICO_Productos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_Productos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -264,5 +258,8 @@
   </data>
   <data name="ICO_List" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ICO_List.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ICO_card" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICO_card.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
