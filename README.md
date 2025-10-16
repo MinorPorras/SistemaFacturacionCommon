@@ -1,181 +1,146 @@
-**Versión 2.2.1.0 (18 de marzo de 2025)**
-- Se agregó la función de la generación de reportes. Para acceder a ellos solo se presiona el botón "Reportes" en el menu principal y, de momento la función está implementada de forma rápida y solo permite calcular las ventas totales en un intervalo de 2 fechas, en el futuro se planean mostrar gráficos, promedios y incluso generar exportaciones a pdf de lo generado.
-
-**Versión 2.2.0.1 (28 de enero 2025)**
-- Se modificó el código para la creación de los habladores con el fin de tratar de evitar que al imprimir 8 o más habladores la impresora no se detenía e imprimía infinitamente los habladores, además ahora la línea divisora se ajusto para evitar el desperdicio innecesario del papel, por lo que ahora tanto al inicio como al final de la impresión no se agrega una línea divisora extra innecesaria
-- Al regresar de cualquier manera a la caja, la caja de texto de buscar producto se selecciona por defecto
-- Se corrigieron errores ortográficos en el sistema y en este archivo
-
-**Versión 2.2 (3 de enero de 2025)**
-- Ahora al cancelar la impresión de los habladores se mantienen los productos de los que se quería imprimir el hablador en la tabla, anteriormente estos eran eliminados
-- Anteriormente luego de agregar un producto con precio variable en la caja utilizando la búsqueda de productos en este no se mostraba correctamente la pestaña donde se ingresa el precio bajo el que se venderá el producto
-- Ahor al terminar la venta o al regresar de esta pestaña a la caja se mantendrá correctamente seleccionado la caja de texto de productos
-- Se cambió el texto del botón con el cual se entra en la pestaña para reimprimir facturas pasadas y ahora además de reimprimirlas se puede ver la información de la factura sin tener que reimprimirlas
-- Se modificó toda la interfaz, principalmente los botones y la distribución de ciertas pestañas, implementando con esto en la caja una forma de que se adapte al tamaño de la pantalla en la que se está mostrando
-- Se arregló un error que se producía al modificar productos ya agregados en la caja, en el que al presionar el botón de modificar los datos de este no eran correctamente enviados a la pestaña donde se modificaba
-
-**Versión 2.1 (2 de enero de 2025)**
-Feliz año esto es lo que trae la nueva actualización
-- Ahora en las configuraciones se puede personalizar el tamaño de la fuente de los precios y productos de los habladores
-- Se agregó el botón de configuraciones desde más pestañas, principalmente las de mantenimiento para poder modificar los códigos automáticos y en la pestaña de los habladores para entrar específicamente a sus configuraciones
-- Se cambió el texto en el botón con el que se cambia la carpeta en el que se guardan los respaldos desde las configuraciones
-- Se agregaron los atajos del teclado de la pestaña de habladores
-- Las tablas de los pedidos de los proveedores de la pestaña de inicio ahora se ven de la misma forma
-- Ahora al buscar productos se puede activar un filtro que te permite ver los productos que más recientemente se ha agregado, por lo que en la base de datos igualmente se ha agregado una fila nueva en la base de datos para almacenar este espacio
-
-**Versión 2.0.0.3 (28 de diciembre de 2024)**
-- Se cambió el motor de base de datos de Microsoft Access a SQLite y se hicieron los cambios pertinentes en el código para que funcione correctamente la migración
-- Se simplificó el proceso de muestra de cajas de texto con mensaje e información
-- Se aceleró el proceso de guardado de las ventas al presionar el botón de terminar haciendo que todos los datos se guarden junto al mismo tiempo
-- Se agregó un botón de terminar e imprimir aparte del de terminar venta, ahora si se desea imprimir la factura se presiona este botón, el que se utilizaba antes ya no pregunta si se desea imprimir, solo termina automáticamente y muestra una caja de texto con el vuelto a entregar
-- Se quitaron mensajes innecesarios dentro del código
-- Se eliminó la barra de progreso del botón de agregar producto ya que no funcionaba como se quería, ahora al comenzar el proceso de guardado apara un símbolo de carga hasta que se muestra el mensaje de que se guardó todo
-- Ahora al buscar productos se puede hacer un doble click sobre las cajas de texto de búsqueda de categorías, proveedores y marcas para entrar en las pestañas de búsqueda específicas de estas para encontrar más fácilmente lo que se necesite
-- Ahora al regresar o moverte entre pestañas, el programa se asegura de que se muestre al frente la pestaña a la que se está entrando, esto para evitar que si hay más aplicaciones abiertas alguna pestaña quede detrás de otras
-- Se modifico el como se ve la pestaña de configuración general, ahora está dividida en pestañas entre las que de momento está la de gestión de base de datos que el la que ya estaba ingresada y la de códigos automáticos, en esta se coloca el número de dígitos que quieres que tengan los código creados automáticamente
-- Se modificaron los colores de los botones por los cuales te mueves entre pestañas de terminar venta y de la configuraciones
-- En conjunto con al pestaña de configuraciones se agregó la función para crear código automáticamente, para hacerlo primero se debe de configurar el número de dígitos del código, luego al crear o modificar cualquier cosa en la pestaña de mantenimiento se tiene un botón verde con un "+" junto a la caja de texto del código, con solo presionarlo este debe de buscar el próximo código en la base de datos que no esté utilizado creándolo con el número de dígitos ingresado
-- Se corrigió un error que hacia que al no colocar ningún comentario en una factura que se quería imprimir, al hacerlo esta se imprimía con el comentario de la última factura de la cual se hubiera registrado un comentario
-
-**Versión 1.2.0.1 27 de noviembre de 2024**
-- Ahora se puede filtrar las facturas a reimprimir para que muestre solo, la últimas 50 (por defecto activado para que cargue más rápido), las ultimas 100 o 200 o que las muestre todas
-- Se arregló un error que sucedía cuando después de seleccionar un producto con precio variable no se cargaba correctamente la pestaña para agregar su precio
-- Se agregó el nuevo estilo de los menús contextuales ala pestaña de agregar o modificar pedidos en el apartado de mantenimiento de proveedores cuando se agrega o se modifica un proveedor
-- Se arregló un error en la pestaña de productos en la cual al escribir en los filtro se seleccionaba automáticamente la caja de texto de buscar principal cada vez que se escribía una letra
-- Se arregló un error a la hora de almacenar los comentarios de la factura en la base de datos ya que este se guardaba solo si estaba vacía la caja de texto en vez de lo contrario
-- Mejoras en la calidad de vida de la app
-
-**Version 1.2.0.0 26 de noviembre de 2024**
-- Ya se puede agregar existencias de cada producto en la pestaña de mantenimiento, al terminar una venta se resta a estas existencias la cantidad que se vendió, las existencias pueden ser negativas en caso de que se venda más de lo que se tiene registrado y va desde un rango de -1000 hasta 1000000 unidades
-- Se pueden crear habladores en la pestaña de mantenimiento de productos, únicamente se debe de seleccionar los productos que se quieran imprimir, la cantidad de habladores por producto y presionar el botón de imprimir}
-- Se añadieron iconos y se cambio el formato levemente de los menus contextuales de las pestañas de mantenimiento para que sean más visibles
-- La caja de texto que muestra el total de la venta en la caja ahora es mas grande y está en negrita para que sea más visible en pantallas pequeñas  
-
-**Versión 1.1.0.6 (25 de noviembre de 2024)**
-- Al entrar en la caja se mantiene seleccionado la caja de texto de buscar producto
-- Al fallar la contraseña ahora se mantiene la selección de la caja de texto para escribir la contraseña
-- Las facturas ya deberían de mostrar correctamente toda la dirección de la sucursal
-- Se arregló un error que hacia que al cancelar los cambios al modificar cualquier cosa en la app mostraba el error como si el producto fuera nuevo
-- Ya funciona la tecla de esc en la pestaña de nuevo producto
-- En todas las pestañas de agregar, modificar y de buscar ahora si se equivocan escribiendo un código que ya existe, lo selecciona todo para escribirlo de nuevo
-- Se arregló un error con los hilos de la app que hacía que a la hora de hacer ciertas acciones en específicas no cargaba correctamente el menu contextual con los botones de eliminar y modificar en las pestañas de mantenimiento
-- Se aseguró que todas las listas se cargaran ordenadas por código
-- Mejoras de la calidad de vida general de la app
-- Ahora al terminar cualquier proceso se mantiene el objeto seleccionado anteriormente en la tabla, funciona en todos menos en las pestañas de búsqueda
-
-
-**Versión 1.1.0.5 (23 de noviembre de 2024)**
-- La caja de advertencia a la hora de confirmar que se quiere cerrar la app en la pestaña de selección de usuario al iniciar la app ahora da la opción de cancelarlo y que no se cierre la app
-- Se mejoró el proceso de búsqueda de todas las pestañas que lo ocupaban y de el de las tablas de los pedidos de los proveedores
-- Ahora al buscar marcas y luego de fallar una vez la contraseña en el login se va a mantener seleccionado la caja de texto en la que se estaba escribiendo
-- Se arregló un error con el query para cargar las categorías que impedía entrar a esta pestaña del mantenimiento luego de actualizar la app a la BETA
-- Se añadieron los atajos del teclado que faltaban, entre ellos los de la pestaña de terminar venta de f7 y f3
-- Se añadieron indices en la base de datos y un espacio para agregar el inventario disponible en la tabla en la que se guardan los productos mas aun no se va a implementar este sistema
-
-**Versión 1.1.0.5 BETA (22 de noviembre de 2024)**
-- Se mejoró el proceso de carga de la tabla de productos para que sea mucho más rápida, por medio del uso de hilos y de un termporiador para que se actualize la tabla cuando termines de escribir
-- Existen varios errores aún por arreglar y esta versión no es estable en lo más mínimo, tan solo es una prueba
-
-**Versión 1.1.0.4 (20 de noviembre de 2024)**
-- Se arregló un error que se generaba al entrar a la pestaña de buscar productos en la caja si le dabas doble click a la caja de texto de buscar producto
-- Se Eliminó el filtro de búsqueda por nombre y por código de todas las pestañas de búsqueda y mantenimiento, ahora la misma caja de texto hace ambos funciones, lo que aceleró un poco el proceso de búsqueda de la app
-
-**Versión 1.1.0.3 (18 de noviembre de 2024)**
-- Se arregló un error que sucedía al acceder a la caja y regresar a la pestaña de inicio causando que se perdiera el usuario en el camino
-- Se agregó un espacio que faltaba en la factura de pago mixto entre el pago en efectivo y el pago en tarjeta
-- Se disminuyó el tamaño del texto en el data grid view de fechas de pedidos de los proveedores en la pestaña principal
-- Se corrigió un error de guardado que impedía la modificación de los datos de los cajeros luego de crearlos
-- Se corrigió un error en el que no se almacenaba correctamente el precio de un producto al crearse por primera vez
-- Se corrigió un error donde al modificar un producto y quitar la marca  la que pertenecía antes esta no se eliminaba al guardar los cambios
-- Ya se puede modificar correctamente los datos de los productos con precios variables, mas a estos no se les puede cambiar el precio al agregarlos, al menos no de momento
-- Se arregló un error que se producía al modificar productos en la versión anterior en el cual luego de entrar no se podía actualizar la tabla de búsqueda
-- Se arregló un error donde al imprimir una factura que incluyera un producto variable el precio que se colocó de este no se reflejaba correctamente en esta factura
-- El botón del menu contextual en la pestaña de reimprimir factura que permite reimprimir la factura que se desee antes imprimía de vez en cuando los valores incorrectos, ya se corrigió el código para que siempre imprima correctamente
-- Se arregló un error que sucedía al eliminar una fila a la hora de agregar o modificar los días de pedidos de los proveedores, si eliminaban una fila esta no se eliminaba correctamente y producía que uno de los 2 datos permaneciera haciendo que no se pudiera volver a entrar a modificar el proveedor y que se rompiera las tablas de pedidos del menu de inicio
-
-
-**Versión 1.1.0.2 (17 de noviembre de 2024)**
-- Se revisó el funcionamiento de las configuraciones, ahora se necesita reiniciar la app para que los valores nuevos se carguen
-- Se quitó el botón de regresar en la pestaña de selección de usuarios ya que no debía de estar ahí y se agregó el de cerrar la app
-- Se modifico la ruta a la que iba el botón de regresar de la caja para que ahora vuelva correctamente al menu de inicio
-
-**Versión 1.1.0.1 (16 de noviembre de 2024)**
-- Ahora al crear cajeros se puede definir su rol, ya sea Administrador o cajero, el cajero tiene restringido el acceso a los reportes, al mantenimiento y a las configuraciones, mientras que el administrador puede acceder a todo el sistema, luego se añadirán más tipos de perfiles
-- Con el cambio anterior ahora al entrar a la aplicación se te pedirá iniciar sesión con una cuenta y se te habilitarán las opciones dependiendo del rol que tenga asignado tu cuenta
-- Se cambió el nombre del botón de exportar base de datos por el de respaldar base de datos para que se entienda mejor su función
-- Se arregló un error donde en la caja de texto de teléfono a la hora de guardar los cambios hechos a un proveedor este no se eliminaba y los datos se quedaban ahí
-- Se arregló un error donde al seguir una serie de pasos las listas se cargaban con un orden incorrecto en las pestañas de mantenimiento y de búsqueda
-- Se corrigió un error que provocaba que no se pudiera eliminar un producto en la pestaña de mantenimiento
-- Se arreglaron errores a la hora de modificar productos, ya que antes en caso de querer quitar la descripción, marca, categoría o proveedor, estos no se quitaban correctamente en la base de datos
-- Se arreglaron ciertos errores que produjo el cambio de las listas a la hora de modificar los productos en la caja
-- Ahora al imprimir una factura si se pagó con el método de pago mixto en la factura se verá reflejado lo que pagó en efectivo y en tarjeta por aparte
-- Se volvieron a corregir errores en el botón de imprimir más reciente, ahora si de verdad debería de funcionar bien
-
-**Versión 1.1.0.0 (16 de noviembre de 2024)**
-- Se modifico el formato de todas las listas para que sean más agradables a la vista y además ahora son mucho más eficientes y ya se pueden acomodar de menor a mayor y viceversa por cada una de las columnas (Se pasaron todas y sus procesos relacionados de un List view a Data grid view)
-- Se removió el botón de cerrar la aplicación en la pestaña de mantenimiento de productos por problemas con los atajos del teclado
-- Se corrigieron varios errores relacionados con la búsqueda de productos donde dependiendo de los filtros que se usaban no se mostraba la información
-- Se corrigió un error en las eliminaciones de proveedores donde estos no se podían eliminar correctamente si estaban relacionados con algún producto, ahora tiene el mismo proceso que con las marcas y las categorías, donde estas se, eliminan de los productos también
-
-**Version 1.0.0.12 (14 de noviembre de 2024)**
-- Se modificó el color de la pestaña para agregar a la caja los producto variables para que sea más visible y se arreglaron problemas donde esta no se cerraba al terminar el proceso
-- Creo que ahora si resolví el problema con el botón de imprimir más reciente y ya funciona correctamente, además en la lista de facturas ahora la más reciente también es la que aparece en la parte de más arriba
-
-
-**Versión 1.0.0.11 (14 de noviembre de 2024)**
-- Ahora se pueden crear productos con precios variables, este tipo de productos al pasarlo por la caja muestran un pestaña en la cual además de mostrar la info del producto, te permite colocar el precio que desees para ese tipo de productos que se vende por kilo y demás. En este caso no se almacena ningún impuesto, ganancia o precio de venta, únicamente el precio base
-- Había un error en la pestaña de agregar productos en el que a la hora de buscar un impuesto el resultado que te daba luego de escoger uno era incorrecto y estaba relacionado con la categoría en vez de con el impuesto correcto
-- Ahora la crear o modificar un proveedor en el sistema el teclado para escribir se fija en la caja de texto del código en vez de la del nombre como estaba antes
-
-**Versión 1.0.0.10 (12 de noviembre de 2024)**
-- Se cambio el formato de la lista de los productos en caja, ahora tiene un formato un poco más trabajado (se pasó de un list view a un datagrid), este cambio se hará en un futuro a todas las demás listas del sistema
-- Junto con el cambio anterior ahora en la tabla de los productos en caja se puede  modificar el valor de la cantidad y se actualizan los valores correctamente
-- Ahora al darle click a los filtros de buscar por nombre o código estos te colocan de una vez en la caja de texto para que escribas tu búsqueda, al igual que con los otros filtros del productos
-- Se ajustaron los textos de los placeholders de algunas cajas de texto puesto que habían varias con leyendas incorrectas
-- El botón de imprimir mas reciente debería de funcionar correctamente ahora
-- Se corrigieron errores en donde al presionar enter en las pestañas de modificar y agregar en el mantenimiento se guardaban los datos como estuvieran en el momento sin importar que le faltara información necesaria, ahora el mismo botón también hace una última verificación antes de guardar la información
-- Todas las listas del mantenimiento se acomodan por defecto por código de menor a mayor, en un futuro se podrá acomodar de muchas otras formas con los demás atributos de cada parte del mantenimiento.
-
-**Versión 1.0.0.9 (11 de noviembre de 2024)**
-- Ahora el botón de inicio de sesión siempre está habilitado para las cuentas de cajero sin contraseña
-- Los diálogos para abrir los archivos para modificar el directorio y modificar la conexión con la base de datos muestran lo que está seleccionado actualmente
-- Se corrigió un error en el que no se podía guardar correctamente los colores de los cajeros al modificarlos
-- Se corrigió un error a la hora de modificar los proveedores ya que al eliminar los datos del correo o el teléfono estos no eran correctamente eliminados de la base de datos
-- Se agregaron dos botones a la pestaña de pago mixto en la pestaña de terminar venta, estos colocan en la caja de texto junto a la que están el monto restante para realizar la compra
-- Ahora la pestaña de pedidos de los proveedores ya se puede usar la tecla esc para regresar
-- Se corrigió el error que sucedía cuando se escaneaba un código de barras, ya que este presionaba la tecla enter y hacía un acción en el programa, como enviar un archivo vacío a la caja o entrar a la pestaña de agregar producto cuando no debía de hacerlo
-- Se corrigió un error donde no se eliminaban correctamente de la base de datos los valores de la marca, categoría, proveedor y descripción de los productos por problemas con los atributos de entre estos
-- Ahora cuando se cancela la modificación o agregación de un producto se reinicia la barra de progreso, anteriormente no lo hacía y se seguía incrementando hasta fallar
-- En la caja ya funcionan los atajos del teclado desde el f1-f8, a excepción del f2 que por alguna razón no lo hace
-
-**Versión 1.0.0.7**
-- Se modificó de nuevo el proceso de creación de respaldos y los procesos de la pestaña de configuración general
-
-**Versión 1.0.0.6**
-
-- Arreglos al apartado de la creación de respaldos
-- Se agregaron botones para modificar el directorio donde se guardan los respaldos
-- Se agregó un botón para modificar la conexión con la base de datos a otra distinta(Importante que tenga la misma estructura o sino dará errores)
-- Se eliminaron procesos de Md_inicialización que no se utilizaron
-- Se agregó un par de líneas en el Md_Backup para obtener la conection string que está almacenado en el app config
-
-**Versión 1.0.0.5**
-
-- Se modifican los iconos de varios de los botones para que esten mejor alineados
-- Corrección de errores en la impresión de las facturas
-- Bugfix general
-
-**Versión 1.0.0.4**
-
-- Se añadió la función para poder modificar el directorio en el que se exportan los respaldos de la base de datos
-- Se arreglaron problemas en los que los productos no se podían buscar y filtrar por marca, proveedor y categoria a futuro se convertirán en drop downs
-- Se arreglaron temas de diseño de la app para dejar todo un poco más uniforme, en la siguiente versión se modificarán lo iconos a unos más estandarizados
-
-
-- Se modificó el ícono de todas las pestañas al actual y nuevo de la aplicación
-- Se colocó un identificador de la versión de la aplicación en el menu de inicio
-- Se modificaron los nombres de algunos controles que anteriormente aparecían con nombres incorrectos
-- Se agregaron los nombre y títulos de cada una de las pestañas
-
-
+# Sistema de facturación y manejo de inventario Common
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/MinorPorras/SistemaFacturacionCommon)
+[![Latest Release](https://img.shields.io/github/v/release/MinorPorras/SistemaFacturacionCommon?label=versión&color=blue)](https://github.com/MinorPorras/SistemaFacturacionCommon/releases/latest)
+[![Last Commit](https://img.shields.io/github/last-commit/MinorPorras/SistemaFacturacionCommon?label=última%20actualización&color=green)](https://github.com/MinorPorras/SistemaFacturacionCommon/commits/main)
+[![License](https://img.shields.io/badge/licencia-Uso%20Restringido-red)](LICENSE)
+[![Platform](https://img.shields.io/badge/plataforma-Windows%2010%2B-blue)](https://github.com/MinorPorras/SistemaFacturacionCommon#requisitos-del-sistema)
+[![.NET Framework](https://img.shields.io/badge/.NET%20Framework-4.8+-5C2D91?logo=.net)](https://dotnet.microsoft.com/)
+[![Lenguaje](https://img.shields.io/badge/lenguaje-C%23%20%26%20VB.NET-239120)](https://github.com/MinorPorras/SistemaFacturacionCommon)
+[![Estado](https://img.shields.io/badge/estado-En%20producción-brightgreen)](https://github.com/MinorPorras/SistemaFacturacionCommon)
+
+![Logo SU Common](docs/assets/logoCompletoSFCommonTransparent.png)
+Este programa y sistema cuenta con diversas capacidades para el manejo de inventarios y de la facturación y ventas de varios tipos de negocios. Está diseñado de forma específica para panaderías, pero este taambién resulta muy útil y eficiente para el trabajo en supermercados, restaurantes y más.
+
+## Instalación
+Se puede obtener los archivos de instalación desde la siguiente dirección:
+https://github.com/MinorPorras/SistemaFacturacionCommon/releases/latest
+
+## Requisitos del sistema
+- Windows 10 o superior
+- .NET Framework 4.8 (o especifica la versión que uses)
+- Impresora térmica compatible (opcional, para facturas/habladores)
+- Conexión a internet únicamente necesaria para actualizaciones (las actualizaciones también se pueden descargar manualmente desde la página de lanzamientos, sin necesidad de conexión a internet.)
+
+## ¿Quieres contribuir?
+¡Las contribuciones son bienvenidas! Por favor abre un *issue* antes de enviar un *pull request*.
+
+## Funcionalidades
+El programa como tal está divido en 4 módulo principales los cuales permiten manejar gran parte de todo el proceso de trabajo en lo que respecta al manejo de inventarios y de ventas. Estos 3 módulos son los siguientes
+- Mantenimiento y manejo de inventario
+- Facturación y ventas
+- Reportes
+- Configuraciones
+
+### 1. Mantenimiento e inventario
+Por medio de este módulo se maneja todo lo relacionado con elementos que se utilizan alrededor de toda la aplicación. Dentro de este menú de mantenimiento, se puede gestionar lo siguiente:
+![Menu mantenimiento](docs/assets/image.png)
+- **Sucursal**: Se puede modificar la información de la sucursal o tienda en la que se esté trabajando el sistema, esta información se verá reflejada alrededor de la aplicación y se puede agregar el logo, nombre, dirección, telefono, correo y más información, la cual será la información reflejada dentro de las facturas generadas por el sistema.
+- **Usuarios**: Estas son las cuentas de las personas que utilizarán la aplicación. A estas se les puede asignar colores específicos para que sean reconocible más sencillamente, se tiene un sistema de inicio de sesión sencillo y además los usuarios pueden tener 2 roles específicos, el primero es el rol de "Adminsitrador" con acceso a toda la aplicación y el segundo es el rol de "Cajero", el cual solo tiene acceso al sistema ded caja de la aplicación y no puede ingresar a ningún lugar que no esté relacionado con este. (El sistema incluye una cuenta de administrador predeterminada (usuario: Admin contraseña: 2004030) con una contraseña temporal. Se recomienda encarecidamente cambiar esta contraseña inmediatamente tras la primera instalación.)
+- **Clientes**: Aquí se puede agregar la información de los clientes a los que frecuentemente se le vente productos o necesitan estar identificados (El sistema viene con un cliente por defecto 'Generico', agregar más cuando sea necesario)
+- **Proveedores**: Aquí se puede agregar la información correspondiente a los proveedores, como nombre, correo, telefono y más importante se puede agregar la información relacionda con los pedidos realizados a estos, indicando el día de entrega y el día de recibimiento de estos durante la semana, esta información se verá reflejada en el menú principal de la aplicación en un calendario semanal de pedidos
+![Calendario pedidos proveedores](docs/assets/image-1.png)
+- **Conceptos de movimientos de caja**: Se puede agregar, modificar, eliminar y filtrar en el sistema distintos tipos de razones por las que sale o entra dinero en efectivo de la caja registradora. En este caso se pueden definir razones totalmente personalizadas de forma individual para las entradas y las salidas de efectivo para los procesos de arqueo de caja
+- **Categorías**: Se puede agregar, modificar, eliminar y filtrar las distintas categorías en las que dividir los productos, estas funcionan principamente para poder agrupar de mejor forma los productos y su filtrado
+- **Marcas**: Se puede agregar, modificar, eliminar y filtrar los datos de marcas específicas en las que se pueden dividir los productos para poder agruparlos mejor y filtrarlos
+
+#### Mantenimiento de productos
+La parte principal del módulo de mantenimiento en este se puede buscar, modificar, eliminar y agregar los productos utilizados en el sistema y es desde aquí donde se maneja todo lo relacionado con los productos de la tienda. 
+- Los productos pueden ser filtrados, por nombre, por código, y se puede habilitar su busqueda por marca, categoría y proveedor
+![Busqueda de productos](docs/assets/image-2.png)
+- Los productos pueden ser filtrado de forma que se muestren los próductos más recientes agregados en el sistema para llevar un control de lo que se va agregarndo y las fechas en las que se realizaron
+- Se puede agregar un producto nuevo o modificar los valores de un producto ya creado, pudiendo indicarle una gran cantidad de información importante y descriptiva como el código, nombre, descripción, Marca, Proveedor, categoría, existencias, precio base, impuesto, ganancia, precio de venta
+![Agregar o modificar producto](docs/assets/image-3.png)
+- Para productos estándar, el sistema calcula automáticamente el precio de venta a partir del precio base, el impuesto y el margen de ganancia. En cambio, los productos con precio variable (útiles para ventas por peso o unidad variable) no usan estos cálculos: el cajero define el precio final al momento de la venta.
+- Se puede eliminar los productos del sistema por medio de un botón en un menú contextual en la tabla
+- Se tiene un sistema de impresión de habladores, estos usan la impresora de la impresión de la factura para generar pequeños papeles con e nombre del producto, código y el precio de este últi para colocar los precio exactos del sistema en los productos en la tienda, pudiendo desde la misma interfaz escoger varios productos y copias de cada uno de ellos para imprimirlos
+![Impresión de habladores](docs/assets/image-4.png)
+
+### 2. Facturación y ventas
+![Sistema de caja](docs/assets/image-5.png)
+Este se trata de un completo sistema de ventas y caja customizable este cuentas con una gran cantidad de funcionalidades que facilitan y agilizan de gran forma el trabajo de los cajeros. Entre las funciones con las que cuenta este tenemos:
+- Interfaz adaptable a distintos tamaños de pantallas
+- Compatibilidad completa con escaneres y lectores de códigos de barras
+- Busqueda específica de productos directamente desde la caja
+- Seguimiento de los productos de la venta en una tabla en la que se puede modificar la cantidad de cada uno de forma manual o eliminarlo de la venta de forma sencilla
+- Manejo de productos con precios variables por medio de un dialogo en el que se indica el valor específico de este
+- Finalización de ventas con soporte para distintos tipos de ventas como Efectivo, tarjeta, Sinpe movil, Depósitos bancarios y pagos Mixtos en efectivo y en tarjeta, además del cálculo automático del vuelto y utilidades para el calculo de totales y montos restantes para ventas mixtas
+![finalización de ventas](docs/assets/image-6.png)
+- Permite la generación de las facturas instantaneamente al momento de finalizar la venta o su reimpresión por medio de la sección de "reimpresión de facturas" en donde además de esto se pueden ver los detalles de las facturas realizadas
+- Personalización específica de la tienda en la que se utiliza mostrando en la interfaz el logo de esta y además a la hora de imprimir las facturas mostrando la información específica de la sucursal
+- Personalización de la sección de productos favoritos en la cual se pueden agregar de forma ilimitada los productos más vendidos usalmente para que sean de un acceso más sencillo. Se puede personalizar su orden en la lista y el color individual de cada botón
+
+#### Cuentas por cobrar
+Uno de los módulos principales de este sistema es el de cuentas por cobrar. En este desde la caja se pueden generar las cuentas por cobrra agregando los productos y el cliente que tendrá asignada la cuenta por cobrar.
+- Permite el guardado de las cuentas por cobrar agregandole un comentario y cliente que lo identifique de mejor forma
+- Permite la vista y filtrado de las cuentas por cobrar dependiendo de su estado de cobro (Estos pueden ser: Activo, Inactivo o Cobrada, cada uno identificada por un color diferente)
+![vista de cxc](docs/assets/image-7.png)
+- Permite la vista de los detalles de las cuentas por cobrar, su información general y los pagos abonados a esta
+- Permite la activación y desactivación de las cuentas por cobrar
+- Permite la modificación de las cuentas por cobrar por medio de su propio sistema de caja exclusivo, en el que se puede actualizar su información como los productos, cantidades, comentario y cliente
+- Permite el pago de las cuentas por cobrar por mediode tractos o abonos así como la impresión de facturas de abonos específicas que muestran el dinero restante para la venta y al terminar de pagar completamente la cuenta esta pasa a estar con el estado de cobrada y se puede imprimir la factura completamente
+![cajaCxC](docs/assets/image-8.png)
+
+#### Arqueos de caja
+Otro de los sistemas más esenciales del sistema de caja es el de los arqueos de caja por medio de este se puede realizar la asignación de responsabilidades del dinero de la caja a los cajeros específicos durante su turno de trabajo. El flujo de este proceso sería el siguiente
+1. El cajero inicia sesión en su cuenta y en la caja presiona el botón de Apertura de caja o el atajo f4
+![apertura de caja](docs/assets/image-9.png)
+2. En este hace el conteo de efectivo que hay en caja al momento de inciar su turno y presiona el botón de iniciar turno
+3. Durante el turno si el cajero debe de sacar o ingresar dinero debe de registrar esta entrada o salida por medio de los botones de "Ingreso de efectivo" o "Retiro de efectivo" (o sus atajos f2 o f5 según el caso), en este deben de indicar, el concepto de entre los ingresados en el módulo de mantenimiento y un comentario o número de factura que ayude a indentificar la razón de este movimiento (Las ventas normales no cuentan para estas salidas o entradas ya que se gestionan de forma automática)
+![entrada de efectivo en caja](docs/assets/image-10.png)
+4. Al momento en el que el usuario termina su turno presiona el botón de cierre de caja o f6, en este prefereiblemente bajo la supervisión de algun superior se hace el conteo final del efectivo en la caja en comparación del efectivo que debería de haber. (En este proceso solo se debe de hacer el conteo del dinero y el sistema calcula automáticamente la diferencia absoluta (monto en colones) y la diferencia porcentual entre el efectivo esperado y el efectivo real.)
+![cierre de caja](docs/assets/image-11.png)
+5. Al presionar el botón de "Finalizar turno", se muestra de nueo la pantalla de apertura de caja para que inicie el siguiente turno de trabajo, cargandose este directamente con el dinero con el que cerró el último cajero para que este lo vuelva a contar y coloque el dinero con el que se va a quedar la caja al momento en el que inicia su turno
+
+### 3. Reportes
+Dentro de este módulo los administradores del sistema serán capaces de ver el rendimiento de las ventas de la tienda de forma mucho más específica pudiendo generar los reportes y visualizarlos dentro de la aplicación o la generación de documentos PDFs para su descarga y posterior uso.
+#### Reportes de ventas generales
+Aquí podemos generar reportes específicos de las ventas obtenidas en el rango de tiempo específicado. Este reporte nos permite ver la siguiente información
+![repotre de ventas](docs/assets/image-12.png)
+- Nombre, total y cantidad vendida del producto con mejor desempeño de ventas en terminos de volumen de ventas en ese rango de tiempo
+- Cantidad de facturas emitidas
+- Total de ventas en efectivo y en tarjeta (Este utlimo abarca ventas en tarjeta, sinpe, depósitos)
+- Total de ventas en ese tiempo
+
+#### Reportes de ventas de productos
+Por medio de este tipo de reportes los administradores pueden tener una vista más clara de los distintos volumenes de ventas de los productos de la tienda en un rango en específico de tiempo. En este se puede crear una lista de productos acomodados ya sea por total vendido o por cantidad vendida al general el reporte este muestra ordenados los productos segun los filtros y la cantidad de productos a mostrar. Este muestra:
+![reporte de productos](docs/assets/image-13.png)
+- Lista completa de productos más vendidos con el tamaño a mostrar especificado por el usuario
+- Nombre, total y cantidad vendida del producto con mejor volumen de ventas teniendo en cuenta los filtros indicados
+
+#### Reportes de arqueos de caja
+En este se puede filtrar por cajero y fecha los distintos arqueos de caja realizados en el sistema.
+![filtrado de arqueos de caja](docs/assets/image-14.png)
+Además se puede ver la información específica de cada arqueo de caja para comprender los valores que tienen estos y analizarlos de mejor forma
+![detalles de arqueo de caja](docs/assets/image-15.png)
+
+
+### 4. Configuraciones
+La aplicación cuenta con un sencillo sistema de configuraciones el cual permite personalizar varios procesos esenciales del sistema. No hay una pestaña en la que se abra siempre sino que dependiendo del módulo en el que se esté esta se abrira en la más relevante para este, por ejemplo en el módulo de  mantenimiento ingresará a la configuración de código automaticos, en el de ventas en el de productos favoritos y en el de reportes a la configuración de la base de datos y directorios de descarga. Entre estos procesos se encuentran:
+#### Información de la aplicación y actualizaciones automáticas
+Pestaña principal que muestra la información de la aplicación y permite la visualización del código fuente, la lista de cambios del proyecto y principalmente permite la busqueda de nuevas versiones de la aplicación y la configuración de la busqueda automática de las ctualizaciones cada vez que se inicia la aplicación
+![configuración de información de la aplicación y actualizaciones](docs/assets/image-16.png)
+
+#### Gestión de base de datos y reportes
+Uno de las secciones más importantes de las configuraciones. Dentro de esta los administradores pueden gestionar de diversas formas la base de datos de la aplicación y los reportes. Del lado de las base de datos estas permiten:
+- El respaldo de la base de datos creando copias de la base de datos que pueden ser almacenadas o distribuidas como se necesiten
+- La importación de bases de datos respaldas para casos extremos en los que se necesita volver a obtener información de la base de datos debido a la perdida de información o explotaciones de vunerabilidades
+- Modificación de la carpeta donde se guardan los respaldos de la base de datos
+Mientras que del lado de los reportes simplemente se puede modificar la dirección del directorio de descarga en el que estarán los reportes en pdf que se descarguen del sistema
+![configuracion de BD y reportes](docs/assets/image-17.png)
+
+#### Generación de códigos automáticos
+Un forma muy importante en la que se busca agilizar el proceso de mantenimiento es por medio de un sistema de generación de códigos de forma automática. En este por cada uno de los elementos personalizables en el módulo de mantenimiento se puede indicar al programa que al presionar el botón de + junto a la caja de texto de código en cada sección de este módulo debe de generar el siguiente código disponible utilizando la cantidad de digitos indicada para ese caso. (ej. Se tienen que productos tiene un numero de digitos predeterminado del código de 4, supongamos que se tiene creado hasta un máximo de 162 productos con este formato de código, entonces el siguiente código generado será el 0163, o si hay un código libre antes de esto, por ejemplo, si no hay un producto con el código 0011, se le agregará este a continuación)
+![GENERACIÓN AUTOMATICA DE CÓDIGOS](docs/assets/image-18.png)
+
+#### Gestión de habladores
+Se puede gestinar el tamaño de la letra de forma individual del nombre del producto y el precio de este para ajustarse de mejor manera a la necesidad del sistema
+![gestion de habladores](docs/assets/image-19.png)
+
+#### Gestión de productos favoritos
+Por medio de esta sección de las configuraciones se puede agregar, modificar y eliminar los productos mostrados en los botones en la sección de "Productos favoritos" de la caja. En esta se puede
+- Agregar nuevos productos a esta cuadricula
+- Reordenar los productos a gusto
+- Asignar el color que se decida para cada uno de los productos para facilitar su detección por la vista
+- Sacar productos de la lista
+Para facilitar el proceso de adición de estos se agregó una barra de busqueda para filtrar por código o por nombre
+![gestion de productos favoritos de caja](docs/assets/image-20.png)
