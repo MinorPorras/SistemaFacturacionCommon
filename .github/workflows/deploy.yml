@@ -66,8 +66,9 @@ jobs:
       - name: Verify Executable Exists
         shell: pwsh
         run: |
+          # La ruta correcta es DENTRO de la carpeta del proyecto
           if (-not (Test-Path "SistemaFacturación\publish\Sistema de Facturación Common.exe")) {
-            Write-Error "Executable not found! Check project output name."
+            Write-Error "Executable not found! Check project output name and build path."
             exit 1
           }
 
@@ -83,7 +84,7 @@ jobs:
           vpk pack `
             -u "SistemaFacturacionCommon" `
             -v "${{ steps.get-version.outputs.version }}" `
-            -p "publish" `
+            -p "SistemaFacturación\publish" `
             -e "Sistema de Facturación Common.exe" `
             -f "net472" `
             --packTitle "Sistema Facturación Common" `
