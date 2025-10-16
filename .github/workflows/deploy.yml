@@ -66,9 +66,8 @@ jobs:
       - name: Verify Executable Exists
         shell: pwsh
         run: |
-          if (-not (Test-Path "publish\Sistema de Facturación Common.exe")) {
-            Write-Error "Executable not found! Check project output name."
-            exit 1
+          if (-not (Test-Path "SistemaFacturación\publish\Sistema de Facturación Common.exe")) {
+            Write-Error: Executable not found! Check project output name.
           }
 
       - name: Install Velopack CLI (vpk)
