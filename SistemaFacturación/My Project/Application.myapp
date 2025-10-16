@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MyApplicationData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <MySubMain>true</MySubMain>
+  <MySubMain>false</MySubMain>
   <MainForm>P_SelectUsu</MainForm>
   <SingleInstance>false</SingleInstance>
   <ShutdownMode>1</ShutdownMode>
@@ -8,5 +8,5 @@
   <AuthenticationMode>0</AuthenticationMode>
   <MinimumSplashScreenDisplayTime>0</MinimumSplashScreenDisplayTime>
   <SaveMySettingsOnExit>true</SaveMySettingsOnExit>
-  <HighDpiMpde>false</HighDpiMpde>
+  <HighDpiMode>0</HighDpiMode>
 </MyApplicationData>

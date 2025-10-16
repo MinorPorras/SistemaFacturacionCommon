@@ -5,6 +5,8 @@
 ' -----------------------------------------------------------------------------
 Imports System.Data.SQLite
 Imports System.Drawing.Printing
+Imports Serilog
+Imports Serilog.Context
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Namespace SistemaFacturacion.Modules
@@ -18,6 +20,7 @@ Namespace SistemaFacturacion.Modules
         Friend finFactura As String
 
         Private Sub LIMPIAR()
+            Log.Information("Limpiando variables de impresión de factura")
             encabezadoFactura = ""
             facturaContenido.Clear()
             finFactura = ""
@@ -31,41 +34,54 @@ Namespace SistemaFacturacion.Modules
 
             Select Case tipo
                 Case "Abono"
+                    Log.Information("Generando factura de abono para impresión. ID Pago: {ID}", ID)
                     ImprimirFacturaAbono(ID)
                 Case Else
+                    Log.Information("Generando factura de venta para impresión. ID Factura: {ID}", ID)
                     ImprimirFacturaVenta(ID)
             End Select
 
+            Log.Information("Iniciando proceso de impresión de factura.")
             ImprimirFactura(encabezadoFactura, facturaContenido, finFactura)
         End Sub
 
         Private Sub ImprimirFacturaVenta(id_Factura As Integer)
             Dim Factura As Cls_DatosFactura = ObtenerDatosGeneralesFactura(id_Factura)
+            Log.Information("Datos generales de la factura obtenidos. ID: {ID}, NumFactura: {NumFactura}", Factura.IdFactura, Factura.NumFactura)
 
             Dim comentario As String = ObtenerComentario(id_Factura)
+            Log.Information("Comentario de la factura obtenido: {Comentario}", If(String.IsNullOrEmpty(comentario), "Ninguno", comentario))
 
             ' Definir el contenido de la factura para impresión normal
             encabezadoFactura = CrearEncabezadoFactura(Factura, ObtenerDatosSucursal())
+            Log.Information("Encabezado de la factura creado.")
 
             CargarProds(id_Factura)
+            Log.Information("Productos de la factura cargados. Total productos: {Count}", facturaContenido.Count)
 
             finFactura = CrearFinFactura(Factura, comentario)
+            Log.Information("Pie de la factura creado.")
         End Sub
 
         Private Sub ImprimirFacturaAbono(ID_pago As Integer)
 
             Dim pago As New Cls_CxCPagos
             pago.GetDetailsWithID(ID_pago)
+            Log.Information("Datos del pago obtenidos. ID: {ID}, Monto: {Monto}, Tipo Venta: {TipoVenta}", pago.ID, pago.Total, pago.Tipo_venta)
 
             Dim cuenta As New Cls_CuentasXCobrar
             cuenta.GetDetailsWithID(pago.ID_CxC)
+            Log.Information("Datos de la cuenta por cobrar obtenidos. ID: {ID}, Cliente: {Cliente}, Saldo Restante: {Saldo}", cuenta.ID, cuenta.Cliente, cuenta.Saldo_restante)
 
             ' Definir el contenido de la factura para impresión normal
             encabezadoFactura = CrearEncabezadoAbono(pago, ObtenerDatosSucursal(), cuenta)
+            Log.Information("Encabezado de la factura de abono creado.")
 
             CargarProdsAbono(cuenta.ID)
+            Log.Information("Productos de la cuenta por cobrar cargados. Total productos: {Count}", facturaContenido.Count)
 
             finFactura = CrearFinAbono(pago, cuenta)
+            Log.Information("Pie de la factura de abono creado.")
         End Sub
 
         Private Function ObtenerDatosGeneralesFactura(id_factura As Integer) As Cls_DatosFactura
@@ -75,6 +91,7 @@ Namespace SistemaFacturacion.Modules
               "f.tarjeta_cliente, f.vuelto, f.tipo_venta, u.usuario" &
               " FROM (factura f LEFT JOIN clientes c ON c.ID =f.ID_Cliente) LEFT JOIN usuario u ON u.ID = f.ID_Usuario WHERE f.ID = " & id_factura
             Cargar_Tabla(T, SQL)
+            Log.Information("Consulta SQL ejecutada para obtener datos de la factura. Filas obtenidas: {RowCount}", T.Tables(0).Rows.Count)
 
             Dim row As DataRow = T.Tables(0).Rows(0)
 
@@ -94,6 +111,7 @@ Namespace SistemaFacturacion.Modules
                 .TotalCaja = If(IsDBNull(row.Item(4)), 0D, Convert.ToDecimal(row.Item(4)))
             }
 
+            Log.Information("Datos de la factura mapeados a Cls_DatosFactura. ID: {ID}, NumFactura: {NumFactura}, Total: {Total}", factura.IdFactura, factura.NumFactura, factura.TotalCaja)
             Return factura
         End Function
 
@@ -114,6 +132,7 @@ Namespace SistemaFacturacion.Modules
                 End If
             End If
 
+            Log.Information("Comentario obtenido de la factura: {Comentario}", If(String.IsNullOrEmpty(comentario), "Ninguno", comentario))
             Return comentario
         End Function
 
@@ -129,6 +148,7 @@ Namespace SistemaFacturacion.Modules
                 .Email = If(IsDBNull(T.Tables(0).Rows(0).Item(3)), " ", T.Tables(0).Rows(0).Item(3)),
                 .Cedula = If(IsDBNull(T.Tables(0).Rows(0).Item(4)), " ", T.Tables(0).Rows(0).Item(4))
             }
+            Log.Information("Datos de la sucursal obtenidos. Nombre: {Nombre}, Dirección: {Direccion}", sucursal.Nombre, sucursal.Direccion)
             Return sucursal
         End Function
 
@@ -170,8 +190,7 @@ Namespace SistemaFacturacion.Modules
         End Function
 
         Private Function CrearFinAbono(pago As Cls_CxCPagos, cuenta As Cls_CuentasXCobrar) As String
-            Dim finFact As String = "-----------------------------------------" & vbCrLf &
-                          "Total de la cuenta: " & pago.Formated_total & vbCrLf & vbCrLf
+            Dim finFact As String = "-----------------------------------------" & vbCrLf
             If pago.Tipo_venta = 0 Then
                 finFact += "Pago del cliente: " & pago.Formated_monto_efectivo & vbCrLf
 
@@ -188,6 +207,7 @@ Namespace SistemaFacturacion.Modules
 
             finFact += $"Comentario: {pago.Comentario}"
 
+            Log.Information("Fin de la factura de abono creado. Total Cuenta: {TotalCuenta}, Saldo Restante: {SaldoRestante}", pago.Total, cuenta.Saldo_restante)
             Return finFact
         End Function
 
@@ -201,137 +221,161 @@ Namespace SistemaFacturacion.Modules
             ElseIf factura.TipoPago = 4 Then
                 finFact += "Pago en efectivo: ₡ " & factura.Efectivo & vbCrLf &
                     vbCrLf &
-                     "Pago en tarjeta: ₡ " & factura.Tarjeta
+                     "Pago en tarjeta: ₡ " & factura.Tarjeta & vbCrLf
             Else
                 finFact += "Pago en tarjeta: ₡ " & factura.Tarjeta & vbCrLf
             End If
 
             finFact += $"Comentario: {comentario}"
 
+            Log.Information("Fin de la factura creado. Total Venta: {TotalVenta}, Tipo Pago: {TipoPago}", factura.TotalCaja, factura.TipoPago)
             Return finFact
         End Function
 
         Public Sub ImprimirFactura(encabezado As String, productos As List(Of String), fin As String)
-            Dim printDoc As New PrintDocument()
+            Using LogContext.PushProperty("Feature", "ImpresionFactura")
+                Try
+                    Log.Information("Iniciando configuración del PrintDocument para impresión de factura.")
 
-            ' Usamos AddHandler para pasar los parámetros de la factura al controlador de eventos
-            AddHandler printDoc.PrintPage, Sub(sender, e)
-                                               PrintDocument_PrintPage(e, encabezado, productos, fin)
-                                           End Sub
-            ' 1. ANCHO: 80 mm (3.15 in) = 227 puntos.
-            ' 2. ALTO: Se mantiene un valor simbólicamente grande para rollo continuo.
-            Dim anchoEnPuntos As Integer = CInt(72 * 3.15)
-            Dim altoSimbolico As Integer = CInt(72 * 50)
+                    Dim printDoc As New PrintDocument()
 
-            Dim customPaperSize As New PaperSize("80mm Roll", anchoEnPuntos, altoSimbolico)
-            printDoc.DefaultPageSettings.PaperSize = customPaperSize
-            printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
+                    ' Usamos AddHandler para pasar los parámetros de la factura al controlador de eventos
+                    AddHandler printDoc.PrintPage, Sub(sender, e)
+                                                       PrintDocument_PrintPage(e, encabezado, productos, fin)
+                                                   End Sub
+                    ' 1. ANCHO: 80 mm (3.15 in) = 227 puntos.
+                    ' 2. ALTO: Se mantiene un valor simbólicamente grande para rollo continuo.
+                    Dim anchoEnPuntos As Integer = CInt(72 * 3.15)
+                    Dim altoSimbolico As Integer = CInt(72 * 50)
+                    Log.Debug("Configuración de papel: {Ancho}x{Alto} puntos para impresora térmica.", anchoEnPuntos, altoSimbolico)
 
-            Using printDialog As New PrintDialog()
-                ' Asignar el documento al diálogo
-                printDialog.Document = printDoc
+                    Dim customPaperSize As New PaperSize("80mm Roll", anchoEnPuntos, altoSimbolico)
+                    printDoc.DefaultPageSettings.PaperSize = customPaperSize
+                    printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
 
-                ' Permitir solo la selección de impresora, no ajustes avanzados
-                printDialog.AllowSomePages = False
+                    Using printDialog As New PrintDialog()
+                        ' Asignar el documento al diálogo
+                        printDialog.Document = printDoc
 
-                ' Mostrar el diálogo y verificar si el usuario presionó OK
-                If printDialog.ShowDialog() = DialogResult.OK Then
-                    ' Si el usuario seleccionó una impresora y presionó Aceptar,
-                    ' la propiedad Document del diálogo ya tiene la impresora seleccionada.
+                        ' Permitir solo la selección de impresora, no ajustes avanzados
+                        printDialog.AllowSomePages = False
 
-                    ' Llama al método Print(), que inicia el evento PrintPage
-                    printDoc.Print()
-                End If
+                        ' Mostrar el diálogo y verificar si el usuario presionó OK
+                        If printDialog.ShowDialog() = DialogResult.OK Then
+                            ' Si el usuario seleccionó una impresora y presionó Aceptar,
+                            Log.Information("Impresión iniciada. Impresora seleccionada: {PrinterName}", printDialog.Document.PrinterSettings.PrinterName)
+                            ' Llama al método Print(), que inicia el evento PrintPage
+                            printDoc.Print()
+                        Else
+                            Log.Information("Diálogo de impresión cancelado por el usuario. Impresión abortada.")
+                        End If
+                    End Using
+
+                    Log.Debug("Mostrando previsualización de impresión.")
+                    'Se muestra al usuario una vista previa del proceso de impresión
+                    Dim printPreview As New PrintPreviewDialog With {.Document = printDoc}
+                    printPreview.ShowDialog()
+                Catch ex As Exception
+                    ' Notificar al usuario (puede que sea necesario)
+                    MsgError($"Error fatal al imprimir. Verifique la conexión de la impresora. Error: {ex.Message}")
+                End Try
+
             End Using
-
-            'Se muestra al usuario una vista previa del proceso de impresión
-            Dim printPreview As New PrintPreviewDialog With {.Document = printDoc}
-            printPreview.ShowDialog()
         End Sub
 
         ' Manejador del evento PrintPage que ahora recibe los parámetros de la factura
         Private Sub PrintDocument_PrintPage(e As Printing.PrintPageEventArgs, encabezado As String, productos As List(Of String), fin As String)
-            Dim font As New Font("Arial", 12)
-            Dim fontProds As New Font("Segoe UI", 9)
-            Dim brush As New SolidBrush(Color.Black)
-            ' Agregamos la opción para que el texto se envuelva automáticamente
-            Dim stringFormatWrap As New StringFormat() With {
-                .Alignment = StringAlignment.Near,
-                .LineAlignment = StringAlignment.Near,
-                .Trimming = StringTrimming.Word,
-                .FormatFlags = StringFormatFlags.LineLimit '
-            }
+            Using LogContext.PushProperty("Feature", "DrawFactura")
+                Dim font As New Font("Arial", 12)
+                Dim fontProds As New Font("Segoe UI", 9)
+                Dim brush As New SolidBrush(Color.Black)
+                ' Agregamos la opción para que el texto se envuelva automáticamente
+                Dim stringFormatWrap As New StringFormat() With {
+                    .Alignment = StringAlignment.Near,
+                    .LineAlignment = StringAlignment.Near,
+                    .Trimming = StringTrimming.Word,
+                    .FormatFlags = StringFormatFlags.LineLimit '
+                }
 
-            Dim stringFormatRight As New StringFormat() With {
-                .Alignment = StringAlignment.Far, ' Alineación a la derecha
-                .LineAlignment = StringAlignment.Near,
-                .Trimming = StringTrimming.None,
-                .FormatFlags = StringFormatFlags.NoWrap
-            }
+                Dim stringFormatRight As New StringFormat() With {
+                    .Alignment = StringAlignment.Far, ' Alineación a la derecha
+                    .LineAlignment = StringAlignment.Near,
+                    .Trimming = StringTrimming.None,
+                    .FormatFlags = StringFormatFlags.NoWrap
+                }
 
-            ' El ancho total de la impresión es fijo, no uses e.MarginBounds.Left/Top si son 0
-            ' totalWidth = 72 * 3.78 (272 puntos)
-            Dim totalWidth As Single = 270.0F
-            Dim leftMargin As Single = 10 ' Pequeño margen
-            Dim xPos As Single = leftMargin
-            Dim yPos As Single = 10
+                ' El ancho total de la impresión es fijo, no uses e.MarginBounds.Left/Top si son 0
+                ' totalWidth = 72 * 3.78 (272 puntos)
+                Dim totalWidth As Single = 270.0F
+                Dim leftMargin As Single = 10 ' Pequeño margen
+                Dim xPos As Single = leftMargin
+                Dim yPos As Single = 10
 
-            ' --- Encabezado ---
-            ' Usamos un ancho de RectangleF para que el texto del encabezado se ajuste
-            Dim headerRect As New RectangleF(leftMargin, yPos, totalWidth - (leftMargin * 2), 0)
-            e.Graphics.DrawString(encabezado, font, brush, headerRect, stringFormatWrap)
-            yPos += e.Graphics.MeasureString(encabezado, font, CInt(headerRect.Width), stringFormatWrap).Height + 5
+                Log.Debug("Iniciando dibujo de PrintPage. Ancho de página: {TotalWidth} puntos.", totalWidth)
 
-            ' --- Encabezado de Productos (Cant, Descrip, Precio, Total) ---
-            e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos)
-            yPos += e.Graphics.MeasureString(encabezadoProds, fontProds, CInt(totalWidth), stringFormatWrap).Height + 5
 
-            ' --- Productos línea por línea ---
-            ' Definimos los anchos de cada columna (ajustados a un ancho total de ~272 puntos)
-            Dim colWidthCant As Single = 35.0F
-            Dim colWidthDesc As Single = 110.0F
-            Dim colWidthPrecio As Single = 50.0F
-            Dim colWidthTotal As Single = 50.0F
+                ' --- Encabezado ---
+                ' Usamos un ancho de RectangleF para que el texto del encabezado se ajuste
+                Dim headerRect As New RectangleF(leftMargin, yPos, totalWidth - (leftMargin * 2), 0)
+                e.Graphics.DrawString(encabezado, font, brush, headerRect, stringFormatWrap)
+                yPos += e.Graphics.MeasureString(encabezado, font, CInt(headerRect.Width), stringFormatWrap).Height + 5
 
-            For Each line As String In productos
-                ' Usamos el separador de asterisco de CargarProds
-                Dim columns() As String = line.Split("*"c)
+                ' --- Encabezado de Productos (Cant, Descrip, Precio, Total) ---
+                e.Graphics.DrawString(encabezadoProds, fontProds, brush, leftMargin, yPos)
+                yPos += e.Graphics.MeasureString(encabezadoProds, fontProds, CInt(totalWidth), stringFormatWrap).Height + 5
 
-                If columns.Length = 4 Then
-                    Dim cant As String = columns(0)
-                    Dim desc As String = columns(1)
-                    Dim precio As String = columns(2)
-                    Dim total As String = columns(3)
+                ' --- Productos línea por línea ---
+                ' Definimos los anchos de cada columna (ajustados a un ancho total de ~272 puntos)
+                Dim colWidthCant As Single = 35.0F
+                Dim colWidthDesc As Single = 110.0F
+                Dim colWidthPrecio As Single = 50.0F
+                Dim colWidthTotal As Single = 50.0F
 
-                    Dim maxHeight As Single = 0
+                For Each line As String In productos
+                    ' Usamos el separador de asterisco de CargarProds
+                    Dim columns() As String = line.Split("*"c)
 
-                    ' 1. Dibujar Descripción (columna con ajuste de línea) - Usa stringFormatWrap
-                    Dim descRect As New RectangleF(leftMargin + colWidthCant, yPos, colWidthDesc, e.MarginBounds.Height)
-                    e.Graphics.DrawString(desc, fontProds, brush, descRect, stringFormatWrap)
+                    If columns.Length = 4 Then
+                        Dim cant As String = columns(0)
+                        Dim desc As String = columns(1)
+                        Dim precio As String = columns(2)
+                        Dim total As String = columns(3)
+                        Log.Debug("Dibujando producto: Cant={Cant}, Desc={Desc}", columns(0), columns(1))
 
-                    ' Medir la altura REAL de la descripción
-                    maxHeight = e.Graphics.MeasureString(desc, fontProds, CInt(colWidthDesc), stringFormatWrap).Height
+                        Dim maxHeight As Single = 0
 
-                    ' 2. Dibujar Cantidad (Izquierda) - Usa stringFormatWrap o Near
-                    Dim rectCant As New RectangleF(leftMargin, yPos, colWidthCant, maxHeight)
-                    e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap)
+                        ' 1. Dibujar Descripción (columna con ajuste de línea) - Usa stringFormatWrap
+                        Dim descRect As New RectangleF(leftMargin + colWidthCant, yPos, colWidthDesc, e.MarginBounds.Height)
+                        e.Graphics.DrawString(desc, fontProds, brush, descRect, stringFormatWrap)
 
-                    ' 3. Dibujar Precio (Derecha) - ¡Usa stringFormatRight!
-                    Dim rectPrecio As New RectangleF(leftMargin + colWidthCant + colWidthDesc, yPos, colWidthPrecio, maxHeight)
-                    e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatRight)
+                        ' Medir la altura REAL de la descripción
+                        maxHeight = e.Graphics.MeasureString(desc, fontProds, CInt(colWidthDesc), stringFormatWrap).Height
 
-                    ' 4. Dibujar Total (Derecha) - ¡Usa stringFormatRight!
-                    Dim rectTotal As New RectangleF(leftMargin + colWidthCant + colWidthDesc + colWidthPrecio, yPos, colWidthTotal, maxHeight)
-                    e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatRight)
+                        ' 2. Dibujar Cantidad (Izquierda) - Usa stringFormatWrap o Near
+                        Dim rectCant As New RectangleF(leftMargin, yPos, colWidthCant, maxHeight)
+                        e.Graphics.DrawString(cant, fontProds, brush, rectCant, stringFormatWrap)
 
-                    yPos += maxHeight + 2
-                End If
-            Next
+                        ' 3. Dibujar Precio (Derecha) - ¡Usa stringFormatRight!
+                        Dim rectPrecio As New RectangleF(leftMargin + colWidthCant + colWidthDesc, yPos, colWidthPrecio, maxHeight)
+                        e.Graphics.DrawString(precio, fontProds, brush, rectPrecio, stringFormatRight)
 
-            ' --- Fin de Factura ---
-            yPos += 10
-            Dim finRect As New RectangleF(leftMargin, yPos, totalWidth - (leftMargin * 2), e.MarginBounds.Height)
-            e.Graphics.DrawString(fin, font, brush, finRect, stringFormatWrap)
+                        ' 4. Dibujar Total (Derecha) - ¡Usa stringFormatRight!
+                        Dim rectTotal As New RectangleF(leftMargin + colWidthCant + colWidthDesc + colWidthPrecio, yPos, colWidthTotal, maxHeight)
+                        e.Graphics.DrawString(total, fontProds, brush, rectTotal, stringFormatRight)
+
+                        yPos += maxHeight + 2
+                    Else
+                        Log.Warning("Línea de producto mal formada (esperado 4 columnas, encontrado {Count}). Línea: {ProductLine}", columns.Length, line)
+                    End If
+                Next
+
+                ' --- Fin de Factura ---
+                yPos += 10
+                Log.Debug("Fin de dibujo de productos. Altura final Y: {YPos}", yPos)
+                Dim finRect As New RectangleF(leftMargin, yPos, totalWidth - (leftMargin * 2), e.MarginBounds.Height)
+                e.Graphics.DrawString(fin, font, brush, finRect, stringFormatWrap)
+            End Using
+
         End Sub
 
         ' Carga los productos de la factura y los agrega al contenido de impresión
@@ -362,6 +406,8 @@ Namespace SistemaFacturacion.Modules
                     facturaContenido.Add(datosProducto)
                 Next
             End If
+
+            Log.Information("Productos cargados para impresión. Total productos: {Count}", facturaContenido.Count)
         End Sub
 
         Private Sub CargarProdsAbono(idfact As Integer)
@@ -376,6 +422,7 @@ Namespace SistemaFacturacion.Modules
             CargarTablaParam(T, SQL, paramList)
 
             If T Is Nothing OrElse T.Tables.Count <= 0 OrElse T.Tables(0).Rows.Count <= 0 Then
+                Log.Warning("No se encontraron productos para la cuenta por cobrar ID: {ID}", idfact)
                 Exit Sub
             End If
 
@@ -397,142 +444,9 @@ Namespace SistemaFacturacion.Modules
 
                 facturaContenido.Add(datosProducto)
             Next
+
+            Log.Information("Productos de la cuenta por cobrar cargados para impresión. Total productos: {Count}", facturaContenido.Count)
         End Sub
-
-        Public Class ImpresionHabladores
-
-            ' Variables de estado (Se definen a nivel de clase para que persistan entre páginas)
-            Private Shared currentProductIndex As Integer = 0
-            Private Shared currentQuantityIndex As Integer = 0
-            Private Shared printProducts As List(Of String)
-            Private Shared printPrices As List(Of String)
-            Private Shared printQuantities As List(Of Integer)
-
-            ' Variable para la conexión al DGV (Se inicializa al inicio de la impresión)
-            Private Shared DGV_Referencia As DataGridView
-
-            ' --------------------------------------------------------------------------
-            ' FUNCIÓN PRINCIPAL: Inicia y configura el proceso de impresión
-            ' --------------------------------------------------------------------------
-            Friend Shared Sub CREAR_HABLADORES(dgv As DataGridView,
-                                              productos As List(Of String),
-                                              precios As List(Of String),
-                                              cant As List(Of Integer))
-
-                ' 1. Inicializar el estado de la clase
-                currentProductIndex = 0
-                currentQuantityIndex = 0
-                printProducts = productos
-                printPrices = precios
-                printQuantities = cant
-                DGV_Referencia = dgv ' Guardar la referencia al DGV
-
-                ' 2. Configuración del PrintDocument
-                Dim printDoc As New PrintDocument()
-                AddHandler printDoc.PrintPage, AddressOf PrintDocument_PrintPage
-
-                ' Configurar el tamaño de papel personalizado en pulgadas (3.937 puntos por pulgada)
-                Dim customPaperSize As New PaperSize("Custom", CInt(72 * 3.937), CInt(297 * 3.937))
-                printDoc.DefaultPageSettings.PaperSize = customPaperSize
-
-                ' Configurar márgenes a cero
-                printDoc.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
-
-                ' 3. Mostrar diálogo e Imprimir
-                Dim printDialog As New PrintDialog With {
-                    .Document = printDoc
-                }
-
-                If printDialog.ShowDialog() = DialogResult.OK Then
-                    printDoc.Print()
-                End If
-            End Sub
-
-            ' --------------------------------------------------------------------------
-            ' MANEJADOR DEL EVENTO PrintPage: Dibuja el contenido en la página
-            ' --------------------------------------------------------------------------
-            Private Shared Sub PrintDocument_PrintPage(sender As Object, e As PrintPageEventArgs)
-                Dim tamañoProds As Integer = GetAppSetting("FontSizeProd")
-                Dim tamañoPrecio As Integer = GetAppSetting("FontSizePrecio")
-
-                Dim font As New Font("Arial", tamañoProds)
-                Dim fontProds As New Font("Arial", tamañoProds, FontStyle.Bold)
-                Dim fontPrices As New Font("Arial", tamañoPrecio, FontStyle.Bold)
-                Dim brush As New SolidBrush(Color.Black)
-                Dim stringFormatLeft As New StringFormat() With {
-                    .Alignment = StringAlignment.Near,
-                    .LineAlignment = StringAlignment.Near
-                }
-
-                ' *** CÁLCULOS DE ANCHO ***
-                Dim totalWidth As Single = 72 * 3.15 ' El ancho total de 3.15 pulgadas en puntos
-                Dim leftMargin As Single = e.MarginBounds.Left
-                Dim topMargin As Single = e.MarginBounds.Top
-                Dim yPos As Single = topMargin
-                Dim largoDisponible As Single = totalWidth - leftMargin ' Ancho de dibujo
-
-                Dim Guion As String = "-"
-                Dim largoGuion As Single = e.Graphics.MeasureString(Guion, font).Width
-                Dim NumGuion As Integer = CInt(Math.Floor(largoDisponible / largoGuion))
-
-                e.HasMorePages = False
-
-                ' Recorrer los productos
-                For i As Integer = currentProductIndex To printProducts.Count - 1
-                    Dim startJ As Integer = If(i = currentProductIndex, currentQuantityIndex, 0)
-
-                    For j As Integer = startJ To printQuantities(i) - 1
-
-                        yPos += e.Graphics.MeasureString(" ", font).Height
-
-                        ' ------------------ DIBUJAR PRODUCTO ------------------
-                        Dim productName As String = printProducts(i)
-                        Dim productRect As New RectangleF(leftMargin, yPos, totalWidth, 0)
-                        Dim productSize As SizeF = e.Graphics.MeasureString(productName, fontProds, totalWidth, stringFormatLeft)
-
-                        productRect.Height = productSize.Height
-                        e.Graphics.DrawString(productName, fontProds, brush, productRect, stringFormatLeft)
-                        yPos += productRect.Height + 5
-
-                        ' ------------------ DIBUJAR PRECIO ------------------
-                        Dim productPrice As String = "₡" & printPrices(i)
-                        Dim priceRect As New RectangleF(leftMargin, yPos, totalWidth, 0)
-                        e.Graphics.DrawString(productPrice, fontProds, brush, priceRect, stringFormatLeft)
-
-                        ' Altura necesaria para el chequeo de límite de página
-                        Dim heightCheck As Single = e.Graphics.MeasureString(productPrice, fontPrices).Height
-                        yPos += heightCheck + 20 ' Espacio adicional después de cada hablador
-
-                        ' ------------------ DIBUJAR GUIONES ------------------
-                        If Not (i = printProducts.Count - 1 AndAlso j = printQuantities(i) - 1) Then
-                            Dim lines As New String("-"c, NumGuion)
-                            e.Graphics.DrawString(lines, font, brush, leftMargin, yPos, stringFormatLeft)
-                            yPos += e.Graphics.MeasureString(lines, font).Height + 5
-                        End If
-
-                        ' ------------------ VERIFICAR SALTO DE PÁGINA ------------------
-                        ' Verificar si el próximo elemento (si existiera) no cabe.
-                        If yPos + heightCheck > e.MarginBounds.Bottom Then
-                            currentProductIndex = i
-                            currentQuantityIndex = j + 1
-                            e.HasMorePages = True
-                            Return
-                        End If
-                    Next
-
-                    currentQuantityIndex = 0
-                Next
-
-                ' Si se completó la impresión, limpiar variables
-                If Not e.HasMorePages Then
-                    printProducts = Nothing
-                    printPrices = Nothing
-                    printQuantities = Nothing
-                    DGV_Referencia?.Rows.Clear()
-                End If
-            End Sub
-
-        End Class
     End Module
 
 End Namespace

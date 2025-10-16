@@ -1,8 +1,6 @@
 ﻿Imports System.Data.SQLite
 Imports System.Globalization
-Imports Guna.UI2.WinForms
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
+Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 
 Namespace SistemaFacturacion.Data
@@ -71,6 +69,7 @@ Namespace SistemaFacturacion.Data
                                                             " FROM Arqueo_Caja ac LEFT JOIN usuario u ON u.ID = ac.ID_Usuario" &
                                                             " Order By ac.ID DESC LIMIT 1"
                                           Using cmd As New SQLiteCommand(consulta, db)
+                                              Log.Information("Ejecutando consulta para obtener la información del cierre de caja actual: {Consulta}", consulta)
                                               Using da As New SQLiteDataAdapter(cmd)
                                                   da.Fill(T)
                                               End Using
@@ -80,12 +79,14 @@ Namespace SistemaFacturacion.Data
                                       ' Verifica si la tabla 0 existe en el DataSet
                                       If T.Tables.Count <= 0 Then
                                           ' Si no existe, devuelve una nueva DataTable vacía
+                                          Log.Warning("No se encontraron tablas en el DataSet al obtener la información del cierre de caja actual.")
                                           Return New DataTable()
                                       End If
 
                                       ' Verifica si la tabla 0 tiene filas
                                       If T.Tables(0).Rows.Count = 0 Then
                                           ' Si no hay filas, devuelve una nueva DataTable vacía
+                                          Log.Warning("No se encontraron registros al obtener la información del cierre de caja actual.")
                                           Return New DataTable()
                                       End If
 
@@ -96,6 +97,7 @@ Namespace SistemaFacturacion.Data
                                       End If
 
                                       ' Si existe, devuelve la tabla con los datos
+                                      Log.Information("Información del cierre de caja actual obtenida correctamente.")
                                       Return T.Tables(0)
                                   End Function)
         End Function
@@ -110,30 +112,35 @@ Namespace SistemaFacturacion.Data
 
                                ' Verifica si la tabla existe o si esta tiene filas
                                If T1.Tables.Count <= 0 OrElse T1.Tables(0).Rows.Count = 0 OrElse IsDBNull(T1.Tables(0).Rows(0).Item("Total")) Then
+                                   Log.Warning("No se encontraron movimientos de caja para el arqueo con ID {ArqueoID}.", ID)
                                    ' Si no hay filas, devuelve una nueva DataTable vacía
                                    EntradasEfectivo = 0
                                    SalidasEfectivo = 0
                                    Exit Sub
                                End If
 
+                               Log.Information("Totales de movimientos de caja obtenidos correctamente para el arqueo con ID {ArqueoID}.", ID)
                                EntradasEfectivo = T1.Tables(0).Rows(0).Item("total")
                                SalidasEfectivo = T1.Tables(0).Rows(1).Item("total")
-
+                               Log.Information("Totales - Entradas: {Entradas}, Salidas: {Salidas}", EntradasEfectivo, SalidasEfectivo)
                            End Sub)
         End Function
 
         Public Async Function ObtenerInfoInicial() As Task
             'Se obtiene la información del cierre anterior
             Dim infoCierreActual As DataTable = Await ObtenerInfoCierreActual()
-
+            Log.Information("Obteniendo información inicial para el cierre de caja.")
             ' Manejo de caso sin datos
             If infoCierreActual.Rows.Count = 0 Then
+                MsgError("No se encontró un arqueo de caja abierto. Por favor, realice una apertura de caja primero.")
                 Return
             End If
 
             ' Se corrige la conversión de la fecha
             Dim fechaInicio As Date = Convert.ToDateTime(infoCierreActual.Rows(0).Item("hora_apertura"))
             Dim fechaFin As Date = DateTime.Now
+
+            Log.Information("Fechas de apertura y cierre obtenidas: Apertura={Apertura}, Cierre={Cierre}", fechaInicio, fechaFin)
 
             'Se obtiene la información relacionada con las ventas en la 
             Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(fechaInicio, fechaFin, T)
@@ -149,6 +156,21 @@ Namespace SistemaFacturacion.Data
                     ventasTarjeta += venta.TotalCaja
                 End If
             Next
+            Log.Information("Totales de ventas obtenidos: Efectivo={Efectivo}, Tarjeta={Tarjeta}", ventasEfectivo, ventasTarjeta)
+
+            'Obtener lista de abonos a cuentas por cobrar realizados
+            Dim pagosCxC As New Cls_CxCPagos
+            Dim tbl As DataTable = pagosCxC.GetListaTotalesAbonosByDate(fechaInicio, fechaFin)
+            Log.Information("Totales de abonos a cuentas por cobrar obtenidos.")
+            If tbl IsNot Nothing AndAlso tbl.Rows.Count > 0 Then
+                If Not IsDBNull(tbl.Rows(0).Item("total_efectivo")) Then
+                    ventasEfectivo += tbl.Rows(0).Item("total_efectivo")
+                End If
+                If Not IsDBNull(tbl.Rows(0).Item("total_tarjeta")) Then
+                    ventasTarjeta += tbl.Rows(0).Item("total_tarjeta")
+                End If
+            End If
+            Log.Information("Totales de ventas actualizados con abonos a CxC: Efectivo={Efectivo}, Tarjeta={Tarjeta}", ventasEfectivo, ventasTarjeta)
 
             'Se asignan los datos a la clase que se va a devolver
             ID = infoCierreActual.Rows(0).Item("ID")
@@ -163,7 +185,9 @@ Namespace SistemaFacturacion.Data
             Efectivo_contado = 0
             Diferencia = 0
             DiferenciaPorcentaje = 0
+            Log.Information("Datos iniciales del cierre de caja asignados correctamente.")
 
+            'Se obtienen los movimientos de caja asociados a este arqueo
             Await ObtenerTotalMovimientosCaja()
         End Function
 
@@ -181,6 +205,7 @@ Namespace SistemaFacturacion.Data
                                       Dim paramList As New List(Of SQLiteParameter) From {
                                           {New SQLiteParameter("@ID", ID)}
                                       }
+                                      Log.Information("Ejecutando consulta para obtener la lista de movimientos de caja: {CONSULTA}", SQL)
                                       CargarTablaParam(T, SQL, paramList)
 
                                       For Each row As DataRow In T.Tables(0).Rows
@@ -191,6 +216,8 @@ Namespace SistemaFacturacion.Data
                                               SalidasEfectivo = row.Item("monto")
                                           End If
                                       Next
+
+                                      Log.Information("Lista de movimientos de caja obtenida correctamente. Total registros: {Count}", T.Tables(0).Rows.Count)
 
                                       Return T.Tables(0)
                                   End Function)
@@ -204,20 +231,22 @@ Namespace SistemaFacturacion.Data
                                       Try
                                           Dim consulta = "UPDATE Arqueo_Caja SET hora_cierre = @fechaFin, efectivo_contado = @efectivoContado, " &
                                                                 " diferencia = @diferencia WHERE ID = @ID"
+                                          Log.Information("Ejecutando consulta para guardar el cierre de caja: {Consulta}", consulta)
                                           Dim exito = EJECUTAR_PARAMETROS(consulta, New Dictionary(Of String, Object) From {
                                               {"fechaFin", Hora_cierre},
-                                              {"efectivoContado", saldoSiguienteTurno.Total},
+                                              {"efectivoContado", SaldoSiguienteTurno.Total},
                                               {"diferencia", Diferencia},
                                               {"ID", ID}
                                           })
 
                                           If Not exito Then
-                                              Throw New Exception("No se pudo actualizar el cierre de caja.")
+                                              Throw New Exception($"Fallo al actualizar el cierre de caja en la base de datos para el arqueo con ID {ID}.")
                                           End If
 
+                                          Log.Information("Cierre de caja guardado correctamente para el arqueo con ID {ArqueoID}.", ID)
                                           Return True
                                       Catch ex As Exception
-                                          Console.WriteLine("Error al guardar el cierre de caja: " & ex.Message)
+                                          Log.Error("Error al guardar el cierre de caja: {ErrorMessage}", ex.Message)
                                           Return False
                                       End Try
                                   End Function)
@@ -231,25 +260,28 @@ Namespace SistemaFacturacion.Data
                 Dim transaction = db.BeginTransaction()
                 Dim insertSQL As String = "INSERT INTO Arqueo_Caja (ID, ID_Usuario, fondo_inicial, hora_apertura) VALUES (@id, @idUsu, @fondo, @hora)"
                 Dim param As New Dictionary(Of String, Object) From {
-                {"id", OBTENERPK("Arqueo_Caja", "ID")},
-                {"idUsu", ID_Usuario},
-                {"fondo", fondo_inicial},
-                {"hora", DateTime.Now}
-            }
+                    {"id", OBTENERPK("Arqueo_Caja", "ID")},
+                    {"idUsu", ID_Usuario},
+                    {"fondo", Fondo_inicial},
+                    {"hora", DateTime.Now}
+                }
                 Try
+                    Log.Information("Ejecutando inserción para apertura de caja: {Consulta}", insertSQL)
                     Using cmd As New SQLiteCommand(insertSQL, db, transaction)
                         For Each p In param
                             cmd.Parameters.AddWithValue("@" & p.Key, p.Value)
                         Next
                         cmd.ExecuteNonQuery()
                     End Using
+                    Log.Information("Apertura de caja registrada correctamente con ID {ArqueoID}.", param("id"))
                     transaction.Commit()
                 Catch ex As Exception
                     transaction.Rollback()
-                    msgError("Error al registrar la apertura de caja: " & ex.Message)
+                    MsgError("Error interno al registrar la apertura de caja. Por favor, intente nuevamente. Ejecutando roolback. Error: " & ex.Message)
                     Return False
                 Finally
                     If db.State = ConnectionState.Open Then
+                        Log.Information("Cerrando conexión a la base de datos.")
                         db.Close()
                     End If
                 End Try
@@ -274,7 +306,8 @@ Namespace SistemaFacturacion.Data
             diferenciaPorcentaje = 0
             EntradasEfectivo = 0
             SalidasEfectivo = 0
-            Efectivo_Contado = 0
+            Efectivo_contado = 0
+            Log.Information("Datos del cierre de caja limpiados.")
 
             'Se recarga la información inicial
             Await obtenerInfoInicial()
@@ -292,6 +325,8 @@ Namespace SistemaFacturacion.Data
 
             'Saldo esperado = saldoInicial + Ventas - salidas
             Dim saldoEsperado = saldoInicial + ventaEfectivo + Entradas - Salidas
+            Log.Debug("Cálculo de saldo esperado: Inicial={Inicial}, VentasEfectivo={VentasEfectivo}, Entradas={Entradas}, Salidas={Salidas}, SaldoEsperado={SaldoEsperado}",
+                            saldoInicial, ventaEfectivo, Entradas, Salidas, saldoEsperado)
 
             'Se obtiene el valor del saldo real contado de la caja
             Dim saldoReal As Decimal = saldoSiguienteTurno.Total
@@ -303,6 +338,8 @@ Namespace SistemaFacturacion.Data
             Else
                 diferenciaPorcentaje = 0
             End If
+            Log.Debug("Cálculo de diferencias: SaldoReal={SaldoReal}, Diferencia={Diferencia}, DiferenciaPorcentaje={DiferenciaPorcentaje}",
+                            saldoReal, Diferencia, DiferenciaPorcentaje)
 
             'Se devuelve el saldo esperado formateado
             Return saldoEsperado.ToString("C", New CultureInfo("es-CR"))
@@ -317,6 +354,8 @@ Namespace SistemaFacturacion.Data
 
             'Saldo esperado = saldoInicial + Ventas - salidas
             Dim saldoEsperado = saldoInicial + ventaEfectivo + Entradas - Salidas
+            Log.Debug("Cálculo de saldo esperado para detalles: Inicial={Inicial}, VentasEfectivo={VentasEfectivo}, Entradas={Entradas}, Salidas={Salidas}, SaldoEsperado={SaldoEsperado}",
+                            saldoInicial, ventaEfectivo, Entradas, Salidas, saldoEsperado)
 
             'Se obtiene el valor del saldo real contado de la caja
             Dim saldoReal As Decimal = Efectivo_contado
@@ -328,6 +367,8 @@ Namespace SistemaFacturacion.Data
             Else
                 DiferenciaPorcentaje = 0
             End If
+            Log.Debug("Cálculo de diferencias para detalles: SaldoReal={SaldoReal}, Diferencia={Diferencia}, DiferenciaPorcentaje={DiferenciaPorcentaje}",
+                            saldoReal, Diferencia, DiferenciaPorcentaje)
 
             'Se devuelve el saldo esperado formateado
             Return saldoEsperado.ToString("C", New CultureInfo("es-CR"))

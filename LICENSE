@@ -1,0 +1,32 @@
+SistemaFacturacionCommon – Licencia de Uso Restringido
+
+Copyright (c) 2025 Minor Porras. Todos los derechos reservados.
+
+El presente software ("SistemaFacturacionCommon") se distribuye con fines
+exclusivamente de **evaluación, prueba y uso personal no comercial**.
+
+### Queda estrictamente prohibido:
+1. Utilizar este software en operaciones comerciales, ventas reales o
+   entornos productivos sin autorización expresa por escrito del autor.
+2. Vender, sublicenciar, redistribuir, alquilar o incluir este software
+   (total o parcialmente) en otros productos o servicios.
+3. Modificar el código fuente y distribuir versiones derivadas sin la
+   aprobación previa del autor.
+
+### Se permite:
+1. Ver, estudiar y depurar el código fuente con fines educativos o de
+   corrección de errores.
+2. Proponer correcciones o mejoras mediante "issues" o "pull requests"
+   en el repositorio oficial (https://github.com/MinorPorras/SistemaFacturacionCommon),
+   las cuales serán integradas **únicamente a discreción del autor**.
+3. Usar el software de forma gratuita en entornos de prueba o desarrollo.
+
+### Reconocimiento:
+Cualquier uso permitido debe incluir el aviso de copyright original y
+reconocer a Minor Porras Varela como autor del software.
+
+Este software se proporciona "tal cual", sin garantías de ningún tipo.
+El autor no asume responsabilidad por el uso indebido o comercial no autorizado.
+
+Para solicitar una licencia comercial o permisos especiales, contacte al autor:
+minorp1415@protonmail.com

@@ -8,10 +8,6 @@ Namespace SistemaFacturacion.Forms.Inicio
     Public Class P_SelectUsu
 
         Private Sub P_LoginCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-            inicializarDB()
-            InitConfigVaribles()
-            AutoUpdate()
-            CheckAndMigrateDatabase()
             T.Tables.Clear()
             SQL = "SELECT ID, usuario, color FROM usuario"
             Cargar_Tabla(T, SQL)
@@ -22,7 +18,7 @@ Namespace SistemaFacturacion.Forms.Inicio
             End If
         End Sub
 
-        Private Sub agregarBoton(flowpanel As FlowLayoutPanel, nombre As String, tag As Integer, colorT As String)
+        Private Sub AgregarBoton(flowpanel As FlowLayoutPanel, nombre As String, tag As Integer, colorT As String)
             Dim splitRGB() As String = colorT.Split(","c)
             Dim r As Integer = Convert.ToInt32(splitRGB(0))
             Dim b As Integer = Convert.ToInt32(splitRGB(1))

@@ -8,6 +8,7 @@ Imports System.Data.SQLite
 Imports System.IO
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
+Imports Serilog
 Namespace SistemaFacturacion.Modules
 
     Module Md_CONEXION
@@ -31,6 +32,7 @@ Namespace SistemaFacturacion.Modules
         ' Método privado para obtener la cadena de conexión segura y persistente
         ' Centraliza la obtención de la cadena de conexión
         Friend Function GetConnectionString() As String
+            Log.Information("Obteniendo cadena de conexión a la base de datos.")
             Return $"Data Source={GetDbPath()};Version=3;"
         End Function
 
@@ -39,6 +41,7 @@ Namespace SistemaFacturacion.Modules
         Friend Function GetDbPath() As String
             EnsureAppDirectoryExists()
             Dim appDir = GetAppDirectory()
+            Log.Information("Ruta de la base de datos: {DbPath}", Path.Combine(appDir, "DB", "dbSistemaFacturacion.db"))
             Return Path.Combine(appDir, "DB", "dbSistemaFacturacion.db")
         End Function
 
@@ -56,14 +59,14 @@ Namespace SistemaFacturacion.Modules
                                 Console.WriteLine("Parámetro añadido: " & param.ParameterName & " = " & param.Value)
                             Next
                         End If
-                        Console.WriteLine("Ejeacutando consulta: " & consulta)
+                        Log.Information("Ejecutando consulta con parámetros: " & consulta)
                         Using da As New SQLiteDataAdapter(cmd)
                             da.Fill(t)
                         End Using
                     End Using
-                    Console.WriteLine("Datos cargados: " & t.Tables(0).Rows.Count & " filas.")
+                    Log.Information("Datos cargados: {RowCount} filas.", t.Tables(0).Rows.Count)
                 Catch ex As Exception
-                    Console.WriteLine(ex.Message)
+                    Log.Error(ex, "Error al cargar datos con parámetros")
                 End Try
             End Using
         End Sub
@@ -75,15 +78,13 @@ Namespace SistemaFacturacion.Modules
                 Try
                     db.Open()
                     Using cmd As New SQLiteCommand(consulta, db)
-                        Console.WriteLine("Ejecutando consulta: " & consulta)
                         Using da As New SQLiteDataAdapter(cmd)
                             da.Fill(t)
                         End Using
                     End Using
-                    Console.WriteLine("Datos cargados: " & t.Tables(0).Rows.Count & " filas.")
-                    ' Nota: la línea "t.Tables(0).Rows(0).Item(0)" puede causar un error si no hay datos. Se corrigió a .Rows.Count.
+                    Log.Information("Datos cargados: {RowCount} filas.", t.Tables(0).Rows.Count)
                 Catch ex As Exception
-                    Console.WriteLine(ex.Message)
+                    Log.Error(ex, "Error al cargar datos")
                 End Try
             End Using
         End Sub
@@ -94,11 +95,12 @@ Namespace SistemaFacturacion.Modules
                 Try
                     db.Open()
                     Using cmd As New SQLiteCommand(SQL, db)
+                        Log.Information("Ejecutando comando: " & SQL)
                         cmd.ExecuteNonQuery()
                     End Using
                     Return True
                 Catch ex As Exception
-                    Console.WriteLine(ex.Message)
+                    Log.Error(ex, "Error al ejecutar comando")
                     Return False
                 End Try
             End Using
@@ -113,11 +115,12 @@ Namespace SistemaFacturacion.Modules
                         For Each parametro As KeyValuePair(Of String, Object) In parametros
                             cmd.Parameters.AddWithValue($"@{parametro.Key}", parametro.Value)
                         Next
+                        Log.Information("Ejecutando comando con parámetros: " & sql)
                         cmd.ExecuteNonQuery()
                     End Using
                     Return True
                 Catch ex As Exception
-                    Console.WriteLine(ex.Message)
+                    Log.Error(ex, "Error al ejecutar comando con parámetros")
                     Return False
                 End Try
             End Using
@@ -137,7 +140,7 @@ Namespace SistemaFacturacion.Modules
                     Catch ex As Exception
                         ' Si hay un error, se revierte la transacción
                         transaction.Rollback()
-                        Console.WriteLine(ex.Message)
+                        Log.Error(ex, "Error en la transacción: {ErrorMessage}")
                         Return False
                     End Try
                 End Using
@@ -154,7 +157,7 @@ Namespace SistemaFacturacion.Modules
                 End Using
                 Return True
             Catch ex As Exception
-                Console.WriteLine("Error en la ejecución de parámetros con transacción: " & ex.Message)
+                Log.Error(ex, "Error en la ejecución de parámetros con transacción")
                 Return False ' Esto causará que el Rollback se ejecute en el método principal.
             End Try
         End Function

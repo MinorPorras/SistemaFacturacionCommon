@@ -1,4 +1,5 @@
 ﻿Imports System.Globalization
+Imports Serilog
 Imports Syncfusion.Windows.Forms
 
 Namespace SistemaFacturacion.Data
@@ -35,6 +36,7 @@ Namespace SistemaFacturacion.Data
                 totalCalculado += 10 * Moneda10
                 totalCalculado += 5 * Moneda5
 
+                Log.Debug("Cálculo del total en caja: {Total}", totalCalculado)
                 Return totalCalculado
             End Get
         End Property
@@ -75,6 +77,7 @@ Namespace SistemaFacturacion.Data
                 .Moneda100 = objViejo.Moneda100,
                 .Moneda500 = objViejo.Moneda500
             }
+            Log.Debug("Clonación de objeto Cls_SaldoCaja realizada con éxito.")
             Return objNuevo
         End Function
     End Class
