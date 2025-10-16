@@ -18,6 +18,18 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
+      - name: Restore NuGet Packages
+        uses: nuget/setup-nuget@v2
+        with:
+          # Especificamos que busque el archivo .sln o .vbproj en la ruta
+          # NuGet busca automáticamente los archivos .config para saber qué restaurar.
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }} # Opcional si usas feeds privados
+          
+      # Ejecutar la restauración de paquetes
+      - name: Run NuGet Restore
+        shell: pwsh
+        run: nuget restore "SistemaFacturación/SistemaFacturación.vbproj"
+
       - name: Get Version from Project File
         id: get-version
         shell: pwsh
