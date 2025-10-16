@@ -60,7 +60,8 @@ jobs:
       - name: Build Project with MSBuild
         shell: pwsh
         run: |
-          msbuild "SistemaFacturación\SistemaFacturación.vbproj" /p:Configuration=Release /p:OutDir="publish\"
+          # msbuild coloca el ejecutable directamente en la carpeta 'publish'
+          msbuild "SistemaFacturación\SistemaFacturación.vbproj" /p:Configuration=Release /p:OutDir="./publish/"
 
       - name: Verify Executable Exists
         shell: pwsh
