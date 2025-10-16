@@ -57,6 +57,7 @@ Namespace SistemaFacturacion.Modules
             End Using
 
             UpdateManagerInstance = New UpdateManager(New GithubSource(GITHUB_REPO_URL, Nothing, False))
+            Log.Information("Velopack UpdateManager initialized with GitHub source: {RepoUrl}", GITHUB_REPO_URL)
 
             ' Inicio de la aplicación
             Application.EnableVisualStyles()
