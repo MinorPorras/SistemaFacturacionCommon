@@ -1,7 +1,3 @@
-# Notas del parche versión 3.0.2 (16 de oct de 2025)
-
-Esta actualización funciona solo como revisión del error de las actualizaciones de la anterior por favor esperar a la siguiente versión para más información sobre este error
-
 # Notas del parche versión 3.0.1 (16 de oct de 2025)
 
 Esta actualización presenta mejorar y bugfix importantes en el funcionamiento de la aplicación, principalmente en el manejo de la instancia única de la aplicación, su cierre ya la conexión con el servidor de git
