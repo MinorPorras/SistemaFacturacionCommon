@@ -241,6 +241,7 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
             ' Si es así, se omite la búsqueda de actualizaciones para evitar sobrescribir los archivos
             ' de desarrollo con los de una versión publicada.
 #If DEBUG Then
+            Log.Information("Modo de depuración detectado. Se omite la búsqueda de actualizaciones.")
             Mensaje("Está en modo Debug no se revisan nuevas versiones para evitar actualizaciónes que puedan perjudicar el código de nuevas versiones",
                     "Modo DEBUG", MessageBoxButtons.OK)
             Return False
@@ -254,16 +255,21 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
             End If
 
             Try
+                Log.Information("Iniciando proceso de verificación de actualizaciones con Velopack")
                 Dim mgr = UpdateManagerInstance
 
                 ' Si la aplicación no está instalada o si esta no está disponible
                 ' para revisar o instalar actualizaciones
+                Log.Information("Verificando si la aplicación está instalada y disponible para actualizaciones")
                 If Not mgr.IsInstalled Then
                     Log.Warning("Aplicación no instalada o no disponible para actualizar: IsInstalled:{installed}", mgr.IsInstalled)
                     Return False
                 End If
+
+                Log.Information("Comenzando la verificación de actualizaciones disponibles")
                 Dim update As UpdateInfo = Await mgr.CheckForUpdatesAsync()
                 ' SI no hya una nueva versión retorna false
+                Log.Information("Verificación de actualizaciones completada. Actualización disponible: {hasUpdate}", update IsNot Nothing)
                 If update Is Nothing Then
                     Log.Information("No hay versiones nuevas que instalar")
                     Mensaje("La aplicación ya está actualizada.", "Sin actualizaciones", MessageBoxButtons.OK)
@@ -271,10 +277,13 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                 End If
 
                 ' Notificar al usuario sobre la actualización disponible
+                Log.Information("Nueva versión disponible: {version}", update.TargetFullRelease.Version)
                 Dim frmUpdateAvailable As New P_UpdateAvailable()
 
+                Log.Information("Cargando notas de la versión {version}", update.TargetFullRelease.Version)
                 Dim htmlNotes As String = update.TargetFullRelease.NotesHTML
                 frmUpdateAvailable.LoadReleaseNotes(update.TargetFullRelease.Version.ToString(), htmlNotes)
+
 
                 Dim result = frmUpdateAvailable.ShowDialog()
                 If result = DialogResult.Cancel Then
@@ -296,7 +305,7 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
             Catch ex As Exception
                 ' 5. Captura cualquier error de Velopack o IO
                 Log.Error(ex, "Error fatal durante la búsqueda o descarga de actualizaciones de Velopack.")
-                MsgError($"Error fatal durante la búsqueda o descarga de actualizaciones de Velopack. Error: {ex.Message}")
+                MsgError($"Error fatal durante la búsqueda o descarga de actualizaciones de Velopack. Error:  {ex.Message}")
                 Return False
             End Try
         End Function
