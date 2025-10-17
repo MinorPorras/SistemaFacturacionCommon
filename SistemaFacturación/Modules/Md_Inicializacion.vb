@@ -272,7 +272,7 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                 Log.Information("Verificación de actualizaciones completada. Actualización disponible: {hasUpdate}", update IsNot Nothing)
                 If update Is Nothing Then
                     Log.Information("No hay versiones nuevas que instalar")
-                    Mensaje("La aplicación ya está actualizada.", "Sin actualizaciones", MessageBoxButtons.OK)
+                    Mensaje("La aplicación ya está actualizada.", vbOKOnly, "Sin actualizaciones")
                     Return False
                 End If
 
