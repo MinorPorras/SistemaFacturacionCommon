@@ -106,6 +106,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         Private Sub BTN_RegresarCat_Click(sender As Object, e As EventArgs) Handles BTN_Regresar.Click
             M_MantenimientoMenu.Show()
             M_MantenimientoMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -227,6 +228,10 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
                     DGV_Entradas.Columns("ID").Visible = False
                 End If
             End If
+        End Sub
+
+        Private Sub C_ConceptosCaja_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 End Namespace

@@ -159,7 +159,6 @@
             Me.TXT_BuscarProd.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_BuscarProd.Location = New System.Drawing.Point(12, 21)
             Me.TXT_BuscarProd.Name = "TXT_BuscarProd"
-            Me.TXT_BuscarProd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarProd.PlaceholderText = "Buscar producto"
             Me.TXT_BuscarProd.SelectedText = ""
             Me.TXT_BuscarProd.Size = New System.Drawing.Size(1157, 42)
@@ -213,7 +212,6 @@
             Me.TXT_BuscarMarca.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_BuscarMarca.Location = New System.Drawing.Point(86, 80)
             Me.TXT_BuscarMarca.Name = "TXT_BuscarMarca"
-            Me.TXT_BuscarMarca.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarMarca.PlaceholderText = "Doble click para buscar"
             Me.TXT_BuscarMarca.SelectedText = ""
             Me.TXT_BuscarMarca.Size = New System.Drawing.Size(256, 42)
@@ -234,7 +232,6 @@
             Me.TXT_BuscarProv.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_BuscarProv.Location = New System.Drawing.Point(510, 80)
             Me.TXT_BuscarProv.Name = "TXT_BuscarProv"
-            Me.TXT_BuscarProv.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarProv.PlaceholderText = "Doble click para buscar"
             Me.TXT_BuscarProv.SelectedText = ""
             Me.TXT_BuscarProv.Size = New System.Drawing.Size(256, 42)
@@ -255,7 +252,6 @@
             Me.TXT_BuscarCat.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_BuscarCat.Location = New System.Drawing.Point(916, 80)
             Me.TXT_BuscarCat.Name = "TXT_BuscarCat"
-            Me.TXT_BuscarCat.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarCat.PlaceholderText = "Doble click para buscar"
             Me.TXT_BuscarCat.SelectedText = ""
             Me.TXT_BuscarCat.Size = New System.Drawing.Size(256, 42)

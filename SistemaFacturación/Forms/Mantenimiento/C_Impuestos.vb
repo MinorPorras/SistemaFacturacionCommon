@@ -67,13 +67,16 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         Private Sub BTN_RegresarImpuesto_Click(sender As Object, e As EventArgs) Handles BTN_RegresarImpuesto.Click
             M_MantenimientoMenu.Show()
             M_MantenimientoMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_NImpuesto_Click(sender As Object, e As EventArgs) Handles BTN_NImpuesto.Click
-            E_NuevoImpuesto.ModImp = False
-            E_NuevoImpuesto.Show()
-            E_NuevoImpuesto.Select()
+            Dim frmNewImpuesto As New E_NuevoImpuesto With {
+                .ModImp = False
+            }
+            frmNewImpuesto.Show()
+            frmNewImpuesto.Select()
         End Sub
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
@@ -119,11 +122,16 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
             entrarConfig(1, Me)
+        End Sub
+
+        Private Sub C_Impuestos_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 End Namespace

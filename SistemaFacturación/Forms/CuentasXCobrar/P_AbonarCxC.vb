@@ -1,6 +1,7 @@
 ﻿Imports Guna.UI2.WinForms
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
 
 Public Class P_AbonarCxC
 
@@ -168,6 +169,7 @@ Public Class P_AbonarCxC
     End Sub
 
     Private Sub BTN_RegresarVenta_Click(sender As Object, e As EventArgs) Handles BTN_RegresarVenta.Click
+        isNavigating = True
         Me.DialogResult = DialogResult.Cancel
     End Sub
 
@@ -193,6 +195,7 @@ Public Class P_AbonarCxC
         End Select
         Terminar_venta = (venta.Efectivo + venta.Tarjeta) >= venta.Saldo_restante
         imprimir_factura = imprimir
+        isNavigating = True
         Me.DialogResult = DialogResult.OK
     End Sub
 

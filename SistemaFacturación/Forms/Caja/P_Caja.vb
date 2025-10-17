@@ -275,6 +275,10 @@ Namespace SistemaFacturacion.Forms.Caja
             TXT_BuscarProducto.Select()
             TXT_BuscarProducto.SelectAll()
         End Sub
+
+        Private Sub P_Caja_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
+        End Sub
 #End Region
 
 #Region "Manejo de productos"
@@ -566,19 +570,15 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #Region "Acciones de botones"
         Private Sub BTN_RegresarCaja_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCaja.Click
+            ' Se incia la navegación hacia el formulario de inicio
+            isNavigating = True
             M_Inicio.Show()
             Me.Close()
         End Sub
 
-        Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs)
-            msgCerrarApp()
-        End Sub
-
         Private Sub BTN_CuentaCobrar_Click(sender As Object, e As EventArgs) Handles BTN_CuentaCobrar.Click
             ' Establece P_Caja (Me) como el dueño de frmCuentasCobrar
-            Dim frmCuentasCobrar As New P_CuentasCobrar With {
-                .Owner = Me
-            }
+            Dim frmCuentasCobrar As New P_CuentasCobrar With {.Owner = Me}
             isDialogOpen = True
             ' Muestra el formulario de cuentas por cobrar
             frmCuentasCobrar.Show()
@@ -641,7 +641,6 @@ Namespace SistemaFacturacion.Forms.Caja
             }
             frmReimprimirFact.Show()
             frmReimprimirFact.Select()
-            Me.Hide()
         End Sub
 
         Private Async Sub BTN_TVenta_Click(sender As Object, e As EventArgs) Handles BTN_TVenta.Click

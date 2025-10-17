@@ -102,6 +102,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         Private Sub BTN_RegresarCliente_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCliente.Click
             M_MantenimientoMenu.Show()
             M_MantenimientoMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -119,34 +120,29 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
+            Dim frmNewCliente As New E_NuevoCliente With {
+                .ModCLi = True,
+                .Owner = Me
+            }
             Try
-                E_NuevoCliente.idCliente = DGV_Cliente.SelectedRows(0).Cells(0).Value.ToString()
-                E_NuevoCliente.TXT_CodCliente.Text = DGV_Cliente.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoCliente.CodigoPreMod = DGV_Cliente.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoCliente.txtNombreCliente.Text = DGV_Cliente.SelectedRows(0).Cells(2).Value.ToString()
+                frmNewCliente.idCliente = DGV_Cliente.SelectedRows(0).Cells(0).Value.ToString()
+                frmNewCliente.TXT_CodCliente.Text = DGV_Cliente.SelectedRows(0).Cells(1).Value.ToString()
+                frmNewCliente.CodigoPreMod = DGV_Cliente.SelectedRows(0).Cells(1).Value.ToString()
+                frmNewCliente.txtNombreCliente.Text = DGV_Cliente.SelectedRows(0).Cells(2).Value.ToString()
 
-                If String.IsNullOrEmpty(DGV_Cliente.SelectedRows(0).Cells(3).Value.ToString()) Then
-                    E_NuevoCliente.TXT_CedCliente.Text = ""
-                Else
-                    E_NuevoCliente.TXT_CedCliente.Text = DGV_Cliente.SelectedRows(0).Cells(3).Value.ToString()
-                End If
+                Dim cedula = DGV_Cliente.SelectedRows(0).Cells(3).Value.ToString()
+                frmNewCliente.TXT_CedCliente.Text = If(String.IsNullOrEmpty(cedula), "", cedula)
 
-                If String.IsNullOrEmpty(DGV_Cliente.SelectedRows(0).Cells(4).Value.ToString()) Then
-                    E_NuevoCliente.TXT_TelCliente.Text = ""
-                Else
-                    E_NuevoCliente.TXT_TelCliente.Text = DGV_Cliente.SelectedRows(0).Cells(4).Value.ToString()
-                End If
+                Dim telefono As String = DGV_Cliente.SelectedRows(0).Cells(4).Value.ToString()
+                frmNewCliente.TXT_TelCliente.Text = If(String.IsNullOrEmpty(telefono), "", telefono)
 
-                If String.IsNullOrEmpty(DGV_Cliente.SelectedRows(0).Cells(5).Value.ToString()) Then
-                    E_NuevoCliente.TXT_CorreoCliente.Text = ""
-                Else
-                    E_NuevoCliente.TXT_CorreoCliente.Text = DGV_Cliente.SelectedRows(0).Cells(5).Value.ToString()
-                End If
+                Dim correo As String = DGV_Cliente.SelectedRows(0).Cells(5).Value.ToString()
+                frmNewCliente.TXT_CorreoCliente.Text = If(String.IsNullOrEmpty(correo), "", correo)
 
-                E_NuevoCliente.ModCLi = True
-                E_NuevoCliente.Show()
+                frmNewCliente.Show()
             Catch ex As Exception
-                msgError("Error: " & ex.Message)
+                frmNewCliente.Show()
+                MsgError("Error: " & ex.Message)
             End Try
         End Sub
 
@@ -189,17 +185,25 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_NCliente_Click_1(sender As Object, e As EventArgs) Handles BTN_NCliente.Click
-            E_NuevoCliente.ModCLi = False
-            E_NuevoCliente.Show()
-            E_NuevoCliente.Select()
+            Dim frmnewCliente As New E_NuevoCliente With {
+                .idCliente = 0,
+                .ModCLi = False
+            }
+            frmnewCliente.Show()
+            frmnewCliente.Select()
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
             entrarConfig(1, Me)
+        End Sub
+
+        Private Sub C_Clientes_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

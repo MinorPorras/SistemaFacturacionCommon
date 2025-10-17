@@ -233,7 +233,8 @@ Namespace SistemaFacturacion.Forms.Caja
 
 
         Private Sub CerrarApp_Click(sender As Object, e As EventArgs)
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
         Private Sub BTN_RegresarFact_Click(sender As Object, e As EventArgs) Handles BTN_RegresarFact.Click
@@ -241,9 +242,9 @@ Namespace SistemaFacturacion.Forms.Caja
             Owner.Select()
             If TypeOf Owner Is P_Caja Then
                 Dim caja = CType(Owner, P_Caja)
-                caja.isDialogOpen = False
                 caja.TXT_BuscarProducto.SelectAll()
             End If
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -278,8 +279,13 @@ Namespace SistemaFacturacion.Forms.Caja
             reiniciarTimer()
         End Sub
 
+        Private Sub P_ReimprimirFact_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
+        End Sub
+
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
     End Class
 

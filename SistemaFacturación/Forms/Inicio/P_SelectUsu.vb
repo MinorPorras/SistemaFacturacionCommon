@@ -48,11 +48,17 @@ Namespace SistemaFacturacion.Forms.Inicio
             P_Login.TXT_Clave.Select()
             P_Login.Show()
             P_Login.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
+        End Sub
+
+        Private Sub P_SelectUsu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

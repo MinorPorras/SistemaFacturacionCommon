@@ -35,7 +35,7 @@ Public Class P_SplashScreen
             LBL_Info.Refresh()
         End If
     End Sub
-    Public Sub setVersionLabel(ver As String)
+    Public Sub SetVersionLabel(ver As String)
         If LBL_Version.InvokeRequired Then
             Me.Invoke(Sub()
                           LBL_Version.Text += ver

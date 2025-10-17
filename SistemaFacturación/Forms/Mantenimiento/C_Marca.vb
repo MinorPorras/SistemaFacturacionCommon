@@ -21,6 +21,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         Private Sub BTN_RegresarCat_Click(sender As Object, e As EventArgs) Handles BTN_RegresarMarca.Click
             M_MantenimientoMenu.Show()
             M_MantenimientoMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -110,19 +111,23 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_NCat_Click(sender As Object, e As EventArgs) Handles BTN_NMarca.Click
-            E_NuevaMarca.ModMarca = False
-            E_NuevaMarca.Show()
-            E_NuevaMarca.Select()
+            Dim frmNewMarca As New E_NuevaMarca With {
+                .ModMarca = False
+            }
+            frmNewMarca.Show()
+            frmNewMarca.Select()
         End Sub
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
             Try
-                E_NuevaMarca.idMarca = DGV_Marca.SelectedRows(0).Cells(0).Value.ToString()
-                E_NuevaMarca.TXT_CodMarca.Text = DGV_Marca.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevaMarca.TXT_NombreMarca.Text = DGV_Marca.SelectedRows(0).Cells(2).Value.ToString()
-                E_NuevaMarca.ModMarca = True
-                E_NuevaMarca.CodigoPreMod = DGV_Marca.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevaMarca.Show()
+                Dim frmModMarca As New E_NuevaMarca With {
+                    .ModMarca = True,
+                    .idMarca = DGV_Marca.SelectedRows(0).Cells(0).Value.ToString(),
+                    .CodigoPreMod = DGV_Marca.SelectedRows(0).Cells(1).Value.ToString()
+                }
+                frmModMarca.TXT_CodMarca.Text = DGV_Marca.SelectedRows(0).Cells(1).Value.ToString()
+                frmModMarca.TXT_NombreMarca.Text = DGV_Marca.SelectedRows(0).Cells(2).Value.ToString()
+                frmModMarca.Show()
             Catch ex As Exception
                 MsgBox("Error: " & ex.Message, vbCritical + vbOKOnly, "Error")
             End Try
@@ -161,11 +166,16 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
             entrarConfig(1, Me)
+        End Sub
+
+        Private Sub C_Marca_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 End Namespace

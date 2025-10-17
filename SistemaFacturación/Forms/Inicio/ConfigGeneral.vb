@@ -97,10 +97,6 @@ Namespace SistemaFacturacion.Forms.Inicio
             End If
         End Sub
 
-        Private Sub Guna2ImageButton1_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            MsgCerrarApp()
-        End Sub
-
 #Region "TabDB"
 
         Private Sub cargarDBConfigInfo()
@@ -118,6 +114,7 @@ Namespace SistemaFacturacion.Forms.Inicio
         End Sub
 
         Private Sub BTN_RegresarConfig_Click(sender As Object, e As EventArgs) Handles BTN_RegresarConfig.Click
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -226,6 +223,7 @@ Namespace SistemaFacturacion.Forms.Inicio
         End Sub
 
         Private Sub BTN_Regresar_Click(sender As Object, e As EventArgs) Handles BTN_Regresar.Click
+            isNavigating = True
             Me.Close()
         End Sub
 #End Region
@@ -300,19 +298,21 @@ Namespace SistemaFacturacion.Forms.Inicio
         End Sub
 
         Private Sub btn_RegInfoConfig_Click(sender As Object, e As EventArgs) Handles btn_RegInfoConfig.Click
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_ConfigRegHablador_Click(sender As Object, e As EventArgs) Handles BTN_ConfigRegHablador.Click
+            isNavigating = True
             Me.Close()
         End Sub
 
-        Private Sub BTN_CodFuente_Click(sender As Object, e As EventArgs)
-            OpenUrlInBrowser(GITHUB_REPO_URL)
+        Private Sub BTN_ListaCambios_Click(sender As Object, e As EventArgs) Handles BTN_ListaCambios.Click
+            OpenUrlInBrowser(GITHUB_RELEASES_URL)
         End Sub
 
-        Private Sub BTN_ListaCambios_Click(sender As Object, e As EventArgs)
-            OpenUrlInBrowser(GITHUB_RELEASES_URL)
+        Private Sub BTN_CodFuente_Click(sender As Object, e As EventArgs) Handles BTN_CodFuente.Click
+            OpenUrlInBrowser(GITHUB_REPO_URL)
         End Sub
 
         ''' <summary>
@@ -429,6 +429,7 @@ Namespace SistemaFacturacion.Forms.Inicio
             If TypeOf Me.Owner Is P_Caja Then
                 P_Caja.LoadBtnFav()
             End If
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -595,6 +596,16 @@ Namespace SistemaFacturacion.Forms.Inicio
                 End Try
             End Using
         End Sub
+
+        Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
+            isNavigating = False
+            Me.Close()
+        End Sub
+
+        Private Sub ConfigGeneral_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
+        End Sub
+
 #End Region
 
     End Class

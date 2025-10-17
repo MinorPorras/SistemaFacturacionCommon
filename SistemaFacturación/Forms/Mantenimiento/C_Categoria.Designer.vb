@@ -62,7 +62,7 @@
             Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
             Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
             Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-            Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
+            Me.MNU_CONTX.Size = New System.Drawing.Size(136, 56)
             '
             'MNU_MODIFICAR
             '
@@ -71,7 +71,7 @@
             Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
             Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
             Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
-            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(184, 26)
+            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
             Me.MNU_MODIFICAR.Text = "Modificar"
             Me.MNU_MODIFICAR.Visible = False
             '
@@ -82,7 +82,7 @@
             Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
             Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
             Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
+            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(135, 26)
             Me.MNU_ELIMINAR.Text = "Eliminar"
             Me.MNU_ELIMINAR.Visible = False
             '
@@ -143,7 +143,6 @@
             Me.TXT_BuscarCat.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_BuscarCat.Location = New System.Drawing.Point(12, 165)
             Me.TXT_BuscarCat.Name = "TXT_BuscarCat"
-            Me.TXT_BuscarCat.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarCat.PlaceholderText = "Buscar Categoría"
             Me.TXT_BuscarCat.SelectedText = ""
             Me.TXT_BuscarCat.Size = New System.Drawing.Size(420, 42)
@@ -277,7 +276,7 @@
             Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
             Me.BTN_CerrarApp.TabIndex = 122
             '
-            'P_Categoria
+            'C_Categoria
             '
             Me.AcceptButton = Me.BTN_NCat
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -294,7 +293,7 @@
             Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
             Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
             Me.KeyPreview = True
-            Me.Name = "P_Categoria"
+            Me.Name = "C_Categoria"
             Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
             Me.Text = "Categorías"
             Me.MNU_CONTX.ResumeLayout(False)

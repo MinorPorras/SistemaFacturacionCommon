@@ -30,6 +30,7 @@ Namespace SistemaFacturacion.Forms.Inicio
                     End If
                     M_Inicio.Show()
                     M_Inicio.Select()
+                    isNavigating = True
                     P_SelectUsu.Close()
                     Me.Close()
                 Else
@@ -43,6 +44,7 @@ Namespace SistemaFacturacion.Forms.Inicio
         Private Sub BTN_RegresarLogin_Click(sender As Object, e As EventArgs) Handles BTN_RegresarLogin.Click
             P_SelectUsu.Show()
             P_SelectUsu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -61,11 +63,12 @@ Namespace SistemaFacturacion.Forms.Inicio
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
-        Private Sub P_Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Private Sub P_Login_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

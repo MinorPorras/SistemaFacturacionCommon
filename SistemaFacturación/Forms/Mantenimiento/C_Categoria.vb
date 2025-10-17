@@ -22,6 +22,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         Private Sub BTN_RegresarCat_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCat.Click
             M_MantenimientoMenu.Show()
             M_MantenimientoMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -129,32 +130,40 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_NCat_Click(sender As Object, e As EventArgs) Handles BTN_NCat.Click
-            E_NuevaCategoria.ModCat = False
-            E_NuevaCategoria.Show()
-            E_NuevaCategoria.Select()
+            Dim newCatForm As New E_NuevaCategoria With
+            {
+                .ModCat = False,
+                .Owner = Me
+            }
+            newCatForm.Show()
+            newCatForm.Select()
         End Sub
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
-            E_NuevaCategoria.ModCat = True
+            Dim modCatForm As New E_NuevaCategoria With {
+                .ModCat = True,
+                .Owner = Me
+            }
             Try
-                E_NuevaCategoria.CodigoPreMod = DGV_Categoria.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevaCategoria.idCat = DGV_Categoria.SelectedRows(0).Cells(0).Value.ToString()
-                E_NuevaCategoria.TXT_CodCat.Text = DGV_Categoria.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevaCategoria.TXT_NombreCat.Text = DGV_Categoria.SelectedRows(0).Cells(2).Value.ToString()
+                modCatForm = New E_NuevaCategoria With
+                {
+                    .ModCat = True,
+                    .Owner = Me,
+                    .CodigoPreMod = DGV_Categoria.SelectedRows(0).Cells(1).Value.ToString(),
+                    .idCat = DGV_Categoria.SelectedRows(0).Cells(0).Value.ToString(),
+                    .ColorCat = DGV_Categoria.SelectedRows(0).Cells(3).Value.ToString()
+                }
+                modCatForm.TXT_CodCat.Text = DGV_Categoria.SelectedRows(0).Cells(1).Value.ToString()
+                modCatForm.TXT_NombreCat.Text = DGV_Categoria.SelectedRows(0).Cells(2).Value.ToString()
                 Dim rgbValues() = DGV_Categoria.SelectedRows(0).Cells(3).Value.ToString().Split(",")
                 Dim red As Integer = Convert.ToInt32(rgbValues(0))
                 Dim green As Integer = Convert.ToInt32(rgbValues(1))
                 Dim blue As Integer = Convert.ToInt32(rgbValues(2))
-                E_NuevaCategoria.BTN_Color.FillColor = Color.FromArgb(red, green, blue)
-                E_NuevaCategoria.ColorDialog1.Color = Color.FromArgb(red, green, blue)
-                E_NuevaCategoria.ColorCat = DGV_Categoria.SelectedRows(0).Cells(3).Value.ToString()
-                E_NuevaCategoria.ModCat = True
-                E_NuevaCategoria.Show()
+                modCatForm.Show()
             Catch ex As Exception
-                msgError("Error: " & ex.Message)
-                E_NuevaCategoria.Show()
+                MsgError("Error: " & ex.Message)
+                modCatForm.Show()
             End Try
-
         End Sub
 
         Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
@@ -188,11 +197,16 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
             entrarConfig(2, Me)
+        End Sub
+
+        Private Sub C_Categoria_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 End Namespace

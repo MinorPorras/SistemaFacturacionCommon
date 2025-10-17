@@ -42,70 +42,68 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Function
 
         Private Sub BTN_RegresarNCat_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCat.Click
-            C_Categoria.Show()
-            C_Categoria.Select()
-            C_Categoria.TXT_BuscarCat.SelectAll()
+            Dim frmCategoria As New C_Categoria
+            frmCategoria.Show()
+            frmCategoria.Select()
+            frmCategoria.TXT_BuscarCat.SelectAll()
             Me.Close()
         End Sub
 
         Private Sub BTN_NCat_Click(sender As Object, e As EventArgs) Handles BTN_NCat.Click
-            If VALIDAR() Then
-                Try
-                    Dim codigo As String = TXT_CodCat.Text
-                    If ModCat = False Then
-                        If Not EXISTECOD("categoria", "codigo", codigo) Then ' Si no se ha guardado la categoría
-                            Correcto = True
-                        Else
-                            Correcto = False
-                        End If
-                    Else
-                        If codigo = CodigoPreMod Or Not EXISTECOD("categoria", "codigo", codigo) Then
-                            Correcto = True
-                        Else
-                            Correcto = False
-                        End If
-                    End If
-                    If Correcto Then
-                        ' Comprobación de que se quiere modificar la información en la base de datos por parte del usuario
-                        If msgGuardar() Then
-                            Try
-                                If ModCat = False Then
-                                    ' Si la PK que esté guardada en IdCat no existe en la base de datos en esa tabla...
-                                    If EXISTEPK("categoria", "ID", idCat) = False Then ' Si no se ha guardado la categoría
-                                        ' Guarda la PK almacenada en IdCat dentro de la Base de datos en la tabla y PK indicado
-                                        GUARDAR_PK("categoria", "ID", idCat)
-                                    End If
-                                End If
-                                ' Actualizar los campos en la base de datos
-                                GUARDAR_TEXT("categoria", "codigo", TXT_CodCat.Text, "ID", idCat)
-                                GUARDAR_TEXT("categoria", "nombre", TXT_NombreCat.Text, "ID", idCat)
-                                If String.IsNullOrEmpty(ColorCat) Then
-                                    GUARDAR_TEXT("categoria", "color", "0,0,0", "ID", idCat)
-                                Else
-                                    GUARDAR_TEXT("categoria", "color", ColorCat, "ID", idCat)
-                                End If
-                                LIMPIAR()
-                                msgDatoAlm()
-                                ' Muestra y refresca la pantalla del list view de Sucursales y cierra esta
-                                C_Categoria.Show()
-                                C_Categoria.Select()
-                                C_Categoria.REFRESCAR()
-                                C_Categoria.TXT_BuscarCat.Select()
-                                C_Categoria.TXT_BuscarCat.SelectAll()
-                                Me.Close()
-                            Catch ex As Exception
-                                msgError("Error al actualizar los datos: " & ex.Message)
-                            End Try
-                        End If
-                    Else
-                        msgError("El código " + TXT_CodCat.Text + " ya existe, coloque un código distinto")
-                        TXT_CodCat.Select()
-                        TXT_CodCat.SelectAll()
-                    End If
-                Catch ex As Exception
-                    msgError("Error: " & ex.Message)
-                End Try
+            ' Validar que los campos obligatorios no estén vacíos
+            If Not VALIDAR() Then
+                Exit Sub
             End If
+
+            Try
+                Dim codigo As String = TXT_CodCat.Text
+                If ModCat = False Then
+                    Correcto = Not EXISTECOD("categoria", "codigo", codigo)
+                Else
+                    Correcto = (codigo = CodigoPreMod Or Not EXISTECOD("categoria", "codigo", codigo))
+                End If
+
+                If Not Correcto Then
+                    MsgError("El código " + TXT_CodCat.Text + " ya existe, coloque un código distinto")
+                    TXT_CodCat.Select()
+                    TXT_CodCat.SelectAll()
+                End If
+
+                ' Comprobación de que se quiere modificar la información en la base de datos por parte del usuario
+                If MsgGuardar() Then
+                    Try
+                        If ModCat = False Then
+                            ' Si la PK que esté guardada en IdCat no existe en la base de datos en esa tabla...
+                            If EXISTEPK("categoria", "ID", idCat) = False Then ' Si no se ha guardado la categoría
+                                ' Guarda la PK almacenada en IdCat dentro de la Base de datos en la tabla y PK indicado
+                                GUARDAR_PK("categoria", "ID", idCat)
+                            End If
+                        End If
+                        ' Actualizar los campos en la base de datos
+                        GUARDAR_TEXT("categoria", "codigo", TXT_CodCat.Text, "ID", idCat)
+                        GUARDAR_TEXT("categoria", "nombre", TXT_NombreCat.Text, "ID", idCat)
+                        If String.IsNullOrEmpty(ColorCat) Then
+                            GUARDAR_TEXT("categoria", "color", "0,0,0", "ID", idCat)
+                        Else
+                            GUARDAR_TEXT("categoria", "color", ColorCat, "ID", idCat)
+                        End If
+                        LIMPIAR()
+                        MsgDatoAlm()
+                        ' Muestra y refresca la pantalla del list view de Sucursales y cierra esta
+                        Dim frmCategoria As New C_Categoria
+                        frmCategoria.Show()
+                        frmCategoria.Select()
+                        frmCategoria.REFRESCAR()
+                        frmCategoria.TXT_BuscarCat.Select()
+                        frmCategoria.TXT_BuscarCat.SelectAll()
+                        Me.Close()
+                    Catch ex As Exception
+                        MsgError("Error al actualizar los datos: " & ex.Message)
+                    End Try
+                End If
+            Catch ex As Exception
+                MsgError("Error: " & ex.Message)
+            End Try
         End Sub
 
         Friend Sub LIMPIAR()
