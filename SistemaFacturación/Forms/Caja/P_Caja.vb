@@ -658,7 +658,8 @@ Namespace SistemaFacturacion.Forms.Caja
                     .ListaProductos = prodList,
                     .Saldo_total = totalCaja,
                     .Num_factura = NumFactura,
-                    .Tipo_pago = 1
+                    .Tipo_pago = 1,
+                    .Excluir_de_cierre = 0
                 }
                 endVentaForm.isCuentaPorCobrar = False
 
@@ -668,14 +669,14 @@ Namespace SistemaFacturacion.Forms.Caja
                     Exit Sub
                 End If
 
-                If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura, False) Then
+                If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura) Then
                     ' Limpia la interfaz de la caja y la prepara para una nueva venta
                     LIMPIAR()
                     CargarNumFactura()
                     Me.Refresh()
                     BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
 
-                    mensaje("Vuelto: ₡ " & endVentaForm.venta.Vuelto, vbOKOnly, "Venta completada")
+                    Mensaje("Vuelto: ₡ " & endVentaForm.venta.Vuelto, vbOKOnly, "Venta completada")
                     TXT_BuscarProducto.Select()
                     TXT_BuscarProducto.SelectAll()
                 End If

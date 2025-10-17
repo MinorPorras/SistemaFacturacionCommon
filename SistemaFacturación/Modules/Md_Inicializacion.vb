@@ -3,15 +3,16 @@ Imports System.Data.SQLite
 Imports System.IO
 Imports System.Net
 Imports System.Threading
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
-Imports logger = SistemaFacturaciónCommon.SistemaFacturación.Modules.Md_LogSetup
-Imports Velopack
-Imports Velopack.Sources
-Imports Velopack.Locators
-Imports Velopack.Logging
+Imports System.Web.Util
 Imports NuGet.Versioning
 Imports Serilog
 Imports Serilog.Context
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
+Imports Velopack
+Imports Velopack.Locators
+Imports Velopack.Logging
+Imports Velopack.Sources
+Imports logger = SistemaFacturaciónCommon.SistemaFacturación.Modules.Md_LogSetup
 
 ' -----------------------------------------------------------------------------
 ' Módulo de inicialización y utilidades de configuración de la aplicación
@@ -524,6 +525,11 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                         Throw New Exception("Fallo en la inicialización de las cuentas por cobrar.")
                     End If
 
+                    Log.Information("Verificando/Agregando columna de exclusión de cierre en facturas")
+                    If Not AddExcluirCierreColumn() Then
+                        Throw New Exception("Fallo en adición de exclusión de cierre en facturas.")
+                    End If
+
                     Log.Information("Verificación y migración de la base de datos completada exitosamente")
                 Catch ex As Exception
                     ' Maneja cualquier error que ocurra durante la verificación o migración
@@ -820,6 +826,20 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                 Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
             End If
             Log.Information("La columna 'cobrada' no existe en la tabla 'factura'. No se requiere eliminación.")
+            Return True
+        End Function
+
+        Private Function AddExcluirCierreColumn() As Boolean
+            If Not ColumnExists("factura", "excluir_de_cierre") Then
+                SQL = "ALTER TABLE factura ADD COLUMN excluir_de_cierre INTEGER NOT NULL DEFAULT 0;"
+                Dim param As New Dictionary(Of String, Object)
+                Log.Information("Añadiendo la columna 'excluir_de_cierre' de la tabla 'factura'.")
+                Using conn As New SQLiteConnection(GetConnectionString())
+                    conn.Open()
+                    Return EJECUTAR_PARAMETROS(SQL, param)
+                End Using
+            End If
+            Log.Information("La columna 'excluir_de_cierre' existe en la tabla 'factura'. No se requiere ser añadida.")
             Return True
         End Function
 #End Region

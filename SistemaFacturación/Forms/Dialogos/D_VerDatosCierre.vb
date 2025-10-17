@@ -8,7 +8,7 @@ Namespace SistemaFacturacion.Forms.Dialogos
 
         Private Async Sub D_VerDatosCierre_Load(sender As Object, e As EventArgs) Handles MyBase.Load
             'Se obtiene la lista de ventas
-            Dim listaVentas = Await ObtenerListaVentas(datosCierre.hora_apertura, datosCierre.hora_cierre, T)
+            Dim listaVentas = Await ObtenerListaVentas(datosCierre.Hora_apertura, datosCierre.Hora_cierre, T, False)
 
             For Each venta As Cls_DatosFactura In listaVentas
                 If venta.TipoPago = "Efectivo" Then

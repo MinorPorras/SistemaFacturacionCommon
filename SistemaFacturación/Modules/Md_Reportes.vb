@@ -20,7 +20,7 @@ Namespace SistemaFacturacion.Modules
 #Region "Obtención de datos"
         Friend Async Function GenerarReporte(desde As Date, hasta As Date, t As DataSet) As Task(Of Cls_ReporteVentas)
             Try
-                Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(desde, hasta, t)
+                Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(desde, hasta, t, False)
                 Log.Information($"Se obtuvieron {listaVentas.Count} ventas entre {desde} y {hasta}")
 
                 Dim totalVentas As Decimal = 0D
@@ -69,7 +69,7 @@ Namespace SistemaFacturacion.Modules
         End Function
 
 
-        Friend Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet) As Task(Of List(Of Cls_DatosFactura))
+        Friend Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet, excluir As Boolean) As Task(Of List(Of Cls_DatosFactura))
             Return Await Task.Run(Function()
                                       Dim consulta As String = "SELECT 
                                                                         f.ID,
@@ -93,7 +93,11 @@ Namespace SistemaFacturacion.Modules
 	                                                                    factura_comentario fc  ON fc.ID_Factura  =f.ID 
                                                                     WHERE 
                                                                         f.fecha_emision >= @fechaInicio
-                                                                        AND f.fecha_emision <  @fechaFin;"
+                                                                        AND f.fecha_emision <  @fechaFin"
+
+                                      If excluir Then
+                                          consulta += " AND excluir_de_cierre = 0"
+                                      End If
 
                                       Dim paramList As New List(Of SQLiteParameter) From {
                                           New SQLiteParameter("@fechaInicio", desde),

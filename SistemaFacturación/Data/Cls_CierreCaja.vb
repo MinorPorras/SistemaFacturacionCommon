@@ -143,7 +143,7 @@ Namespace SistemaFacturacion.Data
             Log.Information("Fechas de apertura y cierre obtenidas: Apertura={Apertura}, Cierre={Cierre}", fechaInicio, fechaFin)
 
             'Se obtiene la información relacionada con las ventas en la 
-            Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(fechaInicio, fechaFin, T)
+            Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(fechaInicio, fechaFin, T, True)
             Dim ventasEfectivo As Decimal = 0
             Dim ventasTarjeta As Decimal = 0
             For Each venta As Cls_DatosFactura In listaVentas

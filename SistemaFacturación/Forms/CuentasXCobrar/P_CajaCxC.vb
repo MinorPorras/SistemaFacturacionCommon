@@ -409,7 +409,7 @@ Public Class P_CajaCxC
                 Exit Sub
             End If
 
-            If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura, True) Then
+            If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura) Then
                 Me.DialogResult = DialogResult.OK
             End If
         End Using
@@ -612,10 +612,11 @@ Public Class P_CajaCxC
                     .Saldo_restante = 0,
                     .Efectivo = abonarForm.venta.Efectivo,
                     .Tarjeta = abonarForm.venta.Tarjeta,
-                    .Vuelto = abonarForm.venta.Vuelto
+                    .Vuelto = abonarForm.venta.Vuelto,
+                    .Excluir_de_cierre = 1
                 }
 
-                Await venta.GuardarFactura(abonarForm.imprimir_factura, True)
+                Await venta.GuardarFactura(abonarForm.imprimir_factura)
 
                 SwitchEstadoCuenta(Cuenta.ID, 2) ' Se pasa el estado a cobrada
                 isNavigating = True

@@ -60,6 +60,7 @@ Public Class Cls_Ventas
         End Get
     End Property
     Public Property Comentario As String
+    Public Property Excluir_de_cierre As Integer
     Public Property ListaProductos As New List(Of Cls_ProductoCaja)
     Public Property ID_CxC As Integer
     Public Property Saldo_restante As Decimal
@@ -72,19 +73,19 @@ Public Class Cls_Ventas
     Private ReadOnly culturaCR As New CultureInfo("es-CR")
 
     ' Subrutina principal para guardar la factura
-    Friend Async Function GuardarFactura(imprimir As Boolean, esCuentaPorCobrar As Boolean) As Task(Of Boolean)
+    Friend Async Function GuardarFactura(imprimir As Boolean) As Task(Of Boolean)
         If MsgBox("¿Desea terminar la venta?", vbOKCancel + vbDefaultButton1, "Confirmar") = MsgBoxResult.Cancel Then
             Log.Information("Guardado de factura cancelado por el usuario.")
             Return False
         End If
 
         If ListaProductos.Count < 1 Then
-            msgError("No se puede Guardar una factura vacía.")
+            MsgError("No se puede Guardar una factura vacía.")
             Return False
         End If
 
         Try
-            Dim resultado As String = Await GuardarFacturaDB(esCuentaPorCobrar)
+            Dim resultado As String = Await GuardarFacturaDB()
             'Si dió algún tipo de error al guardar la factura, se muestra el mensaje y se sale del sub
             If resultado <> "OK" Then
                 MsgError("Error al guardar la factura: " & resultado)
@@ -105,7 +106,7 @@ Public Class Cls_Ventas
             Return False
         End Try
     End Function
-    Friend Async Function GuardarFacturaDB(esCuentaPorCobrar As Boolean) As Task(Of String)
+    Friend Async Function GuardarFacturaDB() As Task(Of String)
         Return Await Task.Run(Function()
 
                                   Using db As New SQLiteConnection(GetConnectionString())
@@ -143,8 +144,8 @@ Public Class Cls_Ventas
     ' Guarda o actualiza los datos principales de la factura.
     Private Sub GuardarFactura(db As SQLiteConnection, transaction As SQLiteTransaction)
         Dim insertFacturaSQL As String = "INSERT INTO factura 
-            (ID, num_factura, fecha_emision, ID_Cliente, ID_usuario, total, efectivo_cliente, tarjeta_cliente, vuelto, tipo_venta) 
-            VALUES (@id, @num_factura, @fecha, @idCliente, @idUsu, @total, @efectivo, @tarjeta, @vuelto, @tipo_venta)"
+            (ID, num_factura, fecha_emision, ID_Cliente, ID_usuario, total, efectivo_cliente, tarjeta_cliente, vuelto, tipo_venta, excluir_de_cierre) 
+            VALUES (@id, @num_factura, @fecha, @idCliente, @idUsu, @total, @efectivo, @tarjeta, @vuelto, @tipo_venta, @excluir)"
         Log.Debug("Preparando comando SQL para insertar/actualizar factura: {SQL}", insertFacturaSQL)
         Using cmd As New SQLiteCommand(insertFacturaSQL, db, transaction)
             cmd.Parameters.AddWithValue("@id", ID)
@@ -157,6 +158,7 @@ Public Class Cls_Ventas
             cmd.Parameters.AddWithValue("@tarjeta", Tarjeta)
             cmd.Parameters.AddWithValue("@vuelto", Vuelto)
             cmd.Parameters.AddWithValue("@tipo_venta", Tipo_pago)
+            cmd.Parameters.AddWithValue("@excluir", Excluir_de_cierre)
             cmd.ExecuteNonQuery()
         End Using
     End Sub

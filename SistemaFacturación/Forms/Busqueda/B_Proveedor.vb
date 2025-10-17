@@ -11,8 +11,9 @@ Namespace SistemaFacturacion.Forms.Busqueda
         ' Método para inicializar el temporizador y otros componentes necesarios
         Private Sub InicializarComponentes()
             ' Inicializar el temporizador
-            searchTimer = New Timer()
-            searchTimer.Interval = 100
+            searchTimer = New Timer With {
+                .Interval = 100
+            }
             ' Medio segundo
             AddHandler searchTimer.Tick, AddressOf OnSearchTimerTick
         End Sub
@@ -41,8 +42,9 @@ Namespace SistemaFacturacion.Forms.Busqueda
                              Invoke(Sub()
                                         Cargar_Tabla(T, SQL)
                                         If T.Tables.Count > 0 AndAlso T.Tables(0).Rows.Count > 0 Then
-                                            Dim bin As New BindingSource
-                                            bin.DataSource = T.Tables(0)
+                                            Dim bin As New BindingSource With {
+                                                .DataSource = T.Tables(0)
+                                            }
                                             DGV_BProv.DataSource = bin
                                         Else ' Limpiar la fuente de datos si no se cargaron datos
                                             DGV_BProv.DataSource = Nothing
