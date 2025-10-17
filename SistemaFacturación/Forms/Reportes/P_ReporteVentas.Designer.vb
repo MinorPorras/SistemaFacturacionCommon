@@ -243,7 +243,6 @@
             Me.TXT_CantProdMasVendido.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_CantProdMasVendido.Location = New System.Drawing.Point(438, 110)
             Me.TXT_CantProdMasVendido.Name = "TXT_CantProdMasVendido"
-            Me.TXT_CantProdMasVendido.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_CantProdMasVendido.PlaceholderText = ""
             Me.TXT_CantProdMasVendido.ReadOnly = True
             Me.TXT_CantProdMasVendido.SelectedText = ""
@@ -266,7 +265,6 @@
             Me.TXT_TotalProdMasVendido.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_TotalProdMasVendido.Location = New System.Drawing.Point(95, 110)
             Me.TXT_TotalProdMasVendido.Name = "TXT_TotalProdMasVendido"
-            Me.TXT_TotalProdMasVendido.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_TotalProdMasVendido.PlaceholderText = ""
             Me.TXT_TotalProdMasVendido.ReadOnly = True
             Me.TXT_TotalProdMasVendido.SelectedText = ""
@@ -327,7 +325,6 @@
             Me.TXT_NombreProdMasVendido.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_NombreProdMasVendido.Location = New System.Drawing.Point(141, 48)
             Me.TXT_NombreProdMasVendido.Name = "TXT_NombreProdMasVendido"
-            Me.TXT_NombreProdMasVendido.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_NombreProdMasVendido.PlaceholderText = ""
             Me.TXT_NombreProdMasVendido.ReadOnly = True
             Me.TXT_NombreProdMasVendido.SelectedText = ""
@@ -374,7 +371,6 @@
             Me.TXT_CantFacturas.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_CantFacturas.Location = New System.Drawing.Point(233, 48)
             Me.TXT_CantFacturas.Name = "TXT_CantFacturas"
-            Me.TXT_CantFacturas.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_CantFacturas.PlaceholderText = ""
             Me.TXT_CantFacturas.ReadOnly = True
             Me.TXT_CantFacturas.SelectedText = ""
@@ -421,7 +417,6 @@
             Me.TXT_VentasEfectivo.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_VentasEfectivo.Location = New System.Drawing.Point(119, 110)
             Me.TXT_VentasEfectivo.Name = "TXT_VentasEfectivo"
-            Me.TXT_VentasEfectivo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_VentasEfectivo.PlaceholderText = ""
             Me.TXT_VentasEfectivo.ReadOnly = True
             Me.TXT_VentasEfectivo.SelectedText = ""
@@ -446,7 +441,6 @@
             Me.TXT_VentasTarjeta.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_VentasTarjeta.Location = New System.Drawing.Point(424, 110)
             Me.TXT_VentasTarjeta.Name = "TXT_VentasTarjeta"
-            Me.TXT_VentasTarjeta.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_VentasTarjeta.PlaceholderText = ""
             Me.TXT_VentasTarjeta.ReadOnly = True
             Me.TXT_VentasTarjeta.SelectedText = ""
@@ -521,7 +515,6 @@
             Me.TXT_TotalVentas.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_TotalVentas.Location = New System.Drawing.Point(1012, 210)
             Me.TXT_TotalVentas.Name = "TXT_TotalVentas"
-            Me.TXT_TotalVentas.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_TotalVentas.PlaceholderText = ""
             Me.TXT_TotalVentas.ReadOnly = True
             Me.TXT_TotalVentas.SelectedText = ""
@@ -927,7 +920,6 @@
             Me.TXT_MejorProductoCant.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_MejorProductoCant.Location = New System.Drawing.Point(438, 110)
             Me.TXT_MejorProductoCant.Name = "TXT_MejorProductoCant"
-            Me.TXT_MejorProductoCant.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_MejorProductoCant.PlaceholderText = ""
             Me.TXT_MejorProductoCant.ReadOnly = True
             Me.TXT_MejorProductoCant.SelectedText = ""
@@ -950,7 +942,6 @@
             Me.TXT_MejorProductoTotal.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_MejorProductoTotal.Location = New System.Drawing.Point(95, 110)
             Me.TXT_MejorProductoTotal.Name = "TXT_MejorProductoTotal"
-            Me.TXT_MejorProductoTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_MejorProductoTotal.PlaceholderText = ""
             Me.TXT_MejorProductoTotal.ReadOnly = True
             Me.TXT_MejorProductoTotal.SelectedText = ""
@@ -1011,7 +1002,6 @@
             Me.TXT_MejorProductoNombre.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_MejorProductoNombre.Location = New System.Drawing.Point(141, 48)
             Me.TXT_MejorProductoNombre.Name = "TXT_MejorProductoNombre"
-            Me.TXT_MejorProductoNombre.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_MejorProductoNombre.PlaceholderText = ""
             Me.TXT_MejorProductoNombre.ReadOnly = True
             Me.TXT_MejorProductoNombre.SelectedText = ""
@@ -1265,7 +1255,7 @@
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.50459!))
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109.0!))
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 299.0!))
-            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116.0!))
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117.0!))
             Me.TBL_LayoutSearch.Controls.Add(Me.DTP_FechaFiltroArqueo, 3, 0)
             Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel17, 2, 0)
             Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel18, 0, 0)
@@ -1287,7 +1277,7 @@
             Me.DTP_FechaFiltroArqueo.FillColor = System.Drawing.Color.White
             Me.DTP_FechaFiltroArqueo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_FechaFiltroArqueo.Format = System.Windows.Forms.DateTimePickerFormat.[Long]
-            Me.DTP_FechaFiltroArqueo.Location = New System.Drawing.Point(821, 3)
+            Me.DTP_FechaFiltroArqueo.Location = New System.Drawing.Point(820, 3)
             Me.DTP_FechaFiltroArqueo.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_FechaFiltroArqueo.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_FechaFiltroArqueo.Name = "DTP_FechaFiltroArqueo"
@@ -1302,7 +1292,7 @@
             Me.Guna2HtmlLabel17.Dock = System.Windows.Forms.DockStyle.Fill
             Me.Guna2HtmlLabel17.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel17.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(712, 3)
+            Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(711, 3)
             Me.Guna2HtmlLabel17.Name = "Guna2HtmlLabel17"
             Me.Guna2HtmlLabel17.Size = New System.Drawing.Size(103, 48)
             Me.Guna2HtmlLabel17.TabIndex = 156
@@ -1342,17 +1332,16 @@
             Me.TXT_BuscarUsuario.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_BuscarUsuario.Location = New System.Drawing.Point(141, 3)
             Me.TXT_BuscarUsuario.Name = "TXT_BuscarUsuario"
-            Me.TXT_BuscarUsuario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarUsuario.PlaceholderText = ""
             Me.TXT_BuscarUsuario.SelectedText = ""
-            Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(565, 48)
+            Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(564, 48)
             Me.TXT_BuscarUsuario.TabIndex = 155
             '
             'PAN_SWTBuscarFecha
             '
             Me.PAN_SWTBuscarFecha.Controls.Add(Me.SWT_ActivateDateSearch)
             Me.PAN_SWTBuscarFecha.Controls.Add(Me.Guna2HtmlLabel19)
-            Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(1120, 3)
+            Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(1119, 3)
             Me.PAN_SWTBuscarFecha.Name = "PAN_SWTBuscarFecha"
             Me.PAN_SWTBuscarFecha.Size = New System.Drawing.Size(106, 48)
             Me.PAN_SWTBuscarFecha.TabIndex = 158

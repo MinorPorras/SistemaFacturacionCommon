@@ -62,7 +62,7 @@
             Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
             Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
             Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-            Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
+            Me.MNU_CONTX.Size = New System.Drawing.Size(136, 56)
             '
             'MNU_MODIFICAR
             '
@@ -71,7 +71,7 @@
             Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
             Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
             Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
-            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(184, 26)
+            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
             Me.MNU_MODIFICAR.Text = "Modificar"
             Me.MNU_MODIFICAR.Visible = False
             '
@@ -82,7 +82,7 @@
             Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
             Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
             Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
+            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(135, 26)
             Me.MNU_ELIMINAR.Text = "Eliminar"
             Me.MNU_ELIMINAR.Visible = False
             '
@@ -143,7 +143,6 @@
             Me.TXT_BuscarMarca.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_BuscarMarca.Location = New System.Drawing.Point(24, 139)
             Me.TXT_BuscarMarca.Name = "TXT_BuscarMarca"
-            Me.TXT_BuscarMarca.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarMarca.PlaceholderText = "Buscar marca"
             Me.TXT_BuscarMarca.SelectedText = ""
             Me.TXT_BuscarMarca.Size = New System.Drawing.Size(425, 42)
@@ -280,7 +279,7 @@
             Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
             Me.BTN_CerrarApp.TabIndex = 122
             '
-            'P_Marca
+            'C_Marca
             '
             Me.AcceptButton = Me.BTN_NMarca
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -297,7 +296,7 @@
             Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
             Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
             Me.KeyPreview = True
-            Me.Name = "P_Marca"
+            Me.Name = "C_Marca"
             Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
             Me.Text = "Marcas"
             Me.MNU_CONTX.ResumeLayout(False)

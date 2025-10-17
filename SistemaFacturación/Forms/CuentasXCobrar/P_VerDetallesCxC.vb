@@ -2,6 +2,7 @@
 Imports Guna.UI2.WinForms
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_formating
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
 Imports Syncfusion.Windows.Forms.Tools
 
 Namespace SistemaFacturacion.Forms.CuentasXCobrar
@@ -15,7 +16,7 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             GetData()
         End Sub
 
-        Private Sub GetData()
+        Friend Sub GetData()
             Try
 
             Catch ex As Exception
@@ -40,6 +41,7 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
         End Sub
         Private Sub BTN_Regresar_Click(sender As Object, e As EventArgs) Handles BTN_Regresar.Click
             Owner.Show()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -99,12 +101,12 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
         End Sub
 
         Private Sub BTN_ActualizarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_ActualizarCuenta.Click
-            Using cajaForm As New P_CajaCxC
-                cajaForm.idCuenta = ID
-                cajaForm.ShowDialog()
-                Me.Select()
-                getData()
-            End Using
+            Dim cajaForm As New P_CajaCxC With {
+                .idCuenta = ID,
+                .Owner = Me
+            }
+            cajaForm.Show()
+            Me.Hide()
         End Sub
     End Class
 

@@ -104,11 +104,11 @@
             Me.TXT_BuscarMarca.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.TXT_BuscarMarca.ForeColor = System.Drawing.Color.Black
             Me.TXT_BuscarMarca.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_BuscarMarca.IconRight = CType(resources.GetObject("TXT_BuscarMarca.IconRight"), System.Drawing.Image)
+            Me.TXT_BuscarMarca.IconRight = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_SearchCol
+            Me.TXT_BuscarMarca.IconRightOffset = New System.Drawing.Point(10, 0)
             Me.TXT_BuscarMarca.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_BuscarMarca.Location = New System.Drawing.Point(46, 153)
             Me.TXT_BuscarMarca.Name = "TXT_BuscarMarca"
-            Me.TXT_BuscarMarca.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarMarca.PlaceholderText = "Buscar marca"
             Me.TXT_BuscarMarca.SelectedText = ""
             Me.TXT_BuscarMarca.Size = New System.Drawing.Size(654, 42)
@@ -140,7 +140,6 @@
             Me.TXT_codigo.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_codigo.Location = New System.Drawing.Point(490, 250)
             Me.TXT_codigo.Name = "TXT_codigo"
-            Me.TXT_codigo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_codigo.PlaceholderText = ""
             Me.TXT_codigo.ReadOnly = True
             Me.TXT_codigo.SelectedText = ""
@@ -184,7 +183,6 @@
             Me.TXT_Nombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_Nombre.Location = New System.Drawing.Point(490, 331)
             Me.TXT_Nombre.Name = "TXT_Nombre"
-            Me.TXT_Nombre.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Nombre.PlaceholderText = ""
             Me.TXT_Nombre.ReadOnly = True
             Me.TXT_Nombre.SelectedText = ""

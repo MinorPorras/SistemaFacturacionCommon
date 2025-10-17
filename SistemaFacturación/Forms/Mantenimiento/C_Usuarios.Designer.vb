@@ -112,7 +112,6 @@
             Me.TXT_BuscarUsuario.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_BuscarUsuario.Location = New System.Drawing.Point(46, 191)
             Me.TXT_BuscarUsuario.Name = "TXT_BuscarUsuario"
-            Me.TXT_BuscarUsuario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_BuscarUsuario.PlaceholderText = "Buscar cajeros"
             Me.TXT_BuscarUsuario.SelectedText = ""
             Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(772, 42)
@@ -143,7 +142,7 @@
             Me.MNU_CONTX.RenderStyle.SelectionForeColor = System.Drawing.Color.White
             Me.MNU_CONTX.RenderStyle.SeparatorColor = System.Drawing.Color.Gainsboro
             Me.MNU_CONTX.RenderStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
-            Me.MNU_CONTX.Size = New System.Drawing.Size(185, 78)
+            Me.MNU_CONTX.Size = New System.Drawing.Size(136, 56)
             '
             'MNU_MODIFICAR
             '
@@ -152,7 +151,7 @@
             Me.MNU_MODIFICAR.ForeColor = System.Drawing.Color.White
             Me.MNU_MODIFICAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Edit
             Me.MNU_MODIFICAR.Name = "MNU_MODIFICAR"
-            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(184, 26)
+            Me.MNU_MODIFICAR.Size = New System.Drawing.Size(135, 26)
             Me.MNU_MODIFICAR.Text = "Modificar"
             Me.MNU_MODIFICAR.Visible = False
             '
@@ -163,7 +162,7 @@
             Me.MNU_ELIMINAR.ForeColor = System.Drawing.Color.White
             Me.MNU_ELIMINAR.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Eliminar
             Me.MNU_ELIMINAR.Name = "MNU_ELIMINAR"
-            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(184, 26)
+            Me.MNU_ELIMINAR.Size = New System.Drawing.Size(135, 26)
             Me.MNU_ELIMINAR.Text = "Eliminar"
             Me.MNU_ELIMINAR.Visible = False
             '

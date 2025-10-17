@@ -145,7 +145,7 @@
             Me.Guna2HtmlLabel16.Name = "Guna2HtmlLabel16"
             Me.Guna2HtmlLabel16.Size = New System.Drawing.Size(1075, 34)
             Me.Guna2HtmlLabel16.TabIndex = 160
-            Me.Guna2HtmlLabel16.Text = "Apertura de caja"
+            Me.Guna2HtmlLabel16.Text = "Registrar cierre de caja"
             Me.Guna2HtmlLabel16.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter
             Me.Guna2HtmlLabel16.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
             '
@@ -290,7 +290,6 @@
             Me.TXT_DiferenciaAbsoluta.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_DiferenciaAbsoluta.Location = New System.Drawing.Point(108, 5)
             Me.TXT_DiferenciaAbsoluta.Name = "TXT_DiferenciaAbsoluta"
-            Me.TXT_DiferenciaAbsoluta.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_DiferenciaAbsoluta.PlaceholderText = ""
             Me.TXT_DiferenciaAbsoluta.ReadOnly = True
             Me.TXT_DiferenciaAbsoluta.SelectedText = ""
@@ -337,7 +336,6 @@
             Me.TXT_DiferenciaPorcentual.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_DiferenciaPorcentual.Location = New System.Drawing.Point(115, 5)
             Me.TXT_DiferenciaPorcentual.Name = "TXT_DiferenciaPorcentual"
-            Me.TXT_DiferenciaPorcentual.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_DiferenciaPorcentual.PlaceholderText = ""
             Me.TXT_DiferenciaPorcentual.ReadOnly = True
             Me.TXT_DiferenciaPorcentual.SelectedText = ""
@@ -372,7 +370,6 @@
             Me.TXT_SaldoEsperado.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_SaldoEsperado.Location = New System.Drawing.Point(255, 276)
             Me.TXT_SaldoEsperado.Name = "TXT_SaldoEsperado"
-            Me.TXT_SaldoEsperado.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_SaldoEsperado.PlaceholderText = ""
             Me.TXT_SaldoEsperado.ReadOnly = True
             Me.TXT_SaldoEsperado.SelectedText = ""
@@ -429,7 +426,6 @@
             Me.TXT_SalidasRegistradas.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_SalidasRegistradas.Location = New System.Drawing.Point(3, 39)
             Me.TXT_SalidasRegistradas.Name = "TXT_SalidasRegistradas"
-            Me.TXT_SalidasRegistradas.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_SalidasRegistradas.PlaceholderText = ""
             Me.TXT_SalidasRegistradas.ReadOnly = True
             Me.TXT_SalidasRegistradas.SelectedText = ""
@@ -483,7 +479,6 @@
             Me.TXT_EntradasRegistradas.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_EntradasRegistradas.Location = New System.Drawing.Point(269, 39)
             Me.TXT_EntradasRegistradas.Name = "TXT_EntradasRegistradas"
-            Me.TXT_EntradasRegistradas.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_EntradasRegistradas.PlaceholderText = ""
             Me.TXT_EntradasRegistradas.ReadOnly = True
             Me.TXT_EntradasRegistradas.SelectedText = ""
@@ -529,7 +524,6 @@
             Me.TXT_VentaTarjeta.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_VentaTarjeta.Location = New System.Drawing.Point(111, 106)
             Me.TXT_VentaTarjeta.Name = "TXT_VentaTarjeta"
-            Me.TXT_VentaTarjeta.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_VentaTarjeta.PlaceholderText = ""
             Me.TXT_VentaTarjeta.ReadOnly = True
             Me.TXT_VentaTarjeta.SelectedText = ""
@@ -567,7 +561,6 @@
             Me.TXT_VentaEfectivo.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_VentaEfectivo.Location = New System.Drawing.Point(384, 105)
             Me.TXT_VentaEfectivo.Name = "TXT_VentaEfectivo"
-            Me.TXT_VentaEfectivo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_VentaEfectivo.PlaceholderText = ""
             Me.TXT_VentaEfectivo.ReadOnly = True
             Me.TXT_VentaEfectivo.SelectedText = ""
@@ -605,7 +598,6 @@
             Me.TXT_SaldoInicial.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_SaldoInicial.Location = New System.Drawing.Point(135, 53)
             Me.TXT_SaldoInicial.Name = "TXT_SaldoInicial"
-            Me.TXT_SaldoInicial.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_SaldoInicial.PlaceholderText = ""
             Me.TXT_SaldoInicial.ReadOnly = True
             Me.TXT_SaldoInicial.SelectedText = ""
@@ -673,7 +665,6 @@
             Me.TXT_DineroReal.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_DineroReal.Location = New System.Drawing.Point(176, 3)
             Me.TXT_DineroReal.Name = "TXT_DineroReal"
-            Me.TXT_DineroReal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_DineroReal.PlaceholderText = ""
             Me.TXT_DineroReal.ReadOnly = True
             Me.TXT_DineroReal.SelectedText = ""

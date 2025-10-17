@@ -335,21 +335,24 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
             ' 3. Extraer el ID de la factura del nombre del Panel
             Dim idCuenta As String = panel.Name.Replace("PAN_", "")
 
-            Using cajaForm As New P_CajaCxC
-                cajaForm.idCuenta = idCuenta
-                cajaForm.ShowDialog()
-                REFRESCAR()
-            End Using
+            Dim cajaForm As New P_CajaCxC With {
+                .Owner = Me,
+                .idCuenta = idCuenta
+            }
+            cajaForm.Show()
+            Me.Hide()
+            REFRESCAR()
         End Sub
 
         Private Sub BTN_Regresar_Click(sender As Object, e As EventArgs) Handles BTN_Regresar.Click
             Owner.Show()
+            isNavigating = True
             Me.Close()
         End Sub
 
 
 
-        Private Sub REFRESCAR()
+        Friend Sub REFRESCAR()
             SQL = "SELECT e.ID , c.nombre , e.comentario, e.estado
                     FROM CC_Encabezado e
                     LEFT JOIN clientes c ON c.codigo = e.ID_Cliente"
@@ -371,6 +374,10 @@ Namespace SistemaFacturacion.Forms.CuentasXCobrar
         Private Sub CBX_EstadoCuenta_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CBX_EstadoCuenta.SelectedIndexChanged
             estadoIndex = CBX_EstadoCuenta.SelectedIndex
             REFRESCAR()
+        End Sub
+
+        Private Sub P_CuentasCobrar_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

@@ -170,7 +170,6 @@ Partial Class P_CajaCxC
         Me.TXT_SaldoRestante.Location = New System.Drawing.Point(113, 5)
         Me.TXT_SaldoRestante.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.TXT_SaldoRestante.Name = "TXT_SaldoRestante"
-        Me.TXT_SaldoRestante.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_SaldoRestante.PlaceholderText = ""
         Me.TXT_SaldoRestante.SelectedText = ""
         Me.TXT_SaldoRestante.Size = New System.Drawing.Size(194, 47)
@@ -217,7 +216,6 @@ Partial Class P_CajaCxC
         Me.TXT_Total.Location = New System.Drawing.Point(75, 5)
         Me.TXT_Total.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.TXT_Total.Name = "TXT_Total"
-        Me.TXT_Total.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_Total.PlaceholderText = ""
         Me.TXT_Total.SelectedText = ""
         Me.TXT_Total.Size = New System.Drawing.Size(185, 47)
@@ -275,7 +273,6 @@ Partial Class P_CajaCxC
         Me.TXT_BuscarCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TXT_BuscarCliente.Location = New System.Drawing.Point(99, 8)
         Me.TXT_BuscarCliente.Name = "TXT_BuscarCliente"
-        Me.TXT_BuscarCliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_BuscarCliente.PlaceholderText = "Doble click para buscar"
         Me.TXT_BuscarCliente.SelectedText = ""
         Me.TXT_BuscarCliente.Size = New System.Drawing.Size(476, 42)
@@ -562,7 +559,6 @@ Partial Class P_CajaCxC
         Me.TXT_BuscarProducto.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TXT_BuscarProducto.Location = New System.Drawing.Point(133, 18)
         Me.TXT_BuscarProducto.Name = "TXT_BuscarProducto"
-        Me.TXT_BuscarProducto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_BuscarProducto.PlaceholderText = "Doble click para buscar"
         Me.TXT_BuscarProducto.SelectedText = ""
         Me.TXT_BuscarProducto.Size = New System.Drawing.Size(330, 47)
@@ -651,7 +647,6 @@ Partial Class P_CajaCxC
         Me.TXT_Comentario.Location = New System.Drawing.Point(139, 8)
         Me.TXT_Comentario.Multiline = True
         Me.TXT_Comentario.Name = "TXT_Comentario"
-        Me.TXT_Comentario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_Comentario.PlaceholderText = "Comentario"
         Me.TXT_Comentario.SelectedText = ""
         Me.TXT_Comentario.Size = New System.Drawing.Size(434, 79)

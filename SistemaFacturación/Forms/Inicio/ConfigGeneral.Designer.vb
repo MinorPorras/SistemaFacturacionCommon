@@ -40,6 +40,8 @@
             Me.OFD_ModBackUpDir = New System.Windows.Forms.FolderBrowserDialog()
             Me.TCO_Config = New Guna.UI2.WinForms.Guna2TabControl()
             Me.PAG_Info = New System.Windows.Forms.TabPage()
+            Me.BTN_CodFuente = New Guna.UI2.WinForms.Guna2Button()
+            Me.BTN_ListaCambios = New Guna.UI2.WinForms.Guna2Button()
             Me.btn_RegInfoConfig = New Guna.UI2.WinForms.Guna2Button()
             Me.Label17 = New System.Windows.Forms.Label()
             Me.Label16 = New System.Windows.Forms.Label()
@@ -224,6 +226,8 @@
             'PAG_Info
             '
             Me.PAG_Info.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.PAG_Info.Controls.Add(Me.BTN_CodFuente)
+            Me.PAG_Info.Controls.Add(Me.BTN_ListaCambios)
             Me.PAG_Info.Controls.Add(Me.btn_RegInfoConfig)
             Me.PAG_Info.Controls.Add(Me.Label17)
             Me.PAG_Info.Controls.Add(Me.Label16)
@@ -244,6 +248,48 @@
             Me.PAG_Info.TabIndex = 3
             Me.PAG_Info.Text = "Información"
             Me.PAG_Info.ToolTipText = "Información general de la aplicación"
+            '
+            'BTN_CodFuente
+            '
+            Me.BTN_CodFuente.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+            Me.BTN_CodFuente.BorderRadius = 10
+            Me.Guna2Transition1.SetDecoration(Me.BTN_CodFuente, Guna.UI2.AnimatorNS.DecorationType.None)
+            Me.BTN_CodFuente.DialogResult = System.Windows.Forms.DialogResult.Cancel
+            Me.BTN_CodFuente.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_CodFuente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_CodFuente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+            Me.BTN_CodFuente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+            Me.BTN_CodFuente.FillColor = System.Drawing.Color.LightSeaGreen
+            Me.BTN_CodFuente.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.BTN_CodFuente.ForeColor = System.Drawing.Color.White
+            Me.BTN_CodFuente.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Code
+            Me.BTN_CodFuente.ImageSize = New System.Drawing.Size(40, 40)
+            Me.BTN_CodFuente.Location = New System.Drawing.Point(432, 110)
+            Me.BTN_CodFuente.Name = "BTN_CodFuente"
+            Me.BTN_CodFuente.Size = New System.Drawing.Size(378, 59)
+            Me.BTN_CodFuente.TabIndex = 121
+            Me.BTN_CodFuente.Text = "Código fuente"
+            '
+            'BTN_ListaCambios
+            '
+            Me.BTN_ListaCambios.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+            Me.BTN_ListaCambios.BorderRadius = 10
+            Me.Guna2Transition1.SetDecoration(Me.BTN_ListaCambios, Guna.UI2.AnimatorNS.DecorationType.None)
+            Me.BTN_ListaCambios.DialogResult = System.Windows.Forms.DialogResult.Cancel
+            Me.BTN_ListaCambios.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_ListaCambios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_ListaCambios.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+            Me.BTN_ListaCambios.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+            Me.BTN_ListaCambios.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.BTN_ListaCambios.Font = New System.Drawing.Font("Ebrima", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.BTN_ListaCambios.ForeColor = System.Drawing.Color.White
+            Me.BTN_ListaCambios.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_List
+            Me.BTN_ListaCambios.ImageSize = New System.Drawing.Size(40, 40)
+            Me.BTN_ListaCambios.Location = New System.Drawing.Point(432, 189)
+            Me.BTN_ListaCambios.Name = "BTN_ListaCambios"
+            Me.BTN_ListaCambios.Size = New System.Drawing.Size(378, 59)
+            Me.BTN_ListaCambios.TabIndex = 120
+            Me.BTN_ListaCambios.Text = "Lista de cambios"
             '
             'btn_RegInfoConfig
             '
@@ -1843,6 +1889,8 @@
         Friend WithEvents MNU_SELECCIONAR As ToolStripMenuItem
         Friend WithEvents MNU_CONTX_FAV As Guna.UI2.WinForms.Guna2ContextMenuStrip
         Friend WithEvents MNU_ELIMINAR As ToolStripMenuItem
+        Friend WithEvents BTN_CodFuente As Guna.UI2.WinForms.Guna2Button
+        Friend WithEvents BTN_ListaCambios As Guna.UI2.WinForms.Guna2Button
     End Class
 
 End Namespace

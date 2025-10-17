@@ -3,15 +3,16 @@ Imports System.Data.SQLite
 Imports System.IO
 Imports System.Net
 Imports System.Threading
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
-Imports logger = SistemaFacturaciónCommon.SistemaFacturación.Modules.Md_LogSetup
-Imports Velopack
-Imports Velopack.Sources
-Imports Velopack.Locators
-Imports Velopack.Logging
+Imports System.Web.Util
 Imports NuGet.Versioning
 Imports Serilog
 Imports Serilog.Context
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
+Imports Velopack
+Imports Velopack.Locators
+Imports Velopack.Logging
+Imports Velopack.Sources
+Imports logger = SistemaFacturaciónCommon.SistemaFacturación.Modules.Md_LogSetup
 
 ' -----------------------------------------------------------------------------
 ' Módulo de inicialización y utilidades de configuración de la aplicación
@@ -27,21 +28,28 @@ Namespace SistemaFacturacion.Modules
         Friend ReadOnly GITHUB_REPO_URL As String = $"https://github.com/{REPO_OWNER}/{REPO_NAME}"
         Friend ReadOnly GITHUB_RELEASES_URL As String = $"{GITHUB_REPO_URL}/releases/latest"
 
+        ' Mutex para instanciación única
+        Friend mutex As Mutex
+        ' Variable global para controlar la navegación entre formularios
+        Friend isNavigating As Boolean = False
+
+#Region "Inicialización de la aplicación"
         'Subrutina de inicio del proyecto debe de llamarse así y ser Public
         Public Sub Main()
             'Inicialización de configuración de serilog
             logger.ConfigLogger()
 
             'Definición del Mutex de para la instanciación única
-            Const MutexName As String = "MiAplicacionFacturacionUnica"
+            Const MutexName As String = "SistemaFacturacionCommon"
 
             Dim createdNew As Boolean = False
 
-            Dim m As New Mutex(True, MutexName, createdNew)
+            mutex = New Mutex(True, MutexName, createdNew)
 
             If Not createdNew Then
                 ' Si el Mutex ya existía, otra instancia se está ejecutando
-                MsgError($"Otra instancia de la aplicación ya está en ejecución. Mutex: {MutexName}")
+                MsgError($"Otra instancia de la aplicación ya está en ejecución. Si non ves ninguna instancia de la aplicación iniciada, 
+entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {MutexName}")
                 Return ' Sale del Sub Main inmediatamente
             End If
 
@@ -83,9 +91,9 @@ Namespace SistemaFacturacion.Modules
 
             ' Ejemplo: Escribir un log de cierre
             Log.Information("La aplicación ha finalizado su ciclo de ejecución y se libera el mutex.")
-
-            'Liberamos el Mutex
-            If createdNew Then m.ReleaseMutex()
+            If mutex IsNot Nothing Then
+                ReleaseMutex()
+            End If
         End Sub
 
         Private Sub RealizarInicializaciones(stateInfo As Object)
@@ -129,6 +137,21 @@ Namespace SistemaFacturacion.Modules
             End Try
         End Sub
 
+        Private Sub Application_ThreadException(ByVal sender As Object, ByVal e As Threading.ThreadExceptionEventArgs)
+            'Maneja errores en el hilo principal de la UI
+            MsgError($"Error en la Interfaz de Usuario: {e.Exception.Message}")
+        End Sub
+
+        Private Sub CurrentDomain_UnhandledException(ByVal sender As Object, ByVal e As UnhandledExceptionEventArgs)
+            ' Captura errores no manejados en hilos secundarios
+            Dim ex As Exception = CType(e.ExceptionObject, Exception)
+            MsgError($"Error Fatal de Aplicación: {ex.Message}. La aplicación debe cerrarse.")
+            ' Forzar la salida si es un error fatal de hilo
+            Application.Exit()
+        End Sub
+#End Region
+
+#Region "Limpieza de recursos y cierre de la aplicación"
         Friend Sub LimpiarConexionesDeBaseDeDatos()
             ' Lista de las variables de conexión a limpiar (asumiendo que son SQLiteConnection)
             Dim conexiones = {Md_CONEXION.T, Md_CONEXION.T1, Md_CONEXION.T2,
@@ -154,18 +177,47 @@ Namespace SistemaFacturacion.Modules
             Log.Information("Datos de la aplicación limpiados")
         End Sub
 
-        Private Sub Application_ThreadException(ByVal sender As Object, ByVal e As Threading.ThreadExceptionEventArgs)
-            'Maneja errores en el hilo principal de la UI
-            MsgError($"Error en la Interfaz de Usuario: {e.Exception.Message}")
+        Friend Sub ReleaseMutex()
+            Try
+                ' Libera el recurso para que otras instancias puedan iniciar
+                mutex.ReleaseMutex()
+                mutex.Close()
+                mutex = Nothing
+                Log.Information("Mutex liberado correctamente.")
+            Catch ex As ApplicationException
+                Log.Warning("Intento de liberar un mutex que no es propietario: {Message}", ex.Message)
+            Catch ex As Exception
+                Log.Error("Error al liberar el mutex: {Message}", ex.Message)
+            End Try
         End Sub
 
-        Private Sub CurrentDomain_UnhandledException(ByVal sender As Object, ByVal e As UnhandledExceptionEventArgs)
-            ' Captura errores no manejados en hilos secundarios
-            Dim ex As Exception = CType(e.ExceptionObject, Exception)
-            MsgError($"Error Fatal de Aplicación: {ex.Message}. La aplicación debe cerrarse.")
-            ' Forzar la salida si es un error fatal de hilo
-            Application.Exit()
+        Friend Sub CerrarAplicacion()
+            Log.Information("Cierre de la aplicación solicitado")
+            releaseMutex()
+            LimpiarConexionesDeBaseDeDatos()
+            System.Environment.Exit(0)
         End Sub
+
+        Public Sub ManejarCierreONavegacion(ByVal e As FormClosingEventArgs)
+
+            If isNavigating Then
+                ' 1. Cierre de Navegación: Permite el cierre normal.
+                e.Cancel = False
+                ' Se finaliza la navegación
+                isNavigating = False
+                Exit Sub
+            End If
+
+            ' 2. Cierre Definitivo
+            e.Cancel = True
+
+            ' Llama al procedimiento que contiene la pregunta y el Environment.Exit(0)
+            ' Asegúrate de que esta función también esté en el ModuloGlobal o sea accesible.
+            If MsgBox("¿Desea cerra la aplicación?", vbOKCancel + vbQuestion, "Cerrar sistema") = MsgBoxResult.Ok Then
+                CerrarAplicacion()
+            End If
+        End Sub
+#End Region
 
 
 #Region "Actualizaciones"
@@ -473,6 +525,11 @@ Namespace SistemaFacturacion.Modules
                         Throw New Exception("Fallo en la inicialización de las cuentas por cobrar.")
                     End If
 
+                    Log.Information("Verificando/Agregando columna de exclusión de cierre en facturas")
+                    If Not AddExcluirCierreColumn() Then
+                        Throw New Exception("Fallo en adición de exclusión de cierre en facturas.")
+                    End If
+
                     Log.Information("Verificación y migración de la base de datos completada exitosamente")
                 Catch ex As Exception
                     ' Maneja cualquier error que ocurra durante la verificación o migración
@@ -769,6 +826,20 @@ Namespace SistemaFacturacion.Modules
                 Return EJECUTAR_PARAMETROS_TRANSACCION(SQL, param, db, transaction)
             End If
             Log.Information("La columna 'cobrada' no existe en la tabla 'factura'. No se requiere eliminación.")
+            Return True
+        End Function
+
+        Private Function AddExcluirCierreColumn() As Boolean
+            If Not ColumnExists("factura", "excluir_de_cierre") Then
+                SQL = "ALTER TABLE factura ADD COLUMN excluir_de_cierre INTEGER NOT NULL DEFAULT 0;"
+                Dim param As New Dictionary(Of String, Object)
+                Log.Information("Añadiendo la columna 'excluir_de_cierre' de la tabla 'factura'.")
+                Using conn As New SQLiteConnection(GetConnectionString())
+                    conn.Open()
+                    Return EJECUTAR_PARAMETROS(SQL, param)
+                End Using
+            End If
+            Log.Information("La columna 'excluir_de_cierre' existe en la tabla 'factura'. No se requiere ser añadida.")
             Return True
         End Function
 #End Region

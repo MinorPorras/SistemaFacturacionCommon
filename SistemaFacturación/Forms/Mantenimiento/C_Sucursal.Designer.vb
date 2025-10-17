@@ -113,7 +113,6 @@
             Me.TXT_TelefonoSucursal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_TelefonoSucursal.Location = New System.Drawing.Point(430, 251)
             Me.TXT_TelefonoSucursal.Name = "TXT_TelefonoSucursal"
-            Me.TXT_TelefonoSucursal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_TelefonoSucursal.PlaceholderText = ""
             Me.TXT_TelefonoSucursal.SelectedText = ""
             Me.TXT_TelefonoSucursal.Size = New System.Drawing.Size(230, 31)
@@ -157,7 +156,6 @@
             Me.TXT_EmailSucursal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_EmailSucursal.Location = New System.Drawing.Point(156, 296)
             Me.TXT_EmailSucursal.Name = "TXT_EmailSucursal"
-            Me.TXT_EmailSucursal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_EmailSucursal.PlaceholderText = ""
             Me.TXT_EmailSucursal.SelectedText = ""
             Me.TXT_EmailSucursal.Size = New System.Drawing.Size(504, 31)
@@ -190,7 +188,6 @@
             Me.TXT_CedJuridicaSucursal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_CedJuridicaSucursal.Location = New System.Drawing.Point(156, 253)
             Me.TXT_CedJuridicaSucursal.Name = "TXT_CedJuridicaSucursal"
-            Me.TXT_CedJuridicaSucursal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_CedJuridicaSucursal.PlaceholderText = ""
             Me.TXT_CedJuridicaSucursal.SelectedText = ""
             Me.TXT_CedJuridicaSucursal.Size = New System.Drawing.Size(175, 31)
@@ -223,7 +220,6 @@
             Me.TXT_DireccionSucursal.Location = New System.Drawing.Point(156, 342)
             Me.TXT_DireccionSucursal.Multiline = True
             Me.TXT_DireccionSucursal.Name = "TXT_DireccionSucursal"
-            Me.TXT_DireccionSucursal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_DireccionSucursal.PlaceholderText = ""
             Me.TXT_DireccionSucursal.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
             Me.TXT_DireccionSucursal.SelectedText = ""
@@ -257,7 +253,6 @@
             Me.TXT_NombreSucursal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_NombreSucursal.Location = New System.Drawing.Point(430, 204)
             Me.TXT_NombreSucursal.Name = "TXT_NombreSucursal"
-            Me.TXT_NombreSucursal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_NombreSucursal.PlaceholderText = ""
             Me.TXT_NombreSucursal.SelectedText = ""
             Me.TXT_NombreSucursal.Size = New System.Drawing.Size(431, 31)
@@ -301,7 +296,6 @@
             Me.TXT_CodSucursal.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_CodSucursal.Location = New System.Drawing.Point(156, 206)
             Me.TXT_CodSucursal.Name = "TXT_CodSucursal"
-            Me.TXT_CodSucursal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_CodSucursal.PlaceholderText = ""
             Me.TXT_CodSucursal.SelectedText = ""
             Me.TXT_CodSucursal.Size = New System.Drawing.Size(175, 31)
@@ -355,7 +349,7 @@
             Me.BTN_CerrarApp.Size = New System.Drawing.Size(45, 45)
             Me.BTN_CerrarApp.TabIndex = 127
             '
-            'P_Sucursal
+            'C_Sucursal
             '
             Me.AcceptButton = Me.BTN_GuardarNSucursal
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -383,7 +377,7 @@
             Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
             Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
             Me.KeyPreview = True
-            Me.Name = "P_Sucursal"
+            Me.Name = "C_Sucursal"
             Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
             Me.Text = "Sucursal"
             CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

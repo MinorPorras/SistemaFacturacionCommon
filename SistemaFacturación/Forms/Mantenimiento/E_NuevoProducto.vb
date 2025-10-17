@@ -20,10 +20,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
         Private Sub BTN_RegresarProv_Click(sender As Object, e As EventArgs) Handles BTN_RegresarProv.Click
             ModProd = False
-            C_Productos.Show()
-            C_Productos.Select()
-            C_Productos.TXT_BuscarProd.SelectAll()
-            Me.Close()
+            Me.DialogResult = DialogResult.Cancel
         End Sub
 
         Private Sub E_NuevoProducto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -47,24 +44,18 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Function
 
         Private Sub TXT_Marca_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TXT_Marca.MouseDoubleClick
-            B_Marca.caso = "NProd"
-            B_Marca.TXT_BuscarMarca.Text = TXT_Marca.Text
-            B_Marca.Show()
-            B_Marca.Select()
+            Dim frmSearchMarca As New B_Marca With {.Owner = Me}
+            frmSearchMarca.ShowDialog()
         End Sub
 
         Private Sub TXT_Proveedor_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TXT_Proveedor.MouseDoubleClick
-            B_Proveedor.caso = "NProd"
-            B_Proveedor.TXT_BuscarProv.Text = TXT_Proveedor.Text
-            B_Proveedor.Show()
-            B_Proveedor.Select()
+            Dim frmSearchProv As New B_Proveedor With {.Owner = Me}
+            frmSearchProv.ShowDialog()
         End Sub
 
         Private Sub TXT_Categoria_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TXT_Categoria.MouseDoubleClick
-            B_Categoria.caso = "NProd"
-            B_Categoria.TXT_BuscarCat.Text = TXT_Categoria.Text
-            B_Categoria.Show()
-            B_Categoria.Select()
+            Dim frmSearchCategoria As New B_Categoria With {.Owner = Me}
+            frmSearchCategoria.ShowDialog()
         End Sub
 
         Private Sub TXT_Impuesto_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TXT_Impuesto.MouseDoubleClick
@@ -109,13 +100,9 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
                     ' Se llama al método para ejecutar la transacción de forma segura
                     If EJECUTAR_TRANSACCION(operacionesDeGuardado) Then
                         LIMPIAR()
-                        msgDatoAlm()
-                        C_Productos.Show()
-                        C_Productos.Select()
-                        C_Productos.REFRESCAR()
-                        C_Productos.TXT_BuscarProd.SelectAll()
-                        Me.Close()
+                        MsgDatoAlm()
                         ModProd = False
+                        Me.DialogResult = DialogResult.OK
                     Else
                         msgError("Ocurrió un error al guardar los datos. La operación fue revertida.")
                     End If

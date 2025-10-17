@@ -153,9 +153,10 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_Pedidos_Click(sender As Object, e As EventArgs) Handles BTN_Pedidos.Click
-            E_ProveedorPedido.LBL_Proveedor.Text = TXT_NombreProv.Text
-            E_ProveedorPedido.Show()
-            E_ProveedorPedido.Select()
+            Dim pedidoProv As New E_ProveedorPedido
+            pedidoProv.LBL_Proveedor.Text = TXT_NombreProv.Text
+            pedidoProv.Show()
+            pedidoProv.Select()
         End Sub
 
         Private Sub BTN_AutoCod_Click(sender As Object, e As EventArgs) Handles BTN_AutoCod.Click

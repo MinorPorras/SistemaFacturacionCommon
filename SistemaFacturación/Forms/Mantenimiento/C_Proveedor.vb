@@ -7,8 +7,9 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         ' Método para inicializar el temporizador y otros componentes necesarios
         Private Sub InicializarComponentes()
             ' Inicializar el temporizador
-            searchTimer = New Timer()
-            searchTimer.Interval = 100
+            searchTimer = New Timer With {
+                .Interval = 100
+            }
             ' Medio segundo
             AddHandler searchTimer.Tick, AddressOf OnSearchTimerTick
         End Sub
@@ -20,8 +21,10 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_RegresarCat_Click(sender As Object, e As EventArgs) Handles BTN_RegresarProv.Click
-            M_MantenimientoMenu.Show()
-            M_MantenimientoMenu.Select()
+            Dim mantMenu As New M_MantenimientoMenu
+            mantMenu.Show()
+            mantMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -117,28 +120,28 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_NCat_Click(sender As Object, e As EventArgs) Handles BTN_NProv.Click
-            E_NuevoProveedor.ModProv = False
-            E_NuevoProveedor.Show()
-            E_NuevoProveedor.Select()
+            Dim frmNewProv As New E_NuevoProveedor With {
+                .ModProv = False
+            }
+            frmNewProv.Show()
+            frmNewProv.Select()
         End Sub
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
             Try
-                E_NuevoProveedor.idProv = DGV_Prov.SelectedRows(0).Cells(0).Value.ToString()
-                E_NuevoProveedor.TXT_CodigoProv.Text = DGV_Prov.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoProveedor.TXT_NombreProv.Text = DGV_Prov.SelectedRows(0).Cells(2).Value.ToString()
+                Dim frmNewProv As New E_NuevoProveedor With {
+                    .ModProv = False,
+                    .idProv = DGV_Prov.SelectedRows(0).Cells(0).Value.ToString(),
+                    .CodigoPreMod = DGV_Prov.SelectedRows(0).Cells(1).Value.ToString()
+                }
+                frmNewProv.TXT_CodigoProv.Text = DGV_Prov.SelectedRows(0).Cells(1).Value.ToString()
+                frmNewProv.TXT_NombreProv.Text = DGV_Prov.SelectedRows(0).Cells(2).Value.ToString()
 
-                If Not String.IsNullOrEmpty(DGV_Prov.SelectedRows(0).Cells(3).Value.ToString()) Then
-                    E_NuevoProveedor.TXT_CorreoProv.Text = DGV_Prov.SelectedRows(0).Cells(3).Value.ToString()
-                Else
-                    E_NuevoProveedor.TXT_CorreoProv.Text = ""
-                End If
+                Dim correo = DGV_Prov.SelectedRows(0).Cells(3).Value.ToString()
+                frmNewProv.TXT_CorreoProv.Text = If(String.IsNullOrEmpty(correo), "", correo)
 
-                If Not String.IsNullOrEmpty(DGV_Prov.SelectedRows(0).Cells(4).Value.ToString()) Then
-                    E_NuevoProveedor.TXT_TelProv.Text = DGV_Prov.SelectedRows(0).Cells(4).Value.ToString()
-                Else
-                    E_NuevoProveedor.TXT_TelProv.Text = ""
-                End If
+                Dim telefono = DGV_Prov.SelectedRows(0).Cells(4).Value.ToString()
+                frmNewProv.TXT_TelProv.Text = If(String.IsNullOrEmpty(telefono), "", telefono)
 
                 T.Tables.Clear()
                 SQL = "SELECT p.ID_Proveedor, p.dia_pedido FROM proveedor_diaPedido p WHERE p.ID_Proveedor = " & DGV_Prov.SelectedRows(0).Cells(0).Value.ToString()
@@ -154,16 +157,14 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
                         maxcont = T1.Tables(0).Rows.Count - 1
                     End If
                     For i As Integer = 0 To maxcont
-                        E_NuevoProveedor.LHacerPed.Add(If(IsDBNull(T.Tables(0).Rows(i).Item(1)), " ", T.Tables(0).Rows(i).Item(1).ToString()))
-                        E_NuevoProveedor.LRebPed.Add(If(IsDBNull(T1.Tables(0).Rows(i).Item(1)), " ", T1.Tables(0).Rows(i).Item(1).ToString()))
+                        frmNewProv.LHacerPed.Add(If(IsDBNull(T.Tables(0).Rows(i).Item(1)), " ", T.Tables(0).Rows(i).Item(1).ToString()))
+                        frmNewProv.LRebPed.Add(If(IsDBNull(T1.Tables(0).Rows(i).Item(1)), " ", T1.Tables(0).Rows(i).Item(1).ToString()))
                     Next
                 End If
 
-                E_NuevoProveedor.ModProv = True
-                E_NuevoProveedor.CodigoPreMod = DGV_Prov.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoProveedor.Show()
+                frmNewProv.Show()
             Catch ex As Exception
-                MsgBox("Error: " & ex.Message, vbCritical + vbOKOnly, "Error")
+                MsgError("Error: " & ex.Message)
             End Try
         End Sub
 
@@ -202,11 +203,16 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
             entrarConfig(1, Me)
+        End Sub
+
+        Private Sub C_Proveedor_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 End Namespace

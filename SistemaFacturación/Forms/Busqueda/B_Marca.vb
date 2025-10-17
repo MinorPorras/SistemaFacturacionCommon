@@ -10,8 +10,9 @@ Namespace SistemaFacturacion.Forms.Busqueda
         ' Método para inicializar el temporizador y otros componentes necesarios
         Private Sub InicializarComponentes()
             ' Inicializar el temporizador
-            searchTimer = New Timer()
-            searchTimer.Interval = 100
+            searchTimer = New Timer With {
+                .Interval = 100
+            }
             ' Medio segundo
             AddHandler searchTimer.Tick, AddressOf OnSearchTimerTick
         End Sub
@@ -39,8 +40,9 @@ Namespace SistemaFacturacion.Forms.Busqueda
                              Invoke(Sub()
                                         Cargar_Tabla(T, SQL)
                                         If T.Tables.Count > 0 AndAlso T.Tables(0).Rows.Count > 0 Then
-                                            Dim bin As New BindingSource
-                                            bin.DataSource = T.Tables(0)
+                                            Dim bin As New BindingSource With {
+                                                .DataSource = T.Tables(0)
+                                            }
                                             DGV_BMarca.DataSource = bin
                                         Else ' Limpiar la fuente de datos si no se cargaron datos
                                             DGV_BMarca.DataSource = Nothing
@@ -83,34 +85,26 @@ Namespace SistemaFacturacion.Forms.Busqueda
         End Sub
 
         Private Sub BTN_RegresarMarca_Click(sender As Object, e As EventArgs) Handles BTN_RegresarMarca.Click
-            Select Case caso
-                Case "Prod"
-                    C_Productos.Show()
-                    C_Productos.Select()
-                Case "NProd"
-                    E_NuevoProducto.Show()
-                    E_NuevoProducto.Select()
-            End Select
-            Me.Close()
+            Me.DialogResult = DialogResult.Cancel
         End Sub
 
         Private Sub BTN_NMarca_Click(sender As Object, e As EventArgs) Handles BTN_SelectMarca.Click
             Try
-                Select Case caso
-                    Case "Prod"
-                        C_Productos.TXT_BuscarMarca.Text = TXT_Nombre.Text
-                        C_Productos.REFRESCAR()
-                        C_Productos.Show()
-                        C_Productos.Select()
-                    Case "NProd"
-                        E_NuevoProducto.TXT_Marca.Text = TXT_Nombre.Text
-                        E_NuevoProducto.LBL_IDMarca.Text = DGV_BMarca.SelectedRows(0).Cells(0).Value.ToString()
-                        E_NuevoProducto.Show()
-                        E_NuevoProducto.Select()
-                End Select
-                Me.Close()
+                If TypeOf (Owner) Is C_Productos Then
+                    Dim frmProd As C_Productos = CType(Owner, C_Productos)
+                    frmProd.TXT_BuscarMarca.Text = TXT_Nombre.Text
+                ElseIf TypeOf (Owner) Is E_NuevoProducto Then
+                    Dim frmNProd As E_NuevoProducto = CType(Owner, E_NuevoProducto)
+                    frmNProd.TXT_Marca.Text = TXT_Nombre.Text
+                    frmNProd.LBL_IDMarca.Text = DGV_BMarca.SelectedRows(0).Cells(0).Value.ToString()
+                Else
+                    Throw New Exception("Tipo del formulario dueño incorrecto")
+                    Me.DialogResult = DialogResult.Cancel
+                End If
+
+                Me.DialogResult = DialogResult.OK
             Catch ex As Exception
-                Me.Close()
+                MsgError($"Error al seleccionar la marca. Por favor, inténtelo de nuevo. Error: {ex.Message}")
             End Try
         End Sub
 

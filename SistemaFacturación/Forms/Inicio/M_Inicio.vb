@@ -197,18 +197,21 @@ Namespace SistemaFacturacion.Forms.Inicio
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
         End Sub
 
         Private Sub BTN_Mantenimiento_Click(sender As Object, e As EventArgs) Handles BTN_Mantenimiento.Click
             M_MantenimientoMenu.Show()
             M_MantenimientoMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_Reporte_Click(sender As Object, e As EventArgs) Handles BTN_Reporte.Click
             P_ReporteVentas.Show()
             P_ReporteVentas.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -226,6 +229,7 @@ Namespace SistemaFacturacion.Forms.Inicio
             P_Caja.Select()
             P_Caja.LBL_Usu.Text = nomUsuActual
             P_Caja.idUsu = idUsuActual
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -238,6 +242,10 @@ Namespace SistemaFacturacion.Forms.Inicio
             P_SelectUsu.Show()
             P_SelectUsu.Select()
             Me.Close()
+        End Sub
+
+        Private Sub M_Inicio_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

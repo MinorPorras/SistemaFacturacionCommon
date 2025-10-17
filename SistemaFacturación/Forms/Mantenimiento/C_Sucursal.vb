@@ -10,29 +10,32 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
         Private Sub BTN_GuardarNSucursal_Click(sender As Object, e As EventArgs) Handles BTN_GuardarNSucursal.Click
             Try
-                E_NuevaSucursal.idSucursal = 1
-                E_NuevaSucursal.TXT_CodSucursal.Text = TXT_CodSucursal.Text
-                E_NuevaSucursal.TXT_NombreSucursal.Text = TXT_NombreSucursal.Text
-                E_NuevaSucursal.TXT_CedJuridicaSucursal.Text = TXT_CedJuridicaSucursal.Text
-                E_NuevaSucursal.TXT_DireccionSucursal.Text = TXT_DireccionSucursal.Text
-                E_NuevaSucursal.TXT_TelefonoSucursal.Text = TXT_TelefonoSucursal.Text
-                E_NuevaSucursal.TXT_EmailSucursal.Text = TXT_EmailSucursal.Text
+                Dim frmNewSucursal As New E_NuevaSucursal With {
+                    .idSucursal = 1,
+                    .ModSuc = True
+                }
+                frmNewSucursal.TXT_CodSucursal.Text = TXT_CodSucursal.Text
+                frmNewSucursal.TXT_NombreSucursal.Text = TXT_NombreSucursal.Text
+                frmNewSucursal.TXT_CedJuridicaSucursal.Text = TXT_CedJuridicaSucursal.Text
+                frmNewSucursal.TXT_DireccionSucursal.Text = TXT_DireccionSucursal.Text
+                frmNewSucursal.TXT_TelefonoSucursal.Text = TXT_TelefonoSucursal.Text
+                frmNewSucursal.TXT_EmailSucursal.Text = TXT_EmailSucursal.Text
 
                 If Not String.IsNullOrEmpty(logo) And IO.File.Exists(logo) Then
-                    E_NuevaSucursal.OFD_LogoSucursal.FileName = logo
-                    E_NuevaSucursal.BTN_LogoSucursal.Image = Image.FromFile(logo)
-                    E_NuevaSucursal.RutaLogo = logo
+                    frmNewSucursal.OFD_LogoSucursal.FileName = logo
+                    frmNewSucursal.BTN_LogoSucursal.Image = Image.FromFile(logo)
+                    frmNewSucursal.RutaLogo = logo
                 Else
-                    E_NuevaSucursal.OFD_LogoSucursal.FileName = ""
-                    E_NuevaSucursal.BTN_LogoSucursal.Image = Nothing
-                    E_NuevaSucursal.RutaLogo = ""
+                    frmNewSucursal.OFD_LogoSucursal.FileName = ""
+                    frmNewSucursal.BTN_LogoSucursal.Image = Nothing
+                    frmNewSucursal.RutaLogo = ""
                 End If
-                E_NuevaSucursal.ModSuc = True
-                E_NuevaSucursal.Show()
-                E_NuevaSucursal.Select()
+                frmNewSucursal.Show()
+                frmNewSucursal.Select()
+                isNavigating = True
                 Me.Close()
             Catch ex As Exception
-                msgError("Error: " & ex.Message)
+                MsgError("Error: " & ex.Message)
             End Try
         End Sub
 
@@ -61,13 +64,20 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_RegresarNSuc_Click(sender As Object, e As EventArgs) Handles BTN_RegresarNSuc.Click
-            M_MantenimientoMenu.Show()
-            M_MantenimientoMenu.Select()
+            Dim mantMenu As New M_MantenimientoMenu
+            mantMenu.Show()
+            mantMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
+        End Sub
+
+        Private Sub C_Sucursal_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

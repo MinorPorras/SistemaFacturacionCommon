@@ -27,10 +27,19 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         ' Método para inicializar el temporizador y otros componentes necesarios
         Private Sub InicializarComponentes()
             ' Inicializar el temporizador
-            searchTimer = New Timer()
-            searchTimer.Interval = 250
+            searchTimer = New Timer With {
+                .Interval = 250
+            }
             ' Medio segundo
             AddHandler searchTimer.Tick, AddressOf OnSearchTimerTick
+        End Sub
+
+        Private Sub Restartimer()
+            If searchTimer IsNot Nothing Then
+                ' Reiniciar el temporizador cada vez que se cambia el texto
+                searchTimer.Stop()
+                searchTimer.Start()
+            End If
         End Sub
 
         Private Sub OnSearchTimerTick(sender As Object, e As EventArgs)
@@ -44,7 +53,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
             cargarPestaña()
         End Sub
 
-        Friend Sub cargarPestaña()
+        Friend Sub CargarPestaña()
             SWT_Cat.Checked = False
             SWT_Marca.Checked = False
             SWT_Prov.Checked = False
@@ -215,68 +224,51 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_NProd_Click(sender As Object, e As EventArgs) Handles BTN_NProd.Click
-            E_NuevoProducto.ModProd = False
-            E_NuevoProducto.Show()
-            E_NuevoProducto.Select()
+            Dim frmNewProd As New E_NuevoProducto With {
+                .ModProd = False
+            }
+            frmNewProd.Show()
+            frmNewProd.Select()
         End Sub
 
         Private Sub BTN_RegresarProd_Click(sender As Object, e As EventArgs) Handles BTN_RegresarProd.Click
-            M_MantenimientoMenu.Show()
-            M_MantenimientoMenu.Select()
+            Dim mantMenu As New M_MantenimientoMenu
+            mantMenu.Show()
+            mantMenu.Select()
+            isNavigating = True
             Me.Close()
-        End Sub
-
-        Private Sub TXT_BuscarMarca_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TXT_BuscarMarca.MouseDoubleClick
-            B_Marca.Show()
-            B_Marca.Select()
-            B_Marca.caso = "Prod"
-        End Sub
-
-        Private Sub TXT_BuscarProv_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TXT_BuscarProv.MouseDoubleClick
-            B_Proveedor.Show()
-            B_Proveedor.Select()
-            B_Proveedor.caso = "Prod"
-        End Sub
-
-        Private Sub TXT_BuscarCat_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TXT_BuscarCat.MouseDoubleClick
-            B_Categoria.Show()
-            B_Categoria.Select()
-            B_Categoria.caso = "Prod"
         End Sub
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
             Try
-                E_NuevoProducto.ModProd = True
-                E_NuevoProducto.idProd = DGV_Prods.SelectedRows(0).Cells(0).Value.ToString()
-                E_NuevoProducto.TXT_Cod.Text = DGV_Prods.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoProducto.TXT_Nombre.Text = DGV_Prods.SelectedRows(0).Cells(2).Value.ToString()
-                E_NuevoProducto.TXT_Desc.Text = DGV_Prods.SelectedRows(0).Cells(3).Value.ToString()
-                E_NuevoProducto.TXT_PrecioBase.Text = DGV_Prods.SelectedRows(0).Cells(4).Value.ToString()
-                E_NuevoProducto.TXT_Impuesto.Text = DGV_Prods.SelectedRows(0).Cells(5).Value.ToString()
-                E_NuevoProducto.TXT_Ganancia.Text = DGV_Prods.SelectedRows(0).Cells(6).Value.ToString()
-                If DGV_Prods.SelectedRows(0).Cells(8).Value.ToString() = "Si" Then
-                    E_NuevoProducto.SWT_Var.Checked = True
-                Else
-                    E_NuevoProducto.SWT_Var.Checked = False
-                End If
-                E_NuevoProducto.TXT_PrecioVenta.Text = DGV_Prods.SelectedRows(0).Cells(7).Value.ToString()
-                E_NuevoProducto.LBL_IDCat.Text = DGV_Prods.SelectedRows(0).Cells(9).Value.ToString()
-                E_NuevoProducto.TXT_Categoria.Text = DGV_Prods.SelectedRows(0).Cells(10).Value.ToString()
-                E_NuevoProducto.LBL_IDMarca.Text = DGV_Prods.SelectedRows(0).Cells(11).Value.ToString()
-                E_NuevoProducto.TXT_Marca.Text = DGV_Prods.SelectedRows(0).Cells(12).Value.ToString()
-                E_NuevoProducto.LBL_Prov.Text = DGV_Prods.SelectedRows(0).Cells(13).Value.ToString()
-                E_NuevoProducto.TXT_Proveedor.Text = DGV_Prods.SelectedRows(0).Cells(14).Value.ToString()
-                If Not String.IsNullOrEmpty(DGV_Prods.SelectedRows(0).Cells(15).Value.ToString()) Then
-                    E_NuevoProducto.NUD_Inv.Value = DGV_Prods.SelectedRows(0).Cells(15).Value.ToString()
-                Else
-                    E_NuevoProducto.NUD_Inv.Value = 0
-                End If
-                E_NuevoProducto.ModProd = True
-                E_NuevoProducto.CodigoPreMod = DGV_Prods.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoProducto.Show()
+                Dim frmNewProd As New E_NuevoProducto With {
+                    .ModProd = True,
+                    .idProd = DGV_Prods.SelectedRows(0).Cells(0).Value.ToString(),
+                    .CodigoPreMod = DGV_Prods.SelectedRows(0).Cells(1).Value.ToString(),
+                    .Owner = Me
+                }
+                frmNewProd.TXT_Cod.Text = DGV_Prods.SelectedRows(0).Cells(1).Value.ToString()
+                frmNewProd.TXT_Nombre.Text = DGV_Prods.SelectedRows(0).Cells(2).Value.ToString()
+                frmNewProd.TXT_Desc.Text = DGV_Prods.SelectedRows(0).Cells(3).Value.ToString()
+                frmNewProd.TXT_PrecioBase.Text = DGV_Prods.SelectedRows(0).Cells(4).Value.ToString()
+                frmNewProd.TXT_Impuesto.Text = DGV_Prods.SelectedRows(0).Cells(5).Value.ToString()
+                frmNewProd.TXT_Ganancia.Text = DGV_Prods.SelectedRows(0).Cells(6).Value.ToString()
+                frmNewProd.SWT_Var.Checked = DGV_Prods.SelectedRows(0).Cells(8).Value.ToString() = "Si"
+                frmNewProd.TXT_PrecioVenta.Text = DGV_Prods.SelectedRows(0).Cells(7).Value.ToString()
+                frmNewProd.LBL_IDCat.Text = DGV_Prods.SelectedRows(0).Cells(9).Value.ToString()
+                frmNewProd.TXT_Categoria.Text = DGV_Prods.SelectedRows(0).Cells(10).Value.ToString()
+                frmNewProd.LBL_IDMarca.Text = DGV_Prods.SelectedRows(0).Cells(11).Value.ToString()
+                frmNewProd.TXT_Marca.Text = DGV_Prods.SelectedRows(0).Cells(12).Value.ToString()
+                frmNewProd.LBL_Prov.Text = DGV_Prods.SelectedRows(0).Cells(13).Value.ToString()
+                frmNewProd.TXT_Proveedor.Text = DGV_Prods.SelectedRows(0).Cells(14).Value.ToString()
+                ' Manejo del valor de inventario nulo o vacío
+                Dim inventario As Integer = Convert.ToInt32(DGV_Prods.SelectedRows(0).Cells(15).Value)
+                frmNewProd.NUD_Inv.Value = If(String.IsNullOrEmpty(inventario), 0, inventario)
+
+                frmNewProd.ShowDialog()
 
             Catch ex As Exception
-                MsgBox("Error: " & ex.Message, vbCritical + vbOKOnly, "Error")
+                MsgError("Error: " & ex.Message)
             End Try
         End Sub
 
@@ -316,59 +308,45 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub TXT_BuscarProd_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarProd.TextChanged
-            If searchTimer IsNot Nothing Then
-                ' Reiniciar el temporizador cada vez que se cambia el texto
-                searchTimer.Stop()
-                searchTimer.Start()
-            End If
+            Restartimer()
         End Sub
 
         Private Sub TXT_BuscarProv_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarProv.TextChanged
-            If searchTimer IsNot Nothing Then
-                ' Reiniciar el temporizador cada vez que se cambia el texto
-                searchTimer.Stop()
-                searchTimer.Start()
-            End If
+            Restartimer()
         End Sub
 
         Private Sub TXT_BuscarMarca_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarMarca.TextChanged
-            If searchTimer IsNot Nothing Then
-                ' Reiniciar el temporizador cada vez que se cambia el texto
-                searchTimer.Stop()
-                searchTimer.Start()
-            End If
+            Restartimer()
         End Sub
 
         Private Sub TXT_BuscarCat_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarCat.TextChanged
-            If searchTimer IsNot Nothing Then
-                ' Reiniciar el temporizador cada vez que se cambia el texto
-                searchTimer.Stop()
-                searchTimer.Start()
-            End If
+            Restartimer()
         End Sub
 
         Private Sub BTN_Hablador_Click(sender As Object, e As EventArgs) Handles BTN_Hablador.Click
-            P_Hablador.Show()
-            P_Hablador.Select()
+            Dim frmHablador As New P_Hablador
+            frmHablador.Show()
+            frmHablador.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub TXT_BuscarMarca_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarMarca.DoubleClick
-            B_Marca.caso = "Prod"
-            B_Marca.TXT_BuscarMarca.Text = TXT_BuscarMarca.Text
-            B_Marca.Show()
+            Dim frmSearchMarca As New B_Marca With {.Owner = Me}
+            frmSearchMarca.ShowDialog()
+            REFRESCAR()
         End Sub
 
         Private Sub TXT_BuscarProv_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarProv.DoubleClick
-            B_Proveedor.caso = "Prod"
-            B_Proveedor.TXT_BuscarProv.Text = TXT_BuscarProv.Text
-            B_Proveedor.Show()
+            Dim frmSearchProv As New B_Proveedor With {.Owner = Me}
+            frmSearchProv.ShowDialog()
+            REFRESCAR()
         End Sub
 
         Private Sub TXT_BuscarCat_DoubleClick(sender As Object, e As EventArgs) Handles TXT_BuscarCat.DoubleClick
-            B_Categoria.caso = "Prod"
-            B_Categoria.TXT_BuscarCat.Text = TXT_BuscarCat.Text
-            B_Categoria.Show()
+            Dim frmSearchCategoria As New B_Categoria With {.Owner = Me}
+            frmSearchCategoria.ShowDialog()
+            REFRESCAR()
         End Sub
 
         Private Sub SWT_Cat_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_Cat.CheckedChanged
@@ -402,11 +380,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub SWT_Recientes_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_Recientes.CheckedChanged
-            If searchTimer IsNot Nothing Then
-                ' Reiniciar el temporizador cada vez que se cambia el texto
-                searchTimer.Stop()
-                searchTimer.Start()
-            End If
+            Restartimer()
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
@@ -415,6 +389,10 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
         Private Sub C_Productos_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
             REFRESCAR()
+        End Sub
+
+        Private Sub C_Productos_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 End Namespace

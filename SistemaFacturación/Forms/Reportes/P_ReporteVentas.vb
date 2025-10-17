@@ -66,6 +66,7 @@ Namespace SistemaFacturacion.Forms.Reportes
         Private Sub Regresar()
             M_Inicio.Show()
             M_Inicio.BringToFront()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -497,6 +498,10 @@ Namespace SistemaFacturacion.Forms.Reportes
                 frmVerDatos.datosCierre = datosCierre
                 frmVerDatos.ShowDialog()
             End Using
+        End Sub
+
+        Private Sub P_ReporteVentas_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
 
 

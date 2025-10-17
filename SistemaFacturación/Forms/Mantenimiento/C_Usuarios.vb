@@ -132,15 +132,19 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
 
         Private Sub BTN_RegresarUsu_Click(sender As Object, e As EventArgs) Handles BTN_RegresarUsu.Click
-            M_MantenimientoMenu.Show()
-            M_MantenimientoMenu.Select()
+            Dim mantMenu As New M_MantenimientoMenu
+            mantMenu.Show()
+            mantMenu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_NUsuario_Click(sender As Object, e As EventArgs) Handles BTN_NUsuario.Click
-            E_NuevoUsuario.ModUsu = False
-            E_NuevoUsuario.Show()
-            E_NuevoUsuario.Select()
+            Dim frmNewUsuario As New E_NuevoUsuario With {
+                .ModUsu = False
+            }
+            frmNewUsuario.Show()
+            frmNewUsuario.Select()
         End Sub
 
         Private Sub TXT_BuscarUsuario_TextChanged(sender As Object, e As EventArgs) Handles TXT_BuscarUsuario.TextChanged
@@ -182,34 +186,32 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
             Try
-                E_NuevoUsuario.idUsuario = DGV_Cajero.SelectedRows(0).Cells(0).Value.ToString()
-                E_NuevoUsuario.TXT_CodUsuario.Text = DGV_Cajero.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoUsuario.TXT_NombreUsuario.Text = DGV_Cajero.SelectedRows(0).Cells(2).Value.ToString()
-                E_NuevoUsuario.TXT_ClaveUsuario.Text = DGV_Cajero.SelectedRows(0).Cells(3).Value.ToString()
-                If DGV_Cajero.SelectedRows(0).Cells(4).Value = "Administrador" Then
-                    E_NuevoUsuario.CBX_tipoCuenta.SelectedIndex = 1
-                Else
-                    E_NuevoUsuario.CBX_tipoCuenta.SelectedIndex = 0
-                End If
+                Dim frmNewUsuario As New E_NuevoUsuario With {
+                    .ModUsu = True,
+                    .idUsuario = DGV_Cajero.SelectedRows(0).Cells(0).Value.ToString(),
+                    .CodigoPreMod = DGV_Cajero.SelectedRows(0).Cells(1).Value.ToString(),
+                    .ColorUsuario = DGV_Cajero.SelectedRows(0).Cells(5).Value.ToString()
+                }
+                frmNewUsuario.TXT_CodUsuario.Text = DGV_Cajero.SelectedRows(0).Cells(1).Value.ToString()
+                frmNewUsuario.TXT_NombreUsuario.Text = DGV_Cajero.SelectedRows(0).Cells(2).Value.ToString()
+                frmNewUsuario.TXT_ClaveUsuario.Text = DGV_Cajero.SelectedRows(0).Cells(3).Value.ToString()
 
-                Dim rgbValues() = DGV_Cajero.SelectedRows(0).Cells(5).Value.ToString().Split(",")
+                Dim tipoCuenta As String = DGV_Cajero.SelectedRows(0).Cells(4).Value.ToString()
+                frmNewUsuario.CBX_tipoCuenta.SelectedIndex = If(tipoCuenta = "Administrador", 1, 0)
+
+                Dim rgbValues() = frmNewUsuario.ColorUsuario.Split(",")
                 Dim red As Integer = Convert.ToInt32(rgbValues(0))
                 Dim green As Integer = Convert.ToInt32(rgbValues(1))
                 Dim blue As Integer = Convert.ToInt32(rgbValues(2))
-                E_NuevoUsuario.BTN_Color.FillColor = Color.FromArgb(red, green, blue)
-                E_NuevoUsuario.ColorDialog1.Color = Color.FromArgb(red, green, blue)
-                E_NuevoUsuario.ColorUsuario = DGV_Cajero.SelectedRows(0).Cells(5).Value.ToString()
-                If String.IsNullOrEmpty(DGV_Cajero.SelectedRows(0).Cells(3).Value.ToString()) Then
-                    E_NuevoUsuario.SWT_SinClave.Checked = True
-                Else
-                    E_NuevoUsuario.SWT_SinClave.Checked = False
-                End If
-                E_NuevoUsuario.ModUsu = True
-                E_NuevoUsuario.CodigoPreMod = DGV_Cajero.SelectedRows(0).Cells(1).Value.ToString()
-                E_NuevoUsuario.Show()
-                E_NuevoUsuario.Select()
+                frmNewUsuario.BTN_Color.FillColor = Color.FromArgb(red, green, blue)
+                frmNewUsuario.ColorDialog1.Color = Color.FromArgb(red, green, blue)
+
+                frmNewUsuario.SWT_SinClave.Checked = String.IsNullOrEmpty(DGV_Cajero.SelectedRows(0).Cells(3).Value.ToString())
+
+                frmNewUsuario.Show()
+                frmNewUsuario.Select()
             Catch ex As Exception
-                msgError("Error al extraer los datos para modificarlos: " & ex.Message)
+                MsgError("Error al extraer los datos para modificarlos: " & ex.Message)
             End Try
         End Sub
 
@@ -218,7 +220,12 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
+        End Sub
+
+        Private Sub C_Usuarios_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

@@ -96,7 +96,6 @@
             Me.TXT_NumFact.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_NumFact.Location = New System.Drawing.Point(178, 22)
             Me.TXT_NumFact.Name = "TXT_NumFact"
-            Me.TXT_NumFact.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_NumFact.PlaceholderText = "Num"
             Me.TXT_NumFact.ReadOnly = True
             Me.TXT_NumFact.SelectedText = ""
@@ -131,7 +130,6 @@
             Me.TXT_FechaEmision.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_FechaEmision.Location = New System.Drawing.Point(534, 22)
             Me.TXT_FechaEmision.Name = "TXT_FechaEmision"
-            Me.TXT_FechaEmision.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_FechaEmision.PlaceholderText = "fecha"
             Me.TXT_FechaEmision.ReadOnly = True
             Me.TXT_FechaEmision.SelectedText = ""
@@ -155,7 +153,6 @@
             Me.TXT_Cliente.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_Cliente.Location = New System.Drawing.Point(98, 81)
             Me.TXT_Cliente.Name = "TXT_Cliente"
-            Me.TXT_Cliente.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Cliente.PlaceholderText = "Num"
             Me.TXT_Cliente.ReadOnly = True
             Me.TXT_Cliente.SelectedText = ""
@@ -190,7 +187,6 @@
             Me.TXT_Cajero.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_Cajero.Location = New System.Drawing.Point(385, 81)
             Me.TXT_Cajero.Name = "TXT_Cajero"
-            Me.TXT_Cajero.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Cajero.PlaceholderText = "Num"
             Me.TXT_Cajero.ReadOnly = True
             Me.TXT_Cajero.SelectedText = ""
@@ -236,7 +232,6 @@
             Me.TXT_Total.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_Total.Location = New System.Drawing.Point(98, 140)
             Me.TXT_Total.Name = "TXT_Total"
-            Me.TXT_Total.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Total.PlaceholderText = "Num"
             Me.TXT_Total.ReadOnly = True
             Me.TXT_Total.SelectedText = ""
@@ -260,7 +255,6 @@
             Me.TXT_Efectivo.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_Efectivo.Location = New System.Drawing.Point(178, 205)
             Me.TXT_Efectivo.Name = "TXT_Efectivo"
-            Me.TXT_Efectivo.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Efectivo.PlaceholderText = "Num"
             Me.TXT_Efectivo.ReadOnly = True
             Me.TXT_Efectivo.SelectedText = ""
@@ -295,7 +289,6 @@
             Me.TXT_Vuelto.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_Vuelto.Location = New System.Drawing.Point(631, 140)
             Me.TXT_Vuelto.Name = "TXT_Vuelto"
-            Me.TXT_Vuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Vuelto.PlaceholderText = "Num"
             Me.TXT_Vuelto.ReadOnly = True
             Me.TXT_Vuelto.SelectedText = ""
@@ -330,7 +323,6 @@
             Me.TXT_TipoPago.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_TipoPago.Location = New System.Drawing.Point(385, 140)
             Me.TXT_TipoPago.Name = "TXT_TipoPago"
-            Me.TXT_TipoPago.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_TipoPago.PlaceholderText = "Num"
             Me.TXT_TipoPago.ReadOnly = True
             Me.TXT_TipoPago.SelectedText = ""
@@ -365,7 +357,6 @@
             Me.TXT_Tarjeta.IconRightSize = New System.Drawing.Size(40, 40)
             Me.TXT_Tarjeta.Location = New System.Drawing.Point(496, 205)
             Me.TXT_Tarjeta.Name = "TXT_Tarjeta"
-            Me.TXT_Tarjeta.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Tarjeta.PlaceholderText = "Num"
             Me.TXT_Tarjeta.ReadOnly = True
             Me.TXT_Tarjeta.SelectedText = ""
@@ -411,7 +402,6 @@
             Me.TXT_Comentario.Location = New System.Drawing.Point(127, 262)
             Me.TXT_Comentario.Multiline = True
             Me.TXT_Comentario.Name = "TXT_Comentario"
-            Me.TXT_Comentario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
             Me.TXT_Comentario.PlaceholderText = "Num"
             Me.TXT_Comentario.ReadOnly = True
             Me.TXT_Comentario.SelectedText = ""

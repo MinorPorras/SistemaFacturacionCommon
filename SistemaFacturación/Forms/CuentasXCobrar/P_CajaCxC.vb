@@ -6,6 +6,7 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.CuentasXCobrar
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 
@@ -28,7 +29,7 @@ Public Class P_CajaCxC
                 .Codigo = prod.Codigo,
                 .Producto = prod.Nombre,
                 .Precio = prod.Precio,
-                .Cantidad = prod.cantidad
+                .Cantidad = prod.Cantidad
             }
 
             prodList.Add(producto)
@@ -130,7 +131,7 @@ Public Class P_CajaCxC
                 {"formated_total", 70}
             }
 
-        formatDGV(DGV_Caja, hiddenColumns, formatedNames, columnSize)
+        FormatDGV(DGV_Caja, hiddenColumns, formatedNames, columnSize)
 
         DGV_Caja.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 128, 0)
         DGV_Caja.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 120, 30)
@@ -145,7 +146,7 @@ Public Class P_CajaCxC
         Dim btnFav As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
         If String.IsNullOrEmpty(btnFav.Tag) Then
             ' El botón no tiene un ID de producto asignado
-            msgError("No se encontró el producto")
+            MsgError("No se encontró el producto")
             Return
         End If
 
@@ -158,7 +159,7 @@ Public Class P_CajaCxC
 
         ' Verificar si se encontró el producto
         If T.Tables(0).Rows.Count <= 0 Then
-            msgError("No se encontró el producto")
+            MsgError("No se encontró el producto")
             Return
         End If
 
@@ -226,7 +227,7 @@ Public Class P_CajaCxC
             ' Acciones posteriores
             GetTotal()
         Else
-            msgError($"No se encontró el producto con ID {newProd.ID}.")
+            MsgError($"No se encontró el producto con ID {newProd.ID}.")
         End If
     End Sub
 
@@ -291,7 +292,7 @@ Public Class P_CajaCxC
         If valorCelda Is Nothing OrElse Not Integer.TryParse(valorCelda.ToString(), nuevaCantidad) Then
             ' Restaurar el valor antiguo del DGV usando el BindingSource.
             binCaja.ResetItem(e.RowIndex)
-            msgError("El valor ingresado debe ser un número entero válido para la cantidad.")
+            MsgError("El valor ingresado debe ser un número entero válido para la cantidad.")
             Return
         End If
 
@@ -321,7 +322,7 @@ Public Class P_CajaCxC
     Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
         'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
         If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
-            msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
+            MsgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
             Return
         End If
 
@@ -348,7 +349,7 @@ Public Class P_CajaCxC
     Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
         'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
         If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
-            msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
+            MsgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
             Exit Sub
         End If
 
@@ -363,7 +364,20 @@ Public Class P_CajaCxC
     End Sub
 
     Private Sub BTN_RegresarCaja_Click(sender As Object, e As EventArgs) Handles BTN_RegresarCaja.Click
-        Me.DialogResult = DialogResult.Cancel
+        isNavigating = True
+        Owner.Show()
+        Owner.Select()
+        If TypeOf (Owner) Is P_CuentasCobrar Then
+            Dim frmCuentaCobrar = CType(Owner, P_CuentasCobrar)
+            frmCuentaCobrar.REFRESCAR()
+        End If
+
+        If TypeOf (Owner) Is P_VerDetallesCxC Then
+            Dim frmCuentaCobrar = CType(Owner, P_VerDetallesCxC)
+            frmCuentaCobrar.GetData()
+        End If
+
+        Me.Close()
     End Sub
 
     Private Async Sub BTN_TVenta_Click(sender As Object, e As EventArgs)
@@ -395,7 +409,7 @@ Public Class P_CajaCxC
                 Exit Sub
             End If
 
-            If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura, True) Then
+            If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura) Then
                 Me.DialogResult = DialogResult.OK
             End If
         End Using
@@ -598,13 +612,22 @@ Public Class P_CajaCxC
                     .Saldo_restante = 0,
                     .Efectivo = abonarForm.venta.Efectivo,
                     .Tarjeta = abonarForm.venta.Tarjeta,
-                    .Vuelto = abonarForm.venta.Vuelto
+                    .Vuelto = abonarForm.venta.Vuelto,
+                    .Excluir_de_cierre = 1
                 }
 
-                Await venta.GuardarFactura(abonarForm.imprimir_factura, True)
+                Await venta.GuardarFactura(abonarForm.imprimir_factura)
 
                 SwitchEstadoCuenta(Cuenta.ID, 2) ' Se pasa el estado a cobrada
-                Me.DialogResult = DialogResult.OK
+                isNavigating = True
+                Owner.Show()
+                Owner.Select()
+                If TypeOf (Owner) Is P_CuentasCobrar Then
+                    Dim frmCuentaCobrar = CType(Owner, P_CuentasCobrar)
+                    frmCuentaCobrar.REFRESCAR()
+                End If
+
+                Me.Close()
             Else
                 'En caso de que se necesite imprimir la factura Se imprime de la siguiente forma
                 Using db As New SQLiteConnection(GetConnectionString())
@@ -646,5 +669,9 @@ Public Class P_CajaCxC
         ValidarListView()
         GetTotal()
 
+    End Sub
+
+    Private Sub P_CajaCxC_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        ManejarCierreONavegacion(e)
     End Sub
 End Class

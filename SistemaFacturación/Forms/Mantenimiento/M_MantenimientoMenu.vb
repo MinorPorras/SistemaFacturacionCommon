@@ -5,6 +5,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
     Public Class M_MantenimientoMenu
         Private Sub Guna2Button9_Click(sender As Object, e As EventArgs) Handles BTN_RegresarMant.Click
             M_Inicio.Show()
+            isNavigating = True
             Me.Close()
         End Sub
 
@@ -33,57 +34,73 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
             End Select
         End Sub
 
-        Private Sub openForm(form As Form)
+        Private Sub OpenForm(form As Form)
             form.Show()
             form.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_Sucursal_Click(sender As Object, e As EventArgs) Handles BTN_Sucursal.Click
-            openForm(C_Sucursal)
+            Dim frmSuc As New C_Sucursal
+            openForm(frmSuc)
         End Sub
 
         Private Sub BTN_Usuario_Click(sender As Object, e As EventArgs) Handles BTN_Usuario.Click
-            openForm(C_Usuarios)
+            Dim frmUsuarios As New C_Usuarios
+            openForm(frmUsuarios)
         End Sub
 
         Private Sub BTN_Cliente_Click(sender As Object, e As EventArgs) Handles BTN_Cliente.Click
-            openForm(C_Clientes)
+            Dim frmClientes As New C_Clientes
+            openForm(frmClientes)
         End Sub
 
         Private Sub BTN_Proveedor_Click(sender As Object, e As EventArgs) Handles BTN_Proveedor.Click
-            openForm(C_Proveedor)
+            Dim frmProveedor As New C_Proveedor
+            openForm(frmProveedor)
         End Sub
 
         Private Sub BTN_Impuesto_Click(sender As Object, e As EventArgs) Handles BTN_Impuesto.Click
-            openForm(C_Impuestos)
+            Dim frmImpuestos As New C_Impuestos
+            openForm(frmImpuestos)
         End Sub
 
         Private Sub BTN_Categoria_Click(sender As Object, e As EventArgs) Handles BTN_Categoria.Click
-            openForm(C_Categoria)
+            Dim frmCategoria As New C_Categoria
+            openForm(frmCategoria)
         End Sub
 
         Private Sub BTN_Producto_Click(sender As Object, e As EventArgs) Handles BTN_Producto.Click
-            openForm(C_Productos)
+            Dim frmProductos As New C_Productos
+            openForm(frmProductos)
         End Sub
         Private Sub BTN_Marca_Click(sender As Object, e As EventArgs) Handles BTN_Marca.Click
-            openForm(C_Marca)
+            Dim frmMarca As New C_Marca
+            openForm(frmMarca)
         End Sub
 
         Private Sub BTN_Conceptos_Click(sender As Object, e As EventArgs) Handles BTN_Conceptos.Click
-            openForm(C_ConceptosCaja)
+            Dim frmConceptos As New C_ConceptosCaja
+            openForm(frmConceptos)
         End Sub
 
         Private Sub BTN_LogOut_Click(sender As Object, e As EventArgs) Handles BTN_LogOut.Click
+            Dim frmInicio As New P_SelectUsu
             M_Inicio.LBL_Usu.Text = ""
-            openForm(P_SelectUsu)
+            openForm(frmInicio)
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
             entrarConfig(0, Me)
         End Sub
         Private Sub BTN_CerrarApp_Click(sender As Object, e As EventArgs) Handles BTN_CerrarApp.Click
-            msgCerrarApp()
+            isNavigating = False
+            Me.Close()
+        End Sub
+
+        Private Sub M_MantenimientoMenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+            ManejarCierreONavegacion(e)
         End Sub
     End Class
 

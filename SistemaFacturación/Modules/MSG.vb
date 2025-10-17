@@ -33,8 +33,7 @@ Namespace SistemaFacturacion.Modules
         End Function
         Public Sub MsgCerrarApp()
             If MsgBox("¿Desea cerra la aplicación?", vbOKCancel + vbQuestion, "Cerrar sistema") = MsgBoxResult.Ok Then
-                Log.Information("Cierre de la aplicación")
-                Application.Exit()
+                CerrarAplicacion()
             End If
         End Sub
 
