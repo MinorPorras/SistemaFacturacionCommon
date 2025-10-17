@@ -253,46 +253,52 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                 Return False
             End If
 
-            Dim mgr = UpdateManagerInstance
+            Try
+                Dim mgr = UpdateManagerInstance
 
-            ' Si la aplicación no está instalada o si esta no está disponible
-            ' para revisar o instalar actualizaciones
-            If Not mgr.IsInstalled Then
-                Log.Warning("Aplicación no instalada o no disponible para actualizar: IsInstalled:{installed}", mgr.IsInstalled)
+                ' Si la aplicación no está instalada o si esta no está disponible
+                ' para revisar o instalar actualizaciones
+                If Not mgr.IsInstalled Then
+                    Log.Warning("Aplicación no instalada o no disponible para actualizar: IsInstalled:{installed}", mgr.IsInstalled)
+                    Return False
+                End If
+                Dim update As UpdateInfo = Await mgr.CheckForUpdatesAsync()
+                ' SI no hya una nueva versión retorna false
+                If update Is Nothing Then
+                    Log.Information("No hay versiones nuevas que instalar")
+                    Mensaje("La aplicación ya está actualizada.", "Sin actualizaciones", MessageBoxButtons.OK)
+                    Return False
+                End If
+
+                ' Notificar al usuario sobre la actualización disponible
+                Dim frmUpdateAvailable As New P_UpdateAvailable()
+
+                Dim htmlNotes As String = update.TargetFullRelease.NotesHTML
+                frmUpdateAvailable.LoadReleaseNotes(update.TargetFullRelease.Version.ToString(), htmlNotes)
+
+                Dim result = frmUpdateAvailable.ShowDialog()
+                If result = DialogResult.Cancel Then
+                    ' El usuario decidió no actualizar
+                    Return False
+                End If
+
+                Dim progressReporter As New Action(Of Integer)(Sub(percent)
+                                                                   frmUpdateAvailable.UpdateDownloadProgress(percent) ' Asume que tienes este método
+                                                               End Sub)
+
+                Log.Information("escargando datos de la versión {version}", update.TargetFullRelease.Version)
+                Await mgr.DownloadUpdatesAsync(update, progressReporter)
+
+                Log.Information("Aplicando cambios de la versión {version} y reiniciando el sistema", update.TargetFullRelease.Version)
+                'Aplicar la actualización y reiniciar el sistema
+                mgr.ApplyUpdatesAndExit(update.TargetFullRelease)
+                Return True
+            Catch ex As Exception
+                ' 5. Captura cualquier error de Velopack o IO
+                Log.Error(ex, "Error fatal durante la búsqueda o descarga de actualizaciones de Velopack.")
+                MsgError($"Error fatal durante la búsqueda o descarga de actualizaciones de Velopack. Error: {ex.Message}")
                 Return False
-            End If
-            Dim update As UpdateInfo = Await mgr.CheckForUpdatesAsync()
-            ' SI no hya una nueva versión retorna false
-            If update Is Nothing Then
-                Log.Information("No hay versiones nuevas que instalar")
-                Mensaje("La aplicación ya está actualizada.", "Sin actualizaciones", MessageBoxButtons.OK)
-                Return False
-            End If
-
-            ' Notificar al usuario sobre la actualización disponible
-            Dim frmUpdateAvailable As New P_UpdateAvailable()
-
-            Dim htmlNotes As String = update.TargetFullRelease.NotesHTML
-            frmUpdateAvailable.LoadReleaseNotes(update.TargetFullRelease.Version.ToString(), htmlNotes)
-
-            Dim result = frmUpdateAvailable.ShowDialog()
-            If result = DialogResult.Cancel Then
-                ' El usuario decidió no actualizar
-                Return False
-            End If
-
-            Dim progressReporter As New Action(Of Integer)(Sub(percent)
-                                                               frmUpdateAvailable.updateDownloadProgress(percent) ' Asume que tienes este método
-                                                           End Sub)
-
-            Log.Information("escargando datos de la versión {version}", update.TargetFullRelease.Version)
-            Await mgr.DownloadUpdatesAsync(update, progressReporter)
-
-            Log.Information("Aplicando cambios de la versión {version} y reiniciando el sistema", update.TargetFullRelease.Version)
-            'Aplicar la actualización y reiniciar el sistema
-            mgr.ApplyUpdatesAndExit(update.TargetFullRelease)
-            Return True
-
+            End Try
         End Function
 #End Region
 
