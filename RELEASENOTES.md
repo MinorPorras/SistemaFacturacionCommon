@@ -13,3 +13,7 @@ Esta actualización presenta mejorar y bugfix importantes en el funcionamiento d
 - Se arregló un error en ran parte de las pestañas que provocaba que la aplicación no se cerrara de forma correcta y quedara trabajando en segundo plano, ahora al presionar cualquier botón que cierre la aplicación por completo esta ya se cerrará de forma correcta, impidiendo así que en condiciones normales haya problemas con la instancia única de la aplicación.
 - Se arregló el título en la pestaña de cierre de caja
 - Se mejoró el manejo de los dialogos de busqueda en el sistema para que funcionen en código como dialogos facilitando futuras implementaciones que se hagan
+- Se corrigió un error en el cálculo del cierre de caja donde se consideraba incorrectamente el monto total de las facturas generadas al liquidar cuentas por cobrar. Ahora, el sistema solo toma en cuenta los abonos realizados durante el turno, ignorando el saldo total de la cuenta, lo que garantiza un cálculo preciso del efectivo manejado.
+         
+
+     
