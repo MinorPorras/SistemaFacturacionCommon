@@ -86,14 +86,42 @@ jobs:
         run: |
           dotnet tool install -g vpk
 
-      - name: Create and Upload Release with Velopack
+      - name: Set Velopack Variables
         shell: cmd
         run: |
-          REM 1. Comando vpk pack
+          SET RELEASES_DIR=%GITHUB_WORKSPACE%\SistemaFacturación\Releases
+          SET REPO_URL=https://github.com/%GITHUB_REPOSITORY%
+          
+          REM Crear el directorio de releases si no existe
+          IF NOT EXIST %RELEASES_DIR% MKDIR %RELEASES_DIR%
+
+      # PASO 1: Descargar el paquete full anterior.
+      - name: Download Previous Release for Delta Generation
+        shell: cmd
+        run: |
+          SET RELEASES_DIR=%GITHUB_WORKSPACE%\SistemaFacturación\Releases
+          SET REPO_URL=https://github.com/%GITHUB_REPOSITORY%
+
+          REM vpk download busca el releases.win.json y descarga el paquete full.
+          vpk download github ^
+            --outputDir "%RELEASES_DIR%" ^
+            --repoUrl "%REPO_URL%" ^
+            --token "${{ secrets.GITHUB_TOKEN }}" ^
+            --channel win
+
+      # PASO 2: Crear el nuevo paquete (vpk pack)
+      - name: Create New Release Package
+        shell: cmd
+        run: |
+          SET RELEASES_DIR=%GITHUB_WORKSPACE%\SistemaFacturación\Releases
+          SET PACK_DIR=%GITHUB_WORKSPACE%\SistemaFacturación\publish
+
+          REM vpk pack busca el paquete anterior en %RELEASES_DIR% y crea el delta.
           vpk pack ^
             -u "CommonSistemaFacturacion" ^
             -v "${{ steps.get-version.outputs.version }}" ^
-            -p "SistemaFacturación\publish" ^
+            -p "%PACK_DIR%" ^
+            -o "%RELEASES_DIR%" ^
             -e "Sistema de Facturación Common.exe" ^
             -f "net472" ^
             --packTitle "Sistema Facturación Common" ^
@@ -101,14 +129,20 @@ jobs:
             -s "%GITHUB_WORKSPACE%\SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" ^
             --releaseNotes "RELEASENOTES.md" ^
             --shortcuts "Desktop,StartMenuRoot" ^
-            -url "https://github.com/${{ github.repository }}" ^
             -c win
-            
-          REM 2. Comando vpk upload
+
+      # PASO 3: Subir los assets (full, delta, instalador, releases.json)
+      - name: Upload Release Assets to GitHub
+        shell: cmd
+        run: |
+          SET RELEASES_DIR=%GITHUB_WORKSPACE%\SistemaFacturación\Releases
+          SET REPO_URL=https://github.com/%GITHUB_REPOSITORY%
+          
           vpk upload github ^
-            --repoUrl "https://github.com/${{ github.repository }}" ^
+            --repoUrl "%REPO_URL%" ^
             --publish ^
             --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" ^
             --tag "v${{ steps.get-version.outputs.version }}" ^
             --token "${{ secrets.GITHUB_TOKEN }}" ^
+            --inputDir "%RELEASES_DIR%" ^
             -c win
