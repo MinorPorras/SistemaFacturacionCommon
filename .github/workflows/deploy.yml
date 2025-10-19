@@ -89,10 +89,7 @@ jobs:
       - name: Create and Upload Release with Velopack
         shell: cmd
         run: |
-          REM 1. Definimos la URL de repo
-          SET REPO_URL=https://github.com/%GITHUB_REPOSITORY%
-
-          REM 2. Comando vpk pack
+          REM 1. Comando vpk pack
           vpk pack ^
             -u "CommonSistemaFacturacion" ^
             -v "${{ steps.get-version.outputs.version }}" ^
@@ -104,12 +101,12 @@ jobs:
             -s "%GITHUB_WORKSPACE%\SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" ^
             --releaseNotes "RELEASENOTES.md" ^
             --shortcuts "Desktop,StartMenuRoot" ^
-            -url "%REPO_URL%" ^
+            -url "https://github.com/${{ github.repository }}" ^
             -c win
             
-          REM 3. Comando vpk upload
+          REM 2. Comando vpk upload
           vpk upload github ^
-            --repoUrl "%REPO_URL%" ^
+            --repoUrl "https://github.com/${{ github.repository }}" ^
             --publish ^
             --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" ^
             --tag "v${{ steps.get-version.outputs.version }}" ^
