@@ -92,38 +92,40 @@ jobs:
           # 1. Definimos el URL raíz del repositorio
           $repoUrl = "https://github.com/$env:GITHUB_REPOSITORY"
 
-          # 2. Definimos los argumentos para vpk pack como un array para evitar problemas de parsing
+          # 2. Argumentos para vpk pack
           $packArgs = @(
-            "pack"
-            "-u CommonSistemaFacturacion"
-            "-v ${{ steps.get-version.outputs.version }}"
-            "-p SistemaFacturación\publish"
-            "-e Sistema de Facturación Common.exe"
-            "-f net472"
-            "--packTitle 'Sistema Facturación Common'"
-            "-i SistemaFacturación\Resources\logoSFCommonSimple_1_.ico"
-            "-s SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png"
-            "--releaseNotes RELEASENOTES.md"
-            "--shortcuts Desktop,StartMenuRoot"
-            # Argumentos para el DELTA:
-            "-url $repoUrl" # ¡El URL debe ir sin comillas aquí, ya que el array lo maneja!
-            "-c win"
+            "pack",
+            "-u", "CommonSistemaFacturacion",
+            "-v", "${{ steps.get-version.outputs.version }}",
+            "-p", "SistemaFacturación\publish",
+            "-e", "Sistema de Facturación Common.exe",
+            "-f", "net472",
+            "--packTitle", "Sistema Facturación Common",
+            "-i", "SistemaFacturación\Resources\logoSFCommonSimple_1_.ico",
+            "-s", "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png",
+            "--releaseNotes", "RELEASENOTES.md",
+            "--shortcuts", "Desktop,StartMenuRoot",
+            "-url", $repoUrl, # URL sin comillas dentro del array
+            "-c", "win" # Canal Windows
           )
           
-          # 3. Ejecutamos el comando Velopack
+          # 3. Ejecutamos el comando Velopack pack
           & vpk $packArgs
 
-          # 4. Definimos los argumentos para vpk upload (también como array)
+          # 4. Argumentos para vpk upload:
           $uploadArgs = @(
-            "upload"
-            "github"
-            "--repoUrl $repoUrl"
-            "--publish"
-            "--releaseName 'Sistema Facturación v${{ steps.get-version.outputs.version }}'"
-            "--tag v${{ steps.get-version.outputs.version }}"
-            "--token ${{ secrets.GITHUB_TOKEN }}"
-            "-c win"
+            "upload",
+            "github",
+            "--repoUrl", $repoUrl,
+            "--publish",
+            "--releaseName", "Sistema Facturación v${{ steps.get-version.outputs.version }}",
+            "--tag", "v${{ steps.get-version.outputs.version }}",
+            "--token", "${{ secrets.GITHUB_TOKEN }}",
+            "-c", "win"
           )
+          
+          # 5. Ejecutamos el comando Velopack upload
+          & vpk $uploadArgs
           
           # 5. Ejecutamos el comando Velopack upload
           & vpk $uploadArgs
