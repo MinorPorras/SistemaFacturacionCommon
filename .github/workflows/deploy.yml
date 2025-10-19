@@ -144,5 +144,5 @@ jobs:
             --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" ^
             --tag "v${{ steps.get-version.outputs.version }}" ^
             --token "${{ secrets.GITHUB_TOKEN }}" ^
-            --inputDir "%RELEASES_DIR%" ^
+            --outputDir "%RELEASES_DIR%" ^
             -c win
