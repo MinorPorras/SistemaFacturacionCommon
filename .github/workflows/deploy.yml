@@ -104,8 +104,10 @@ jobs:
             --token "${{ secrets.GITHUB_TOKEN }}"
           
           # 2. Subir a GitHub
+          $repoUrl = "https://github.com/$env:GITHUB_REPOSITORY"
+          
           vpk upload github `
-            --repoUrl "[https://github.com/$](https://github.com/$){{ github.repository }}" `
+            --repoUrl $repoUrl ` # Usamos la variable de PowerShell sin comillas
             --publish `
             --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" `
             --tag "v${{ steps.get-version.outputs.version }}" `
