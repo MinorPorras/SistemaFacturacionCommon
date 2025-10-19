@@ -98,15 +98,17 @@ jobs:
             "-u", "CommonSistemaFacturacion",
             "-v", "${{ steps.get-version.outputs.version }}",
             "-p", "SistemaFacturación\publish",
-            "-e", "Sistema de Facturación Common.exe",
+            "-e", "Sistema de Facturación Common.exe", 
             "-f", "net472",
-            "--packTitle", "Sistema Facturación Common",
-            "-i", "SistemaFacturación\Resources\logoSFCommonSimple_1_.ico",
-            "-s", "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png",
+            "--packTitle", "Sistema Facturación Common", 
+            # Rutas de Archivo ABSOLUTAS: Usamos $env:GITHUB_WORKSPACE
+            "-i", "$env:GITHUB_WORKSPACE\SistemaFacturación\Resources\logoSFCommonSimple_1_.ico",
+            "-s", "$env:GITHUB_WORKSPACE\SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png",
             "--releaseNotes", "RELEASENOTES.md",
             "--shortcuts", "Desktop,StartMenuRoot",
-            "-url", $repoUrl, # URL sin comillas dentro del array
-            "-c", "win" # Canal Windows
+            # URL con comillas simples anidadas para evitar el error de parsing:
+            "-url", "'$repoUrl'", 
+            "-c", "win"
           )
           
           # 3. Ejecutamos el comando Velopack pack
@@ -116,16 +118,14 @@ jobs:
           $uploadArgs = @(
             "upload",
             "github",
-            "--repoUrl", $repoUrl,
+            # URL con comillas simples anidadas:
+            "--repoUrl", "'$repoUrl'",
             "--publish",
             "--releaseName", "Sistema Facturación v${{ steps.get-version.outputs.version }}",
             "--tag", "v${{ steps.get-version.outputs.version }}",
             "--token", "${{ secrets.GITHUB_TOKEN }}",
             "-c", "win"
           )
-          
-          # 5. Ejecutamos el comando Velopack upload
-          & vpk $uploadArgs
           
           # 5. Ejecutamos el comando Velopack upload
           & vpk $uploadArgs
