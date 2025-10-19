@@ -24,7 +24,7 @@ Namespace SistemaFacturacion.Forms.Busqueda
             TXT_BuscarProd.Text = producto.Producto
             TXT_codigo.Text = producto.Codigo
             TXT_Nombre.Text = producto.Producto
-            TXT_CantProd.Text = producto.Cantidad
+            TXT_CantProd.Text = If(producto.Cantidad <= 1, 1, producto.Cantidad)
             TXT_Precio.Text = producto.Precio
         End Sub
 
@@ -168,7 +168,7 @@ Namespace SistemaFacturacion.Forms.Busqueda
                 producto.Cantidad += 1
                 TXT_CantProd.Text = producto.Cantidad
             Catch ex As Exception
-
+                MsgError("Cantidad inválida.")
             End Try
 
         End Sub
@@ -179,9 +179,12 @@ Namespace SistemaFacturacion.Forms.Busqueda
                 If producto.Cantidad >= 1 Then
                     producto.Cantidad -= 1
                     TXT_CantProd.Text = producto.Cantidad
+                Else
+                    producto.Cantidad = 0
+                    TXT_CantProd.Text = producto.Cantidad
                 End If
             Catch ex As Exception
-
+                MsgError("Cantidad inválida.")
             End Try
         End Sub
 

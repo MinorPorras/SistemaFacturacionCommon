@@ -5,6 +5,7 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 Namespace SistemaFacturacion.Forms.Caja
     Public Class P_DatosFactura
         Private Sub BTN_RegresarPed_Click(sender As Object, e As EventArgs) Handles BTN_RegresarPed.Click
+            isNavigating = True
             Me.DialogResult = DialogResult.Cancel
         End Sub
 
