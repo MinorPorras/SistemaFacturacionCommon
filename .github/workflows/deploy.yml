@@ -89,12 +89,11 @@ jobs:
       - name: Create and Upload Release with Velopack
         shell: pwsh
         run: |
-          # 1. Creamos la variable de PowerShell para la URL del repositorio
-          # Esto evita el error de parsing con el repoUrl.
+          # 1. Definimos el URL raíz del repositorio
           $repoUrl = "https://github.com/$env:GITHUB_REPOSITORY"
 
-          # 2. Comando vpk pack en una SOLA LÍNEA para evitar errores del parser de PowerShell.
-          vpk pack -u "CommonSistemaFacturacion" -v "${{ steps.get-version.outputs.version }}" -p "SistemaFacturación\publish" -e "Sistema de Facturación Common.exe" -f "net472" --packTitle "Sistema Facturación Common" -i "SistemaFacturación\Resources\logoSFCommonSimple_1_.ico" -s "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" --releaseNotes "RELEASENOTES.md" --shortcuts "Desktop,StartMenuRoot" 
+          # 2. Comando vpk pack
+          vpk pack -u "CommonSistemaFacturacion" -v "${{ steps.get-version.outputs.version }}" -p "SistemaFacturación\publish" -e "Sistema de Facturación Common.exe" -f "net472" --packTitle "Sistema Facturación Common" -i "SistemaFacturación\Resources\logoSFCommonSimple_1_.ico" -s "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" --releaseNotes "RELEASENOTES.md" --shortcuts "Desktop,StartMenuRoot" -url $repoUrl
 
-          # 3. Comando vpk upload en una SOLA LÍNEA.
+          # 3. Comando vpk upload
           vpk upload github --repoUrl $repoUrl --publish --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" --tag "v${{ steps.get-version.outputs.version }}" --token "${{ secrets.GITHUB_TOKEN }}"
