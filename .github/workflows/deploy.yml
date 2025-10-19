@@ -90,8 +90,7 @@ jobs:
         shell: pwsh
         run: |
           # 1. Empaquetar y crear DELTAS
-          vpk pack `
-            -u "CommonSistemaFacturacion" `
+          vpk pack -u "CommonSistemaFacturacion" `
             -v "${{ steps.get-version.outputs.version }}" `
             -p "SistemaFacturación\publish" `
             -e "Sistema de Facturación Common.exe" `
@@ -101,14 +100,12 @@ jobs:
             -s "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" `
             --releaseNotes "RELEASENOTES.md" `
             --shortcuts "Desktop,StartMenuRoot" `
-            --delta-source "github" ` 
+            --delta-source "github" `
             --token "${{ secrets.GITHUB_TOKEN }}"
-
+          
           # 2. Subir a GitHub
-          # Este paso SÍ necesita el token, pero ahora está garantizado que los deltas
-          # ya fueron creados en el disco por el paso 'pack'.
           vpk upload github `
-            --repoUrl "https://github.com/${{ github.repository }}" `
+            --repoUrl "[https://github.com/$](https://github.com/$){{ github.repository }}" `
             --publish `
             --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" `
             --tag "v${{ steps.get-version.outputs.version }}" `
