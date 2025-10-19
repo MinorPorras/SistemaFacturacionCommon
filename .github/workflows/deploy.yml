@@ -87,45 +87,31 @@ jobs:
           dotnet tool install -g vpk
 
       - name: Create and Upload Release with Velopack
-        shell: pwsh
+        shell: cmd
         run: |
-          # 1. Definimos el URL raíz del repositorio
-          $repoUrl = "https://github.com/$env:GITHUB_REPOSITORY"
+          REM 1. Definimos la URL de repo
+          SET REPO_URL=https://github.com/%GITHUB_REPOSITORY%
 
-          # 2. Argumentos para vpk pack
-          $packArgs = @(
-            "pack",
-            "-u", "CommonSistemaFacturacion",
-            "-v", "${{ steps.get-version.outputs.version }}",
-            "-p", "SistemaFacturación\publish",
-            "-e", "Sistema de Facturación Common.exe", 
-            "-f", "net472",
-            "--packTitle", "Sistema Facturación Common", 
-            # Rutas de Archivo ABSOLUTAS: Usamos $env:GITHUB_WORKSPACE
-            "-i", "$env:GITHUB_WORKSPACE\SistemaFacturación\Resources\logoSFCommonSimple_1_.ico",
-            "-s", "$env:GITHUB_WORKSPACE\SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png",
-            "--releaseNotes", "RELEASENOTES.md",
-            "--shortcuts", "Desktop,StartMenuRoot",
-            # URL con comillas simples anidadas para evitar el error de parsing:
-            "-url", "'$repoUrl'", 
-            "-c", "win"
-          )
-          
-          # 3. Ejecutamos el comando Velopack pack
-          & vpk $packArgs
-
-          # 4. Argumentos para vpk upload:
-          $uploadArgs = @(
-            "upload",
-            "github",
-            # URL con comillas simples anidadas:
-            "--repoUrl", "'$repoUrl'",
-            "--publish",
-            "--releaseName", "Sistema Facturación v${{ steps.get-version.outputs.version }}",
-            "--tag", "v${{ steps.get-version.outputs.version }}",
-            "--token", "${{ secrets.GITHUB_TOKEN }}",
-            "-c", "win"
-          )
-          
-          # 5. Ejecutamos el comando Velopack upload
-          & vpk $uploadArgs
+          REM 2. Comando vpk pack
+          vpk pack ^
+            -u "CommonSistemaFacturacion" ^
+            -v "${{ steps.get-version.outputs.version }}" ^
+            -p "SistemaFacturación\publish" ^
+            -e "Sistema de Facturación Common.exe" ^
+            -f "net472" ^
+            --packTitle "Sistema Facturación Common" ^
+            -i "%GITHUB_WORKSPACE%\SistemaFacturación\Resources\logoSFCommonSimple_1_.ico" ^
+            -s "%GITHUB_WORKSPACE%\SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" ^
+            --releaseNotes "RELEASENOTES.md" ^
+            --shortcuts "Desktop,StartMenuRoot" ^
+            -url "%REPO_URL%" ^
+            -c win
+            
+          REM 3. Comando vpk upload
+          vpk upload github ^
+            --repoUrl "%REPO_URL%" ^
+            --publish ^
+            --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" ^
+            --tag "v${{ steps.get-version.outputs.version }}" ^
+            --token "${{ secrets.GITHUB_TOKEN }}" ^
+            -c win
