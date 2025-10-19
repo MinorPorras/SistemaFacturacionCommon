@@ -92,8 +92,9 @@ jobs:
           # 1. Definimos el URL raíz del repositorio
           $repoUrl = "https://github.com/$env:GITHUB_REPOSITORY"
 
-          # 2. Comando vpk pack
-          vpk pack -u "CommonSistemaFacturacion" -v "${{ steps.get-version.outputs.version }}" -p "SistemaFacturación\publish" -e "Sistema de Facturación Common.exe" -f "net472" --packTitle "Sistema Facturación Common" -i "SistemaFacturación\Resources\logoSFCommonSimple_1_.ico" -s "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" --releaseNotes "RELEASENOTES.md" --shortcuts "Desktop,StartMenuRoot" -url $repoUrl
+          # 2. Comando vpk pack.
+          # ¡CORRECCIÓN CLAVE! El valor de $repoUrl debe ir entre COMILLAS DOBLES.
+          vpk pack -u "CommonSistemaFacturacion" -v "${{ steps.get-version.outputs.version }}" -p "SistemaFacturación\publish" -e "Sistema de Facturación Common.exe" -f "net472" --packTitle "Sistema Facturación Common" -i "SistemaFacturación\Resources\logoSFCommonSimple_1_.ico" -s "SistemaFacturación\Resources\logoCompletoSFCommonTransparent.png" --releaseNotes "RELEASENOTES.md" --shortcuts "Desktop,StartMenuRoot" -url "$repoUrl"
 
           # 3. Comando vpk upload
           vpk upload github --repoUrl $repoUrl --publish --releaseName "Sistema Facturación v${{ steps.get-version.outputs.version }}" --tag "v${{ steps.get-version.outputs.version }}" --token "${{ secrets.GITHUB_TOKEN }}"
