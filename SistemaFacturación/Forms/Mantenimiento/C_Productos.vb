@@ -95,8 +95,18 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
                                                                      paramList.Add(New SQLiteParameter("@proveedor", "%" & TXT_BuscarProv.Text & "%"))
                                                                  End If
 
-                                                                 Dim orden As String = If(SWT_Recientes.Checked, " ORDER BY p.fechaAdd DESC;", " ORDER BY p.codigo ASC;")
-                                                                 Dim consultaFinal As String = stringConsultaBase.ToString() & condiciones.ToString() & orden
+                                                                 Dim orden As String = If(SWT_Recientes.Checked, " ORDER BY p.fechaAdd DESC", " ORDER BY p.codigo ASC")
+
+                                                                 Dim limit As String = ""
+                                                                 If RDB_100.Checked Then
+                                                                     limit = " LIMIT 100;"
+                                                                 ElseIf RDB_200.Checked Then
+                                                                     limit = " LIMIT 200;"
+                                                                 ElseIf RDB_500.Checked Then
+                                                                     limit = " LIMIT 500;"
+                                                                 End If
+
+                                                                 Dim consultaFinal As String = stringConsultaBase.ToString() & condiciones.ToString() & orden & limit
 
                                                                  ' Llamada al método para cargar la tabla de forma segura
                                                                  CargarTablaParam(T, consultaFinal, paramList)
@@ -393,6 +403,22 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
         Private Sub C_Productos_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
             ManejarCierreONavegacion(e)
+        End Sub
+
+        Private Sub RDB_100_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_100.CheckedChanged
+            REFRESCAR()
+        End Sub
+
+        Private Sub RDB_200_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_200.CheckedChanged
+            REFRESCAR()
+        End Sub
+
+        Private Sub RDB_500_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_500.CheckedChanged
+            REFRESCAR()
+        End Sub
+
+        Private Sub RDB_All_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_All.CheckedChanged
+            REFRESCAR()
         End Sub
     End Class
 End Namespace
