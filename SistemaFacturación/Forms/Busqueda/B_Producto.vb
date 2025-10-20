@@ -50,12 +50,22 @@ Namespace SistemaFacturacion.Forms.Busqueda
                              Else
                                  condicionBusqueda = $"p.codigo LIKE '%{busqueda}%' OR p.nombre LIKE '%{busqueda}%'"
                              End If
+
+                             Dim limit As String = ""
+                             If RDB_100.Checked Then
+                                 limit = " LIMIT 100;"
+                             ElseIf RDB_200.Checked Then
+                                 limit = " LIMIT 200;"
+                             ElseIf RDB_500.Checked Then
+                                 limit = " LIMIT 500;"
+                             End If
+
                              SQL = "SELECT p.ID, p.codigo AS 'Código', p.nombre AS 'Nombre', v.precio_venta AS 'Precio de venta', " &
                                       "CASE WHEN p.variable = 1 THEN 'Si' ELSE 'No' END AS 'Variable' " &
                                       "FROM producto p " &
                                       "LEFT JOIN producto_precioVenta v ON p.ID = v.ID_Producto " &
-                                      "WHERE " & condicionBusqueda &
-                                      " ORDER BY p.codigo ASC;"
+                                      $"WHERE {condicionBusqueda} " &
+                                      $"ORDER BY p.codigo ASC {limit};"
 
                              ' Asegúrate de que el control tiene un identificador de ventana antes de invocar
                              If DGV_BProd.IsHandleCreated Then
@@ -211,6 +221,22 @@ Namespace SistemaFacturacion.Forms.Busqueda
                 TXT_Nombre.Text = ""
                 TXT_Precio.Text = ""
             End Try
+        End Sub
+
+        Private Sub RDB_100_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_100.CheckedChanged
+            REFRESCAR()
+        End Sub
+
+        Private Sub RDB_200_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_200.CheckedChanged
+            REFRESCAR()
+        End Sub
+
+        Private Sub RDB_500_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_500.CheckedChanged
+            REFRESCAR()
+        End Sub
+
+        Private Sub RDB_All_CheckedChanged(sender As Object, e As EventArgs) Handles RDB_All.CheckedChanged
+            REFRESCAR()
         End Sub
     End Class
 End Namespace

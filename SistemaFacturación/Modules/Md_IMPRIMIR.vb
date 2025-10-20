@@ -268,13 +268,16 @@ Namespace SistemaFacturacion.Modules
                             printDoc.Print()
                         Else
                             Log.Information("Diálogo de impresión cancelado por el usuario. Impresión abortada.")
+                            Exit Sub
                         End If
                     End Using
 
                     Log.Debug("Mostrando previsualización de impresión.")
                     'Se muestra al usuario una vista previa del proceso de impresión
+#If DEBUG Then
                     Dim printPreview As New PrintPreviewDialog With {.Document = printDoc}
                     printPreview.ShowDialog()
+#End If
                 Catch ex As Exception
                     ' Notificar al usuario (puede que sea necesario)
                     MsgError($"Error fatal al imprimir. Verifique la conexión de la impresora. Error: {ex.Message}")

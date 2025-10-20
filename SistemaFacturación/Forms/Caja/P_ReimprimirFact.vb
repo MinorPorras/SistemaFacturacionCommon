@@ -184,7 +184,7 @@ Namespace SistemaFacturacion.Forms.Caja
             Try
                 Using conn As New SQLiteConnection(GetConnectionString())
                     conn.Open()
-                    Using cmd As New SQLiteCommand("SELECT MAX(ID) FROM factura WHERE cobrada = 1;", conn)
+                    Using cmd As New SQLiteCommand("SELECT MAX(ID) FROM factura", conn)
                         Dim result = cmd.ExecuteScalar()
                         If result IsNot DBNull.Value Then
                             idFactura = Convert.ToInt32(result)
@@ -207,12 +207,9 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub MNU_REIMPRIMIR_Click(sender As Object, e As EventArgs) Handles MNU_REIMPRIMIR.Click
-            ' Asume que tienes un DataGridView llamado DGV_Facturas
-            If DGV_ReimprimirFact.CurrentRow IsNot Nothing Then
-                Dim idFactura As Integer = Convert.ToInt32(DGV_ReimprimirFact.CurrentRow.Cells("ID").Value)
-                ' Llamada directa a la función del módulo
-                Md_IMPRIMIR.GENERAR_FACTURA(idFactura, "Comun")
-            End If
+            Dim idFactura As Integer = Convert.ToInt32(DGV_ReimprimirFact.SelectedRows(0).Cells("ID").Value)
+            ' Llamada directa a la función del módulo
+            Md_IMPRIMIR.GENERAR_FACTURA(idFactura, "Comun")
         End Sub
 
         Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
