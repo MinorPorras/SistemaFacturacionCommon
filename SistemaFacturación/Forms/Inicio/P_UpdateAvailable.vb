@@ -1,12 +1,20 @@
 ﻿Public Class P_UpdateAvailable
     Private Sub BTN_Login_Click(sender As Object, e As EventArgs) Handles BTN_Login.Click
+        ' 1. Señalizar que se debe proceder con la actualización
         Me.DialogResult = DialogResult.OK
-        Me.Close()
+
+        ' 2. Deshabilitar los botones para evitar doble clic o cambio de opinión
+        BTN_Login.Enabled = False
+        BTN_RegresarLogin.Enabled = False
+
+        ' 3. Configurar la UI para el estado de descarga
+        LBL_Version.Text = "Iniciando descarga..."
+        PB_DownloadProgress.Visible = True
+        LBL_Percent.Visible = True
     End Sub
 
     Private Sub BTN_RegresarLogin_Click(sender As Object, e As EventArgs) Handles BTN_RegresarLogin.Click
         Me.DialogResult = DialogResult.Cancel
-        Me.Close()
     End Sub
 
     Friend Sub LoadReleaseNotes(ByVal version As String, ByVal htmlNotes As String)
