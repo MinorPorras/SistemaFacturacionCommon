@@ -131,6 +131,7 @@ Partial Class P_UpdateAvailable
         Me.PB_DownloadProgress.TabIndex = 116
         Me.PB_DownloadProgress.Text = "Guna2ProgressBar1"
         Me.PB_DownloadProgress.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+        Me.PB_DownloadProgress.Visible = False
         '
         'Guna2HtmlLabel1
         '
@@ -139,9 +140,10 @@ Partial Class P_UpdateAvailable
         Me.Guna2HtmlLabel1.ForeColor = System.Drawing.SystemColors.Control
         Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(12, 407)
         Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(205, 26)
+        Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(205, 27)
         Me.Guna2HtmlLabel1.TabIndex = 117
         Me.Guna2HtmlLabel1.Text = "Progreso de instalación:"
+        Me.Guna2HtmlLabel1.Visible = False
         '
         'LBL_Percent
         '
@@ -153,6 +155,7 @@ Partial Class P_UpdateAvailable
         Me.LBL_Percent.Size = New System.Drawing.Size(19, 27)
         Me.LBL_Percent.TabIndex = 118
         Me.LBL_Percent.Text = "%"
+        Me.LBL_Percent.Visible = False
         '
         'P_UpdateAvailable
         '

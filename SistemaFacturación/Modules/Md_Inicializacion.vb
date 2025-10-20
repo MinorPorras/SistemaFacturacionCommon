@@ -106,13 +106,15 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                 Dim version As SemanticVersion = locator.CurrentlyInstalledVersion
 
                 If version IsNot Nothing Then
-                    frmSplash.setVersionLabel(version.ToString())
+                    frmSplash.SetVersionLabel(version.ToString())
                 End If
 
                 frmSplash.UpdateStatus("Revisando por actualizaciones del sistema")
                 Dim AutoUpdate As String = GetAppSetting("AutoUpdate")
                 If AutoUpdate = "True" Then
-                    CheckForUpdates().Wait()
+                    frmSplash.Invoke(Sub()
+                                         CheckForUpdates().Wait()
+                                     End Sub)
                 End If
                 frmSplash.UpdateStatus("Inicializando la base de datos")
                 InicializarDB()
@@ -295,7 +297,7 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                                                                    frmUpdateAvailable.UpdateDownloadProgress(percent) ' Asume que tienes este método
                                                                End Sub)
 
-                Log.Information("escargando datos de la versión {version}", update.TargetFullRelease.Version)
+                Log.Information("Descargando datos de la versión {version}", update.TargetFullRelease.Version)
                 Await mgr.DownloadUpdatesAsync(update, progressReporter)
 
                 Log.Information("Aplicando cambios de la versión {version} y reiniciando el sistema", update.TargetFullRelease.Version)

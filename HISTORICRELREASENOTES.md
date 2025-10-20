@@ -19,6 +19,11 @@ Closes #68
 - Se arregló un error relacionado a la selección de la fila con la factura a imprimir en el que a veces al selecionar la primer fila esta no se imprimía correctamente
 - Se eliminó el preview que se generaba al terminar la factura ya que en producción no se consideró necesario ya que este se imprimiría en todo caso
 
+### 3. Actualizaciones de la aplicación
+Closes #73
+- Se arregló un error en el que no se señalizaba de forma correcta que ya se estaba comenzando con el proceso de actualizaicón de la aplicación al buscar versiones nuevas desde la pestaña de configuración
+- Se arregló un error que impedía el funcionamiento correcto de las actualizaciones automáticas
+
 # Notas del parche versión 3.0.2 (19 de oct de 2025)
 
 Esta actualización busca resolver 2 erorres bastante molestos y problemáticos con la aplicación despues de las versiones anteriores
