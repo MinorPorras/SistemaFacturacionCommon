@@ -26,9 +26,14 @@ Partial Class P_AbonarCxC
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_AbonarCxC))
         Me.TXT_Comentario = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel17 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        Me.BTN_RegresarVenta = New Guna.UI2.WinForms.Guna2Button()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
+        Me.BTN_TVentaImp = New Guna.UI2.WinForms.Guna2Button()
+        Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.TabControlTVenta = New Guna.UI2.WinForms.Guna2TabControl()
         Me.Efectivo = New System.Windows.Forms.TabPage()
-        Me.NUD_ECliente = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.TXT_ECliente = New Guna.UI2.WinForms.Guna2TextBox()
         Me.BTN_EColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_EVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -36,7 +41,7 @@ Partial Class P_AbonarCxC
         Me.TXT_ETotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Tarjeta = New System.Windows.Forms.TabPage()
-        Me.NUD_TCliente = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.TXT_TCliente = New Guna.UI2.WinForms.Guna2TextBox()
         Me.BTN_TColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_TVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -44,7 +49,7 @@ Partial Class P_AbonarCxC
         Me.TXT_TTotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Sinpe = New System.Windows.Forms.TabPage()
-        Me.NUD_SCliente = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.TXT_SCliente = New Guna.UI2.WinForms.Guna2TextBox()
         Me.BTN_SColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.TXT_SVuelto = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -52,7 +57,7 @@ Partial Class P_AbonarCxC
         Me.TXT_STotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel9 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.deposito = New System.Windows.Forms.TabPage()
-        Me.NUD_DCliente = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.TXT_DCliente = New Guna.UI2.WinForms.Guna2TextBox()
         Me.BTN_DColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
         Me.Guna2HtmlLabel11 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_DVuelto = New Guna.UI2.WinForms.Guna2TextBox()
@@ -60,8 +65,8 @@ Partial Class P_AbonarCxC
         Me.TXT_DTotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.Mixto = New System.Windows.Forms.TabPage()
-        Me.NUD_MTarjeta = New Guna.UI2.WinForms.Guna2NumericUpDown()
-        Me.NUD_MEfectivo = New Guna.UI2.WinForms.Guna2NumericUpDown()
+        Me.TXT_MEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
+        Me.TXT_MTarjeta = New Guna.UI2.WinForms.Guna2TextBox()
         Me.BTN_RestanteEfectivo = New Guna.UI2.WinForms.Guna2TileButton()
         Me.BTN_RestanteTarjeta = New Guna.UI2.WinForms.Guna2TileButton()
         Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -70,24 +75,13 @@ Partial Class P_AbonarCxC
         Me.Guna2HtmlLabel14 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Me.TXT_MTotal = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Guna2HtmlLabel15 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        Me.BTN_RegresarVenta = New Guna.UI2.WinForms.Guna2Button()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.BTN_TVenta = New Guna.UI2.WinForms.Guna2Button()
-        Me.BTN_TVentaImp = New Guna.UI2.WinForms.Guna2Button()
-        Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.TabControlTVenta.SuspendLayout()
         Me.Efectivo.SuspendLayout()
-        CType(Me.NUD_ECliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Tarjeta.SuspendLayout()
-        CType(Me.NUD_TCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Sinpe.SuspendLayout()
-        CType(Me.NUD_SCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.deposito.SuspendLayout()
-        CType(Me.NUD_DCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Mixto.SuspendLayout()
-        CType(Me.NUD_MTarjeta, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NUD_MEfectivo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TXT_Comentario
@@ -107,7 +101,6 @@ Partial Class P_AbonarCxC
         Me.TXT_Comentario.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_Comentario.Multiline = True
         Me.TXT_Comentario.Name = "TXT_Comentario"
-        Me.TXT_Comentario.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_Comentario.PlaceholderText = ""
         Me.TXT_Comentario.SelectedText = ""
         Me.TXT_Comentario.Size = New System.Drawing.Size(745, 86)
@@ -125,6 +118,93 @@ Partial Class P_AbonarCxC
         Me.Guna2HtmlLabel17.Text = "Comentario:"
         Me.Guna2HtmlLabel17.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
+        'BTN_RegresarVenta
+        '
+        Me.BTN_RegresarVenta.BorderColor = System.Drawing.Color.Red
+        Me.BTN_RegresarVenta.BorderRadius = 10
+        Me.BTN_RegresarVenta.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_RegresarVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_RegresarVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_RegresarVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_RegresarVenta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_RegresarVenta.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BTN_RegresarVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
+        Me.BTN_RegresarVenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_RegresarVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
+        Me.BTN_RegresarVenta.ImageSize = New System.Drawing.Size(45, 45)
+        Me.BTN_RegresarVenta.Location = New System.Drawing.Point(3, 3)
+        Me.BTN_RegresarVenta.Name = "BTN_RegresarVenta"
+        Me.BTN_RegresarVenta.Size = New System.Drawing.Size(297, 60)
+        Me.BTN_RegresarVenta.TabIndex = 132
+        Me.BTN_RegresarVenta.Text = "[F1] Regresar"
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVentaImp, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarVenta, 0, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 496)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(909, 66)
+        Me.TableLayoutPanel1.TabIndex = 137
+        '
+        'BTN_TVenta
+        '
+        Me.BTN_TVenta.BorderColor = System.Drawing.Color.Red
+        Me.BTN_TVenta.BorderRadius = 10
+        Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_TVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_TVenta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
+        Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
+        Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
+        Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
+        Me.BTN_TVenta.ImageSize = New System.Drawing.Size(45, 45)
+        Me.BTN_TVenta.Location = New System.Drawing.Point(609, 3)
+        Me.BTN_TVenta.Name = "BTN_TVenta"
+        Me.BTN_TVenta.Size = New System.Drawing.Size(297, 60)
+        Me.BTN_TVenta.TabIndex = 139
+        Me.BTN_TVenta.Text = "[F2] Abonar pago"
+        '
+        'BTN_TVentaImp
+        '
+        Me.BTN_TVentaImp.BorderColor = System.Drawing.Color.Red
+        Me.BTN_TVentaImp.BorderRadius = 10
+        Me.BTN_TVentaImp.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.BTN_TVentaImp.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVentaImp.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+        Me.BTN_TVentaImp.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+        Me.BTN_TVentaImp.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+        Me.BTN_TVentaImp.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BTN_TVentaImp.FillColor = System.Drawing.Color.DarkOrange
+        Me.BTN_TVentaImp.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
+        Me.BTN_TVentaImp.ForeColor = System.Drawing.Color.White
+        Me.BTN_TVentaImp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
+        Me.BTN_TVentaImp.ImageSize = New System.Drawing.Size(45, 45)
+        Me.BTN_TVentaImp.Location = New System.Drawing.Point(307, 3)
+        Me.BTN_TVentaImp.Name = "BTN_TVentaImp"
+        Me.BTN_TVentaImp.Size = New System.Drawing.Size(296, 60)
+        Me.BTN_TVentaImp.TabIndex = 133
+        Me.BTN_TVentaImp.Text = "[F4] Abonar e imprimir"
+        '
+        'Guna2BorderlessForm1
+        '
+        Me.Guna2BorderlessForm1.BorderRadius = 25
+        Me.Guna2BorderlessForm1.ContainerControl = Me
+        Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
+        Me.Guna2BorderlessForm1.TransparentWhileDrag = True
+        '
         'TabControlTVenta
         '
         Me.TabControlTVenta.Alignment = System.Windows.Forms.TabAlignment.Right
@@ -133,10 +213,9 @@ Partial Class P_AbonarCxC
         Me.TabControlTVenta.Controls.Add(Me.Sinpe)
         Me.TabControlTVenta.Controls.Add(Me.deposito)
         Me.TabControlTVenta.Controls.Add(Me.Mixto)
-        Me.TabControlTVenta.Dock = System.Windows.Forms.DockStyle.Top
         Me.TabControlTVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControlTVenta.ItemSize = New System.Drawing.Size(260, 75)
-        Me.TabControlTVenta.Location = New System.Drawing.Point(0, 0)
+        Me.TabControlTVenta.Location = New System.Drawing.Point(3, 0)
         Me.TabControlTVenta.Name = "TabControlTVenta"
         Me.TabControlTVenta.SelectedIndex = 0
         Me.TabControlTVenta.Size = New System.Drawing.Size(909, 389)
@@ -156,14 +235,14 @@ Partial Class P_AbonarCxC
         Me.TabControlTVenta.TabButtonSelectedState.ForeColor = System.Drawing.Color.White
         Me.TabControlTVenta.TabButtonSelectedState.InnerColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.TabControlTVenta.TabButtonSize = New System.Drawing.Size(260, 75)
-        Me.TabControlTVenta.TabIndex = 131
+        Me.TabControlTVenta.TabIndex = 138
         Me.TabControlTVenta.TabMenuBackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.TabControlTVenta.TabMenuOrientation = Guna.UI2.WinForms.TabMenuOrientation.VerticalRight
         '
         'Efectivo
         '
         Me.Efectivo.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.Efectivo.Controls.Add(Me.NUD_ECliente)
+        Me.Efectivo.Controls.Add(Me.TXT_ECliente)
         Me.Efectivo.Controls.Add(Me.BTN_EColocarTotal)
         Me.Efectivo.Controls.Add(Me.TXT_EVuelto)
         Me.Efectivo.Controls.Add(Me.Guna2HtmlLabel2)
@@ -178,18 +257,27 @@ Partial Class P_AbonarCxC
         Me.Efectivo.TabIndex = 0
         Me.Efectivo.Text = "Efectivo"
         '
-        'NUD_ECliente
+        'TXT_ECliente
         '
-        Me.NUD_ECliente.BackColor = System.Drawing.Color.Transparent
-        Me.NUD_ECliente.BorderRadius = 10
-        Me.NUD_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.NUD_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.NUD_ECliente.Location = New System.Drawing.Point(103, 142)
-        Me.NUD_ECliente.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
-        Me.NUD_ECliente.Name = "NUD_ECliente"
-        Me.NUD_ECliente.Size = New System.Drawing.Size(439, 42)
-        Me.NUD_ECliente.TabIndex = 107
-        Me.NUD_ECliente.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TXT_ECliente.BorderRadius = 10
+        Me.TXT_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_ECliente.DefaultText = "0"
+        Me.TXT_ECliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_ECliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_ECliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_ECliente.ForeColor = System.Drawing.Color.Black
+        Me.TXT_ECliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_ECliente.Location = New System.Drawing.Point(103, 144)
+        Me.TXT_ECliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_ECliente.Name = "TXT_ECliente"
+        Me.TXT_ECliente.PlaceholderText = ""
+        Me.TXT_ECliente.SelectedText = ""
+        Me.TXT_ECliente.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_ECliente.TabIndex = 109
+        Me.TXT_ECliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'BTN_EColocarTotal
         '
@@ -208,7 +296,7 @@ Partial Class P_AbonarCxC
         '
         'TXT_EVuelto
         '
-        Me.TXT_EVuelto.BorderRadius = 20
+        Me.TXT_EVuelto.BorderRadius = 10
         Me.TXT_EVuelto.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.TXT_EVuelto.DefaultText = "0"
         Me.TXT_EVuelto.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
@@ -222,7 +310,6 @@ Partial Class P_AbonarCxC
         Me.TXT_EVuelto.Location = New System.Drawing.Point(103, 318)
         Me.TXT_EVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_EVuelto.Name = "TXT_EVuelto"
-        Me.TXT_EVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_EVuelto.PlaceholderText = ""
         Me.TXT_EVuelto.ReadOnly = True
         Me.TXT_EVuelto.SelectedText = ""
@@ -256,7 +343,7 @@ Partial Class P_AbonarCxC
         '
         'TXT_ETotal
         '
-        Me.TXT_ETotal.BorderRadius = 20
+        Me.TXT_ETotal.BorderRadius = 10
         Me.TXT_ETotal.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.TXT_ETotal.DefaultText = ""
         Me.TXT_ETotal.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
@@ -270,7 +357,6 @@ Partial Class P_AbonarCxC
         Me.TXT_ETotal.Location = New System.Drawing.Point(103, 43)
         Me.TXT_ETotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_ETotal.Name = "TXT_ETotal"
-        Me.TXT_ETotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_ETotal.PlaceholderText = ""
         Me.TXT_ETotal.ReadOnly = True
         Me.TXT_ETotal.SelectedText = ""
@@ -283,17 +369,17 @@ Partial Class P_AbonarCxC
         Me.Guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel4.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(270, 6)
+        Me.Guna2HtmlLabel4.Location = New System.Drawing.Point(291, 5)
         Me.Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
-        Me.Guna2HtmlLabel4.Size = New System.Drawing.Size(101, 32)
+        Me.Guna2HtmlLabel4.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel4.TabIndex = 98
-        Me.Guna2HtmlLabel4.Text = "Restante:"
+        Me.Guna2HtmlLabel4.Text = "Total:"
         Me.Guna2HtmlLabel4.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
         'Tarjeta
         '
         Me.Tarjeta.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.Tarjeta.Controls.Add(Me.NUD_TCliente)
+        Me.Tarjeta.Controls.Add(Me.TXT_TCliente)
         Me.Tarjeta.Controls.Add(Me.BTN_TColocarTotal)
         Me.Tarjeta.Controls.Add(Me.TXT_TVuelto)
         Me.Tarjeta.Controls.Add(Me.Guna2HtmlLabel3)
@@ -307,18 +393,27 @@ Partial Class P_AbonarCxC
         Me.Tarjeta.TabIndex = 1
         Me.Tarjeta.Text = "Tarjeta"
         '
-        'NUD_TCliente
+        'TXT_TCliente
         '
-        Me.NUD_TCliente.BackColor = System.Drawing.Color.Transparent
-        Me.NUD_TCliente.BorderRadius = 10
-        Me.NUD_TCliente.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.NUD_TCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.NUD_TCliente.Location = New System.Drawing.Point(101, 156)
-        Me.NUD_TCliente.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
-        Me.NUD_TCliente.Name = "NUD_TCliente"
-        Me.NUD_TCliente.Size = New System.Drawing.Size(439, 42)
-        Me.NUD_TCliente.TabIndex = 114
-        Me.NUD_TCliente.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TXT_TCliente.BorderRadius = 10
+        Me.TXT_TCliente.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_TCliente.DefaultText = "0"
+        Me.TXT_TCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_TCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_TCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_TCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_TCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_TCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_TCliente.ForeColor = System.Drawing.Color.Black
+        Me.TXT_TCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_TCliente.Location = New System.Drawing.Point(101, 156)
+        Me.TXT_TCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_TCliente.Name = "TXT_TCliente"
+        Me.TXT_TCliente.PlaceholderText = ""
+        Me.TXT_TCliente.SelectedText = ""
+        Me.TXT_TCliente.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_TCliente.TabIndex = 114
+        Me.TXT_TCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'BTN_TColocarTotal
         '
@@ -351,7 +446,6 @@ Partial Class P_AbonarCxC
         Me.TXT_TVuelto.Location = New System.Drawing.Point(101, 314)
         Me.TXT_TVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_TVuelto.Name = "TXT_TVuelto"
-        Me.TXT_TVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_TVuelto.PlaceholderText = ""
         Me.TXT_TVuelto.ReadOnly = True
         Me.TXT_TVuelto.SelectedText = ""
@@ -399,7 +493,6 @@ Partial Class P_AbonarCxC
         Me.TXT_TTotal.Location = New System.Drawing.Point(101, 55)
         Me.TXT_TTotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_TTotal.Name = "TXT_TTotal"
-        Me.TXT_TTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_TTotal.PlaceholderText = ""
         Me.TXT_TTotal.ReadOnly = True
         Me.TXT_TTotal.SelectedText = ""
@@ -412,17 +505,17 @@ Partial Class P_AbonarCxC
         Me.Guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel6.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel6.Location = New System.Drawing.Point(268, 15)
+        Me.Guna2HtmlLabel6.Location = New System.Drawing.Point(289, 17)
         Me.Guna2HtmlLabel6.Name = "Guna2HtmlLabel6"
-        Me.Guna2HtmlLabel6.Size = New System.Drawing.Size(101, 32)
+        Me.Guna2HtmlLabel6.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel6.TabIndex = 104
-        Me.Guna2HtmlLabel6.Text = "Restante:"
+        Me.Guna2HtmlLabel6.Text = "Total:"
         Me.Guna2HtmlLabel6.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
         'Sinpe
         '
         Me.Sinpe.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.Sinpe.Controls.Add(Me.NUD_SCliente)
+        Me.Sinpe.Controls.Add(Me.TXT_SCliente)
         Me.Sinpe.Controls.Add(Me.BTN_SColocarTotal)
         Me.Sinpe.Controls.Add(Me.TXT_SVuelto)
         Me.Sinpe.Controls.Add(Me.Guna2HtmlLabel7)
@@ -436,18 +529,27 @@ Partial Class P_AbonarCxC
         Me.Sinpe.TabIndex = 2
         Me.Sinpe.Text = "Sinpe"
         '
-        'NUD_SCliente
+        'TXT_SCliente
         '
-        Me.NUD_SCliente.BackColor = System.Drawing.Color.Transparent
-        Me.NUD_SCliente.BorderRadius = 10
-        Me.NUD_SCliente.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.NUD_SCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.NUD_SCliente.Location = New System.Drawing.Point(101, 148)
-        Me.NUD_SCliente.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
-        Me.NUD_SCliente.Name = "NUD_SCliente"
-        Me.NUD_SCliente.Size = New System.Drawing.Size(439, 42)
-        Me.NUD_SCliente.TabIndex = 120
-        Me.NUD_SCliente.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TXT_SCliente.BorderRadius = 10
+        Me.TXT_SCliente.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_SCliente.DefaultText = "0"
+        Me.TXT_SCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_SCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_SCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_SCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_SCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_SCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_SCliente.ForeColor = System.Drawing.Color.Black
+        Me.TXT_SCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_SCliente.Location = New System.Drawing.Point(101, 150)
+        Me.TXT_SCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_SCliente.Name = "TXT_SCliente"
+        Me.TXT_SCliente.PlaceholderText = ""
+        Me.TXT_SCliente.SelectedText = ""
+        Me.TXT_SCliente.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_SCliente.TabIndex = 120
+        Me.TXT_SCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'BTN_SColocarTotal
         '
@@ -480,7 +582,6 @@ Partial Class P_AbonarCxC
         Me.TXT_SVuelto.Location = New System.Drawing.Point(101, 320)
         Me.TXT_SVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_SVuelto.Name = "TXT_SVuelto"
-        Me.TXT_SVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_SVuelto.PlaceholderText = ""
         Me.TXT_SVuelto.ReadOnly = True
         Me.TXT_SVuelto.SelectedText = ""
@@ -528,7 +629,6 @@ Partial Class P_AbonarCxC
         Me.TXT_STotal.Location = New System.Drawing.Point(101, 51)
         Me.TXT_STotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_STotal.Name = "TXT_STotal"
-        Me.TXT_STotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_STotal.PlaceholderText = ""
         Me.TXT_STotal.ReadOnly = True
         Me.TXT_STotal.SelectedText = ""
@@ -541,17 +641,17 @@ Partial Class P_AbonarCxC
         Me.Guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel9.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel9.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel9.Location = New System.Drawing.Point(271, 11)
+        Me.Guna2HtmlLabel9.Location = New System.Drawing.Point(289, 13)
         Me.Guna2HtmlLabel9.Name = "Guna2HtmlLabel9"
-        Me.Guna2HtmlLabel9.Size = New System.Drawing.Size(101, 32)
+        Me.Guna2HtmlLabel9.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel9.TabIndex = 113
-        Me.Guna2HtmlLabel9.Text = "Restante:"
+        Me.Guna2HtmlLabel9.Text = "Total:"
         Me.Guna2HtmlLabel9.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
         'deposito
         '
         Me.deposito.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.deposito.Controls.Add(Me.NUD_DCliente)
+        Me.deposito.Controls.Add(Me.TXT_DCliente)
         Me.deposito.Controls.Add(Me.BTN_DColocarTotal)
         Me.deposito.Controls.Add(Me.Guna2HtmlLabel11)
         Me.deposito.Controls.Add(Me.TXT_DVuelto)
@@ -565,18 +665,27 @@ Partial Class P_AbonarCxC
         Me.deposito.TabIndex = 3
         Me.deposito.Text = "Depósito"
         '
-        'NUD_DCliente
+        'TXT_DCliente
         '
-        Me.NUD_DCliente.BackColor = System.Drawing.Color.Transparent
-        Me.NUD_DCliente.BorderRadius = 10
-        Me.NUD_DCliente.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.NUD_DCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.NUD_DCliente.Location = New System.Drawing.Point(101, 146)
-        Me.NUD_DCliente.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
-        Me.NUD_DCliente.Name = "NUD_DCliente"
-        Me.NUD_DCliente.Size = New System.Drawing.Size(439, 42)
-        Me.NUD_DCliente.TabIndex = 129
-        Me.NUD_DCliente.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TXT_DCliente.BorderRadius = 10
+        Me.TXT_DCliente.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_DCliente.DefaultText = "0"
+        Me.TXT_DCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_DCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_DCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_DCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_DCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_DCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_DCliente.ForeColor = System.Drawing.Color.Black
+        Me.TXT_DCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_DCliente.Location = New System.Drawing.Point(101, 148)
+        Me.TXT_DCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_DCliente.Name = "TXT_DCliente"
+        Me.TXT_DCliente.PlaceholderText = ""
+        Me.TXT_DCliente.SelectedText = ""
+        Me.TXT_DCliente.Size = New System.Drawing.Size(439, 42)
+        Me.TXT_DCliente.TabIndex = 129
+        Me.TXT_DCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'BTN_DColocarTotal
         '
@@ -621,7 +730,6 @@ Partial Class P_AbonarCxC
         Me.TXT_DVuelto.Location = New System.Drawing.Point(101, 322)
         Me.TXT_DVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_DVuelto.Name = "TXT_DVuelto"
-        Me.TXT_DVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_DVuelto.PlaceholderText = ""
         Me.TXT_DVuelto.ReadOnly = True
         Me.TXT_DVuelto.SelectedText = ""
@@ -657,7 +765,6 @@ Partial Class P_AbonarCxC
         Me.TXT_DTotal.Location = New System.Drawing.Point(101, 50)
         Me.TXT_DTotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_DTotal.Name = "TXT_DTotal"
-        Me.TXT_DTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_DTotal.PlaceholderText = ""
         Me.TXT_DTotal.ReadOnly = True
         Me.TXT_DTotal.SelectedText = ""
@@ -670,18 +777,18 @@ Partial Class P_AbonarCxC
         Me.Guna2HtmlLabel12.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel12.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel12.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel12.Location = New System.Drawing.Point(271, 8)
+        Me.Guna2HtmlLabel12.Location = New System.Drawing.Point(289, 12)
         Me.Guna2HtmlLabel12.Name = "Guna2HtmlLabel12"
-        Me.Guna2HtmlLabel12.Size = New System.Drawing.Size(101, 32)
+        Me.Guna2HtmlLabel12.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel12.TabIndex = 120
-        Me.Guna2HtmlLabel12.Text = "Restante:"
+        Me.Guna2HtmlLabel12.Text = "Total:"
         Me.Guna2HtmlLabel12.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
         '
         'Mixto
         '
         Me.Mixto.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.Mixto.Controls.Add(Me.NUD_MTarjeta)
-        Me.Mixto.Controls.Add(Me.NUD_MEfectivo)
+        Me.Mixto.Controls.Add(Me.TXT_MEfectivo)
+        Me.Mixto.Controls.Add(Me.TXT_MTarjeta)
         Me.Mixto.Controls.Add(Me.BTN_RestanteEfectivo)
         Me.Mixto.Controls.Add(Me.BTN_RestanteTarjeta)
         Me.Mixto.Controls.Add(Me.Guna2HtmlLabel16)
@@ -697,31 +804,49 @@ Partial Class P_AbonarCxC
         Me.Mixto.TabIndex = 4
         Me.Mixto.Text = "Mixto"
         '
-        'NUD_MTarjeta
+        'TXT_MEfectivo
         '
-        Me.NUD_MTarjeta.BackColor = System.Drawing.Color.Transparent
-        Me.NUD_MTarjeta.BorderRadius = 10
-        Me.NUD_MTarjeta.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.NUD_MTarjeta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.NUD_MTarjeta.Location = New System.Drawing.Point(15, 146)
-        Me.NUD_MTarjeta.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
-        Me.NUD_MTarjeta.Name = "NUD_MTarjeta"
-        Me.NUD_MTarjeta.Size = New System.Drawing.Size(300, 42)
-        Me.NUD_MTarjeta.TabIndex = 134
-        Me.NUD_MTarjeta.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TXT_MEfectivo.BorderRadius = 10
+        Me.TXT_MEfectivo.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_MEfectivo.DefaultText = "0"
+        Me.TXT_MEfectivo.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_MEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_MEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_MEfectivo.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_MEfectivo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_MEfectivo.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_MEfectivo.ForeColor = System.Drawing.Color.Black
+        Me.TXT_MEfectivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_MEfectivo.Location = New System.Drawing.Point(329, 146)
+        Me.TXT_MEfectivo.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_MEfectivo.Name = "TXT_MEfectivo"
+        Me.TXT_MEfectivo.PlaceholderText = ""
+        Me.TXT_MEfectivo.SelectedText = ""
+        Me.TXT_MEfectivo.Size = New System.Drawing.Size(300, 42)
+        Me.TXT_MEfectivo.TabIndex = 137
+        Me.TXT_MEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'NUD_MEfectivo
+        'TXT_MTarjeta
         '
-        Me.NUD_MEfectivo.BackColor = System.Drawing.Color.Transparent
-        Me.NUD_MEfectivo.BorderRadius = 10
-        Me.NUD_MEfectivo.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.NUD_MEfectivo.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold)
-        Me.NUD_MEfectivo.Location = New System.Drawing.Point(329, 146)
-        Me.NUD_MEfectivo.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
-        Me.NUD_MEfectivo.Name = "NUD_MEfectivo"
-        Me.NUD_MEfectivo.Size = New System.Drawing.Size(300, 42)
-        Me.NUD_MEfectivo.TabIndex = 133
-        Me.NUD_MEfectivo.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.TXT_MTarjeta.BorderRadius = 10
+        Me.TXT_MTarjeta.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.TXT_MTarjeta.DefaultText = "0"
+        Me.TXT_MTarjeta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.TXT_MTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+        Me.TXT_MTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_MTarjeta.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.TXT_MTarjeta.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_MTarjeta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXT_MTarjeta.ForeColor = System.Drawing.Color.Black
+        Me.TXT_MTarjeta.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TXT_MTarjeta.Location = New System.Drawing.Point(15, 146)
+        Me.TXT_MTarjeta.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TXT_MTarjeta.Name = "TXT_MTarjeta"
+        Me.TXT_MTarjeta.PlaceholderText = ""
+        Me.TXT_MTarjeta.SelectedText = ""
+        Me.TXT_MTarjeta.Size = New System.Drawing.Size(300, 42)
+        Me.TXT_MTarjeta.TabIndex = 136
+        Me.TXT_MTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'BTN_RestanteEfectivo
         '
@@ -781,7 +906,6 @@ Partial Class P_AbonarCxC
         Me.TXT_MVuelto.Location = New System.Drawing.Point(109, 311)
         Me.TXT_MVuelto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_MVuelto.Name = "TXT_MVuelto"
-        Me.TXT_MVuelto.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_MVuelto.PlaceholderText = ""
         Me.TXT_MVuelto.ReadOnly = True
         Me.TXT_MVuelto.SelectedText = ""
@@ -829,7 +953,6 @@ Partial Class P_AbonarCxC
         Me.TXT_MTotal.Location = New System.Drawing.Point(109, 42)
         Me.TXT_MTotal.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TXT_MTotal.Name = "TXT_MTotal"
-        Me.TXT_MTotal.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
         Me.TXT_MTotal.PlaceholderText = ""
         Me.TXT_MTotal.ReadOnly = True
         Me.TXT_MTotal.SelectedText = ""
@@ -842,98 +965,12 @@ Partial Class P_AbonarCxC
         Me.Guna2HtmlLabel15.BackColor = System.Drawing.Color.Transparent
         Me.Guna2HtmlLabel15.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Guna2HtmlLabel15.ForeColor = System.Drawing.SystemColors.Control
-        Me.Guna2HtmlLabel15.Location = New System.Drawing.Point(274, 6)
+        Me.Guna2HtmlLabel15.Location = New System.Drawing.Point(297, 4)
         Me.Guna2HtmlLabel15.Name = "Guna2HtmlLabel15"
-        Me.Guna2HtmlLabel15.Size = New System.Drawing.Size(101, 32)
+        Me.Guna2HtmlLabel15.Size = New System.Drawing.Size(63, 32)
         Me.Guna2HtmlLabel15.TabIndex = 120
-        Me.Guna2HtmlLabel15.Text = "Restante:"
+        Me.Guna2HtmlLabel15.Text = "Total:"
         Me.Guna2HtmlLabel15.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
-        '
-        'BTN_RegresarVenta
-        '
-        Me.BTN_RegresarVenta.BorderColor = System.Drawing.Color.Red
-        Me.BTN_RegresarVenta.BorderRadius = 10
-        Me.BTN_RegresarVenta.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_RegresarVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_RegresarVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_RegresarVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_RegresarVenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_RegresarVenta.FillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.BTN_RegresarVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
-        Me.BTN_RegresarVenta.ForeColor = System.Drawing.Color.White
-        Me.BTN_RegresarVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Back
-        Me.BTN_RegresarVenta.ImageSize = New System.Drawing.Size(45, 45)
-        Me.BTN_RegresarVenta.Location = New System.Drawing.Point(3, 3)
-        Me.BTN_RegresarVenta.Name = "BTN_RegresarVenta"
-        Me.BTN_RegresarVenta.Size = New System.Drawing.Size(297, 60)
-        Me.BTN_RegresarVenta.TabIndex = 132
-        Me.BTN_RegresarVenta.Text = "[F1] Regresar"
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVenta, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_TVentaImp, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.BTN_RegresarVenta, 0, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 496)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(909, 66)
-        Me.TableLayoutPanel1.TabIndex = 137
-        '
-        'BTN_TVenta
-        '
-        Me.BTN_TVenta.BorderColor = System.Drawing.Color.Red
-        Me.BTN_TVenta.BorderRadius = 10
-        Me.BTN_TVenta.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVenta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_TVenta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_TVenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BTN_TVenta.FillColor = System.Drawing.Color.MediumSeaGreen
-        Me.BTN_TVenta.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
-        Me.BTN_TVenta.ForeColor = System.Drawing.Color.White
-        Me.BTN_TVenta.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_EndSale
-        Me.BTN_TVenta.ImageSize = New System.Drawing.Size(45, 45)
-        Me.BTN_TVenta.Location = New System.Drawing.Point(609, 3)
-        Me.BTN_TVenta.Name = "BTN_TVenta"
-        Me.BTN_TVenta.Size = New System.Drawing.Size(297, 60)
-        Me.BTN_TVenta.TabIndex = 139
-        Me.BTN_TVenta.Text = "[F2] Abonar pago"
-        '
-        'BTN_TVentaImp
-        '
-        Me.BTN_TVentaImp.BorderColor = System.Drawing.Color.Red
-        Me.BTN_TVentaImp.BorderRadius = 10
-        Me.BTN_TVentaImp.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.BTN_TVentaImp.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVentaImp.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-        Me.BTN_TVentaImp.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-        Me.BTN_TVentaImp.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-        Me.BTN_TVentaImp.Dock = System.Windows.Forms.DockStyle.Right
-        Me.BTN_TVentaImp.FillColor = System.Drawing.Color.DarkOrange
-        Me.BTN_TVentaImp.Font = New System.Drawing.Font("Ebrima", 15.75!, System.Drawing.FontStyle.Bold)
-        Me.BTN_TVentaImp.ForeColor = System.Drawing.Color.White
-        Me.BTN_TVentaImp.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Print
-        Me.BTN_TVentaImp.ImageSize = New System.Drawing.Size(45, 45)
-        Me.BTN_TVentaImp.Location = New System.Drawing.Point(307, 3)
-        Me.BTN_TVentaImp.Name = "BTN_TVentaImp"
-        Me.BTN_TVentaImp.Size = New System.Drawing.Size(296, 60)
-        Me.BTN_TVentaImp.TabIndex = 133
-        Me.BTN_TVentaImp.Text = "[F4] Abonar e imprimir"
-        '
-        'Guna2BorderlessForm1
-        '
-        Me.Guna2BorderlessForm1.BorderRadius = 25
-        Me.Guna2BorderlessForm1.ContainerControl = Me
-        Me.Guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6R
-        Me.Guna2BorderlessForm1.TransparentWhileDrag = True
         '
         'P_AbonarCxC
         '
@@ -941,34 +978,28 @@ Partial Class P_AbonarCxC
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(909, 562)
+        Me.Controls.Add(Me.TabControlTVenta)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.TXT_Comentario)
         Me.Controls.Add(Me.Guna2HtmlLabel17)
-        Me.Controls.Add(Me.TabControlTVenta)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "P_AbonarCxC"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Abonar a cuenta por cobrar"
+        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TabControlTVenta.ResumeLayout(False)
         Me.Efectivo.ResumeLayout(False)
         Me.Efectivo.PerformLayout()
-        CType(Me.NUD_ECliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Tarjeta.ResumeLayout(False)
         Me.Tarjeta.PerformLayout()
-        CType(Me.NUD_TCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Sinpe.ResumeLayout(False)
         Me.Sinpe.PerformLayout()
-        CType(Me.NUD_SCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.deposito.ResumeLayout(False)
         Me.deposito.PerformLayout()
-        CType(Me.NUD_DCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Mixto.ResumeLayout(False)
         Me.Mixto.PerformLayout()
-        CType(Me.NUD_MTarjeta, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NUD_MEfectivo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -976,8 +1007,14 @@ Partial Class P_AbonarCxC
 
     Friend WithEvents TXT_Comentario As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel17 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents BTN_RegresarVenta As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
+    Friend WithEvents BTN_TVentaImp As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents TabControlTVenta As Guna.UI2.WinForms.Guna2TabControl
     Friend WithEvents Efectivo As TabPage
+    Friend WithEvents TXT_ECliente As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents BTN_EColocarTotal As Guna.UI2.WinForms.Guna2TileButton
     Friend WithEvents TXT_EVuelto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -985,6 +1022,7 @@ Partial Class P_AbonarCxC
     Friend WithEvents TXT_ETotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel4 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents Tarjeta As TabPage
+    Friend WithEvents TXT_TCliente As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents BTN_TColocarTotal As Guna.UI2.WinForms.Guna2TileButton
     Friend WithEvents TXT_TVuelto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel3 As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -992,6 +1030,7 @@ Partial Class P_AbonarCxC
     Friend WithEvents TXT_TTotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel6 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents Sinpe As TabPage
+    Friend WithEvents TXT_SCliente As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents BTN_SColocarTotal As Guna.UI2.WinForms.Guna2TileButton
     Friend WithEvents TXT_SVuelto As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel7 As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -999,6 +1038,7 @@ Partial Class P_AbonarCxC
     Friend WithEvents TXT_STotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel9 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents deposito As TabPage
+    Friend WithEvents TXT_DCliente As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents BTN_DColocarTotal As Guna.UI2.WinForms.Guna2TileButton
     Friend WithEvents Guna2HtmlLabel11 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_DVuelto As Guna.UI2.WinForms.Guna2TextBox
@@ -1006,6 +1046,8 @@ Partial Class P_AbonarCxC
     Friend WithEvents TXT_DTotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel12 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents Mixto As TabPage
+    Friend WithEvents TXT_MEfectivo As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents TXT_MTarjeta As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents BTN_RestanteEfectivo As Guna.UI2.WinForms.Guna2TileButton
     Friend WithEvents BTN_RestanteTarjeta As Guna.UI2.WinForms.Guna2TileButton
     Friend WithEvents Guna2HtmlLabel16 As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -1014,15 +1056,4 @@ Partial Class P_AbonarCxC
     Friend WithEvents Guna2HtmlLabel14 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents TXT_MTotal As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel15 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents BTN_RegresarVenta As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
-    Friend WithEvents NUD_ECliente As Guna.UI2.WinForms.Guna2NumericUpDown
-    Friend WithEvents NUD_TCliente As Guna.UI2.WinForms.Guna2NumericUpDown
-    Friend WithEvents NUD_SCliente As Guna.UI2.WinForms.Guna2NumericUpDown
-    Friend WithEvents NUD_DCliente As Guna.UI2.WinForms.Guna2NumericUpDown
-    Friend WithEvents NUD_MEfectivo As Guna.UI2.WinForms.Guna2NumericUpDown
-    Friend WithEvents NUD_MTarjeta As Guna.UI2.WinForms.Guna2NumericUpDown
-    Friend WithEvents BTN_TVentaImp As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents BTN_TVenta As Guna.UI2.WinForms.Guna2Button
 End Class

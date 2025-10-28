@@ -2,6 +2,7 @@
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.MSG
 
 Public Class P_AbonarCxC
 
@@ -17,7 +18,7 @@ Public Class P_AbonarCxC
 
     Private btnTotalesList As List(Of Guna2TileButton)
     Private btnRestanteList As List(Of Guna2TileButton)
-    Private nudcalcVuelto As List(Of Guna2NumericUpDown)
+    Private txtEntregaCliente As List(Of Guna2TextBox)
     Private txtShowTotal As List(Of Guna2TextBox)
     Private Sub P_AbonarCxC_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Inicialización de las listas (Solución)
@@ -29,13 +30,13 @@ Public Class P_AbonarCxC
         }
         btnRestanteList = New List(Of Guna2TileButton) From {BTN_RestanteEfectivo, BTN_RestanteTarjeta}
 
-        nudcalcVuelto = New List(Of Guna2NumericUpDown) From {
-            NUD_ECliente,
-            NUD_TCliente,
-            NUD_SCliente,
-            NUD_DCliente,
-            NUD_MEfectivo,
-            NUD_MTarjeta
+        txtEntregaCliente = New List(Of Guna2TextBox) From {
+            TXT_ECliente,
+            TXT_TCliente,
+            TXT_SCliente,
+            TXT_DCliente,
+            TXT_MEfectivo,
+            TXT_MTarjeta
         }
         txtShowTotal = New List(Of Guna2TextBox) From {
             TXT_ETotal,
@@ -44,8 +45,6 @@ Public Class P_AbonarCxC
             TXT_DTotal,
             TXT_MTotal
         }
-        ' Valida el estado inicial del pago y habilita/deshabilita los botones de venta
-        BTN_TVenta.Enabled = NUD_ECliente.Value > 0
     End Sub
 
     Private Sub P_TerminarVenta_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -62,47 +61,70 @@ Public Class P_AbonarCxC
 
         ' Añade los manejadores de eventos para los cambios en los TextBox de pago
         ' Esto asegura que el cálculo del vuelto y la validación se actualicen automáticamente
-        For Each txt As Guna2NumericUpDown In nudcalcVuelto
-            AddHandler txt.ValueChanged, AddressOf RecalcularVueltoYValidar
+        For Each txt As Guna2TextBox In txtEntregaCliente
+            AddHandler txt.TextChanged, AddressOf RecalcularVueltoYValidar
+            AddHandler txt.KeyPress, AddressOf verifyNumericOnKeyPress
         Next
         'Se coloca el total en todas las textbox de total
         For Each txt As Guna2TextBox In txtShowTotal
             txt.Text = venta.Formated_saldo_restante
         Next
+
+        ' Valida el estado inicial del pago y habilita/deshabilita los botones de venta
+        Dim entregaCliente As Decimal = If(Integer.TryParse(TXT_ECliente.Text, entregaCliente), entregaCliente, 0)
+        BTN_TVenta.Enabled = entregaCliente > 0
+
+        TXT_ECliente.SelectAll()
+        TXT_ECliente.Focus()
     End Sub
 
 
     ' Manejador de evento unificado para los cambios en los TextBox de pago
     Private Sub RecalcularVueltoYValidar(sender As Object, e As EventArgs)
         ' Convierte el objeto sender al tipo de control Guna2TextBox
-        Dim nud As Guna2NumericUpDown = CType(sender, Guna2NumericUpDown)
-
-        Dim entregaCliente As Decimal = nud.Value
-        If nud.Name = "TXT_PagoTarjeta" Or nud.Name = "TXT_PagoEfectivo" Then
-            entregaCliente = NUD_MEfectivo.Value + NUD_MTarjeta.Value
-        End If
+        Dim txt As Guna2TextBox = CType(sender, Guna2TextBox)
+        Dim entregaCliente As Decimal
         Dim txtVuelto As Guna2TextBox
 
-        Select Case nud.Name
-            Case "NUD_ECliente"
-                entregaCliente = nud.Value
-                txtVuelto = TXT_EVuelto
-            Case "NUD_TCliente"
-                entregaCliente = nud.Value
-                txtVuelto = TXT_TVuelto
-            Case "NUD_SCliente"
-                entregaCliente = nud.Value
-                txtVuelto = TXT_SVuelto
-            Case "NUD_DCliente"
-                entregaCliente = nud.Value
-                txtVuelto = TXT_DVuelto
-            Case Else
-                entregaCliente = NUD_MEfectivo.Value + NUD_MTarjeta.Value
-                txtVuelto = TXT_MVuelto
-        End Select
+        Try
+            Select Case txt.Name
+                Case "TXT_ECliente"
+                    txtVuelto = TXT_EVuelto
+                Case "TXT_TCliente"
+                    txtVuelto = TXT_TVuelto
+                Case "TXT_SCliente"
+                    txtVuelto = TXT_SVuelto
+                Case "TXT_DCliente"
+                    txtVuelto = TXT_DVuelto
+                Case Else
+                    txtVuelto = TXT_MVuelto
+            End Select
+            If Not Decimal.TryParse(If(String.IsNullOrEmpty(txt.Text), 0, txt.Text), entregaCliente) Then
+                MsgError($"El monto ingresado no es válido. No se puede pasar a Decimal el monto: {txt.Text}")
+                Exit Sub
+            End If
+            Dim efectivo As Decimal
+            Dim tarjeta As Decimal
+            If txt.Name = "TXT_MEfectivo" Or txt.Name = "TXT_MTarjeta" Then
+                If Not Decimal.TryParse(TXT_MEfectivo.Text, efectivo) Then
+                    MsgError($"El monto en efectivo ingresado no es válido. No se puede pasar a Decimal el monto: {TXT_MEfectivo.Text}")
+                    Exit Sub
+                End If
+                If Not Decimal.TryParse(TXT_MTarjeta.Text, tarjeta) Then
+                    MsgError($"El monto en tarjeta ingresado no es válido. No se puede pasar a Decimal el monto: {TXT_MTarjeta.Text}")
+                    Exit Sub
+                End If
 
-        GetVuelto(nud.Value, txtVuelto)
-        BTN_TVenta.Enabled = nud.Value > 0
+                entregaCliente = efectivo + tarjeta
+            End If
+
+            BTN_TVenta.Enabled = entregaCliente > 0
+
+            GetVuelto(txt.Text, txtVuelto)
+        Catch ex As Exception
+            MsgError("Error al recalcular el vuelto y validar: " & ex.Message)
+            GetVuelto(0, txtVuelto)
+        End Try
     End Sub
 
     Private Sub GetVuelto(entregaCliente As Decimal, txtVuelto As Guna2TextBox)
@@ -119,37 +141,41 @@ Public Class P_AbonarCxC
     ' "sender" es el botón que ha sido presionado
     Private Sub ColocarTotal(sender As Object, e As EventArgs)
         ' Convierte el objeto sender al tipo de control Guna2Button
-        Dim btn As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
-
+        Dim btn As Guna2Button = CType(sender, Guna2Button)
+        Dim txtEntregaCliente As Guna2TextBox
         ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
         Select Case btn.Name
-            Case "BTN_EColocarTotal"
-                NUD_ECliente.Value = venta.Saldo_restante
             Case "BTN_TColocarTotal"
-                NUD_TCliente.Value = venta.Saldo_restante
+                txtEntregaCliente = TXT_TCliente
             Case "BTN_SColocarTotal"
-                NUD_SCliente.Value = venta.Saldo_restante
+                txtEntregaCliente = TXT_SCliente
             Case "BTN_DColocarTotal"
-                NUD_DCliente.Value = venta.Saldo_restante
+                txtEntregaCliente = TXT_DCliente
+            Case Else
+                txtEntregaCliente = TXT_ECliente
         End Select
+
+        txtEntregaCliente.Text = venta.Formated_saldo_restante
     End Sub
 
     ' Calcula el monto restante para pago mixto
-    Private Sub CargarRestante(efectivo As Boolean)
-        Dim restante As Double
-        If efectivo Then ' Si el botón de efectivo restante fue presionado
-            restante = venta.Saldo_restante - NUD_MEfectivo.Value
-            If restante < 0 Then
-                restante = 0
+    Private Sub CargarRestante(fromEfectivo As Boolean)
+        Dim restante As Decimal
+        Dim dineroColocado As Decimal
+        Dim txtMontoActual As Guna2TextBox = If(Not fromEfectivo, TXT_MEfectivo, TXT_MTarjeta)
+        Dim txtCargarRestante As Guna2TextBox = If(fromEfectivo, TXT_MEfectivo, TXT_MTarjeta)
+
+        Try
+            If Not Decimal.TryParse(txtMontoActual.Text, dineroColocado) Then
+                Throw New Exception($"El monto ingresado no es válido. No se puede pasar a Decimal el monto: {txtMontoActual.Text}")
             End If
-            NUD_MTarjeta.Value = restante
-        Else ' Si el botón de tarjeta restante fue presionado
-            restante = venta.Saldo_restante - NUD_MTarjeta.Value
-            If restante < 0 Then
-                restante = 0
-            End If
-            NUD_MEfectivo.Value = restante
-        End If
+
+            restante = venta.Saldo_restante - dineroColocado
+        Catch ex As Exception
+            MsgError("Error al calcular el restante: " & ex.Message)
+        End Try
+
+        txtCargarRestante.Text = If(restante < 0, 0, restante)
     End Sub
 
     'Se agrega el restante al campo correspondiente
@@ -159,13 +185,56 @@ Public Class P_AbonarCxC
         ' Usa un Select Case para identificar qué botón se hizo clic y actualizar el TextBox correcto
         Select Case btn.Name
             Case "BTN_RestanteTarjeta"
-                CargarRestante(True)
-            Case "BTN_RestanteEfectivo"
                 CargarRestante(False)
+            Case "BTN_RestanteEfectivo"
+                CargarRestante(True)
         End Select
-        Dim entregaCliente As Decimal = NUD_MEfectivo.Value + NUD_MTarjeta.Value
+
+        Dim efectivo As Decimal
+        Dim tarjeta As Decimal
+        Dim entregaCliente As Decimal
+
+        Try
+            If Not Decimal.TryParse(TXT_MEfectivo.Text, efectivo) Then
+                Throw New Exception($"El monto en efectivo ingresado no es válido. No se puede pasar a Decimal el monto: {TXT_MEfectivo.Text}")
+            End If
+            If Not Decimal.TryParse(TXT_MTarjeta.Text, tarjeta) Then
+                Throw New Exception($"El monto en tarjeta ingresado no es válido. No se puede pasar a Decimal el monto: {TXT_MTarjeta.Text}")
+            End If
+            entregaCliente = efectivo + tarjeta
+        Catch ex As Exception
+            MsgError("Error al calcular el monto restante: " & ex.Message)
+            entregaCliente = 0
+        End Try
+
         ' Recalcula el vuelto y valida los montos después de agregar el restante
-        getVuelto(entregaCliente, TXT_MVuelto)
+        GetVuelto(entregaCliente, TXT_MVuelto)
+    End Sub
+
+    Private Sub VerifyNumericOnKeyPress(sender As Object, e As KeyPressEventArgs)
+        ' 1. Permitir el uso de teclas de control (como Backspace)
+        If Char.IsControl(e.KeyChar) Then
+            e.Handled = False
+            Exit Sub
+        End If
+
+        ' Obtener el separador decimal de la configuración regional (',' o '.')
+        Dim separadorDecimal As Char = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+
+        ' 2. Bloquear cualquier cosa que NO sea un dígito y NO sea el separador decimal.
+        If Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> separadorDecimal Then
+            e.Handled = True ' Bloquear la entrada del carácter
+
+            ' 3. Si es el separador decimal, verificar si ya existe uno en la caja de texto.
+        ElseIf e.KeyChar = separadorDecimal Then
+            Dim txtBox As TextBox = DirectCast(sender, TextBox)
+
+            If txtBox.Text.Contains(separadorDecimal) Then
+                e.Handled = True ' Bloquear si ya existe un separador (solo se permite uno)
+            Else
+                e.Handled = False ' Permitir el separador
+            End If
+        End If
     End Sub
 
     Private Sub BTN_RegresarVenta_Click(sender As Object, e As EventArgs) Handles BTN_RegresarVenta.Click
@@ -174,25 +243,46 @@ Public Class P_AbonarCxC
     End Sub
 
     Private Sub TerminarVenta(imprimir As Boolean)
-        venta.Tipo_pago = TabControlTVenta.SelectedIndex
         Select Case venta.Tipo_pago
             Case 0 ' Efectivo
-                venta.Efectivo = NUD_ECliente.Value
-                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
-            Case 1 ' Tarjeta
-                venta.Tarjeta = NUD_TCliente.Value
-                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
-            Case 2 ' Sinpe
-                venta.Tarjeta = NUD_SCliente.Value
-                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
-            Case 3 ' Depósito
-                venta.Tarjeta = NUD_DCliente.Value
-                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
+                If Not Decimal.TryParse(TXT_ECliente.Text, venta.Efectivo) Then
+                    MsgError("El monto en efectivo no es válido: " & TXT_ECliente.Text)
+                    Exit Sub
+                End If
+                venta.Tarjeta = 0
+
+            Case 1, 2, 3 ' Tarjeta, Sinpe, Depósito (Se usa el mismo patrón para el monto de la Tarjeta)
+                Dim txtControl As Guna2TextBox = TXT_TCliente
+                Select Case venta.Tipo_pago
+                    Case 2 : txtControl = TXT_SCliente
+                    Case 3 : txtControl = TXT_DCliente
+                End Select
+
+                If Not Decimal.TryParse(txtControl.Text, venta.Tarjeta) Then
+                    MsgError($"El monto de pago (Tipo {venta.Tipo_pago}) no es válido: {txtControl.Text}")
+                    Exit Sub
+                End If
+                venta.Efectivo = 0
+
             Case 4 ' Mixto
-                venta.Efectivo = NUD_MEfectivo.Value
-                venta.Tarjeta = NUD_MTarjeta.Value
-                venta.Vuelto = Convert.ToDecimal(venta.Vuelto)
+                ' 1. Validar Efectivo
+                If Not Decimal.TryParse(TXT_MEfectivo.Text, venta.Efectivo) Then
+                    MsgError("El monto en efectivo para el pago mixto no es válido: " & TXT_MEfectivo.Text)
+                    Exit Sub
+                End If
+
+                ' 2. Validar Tarjeta
+                If Not Decimal.TryParse(TXT_MTarjeta.Text, venta.Tarjeta) Then
+                    MsgError("El monto de tarjeta para el pago mixto no es válido: " & TXT_MTarjeta.Text)
+                    Exit Sub
+                End If
+
+            Case Else
+                ' Manejar cualquier otro caso, si aplica. Por ejemplo:
+                MsgError("Tipo de pago no reconocido.")
+                Exit Sub
         End Select
+
         Terminar_venta = (venta.Efectivo + venta.Tarjeta) >= venta.Saldo_restante
         imprimir_factura = imprimir
         isNavigating = True
@@ -213,6 +303,24 @@ Public Class P_AbonarCxC
                 BTN_RegresarVenta.PerformClick()
             Case Keys.F2
                 BTN_TVenta.PerformClick()
+        End Select
+    End Sub
+
+    Private Sub TabControlTVenta_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControlTVenta.SelectedIndexChanged
+        venta.Tipo_pago = TabControlTVenta.SelectedIndex
+        Select Case venta.Tipo_pago
+            Case 0 'efectivo
+                TXT_ECliente.SelectAll()
+                TXT_ECliente.Focus()
+            Case 1
+                TXT_TCliente.SelectAll()
+                TXT_TCliente.Focus()
+            Case 2
+                TXT_SCliente.SelectAll()
+                TXT_SCliente.Focus()
+            Case 3
+                TXT_DCliente.SelectAll()
+                TXT_DCliente.Focus()
         End Select
     End Sub
 End Class

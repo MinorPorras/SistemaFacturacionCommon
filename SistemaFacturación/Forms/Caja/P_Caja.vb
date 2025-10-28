@@ -658,10 +658,13 @@ Namespace SistemaFacturacion.Forms.Caja
                     .ListaProductos = prodList,
                     .Saldo_total = totalCaja,
                     .Num_factura = NumFactura,
-                    .Tipo_pago = 1,
+                    .Tipo_pago = 0,
                     .Excluir_de_cierre = 0
                 }
-                endVentaForm.isCuentaPorCobrar = False
+                endVentaForm.TXT_ECliente.Text = totalCaja
+                endVentaForm.TXT_DCliente.Text = totalCaja
+                endVentaForm.TXT_SCliente.Text = totalCaja
+                endVentaForm.TXT_TCliente.Text = totalCaja
 
                 'Se pasa el datagrid completo para obtener los datos
                 Dim result As DialogResult = endVentaForm.ShowDialog()
