@@ -28,6 +28,7 @@
         Me.Guna2BorderlessForm1 = New Guna.UI2.WinForms.Guna2BorderlessForm(Me.components)
         Me.TabControlTVenta = New Guna.UI2.WinForms.Guna2TabControl()
         Me.Efectivo = New System.Windows.Forms.TabPage()
+            Me.TXT_ECliente = New Guna.UI2.WinForms.Guna2TextBox()
             Me.BTN_EColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
             Me.TXT_EVuelto = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -35,6 +36,7 @@
             Me.TXT_ETotal = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.Tarjeta = New System.Windows.Forms.TabPage()
+            Me.TXT_TCliente = New Guna.UI2.WinForms.Guna2TextBox()
             Me.BTN_TColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
             Me.TXT_TVuelto = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -42,6 +44,7 @@
             Me.TXT_TTotal = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.Sinpe = New System.Windows.Forms.TabPage()
+            Me.TXT_SCliente = New Guna.UI2.WinForms.Guna2TextBox()
             Me.BTN_SColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
             Me.TXT_SVuelto = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel7 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -49,6 +52,7 @@
             Me.TXT_STotal = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel9 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.deposito = New System.Windows.Forms.TabPage()
+            Me.TXT_DCliente = New Guna.UI2.WinForms.Guna2TextBox()
             Me.BTN_DColocarTotal = New Guna.UI2.WinForms.Guna2TileButton()
             Me.Guna2HtmlLabel11 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.TXT_DVuelto = New Guna.UI2.WinForms.Guna2TextBox()
@@ -56,6 +60,8 @@
             Me.TXT_DTotal = New Guna.UI2.WinForms.Guna2TextBox()
             Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.Mixto = New System.Windows.Forms.TabPage()
+            Me.TXT_MEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
+            Me.TXT_MTarjeta = New Guna.UI2.WinForms.Guna2TextBox()
             Me.BTN_RestanteEfectivo = New Guna.UI2.WinForms.Guna2TileButton()
             Me.BTN_RestanteTarjeta = New Guna.UI2.WinForms.Guna2TileButton()
             Me.Guna2HtmlLabel16 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -70,12 +76,6 @@
             Me.TXT_Comentario = New Guna.UI2.WinForms.Guna2TextBox()
             Me.BTN_TVentaImp = New Guna.UI2.WinForms.Guna2Button()
             Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-            Me.TXT_ECliente = New Guna.UI2.WinForms.Guna2TextBox()
-            Me.TXT_TCliente = New Guna.UI2.WinForms.Guna2TextBox()
-            Me.TXT_SCliente = New Guna.UI2.WinForms.Guna2TextBox()
-            Me.TXT_DCliente = New Guna.UI2.WinForms.Guna2TextBox()
-            Me.TXT_MTarjeta = New Guna.UI2.WinForms.Guna2TextBox()
-            Me.TXT_MEfectivo = New Guna.UI2.WinForms.Guna2TextBox()
             Me.TabControlTVenta.SuspendLayout()
             Me.Efectivo.SuspendLayout()
             Me.Tarjeta.SuspendLayout()
@@ -143,6 +143,28 @@
             Me.Efectivo.Size = New System.Drawing.Size(641, 381)
             Me.Efectivo.TabIndex = 0
             Me.Efectivo.Text = "Efectivo"
+            '
+            'TXT_ECliente
+            '
+            Me.TXT_ECliente.BorderRadius = 10
+            Me.TXT_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
+            Me.TXT_ECliente.DefaultText = "0"
+            Me.TXT_ECliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+            Me.TXT_ECliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+            Me.TXT_ECliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_ECliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_ECliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.TXT_ECliente.ForeColor = System.Drawing.Color.Black
+            Me.TXT_ECliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_ECliente.Location = New System.Drawing.Point(103, 144)
+            Me.TXT_ECliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+            Me.TXT_ECliente.Name = "TXT_ECliente"
+            Me.TXT_ECliente.PlaceholderText = ""
+            Me.TXT_ECliente.SelectedText = ""
+            Me.TXT_ECliente.Size = New System.Drawing.Size(439, 42)
+            Me.TXT_ECliente.TabIndex = 109
+            Me.TXT_ECliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
             'BTN_EColocarTotal
             '
@@ -258,6 +280,28 @@
             Me.Tarjeta.TabIndex = 1
             Me.Tarjeta.Text = "Tarjeta"
             '
+            'TXT_TCliente
+            '
+            Me.TXT_TCliente.BorderRadius = 10
+            Me.TXT_TCliente.Cursor = System.Windows.Forms.Cursors.IBeam
+            Me.TXT_TCliente.DefaultText = "0"
+            Me.TXT_TCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+            Me.TXT_TCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+            Me.TXT_TCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_TCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_TCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_TCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.TXT_TCliente.ForeColor = System.Drawing.Color.Black
+            Me.TXT_TCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_TCliente.Location = New System.Drawing.Point(101, 156)
+            Me.TXT_TCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+            Me.TXT_TCliente.Name = "TXT_TCliente"
+            Me.TXT_TCliente.PlaceholderText = ""
+            Me.TXT_TCliente.SelectedText = ""
+            Me.TXT_TCliente.Size = New System.Drawing.Size(439, 42)
+            Me.TXT_TCliente.TabIndex = 114
+            Me.TXT_TCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+            '
             'BTN_TColocarTotal
             '
             Me.BTN_TColocarTotal.BorderRadius = 20
@@ -372,6 +416,28 @@
             Me.Sinpe.TabIndex = 2
             Me.Sinpe.Text = "Sinpe"
             '
+            'TXT_SCliente
+            '
+            Me.TXT_SCliente.BorderRadius = 10
+            Me.TXT_SCliente.Cursor = System.Windows.Forms.Cursors.IBeam
+            Me.TXT_SCliente.DefaultText = "0"
+            Me.TXT_SCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+            Me.TXT_SCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+            Me.TXT_SCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_SCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_SCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_SCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.TXT_SCliente.ForeColor = System.Drawing.Color.Black
+            Me.TXT_SCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_SCliente.Location = New System.Drawing.Point(101, 150)
+            Me.TXT_SCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+            Me.TXT_SCliente.Name = "TXT_SCliente"
+            Me.TXT_SCliente.PlaceholderText = ""
+            Me.TXT_SCliente.SelectedText = ""
+            Me.TXT_SCliente.Size = New System.Drawing.Size(439, 42)
+            Me.TXT_SCliente.TabIndex = 120
+            Me.TXT_SCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+            '
             'BTN_SColocarTotal
             '
             Me.BTN_SColocarTotal.BorderRadius = 20
@@ -485,6 +551,28 @@
             Me.deposito.Size = New System.Drawing.Size(641, 381)
             Me.deposito.TabIndex = 3
             Me.deposito.Text = "Depósito"
+            '
+            'TXT_DCliente
+            '
+            Me.TXT_DCliente.BorderRadius = 10
+            Me.TXT_DCliente.Cursor = System.Windows.Forms.Cursors.IBeam
+            Me.TXT_DCliente.DefaultText = "0"
+            Me.TXT_DCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+            Me.TXT_DCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+            Me.TXT_DCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_DCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_DCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_DCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.TXT_DCliente.ForeColor = System.Drawing.Color.Black
+            Me.TXT_DCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_DCliente.Location = New System.Drawing.Point(101, 148)
+            Me.TXT_DCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+            Me.TXT_DCliente.Name = "TXT_DCliente"
+            Me.TXT_DCliente.PlaceholderText = ""
+            Me.TXT_DCliente.SelectedText = ""
+            Me.TXT_DCliente.Size = New System.Drawing.Size(439, 42)
+            Me.TXT_DCliente.TabIndex = 129
+            Me.TXT_DCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
             'BTN_DColocarTotal
             '
@@ -602,6 +690,50 @@
             Me.Mixto.Size = New System.Drawing.Size(641, 381)
             Me.Mixto.TabIndex = 4
             Me.Mixto.Text = "Mixto"
+            '
+            'TXT_MEfectivo
+            '
+            Me.TXT_MEfectivo.BorderRadius = 10
+            Me.TXT_MEfectivo.Cursor = System.Windows.Forms.Cursors.IBeam
+            Me.TXT_MEfectivo.DefaultText = "0"
+            Me.TXT_MEfectivo.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+            Me.TXT_MEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+            Me.TXT_MEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_MEfectivo.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_MEfectivo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_MEfectivo.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.TXT_MEfectivo.ForeColor = System.Drawing.Color.Black
+            Me.TXT_MEfectivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_MEfectivo.Location = New System.Drawing.Point(329, 146)
+            Me.TXT_MEfectivo.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+            Me.TXT_MEfectivo.Name = "TXT_MEfectivo"
+            Me.TXT_MEfectivo.PlaceholderText = ""
+            Me.TXT_MEfectivo.SelectedText = ""
+            Me.TXT_MEfectivo.Size = New System.Drawing.Size(300, 42)
+            Me.TXT_MEfectivo.TabIndex = 137
+            Me.TXT_MEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+            '
+            'TXT_MTarjeta
+            '
+            Me.TXT_MTarjeta.BorderRadius = 10
+            Me.TXT_MTarjeta.Cursor = System.Windows.Forms.Cursors.IBeam
+            Me.TXT_MTarjeta.DefaultText = "0"
+            Me.TXT_MTarjeta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
+            Me.TXT_MTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
+            Me.TXT_MTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_MTarjeta.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
+            Me.TXT_MTarjeta.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_MTarjeta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.TXT_MTarjeta.ForeColor = System.Drawing.Color.Black
+            Me.TXT_MTarjeta.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.TXT_MTarjeta.Location = New System.Drawing.Point(15, 146)
+            Me.TXT_MTarjeta.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+            Me.TXT_MTarjeta.Name = "TXT_MTarjeta"
+            Me.TXT_MTarjeta.PlaceholderText = ""
+            Me.TXT_MTarjeta.SelectedText = ""
+            Me.TXT_MTarjeta.Size = New System.Drawing.Size(300, 42)
+            Me.TXT_MTarjeta.TabIndex = 136
+            Me.TXT_MTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
             'BTN_RestanteEfectivo
             '
@@ -830,138 +962,6 @@
             Me.Guna2Panel1.Name = "Guna2Panel1"
             Me.Guna2Panel1.Size = New System.Drawing.Size(908, 69)
             Me.Guna2Panel1.TabIndex = 131
-            '
-            'TXT_ECliente
-            '
-            Me.TXT_ECliente.BorderRadius = 10
-            Me.TXT_ECliente.Cursor = System.Windows.Forms.Cursors.IBeam
-            Me.TXT_ECliente.DefaultText = "0"
-            Me.TXT_ECliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-            Me.TXT_ECliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-            Me.TXT_ECliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_ECliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_ECliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_ECliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.TXT_ECliente.ForeColor = System.Drawing.Color.Black
-            Me.TXT_ECliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_ECliente.Location = New System.Drawing.Point(103, 144)
-            Me.TXT_ECliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-            Me.TXT_ECliente.Name = "TXT_ECliente"
-            Me.TXT_ECliente.PlaceholderText = ""
-            Me.TXT_ECliente.SelectedText = ""
-            Me.TXT_ECliente.Size = New System.Drawing.Size(439, 42)
-            Me.TXT_ECliente.TabIndex = 109
-            Me.TXT_ECliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-            '
-            'TXT_TCliente
-            '
-            Me.TXT_TCliente.BorderRadius = 10
-            Me.TXT_TCliente.Cursor = System.Windows.Forms.Cursors.IBeam
-            Me.TXT_TCliente.DefaultText = "0"
-            Me.TXT_TCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-            Me.TXT_TCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-            Me.TXT_TCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_TCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_TCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_TCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.TXT_TCliente.ForeColor = System.Drawing.Color.Black
-            Me.TXT_TCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_TCliente.Location = New System.Drawing.Point(101, 156)
-            Me.TXT_TCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-            Me.TXT_TCliente.Name = "TXT_TCliente"
-            Me.TXT_TCliente.PlaceholderText = ""
-            Me.TXT_TCliente.SelectedText = ""
-            Me.TXT_TCliente.Size = New System.Drawing.Size(439, 42)
-            Me.TXT_TCliente.TabIndex = 114
-            Me.TXT_TCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-            '
-            'TXT_SCliente
-            '
-            Me.TXT_SCliente.BorderRadius = 10
-            Me.TXT_SCliente.Cursor = System.Windows.Forms.Cursors.IBeam
-            Me.TXT_SCliente.DefaultText = "0"
-            Me.TXT_SCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-            Me.TXT_SCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-            Me.TXT_SCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_SCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_SCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_SCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.TXT_SCliente.ForeColor = System.Drawing.Color.Black
-            Me.TXT_SCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_SCliente.Location = New System.Drawing.Point(101, 150)
-            Me.TXT_SCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-            Me.TXT_SCliente.Name = "TXT_SCliente"
-            Me.TXT_SCliente.PlaceholderText = ""
-            Me.TXT_SCliente.SelectedText = ""
-            Me.TXT_SCliente.Size = New System.Drawing.Size(439, 42)
-            Me.TXT_SCliente.TabIndex = 120
-            Me.TXT_SCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-            '
-            'TXT_DCliente
-            '
-            Me.TXT_DCliente.BorderRadius = 10
-            Me.TXT_DCliente.Cursor = System.Windows.Forms.Cursors.IBeam
-            Me.TXT_DCliente.DefaultText = "0"
-            Me.TXT_DCliente.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-            Me.TXT_DCliente.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-            Me.TXT_DCliente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_DCliente.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_DCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_DCliente.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.TXT_DCliente.ForeColor = System.Drawing.Color.Black
-            Me.TXT_DCliente.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_DCliente.Location = New System.Drawing.Point(101, 148)
-            Me.TXT_DCliente.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-            Me.TXT_DCliente.Name = "TXT_DCliente"
-            Me.TXT_DCliente.PlaceholderText = ""
-            Me.TXT_DCliente.SelectedText = ""
-            Me.TXT_DCliente.Size = New System.Drawing.Size(439, 42)
-            Me.TXT_DCliente.TabIndex = 129
-            Me.TXT_DCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-            '
-            'TXT_MTarjeta
-            '
-            Me.TXT_MTarjeta.BorderRadius = 10
-            Me.TXT_MTarjeta.Cursor = System.Windows.Forms.Cursors.IBeam
-            Me.TXT_MTarjeta.DefaultText = "0"
-            Me.TXT_MTarjeta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-            Me.TXT_MTarjeta.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-            Me.TXT_MTarjeta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_MTarjeta.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_MTarjeta.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_MTarjeta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.TXT_MTarjeta.ForeColor = System.Drawing.Color.Black
-            Me.TXT_MTarjeta.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_MTarjeta.Location = New System.Drawing.Point(15, 146)
-            Me.TXT_MTarjeta.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-            Me.TXT_MTarjeta.Name = "TXT_MTarjeta"
-            Me.TXT_MTarjeta.PlaceholderText = ""
-            Me.TXT_MTarjeta.SelectedText = ""
-            Me.TXT_MTarjeta.Size = New System.Drawing.Size(300, 42)
-            Me.TXT_MTarjeta.TabIndex = 136
-            Me.TXT_MTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-            '
-            'TXT_MEfectivo
-            '
-            Me.TXT_MEfectivo.BorderRadius = 10
-            Me.TXT_MEfectivo.Cursor = System.Windows.Forms.Cursors.IBeam
-            Me.TXT_MEfectivo.DefaultText = "0"
-            Me.TXT_MEfectivo.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-            Me.TXT_MEfectivo.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-            Me.TXT_MEfectivo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_MEfectivo.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-            Me.TXT_MEfectivo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_MEfectivo.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.TXT_MEfectivo.ForeColor = System.Drawing.Color.Black
-            Me.TXT_MEfectivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-            Me.TXT_MEfectivo.Location = New System.Drawing.Point(329, 146)
-            Me.TXT_MEfectivo.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-            Me.TXT_MEfectivo.Name = "TXT_MEfectivo"
-            Me.TXT_MEfectivo.PlaceholderText = ""
-            Me.TXT_MEfectivo.SelectedText = ""
-            Me.TXT_MEfectivo.Size = New System.Drawing.Size(300, 42)
-            Me.TXT_MEfectivo.TabIndex = 137
-            Me.TXT_MEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
             'P_TerminarVenta
             '

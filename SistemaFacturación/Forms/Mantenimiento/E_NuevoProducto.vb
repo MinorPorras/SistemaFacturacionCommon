@@ -102,6 +102,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
                         LIMPIAR()
                         MsgDatoAlm()
                         ModProd = False
+                        isNavigating = True
                         Me.DialogResult = DialogResult.OK
                     Else
                         msgError("Ocurrió un error al guardar los datos. La operación fue revertida.")

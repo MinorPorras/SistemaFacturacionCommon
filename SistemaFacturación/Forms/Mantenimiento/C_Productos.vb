@@ -237,8 +237,10 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
             Dim frmNewProd As New E_NuevoProducto With {
                 .ModProd = False
             }
-            frmNewProd.Show()
-            frmNewProd.Select()
+            frmNewProd.ShowDialog()
+
+            TXT_BuscarProd.SelectAll()
+            TXT_BuscarProd.Focus()
         End Sub
 
         Private Sub BTN_RegresarProd_Click(sender As Object, e As EventArgs) Handles BTN_RegresarProd.Click
@@ -277,6 +279,8 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
 
                 frmNewProd.ShowDialog()
 
+                TXT_BuscarProd.SelectAll()
+                TXT_BuscarProd.Focus()
             Catch ex As Exception
                 MsgError("Error: " & ex.Message)
             End Try

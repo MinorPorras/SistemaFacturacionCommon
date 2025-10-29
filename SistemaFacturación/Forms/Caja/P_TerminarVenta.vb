@@ -7,7 +7,6 @@ Namespace SistemaFacturacion.Forms.Caja
     Public Class P_TerminarVenta
         ' Declaración de variables a nivel de la clase
         ' Estas variables se mantienen durante todo el ciclo de vida del formulario
-        Friend isCuentaPorCobrar As Boolean
         Friend venta As Cls_Ventas
         Friend imprimir_factura As Boolean
 
@@ -48,9 +47,6 @@ Namespace SistemaFacturacion.Forms.Caja
                 TXT_DTotal,
                 TXT_MTotal
             }
-            ' Valida el estado inicial del pago y habilita/deshabilita los botones de venta
-            Dim entregaCliente As Decimal = If(Integer.TryParse(TXT_ECliente.Text, entregaCliente), entregaCliente, 0)
-            BTN_TVenta.Enabled = entregaCliente > venta.Saldo_total
         End Sub
         Private Sub P_TerminarVenta_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
             ' Añade los manejadores de eventos (handlers) para los botones de "Colocar Total"
@@ -71,26 +67,33 @@ Namespace SistemaFacturacion.Forms.Caja
                 AddHandler txt.KeyPress, AddressOf verifyNumericOnKeyPress
             Next
 
-            Dim saldo = If(isCuentaPorCobrar, venta.Saldo_restante, venta.Saldo_total)
             'Se coloca el total en todas las textbox de total
             For Each txt As Guna2TextBox In txtShowTotal
-                txt.Text = saldo
+                txt.Text = venta.Formated_saldo_total
             Next
+
+            ' Valida el estado inicial del pago y habilita/deshabilita los botones de venta
+            Dim entregaCliente As Decimal = If(Integer.TryParse(TXT_ECliente.Text, entregaCliente), entregaCliente, 0)
+            BTN_TVenta.Enabled = entregaCliente >= venta.Saldo_total
+
+            TXT_ECliente.SelectAll()
+            TXT_ECliente.Focus()
         End Sub
 
 #Region "Calculos y validaciones"
 
         Private Sub GetVuelto(entregaCliente As Decimal, txtVuelto As Guna2TextBox)
-            venta.Vuelto = entregaCliente - venta.Saldo_total
-            If venta.Vuelto > 0 Then
-                txtVuelto.Text = venta.Formated_vuelto
+            If entregaCliente >= venta.Saldo_total Then
+                venta.Vuelto = entregaCliente - venta.Saldo_total
             Else
-                txtVuelto.Text = "0"
+                venta.Vuelto = 0
             End If
+
+            txtVuelto.Text = venta.Formated_vuelto
         End Sub
 
         ' Manjeador de evento unificado para la verificación de los montos ingresados
-        Private Sub verifyNumericOnKeyPress(sender As Object, e As KeyPressEventArgs)
+        Private Sub VerifyNumericOnKeyPress(sender As Object, e As KeyPressEventArgs)
             ' 1. Permitir el uso de teclas de control (como Backspace)
             If Char.IsControl(e.KeyChar) Then
                 e.Handled = False
@@ -157,7 +160,7 @@ Namespace SistemaFacturacion.Forms.Caja
 
                 BTN_TVenta.Enabled = entregaCliente >= venta.Saldo_total
 
-                GetVuelto(txt.Text, txtVuelto)
+                GetVuelto(entregaCliente, txtVuelto)
             Catch ex As Exception
                 MsgError("Error al recalcular el vuelto y validar: " & ex.Message)
                 GetVuelto(0, txtVuelto)
@@ -242,8 +245,6 @@ Namespace SistemaFacturacion.Forms.Caja
 #Region "TerminarVenta_ImprimirFactura"
 
         Private Sub TerminarVenta(imprimir As Boolean)
-            venta.Tipo_pago = TabControlTVenta.SelectedIndex
-
             Select Case venta.Tipo_pago
                 Case 0 ' Efectivo
                     If Not Decimal.TryParse(TXT_ECliente.Text, venta.Efectivo) Then
@@ -312,6 +313,24 @@ Namespace SistemaFacturacion.Forms.Caja
                     BTN_TVenta.PerformClick()
                 Case Keys.F4
                     BTN_TVentaImp.PerformClick()
+            End Select
+        End Sub
+
+        Private Sub TabControlTVenta_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControlTVenta.SelectedIndexChanged
+            venta.Tipo_pago = TabControlTVenta.SelectedIndex
+            Select Case venta.Tipo_pago
+                Case 0 'efectivo
+                    TXT_ECliente.SelectAll()
+                    TXT_ECliente.Focus()
+                Case 1
+                    TXT_TCliente.SelectAll()
+                    TXT_TCliente.Focus()
+                Case 2
+                    TXT_SCliente.SelectAll()
+                    TXT_SCliente.Focus()
+                Case 3
+                    TXT_DCliente.SelectAll()
+                    TXT_DCliente.Focus()
             End Select
         End Sub
     End Class

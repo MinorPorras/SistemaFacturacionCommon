@@ -241,6 +241,7 @@ Namespace SistemaFacturacion.Forms.Inicio
             LBL_Usu.Text = ""
             P_SelectUsu.Show()
             P_SelectUsu.Select()
+            isNavigating = True
             Me.Close()
         End Sub
 

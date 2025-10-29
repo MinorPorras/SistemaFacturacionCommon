@@ -380,41 +380,6 @@ Public Class P_CajaCxC
         Me.Close()
     End Sub
 
-    Private Async Sub BTN_TVenta_Click(sender As Object, e As EventArgs)
-        Using endVentaForm As New P_TerminarVenta
-            endVentaForm.Owner = Me
-            If DGV_Caja.Rows.Count < 1 Then
-                Exit Sub
-            End If
-
-            Dim numFactura As Integer = CargarNumFactura()
-            endVentaForm.venta = New Cls_Ventas With {
-                .ID = OBTENERPK("factura", "ID"),
-                .ID_Cliente = Cuenta.ID_Cliente,
-                .ID_Cajero = idUsuActual,
-                .Fecha_creacion = Date.Now,
-                .ListaProductos = prodList,
-                .Saldo_total = Cuenta.Saldo_total,
-                .Num_factura = numFactura,
-                .Tipo_pago = 1,
-                .ID_CxC = idCuenta,
-                .Saldo_restante = Cuenta.Saldo_restante
-            }
-            endVentaForm.isCuentaPorCobrar = True
-
-            'Se pasa el datagrid completo para obtener los datos
-            Dim result As DialogResult = endVentaForm.ShowDialog()
-            If result = DialogResult.Cancel Then
-                Me.DialogResult = DialogResult.Cancel
-                Exit Sub
-            End If
-
-            If Await endVentaForm.venta.GuardarFactura(endVentaForm.imprimir_factura) Then
-                Me.DialogResult = DialogResult.OK
-            End If
-        End Using
-    End Sub
-
     Friend Function CargarNumFactura() As String
         Try
             T.Tables.Clear()
@@ -571,6 +536,11 @@ Public Class P_CajaCxC
                 .Fecha_creacion = Date.Now,
                 .Saldo_restante = Cuenta.Saldo_restante
             }
+
+            abonarForm.TXT_ECliente.Text = Cuenta.Saldo_restante
+            abonarForm.TXT_DCliente.Text = Cuenta.Saldo_restante
+            abonarForm.TXT_SCliente.Text = Cuenta.Saldo_restante
+            abonarForm.TXT_TCliente.Text = Cuenta.Saldo_restante
 
             Dim result As DialogResult = abonarForm.ShowDialog()
 
