@@ -92,7 +92,7 @@ Namespace SistemaFacturacion.Data
 
                                       ' Si hay filas, obtiene la fecha de la última fila
                                       If Not Date.TryParse(T.Tables(0).Rows(0).Item("hora_apertura").ToString(), Nothing) Then
-                                          msgError("Error al convertir la fecha de la última apertura de caja.")
+                                          MsgError("Error al convertir la fecha de la última apertura de caja.")
                                           Return New DataTable()
                                       End If
 
@@ -110,18 +110,29 @@ Namespace SistemaFacturacion.Data
                                       }
                                CargarTablaParam(T1, sql, paramList)
 
+                               EntradasEfectivo = 0
+                               SalidasEfectivo = 0
+
                                ' Verifica si la tabla existe o si esta tiene filas
                                If T1.Tables.Count <= 0 OrElse T1.Tables(0).Rows.Count = 0 OrElse IsDBNull(T1.Tables(0).Rows(0).Item("Total")) Then
                                    Log.Warning("No se encontraron movimientos de caja para el arqueo con ID {ArqueoID}.", ID)
                                    ' Si no hay filas, devuelve una nueva DataTable vacía
-                                   EntradasEfectivo = 0
-                                   SalidasEfectivo = 0
                                    Exit Sub
                                End If
 
                                Log.Information("Totales de movimientos de caja obtenidos correctamente para el arqueo con ID {ArqueoID}.", ID)
-                               EntradasEfectivo = T1.Tables(0).Rows(0).Item("total")
-                               SalidasEfectivo = T1.Tables(0).Rows(1).Item("total")
+
+                               For Each row As DataRow In T1.Tables(0).Rows
+                                   If IsDBNull(row.Item("ID_Tipo_Movimiento")) Then
+                                       Continue For
+                                   End If
+                                   Select Case row.Item("ID_Tipo_Movimiento")
+                                       Case 1 'Entrada
+                                           EntradasEfectivo = row.Item("total")
+                                       Case 2 'Salida
+                                           SalidasEfectivo = row.Item("total")
+                                   End Select
+                               Next
                                Log.Information("Totales - Entradas: {Entradas}, Salidas: {Salidas}", EntradasEfectivo, SalidasEfectivo)
                            End Sub)
         End Function
