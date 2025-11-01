@@ -214,8 +214,9 @@ Namespace SistemaFacturacion.Forms.Caja
 
         Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_Datos.Click
 
-            Dim index = DGV_ReimprimirFact.SelectedRows(0).Index
-            Dim ventaData As Cls_Ventas = listaVentas(index)
+            Dim ventaData As New Cls_Ventas
+            Dim id = DGV_ReimprimirFact.SelectedRows(0).Cells("ID").Value
+            ventaData.CargarDataFactura(id)
 
             Using frmDatosFactura As New P_DatosFactura
                 frmDatosFactura.Owner = Me

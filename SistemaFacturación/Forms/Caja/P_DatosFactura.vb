@@ -19,9 +19,7 @@ Namespace SistemaFacturacion.Forms.Caja
             TXT_Efectivo.Text = datosFactura.Formated_Efectivo
             TXT_Tarjeta.Text = datosFactura.Formated_Tarjeta
             TXT_Vuelto.Text = datosFactura.Formated_vuelto
-            TXT_TipoPago.Text = datosFactura.formated_tipo_pago
-
-            datosFactura.getListaProductos()
+            TXT_TipoPago.Text = datosFactura.Formated_tipo_pago
 
             Dim bin As New BindingSource With {.DataSource = datosFactura.ListaProductos}
             DGV_ProdFact.DataSource = bin
