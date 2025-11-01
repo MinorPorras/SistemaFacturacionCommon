@@ -120,10 +120,6 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
             Dim precioVenta As New List(Of String)
             Dim cantidad As New List(Of Integer)
 
-            productos.Clear()
-            precioVenta.Clear()
-            cantidad.Clear()
-
             If DGV_Hablador.Rows.Count > 0 Then
                 For i As Integer = 0 To DGV_Hablador.Rows.Count - 1
                     productos.Add(DGV_Hablador.Rows(i).Cells(2).Value.ToString())
@@ -131,7 +127,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
                     cantidad.Add(Convert.ToInt32(DGV_Hablador.Rows(i).Cells(4).Value))
                 Next
                 Dim clsImpresionHabladores As New Cls_ImpresionHabladores()
-                clsImpresionHabladores.CREAR_HABLADORES(DGV_Hablador, productos, precioVenta, cantidad)
+                clsImpresionHabladores.CREAR_HABLADORES(DGV_Hablador, productos, precioVenta, cantidad, CBX_OneToOnePrint.Checked)
             End If
         End Sub
 
