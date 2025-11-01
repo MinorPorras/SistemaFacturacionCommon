@@ -221,7 +221,7 @@ Namespace SistemaFacturacion.Forms.Reportes
 
         Private Sub MNU_Datos_Click(sender As Object, e As EventArgs) Handles MNU_DATOS.Click
             Dim ventaData As New Cls_Ventas
-            Dim id = DGV_FactReporte.SelectedRows(0).Cells("ID").Value
+            Dim id = DGV_FactReporte.SelectedRows(0).Cells("IdFactura").Value
             ventaData.CargarDataFactura(id)
             Using frmDatosFactura As New P_DatosFactura
                 frmDatosFactura.Owner = Me

@@ -285,6 +285,7 @@ Namespace SistemaFacturacion.Forms.Caja
                     Exit Sub
             End Select
 
+            venta.Comentario = TXT_Comentario.Text
             imprimir_factura = imprimir
             Me.DialogResult = DialogResult.OK
         End Sub

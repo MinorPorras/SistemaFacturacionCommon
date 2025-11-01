@@ -222,13 +222,13 @@ Public Class Cls_Ventas
     End Sub
 
     Friend Sub CargarDataFactura(id As Integer)
-        Dim consulta = "Select f.ID, f.num_factura, f.fecha_emision, c.ID As 'ID_Cliente' c.nombre AS 'Cliente', " &
+        Dim consulta = "Select f.ID, f.num_factura, f.fecha_emision, c.ID As 'ID_Cliente', c.nombre AS 'Cliente', " &
             "u.ID AS 'ID_Usuario', u.usuario AS 'Cajero', f.tipo_venta, " &
             "f.efectivo_cliente, f.tarjeta_cliente , f.vuelto , fc.comentario, f.total " &
             "FROM factura f " &
             "LEFT JOIN clientes c ON c.ID = f.ID_CLIENTE " &
             "LEFT JOIN usuario u ON u.ID = f.ID_USUARIO " &
-            "LEFT JOIN factura_comentario fc ON fc.ID_Factura = f.ID WHERE f.num_factura " &
+            "LEFT JOIN factura_comentario fc ON fc.ID_Factura = f.ID " &
             "WHERE f.ID = @ID"
         Dim paramList As New List(Of SQLiteParameter) From {
             {New SQLiteParameter("@ID", id)}
