@@ -2,6 +2,7 @@
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Mantenimiento
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Reportes
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Navegacion
 Namespace SistemaFacturacion.Forms.Inicio
 
     Public Class M_Inicio
@@ -22,6 +23,18 @@ Namespace SistemaFacturacion.Forms.Inicio
         Dim Dcont As Integer
 
         Private Sub Inicio_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+            LBL_Usu.Text = nomUsuActual
+            T.Tables.Clear()
+            SQL = "SELECT nombre, telefono, email, logo FROM sucursal"
+            Cargar_Tabla(T, SQL)
+            If Not IsDBNull(T.Tables(0).Rows(0).Item(0)) Then
+                If T.Tables(0).Rows.Count > 0 Then
+                    SetAppSetting("Empresa", T.Tables(0).Rows(0).Item(0).ToString())
+                    SetAppSetting("Telefono", T.Tables(0).Rows(0).Item(1).ToString())
+                    SetAppSetting("Correo", T.Tables(0).Rows(0).Item(2).ToString())
+                    SetAppSetting("Logo", T.Tables(0).Rows(0).Item(3).ToString())
+                End If
+            End If
             REFRESCAR()
         End Sub
 
@@ -238,11 +251,7 @@ Namespace SistemaFacturacion.Forms.Inicio
         End Sub
 
         Private Sub BTN_LogOut_Click(sender As Object, e As EventArgs) Handles BTN_LogOut.Click
-            LBL_Usu.Text = ""
-            P_SelectUsu.Show()
-            P_SelectUsu.Select()
-            isNavigating = True
-            Me.Close()
+            LogOut(True, Me, LBL_Usu)
         End Sub
 
         Private Sub M_Inicio_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing

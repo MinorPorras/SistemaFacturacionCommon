@@ -3,19 +3,19 @@ Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
-Imports Syncfusion.XlsIO.Implementation
 
 Namespace SistemaFacturacion.Modules
     Module Md_Arqueos
+
 #Region "Dialog"
-        Public Sub ShowAperturaDialog(owner As Form, denominaciones As Cls_SaldoCaja)
+        Public Function ShowAperturaDialog(owner As Form, denominaciones As Cls_SaldoCaja) As Boolean
             Using frmAperturaCaja As New D_AperturaCaja()
                 frmAperturaCaja.Owner = owner
                 frmAperturaCaja.saldoSiguiente = denominaciones
                 Dim result As DialogResult = frmAperturaCaja.ShowDialog()
                 If result <> DialogResult.OK Then
                     Log.Information("Apertura de caja cancelada por el usuario.")
-                    Exit Sub
+                    Return False
                 End If
 
                 Dim apertura As New Cls_CierreCaja With {
@@ -25,17 +25,19 @@ Namespace SistemaFacturacion.Modules
                 If apertura.IngresarApertura() Then
                     Log.Information("Apertura de caja registrada con éxito. UsuarioID={UserID}, FondoInicial={Fondo}", idUsuActual, apertura.Fondo_inicial)
                     Mensaje("Apertura de caja registrada con éxito", vbOKOnly, "Apertura de caja")
+                    Return True
                 Else
                     Log.Error("Fallo al registrar la Apertura de Caja en la DB. UsuarioID={UserID}, FondoInicial={Fondo}", idUsuActual, apertura.Fondo_inicial)
+                    Return False
                 End If
             End Using
-        End Sub
+        End Function
 
-        Public Async Sub ShowCierreDialog(Owner As Form)
+        Public Async Function ShowCierreDialog(Owner As Form) As Task(Of Boolean)
             Log.Information("Iniciando flujo de Cierre de Caja.")
             If Not CheckIfCajaAbierta() Then
                 MsgError("No se puede realizar el cierre de caja porque no hay una caja abierta. Por favor, realice una apertura de caja primero.")
-                Return
+                Return False
             End If
             Using frmCierre As New P_GenerarCierreCaja
                 frmCierre.Owner = Owner
@@ -43,7 +45,7 @@ Namespace SistemaFacturacion.Modules
 
                 If result <> DialogResult.OK Then
                     Log.Information("Cierre de caja cancelado por el usuario o diálogo cerrado.")
-                    Exit Sub
+                    Return False
                 End If
 
                 If Await frmCierre.infoCierre.GuardarCierre() Then
@@ -55,13 +57,17 @@ Namespace SistemaFacturacion.Modules
                                     frmCierre.infoCierre.Hora_cierre,
                                     frmCierre.infoCierre.SaldoSiguienteTurno)
                     Mensaje("Cierre de caja registrado con éxito", vbOKOnly, "Cierre de caja")
+                    'Primero se debe de abrir la pestaña de login
+                    LogOut(False, Owner, fromArqueo:=True)
                     'Se abre el formulario de apertura de caja para iniciar una nueva sesión
                     ShowAperturaDialog(Owner, frmCierre.infoCierre.SaldoSiguienteTurno)
+                    Return True
                 Else
                     MsgError($"Fallo al registrar el Cierre de Caja en la DB. UsuarioID={idUsuActual}, MontoEfectivo={frmCierre.infoCierre.IngresoEfectivo}")
+                    Return False
                 End If
             End Using
-        End Sub
+        End Function
 #End Region
 
 #Region "Data & CRUD"
