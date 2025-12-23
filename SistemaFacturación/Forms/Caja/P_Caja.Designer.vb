@@ -1,29 +1,29 @@
 ﻿Namespace SistemaFacturacion.Forms.Caja
     <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
     Partial Class P_Caja
-    Inherits System.Windows.Forms.Form
+        Inherits System.Windows.Forms.Form
 
-    'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()>
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
-    End Sub
+        'Form reemplaza a Dispose para limpiar la lista de componentes.
+        <System.Diagnostics.DebuggerNonUserCode()>
+        Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+            Try
+                If disposing AndAlso components IsNot Nothing Then
+                    components.Dispose()
+                End If
+            Finally
+                MyBase.Dispose(disposing)
+            End Try
+        End Sub
 
-    'Requerido por el Diseñador de Windows Forms
-    Private components As System.ComponentModel.IContainer
+        'Requerido por el Diseñador de Windows Forms
+        Private components As System.ComponentModel.IContainer
 
-    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
-    'Se puede modificar usando el Diseñador de Windows Forms.  
-    'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()>
-    Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
+        'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
+        'Se puede modificar usando el Diseñador de Windows Forms.  
+        'No lo modifique con el editor de código.
+        <System.Diagnostics.DebuggerStepThrough()>
+        Private Sub InitializeComponent()
+            Me.components = New System.ComponentModel.Container()
             Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
             Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
             Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -74,6 +74,9 @@
             Me.PAN_HeaderFavProd = New Guna.UI2.WinForms.Guna2Panel()
             Me.lbl_tituloProdFav = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.FLW_FavProdBtn = New Syncfusion.Windows.Forms.Tools.FlowLayout(Me.components)
+            Me.BTN_CerrarSesion = New Guna.UI2.WinForms.Guna2TileButton()
+            Me.LBL_EstadoTurno = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.label1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             CType(Me.PIC_Logo, System.ComponentModel.ISupportInitialize).BeginInit()
             Me.TableLayoutPanel1.SuspendLayout()
             Me.TableLayoutPanel2.SuspendLayout()
@@ -188,7 +191,7 @@
             Me.BTN_NProd.ForeColor = System.Drawing.Color.White
             Me.BTN_NProd.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_MasCol
             Me.BTN_NProd.ImageSize = New System.Drawing.Size(45, 45)
-            Me.BTN_NProd.Location = New System.Drawing.Point(524, 26)
+            Me.BTN_NProd.Location = New System.Drawing.Point(474, 26)
             Me.BTN_NProd.Name = "BTN_NProd"
             Me.BTN_NProd.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle
             Me.BTN_NProd.Size = New System.Drawing.Size(44, 47)
@@ -653,6 +656,8 @@
             '
             'Panel1
             '
+            Me.Panel1.Controls.Add(Me.LBL_EstadoTurno)
+            Me.Panel1.Controls.Add(Me.label1)
             Me.Panel1.Controls.Add(Me.PIC_Logo)
             Me.Panel1.Controls.Add(Me.LBL_Hora)
             Me.Panel1.Controls.Add(Me.LBL_Usu)
@@ -677,6 +682,7 @@
             '
             'PAN_AddProd
             '
+            Me.PAN_AddProd.Controls.Add(Me.BTN_CerrarSesion)
             Me.PAN_AddProd.Controls.Add(Me.BTN_ConfigCaja)
             Me.PAN_AddProd.Controls.Add(Me.BTN_NProd)
             Me.PAN_AddProd.Controls.Add(Me.TXT_BuscarProducto)
@@ -729,7 +735,7 @@
             Me.TXT_BuscarProducto.Name = "TXT_BuscarProducto"
             Me.TXT_BuscarProducto.PlaceholderText = "Doble click para buscar"
             Me.TXT_BuscarProducto.SelectedText = ""
-            Me.TXT_BuscarProducto.Size = New System.Drawing.Size(385, 47)
+            Me.TXT_BuscarProducto.Size = New System.Drawing.Size(335, 47)
             Me.TXT_BuscarProducto.TabIndex = 97
             '
             'PAN_FavProd
@@ -784,6 +790,53 @@
             '
             Me.FLW_FavProdBtn.ContainerControl = Me.PAN_FavProdBTNContainer
             '
+            'BTN_CerrarSesion
+            '
+            Me.BTN_CerrarSesion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.BTN_CerrarSesion.Animated = True
+            Me.BTN_CerrarSesion.BorderRadius = 10
+            Me.BTN_CerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand
+            Me.BTN_CerrarSesion.CustomBorderColor = System.Drawing.Color.Transparent
+            Me.BTN_CerrarSesion.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_CerrarSesion.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_CerrarSesion.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+            Me.BTN_CerrarSesion.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+            Me.BTN_CerrarSesion.FillColor = System.Drawing.Color.Transparent
+            Me.BTN_CerrarSesion.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.BTN_CerrarSesion.ForeColor = System.Drawing.Color.White
+            Me.BTN_CerrarSesion.HoverState.FillColor = System.Drawing.Color.Black
+            Me.BTN_CerrarSesion.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_LogoutCol
+            Me.BTN_CerrarSesion.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Logout
+            Me.BTN_CerrarSesion.ImageSize = New System.Drawing.Size(50, 50)
+            Me.BTN_CerrarSesion.Location = New System.Drawing.Point(551, 25)
+            Me.BTN_CerrarSesion.Name = "BTN_CerrarSesion"
+            Me.BTN_CerrarSesion.Size = New System.Drawing.Size(55, 55)
+            Me.BTN_CerrarSesion.TabIndex = 115
+            '
+            'LBL_EstadoTurno
+            '
+            Me.LBL_EstadoTurno.BackColor = System.Drawing.Color.Transparent
+            Me.LBL_EstadoTurno.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
+            Me.LBL_EstadoTurno.ForeColor = System.Drawing.SystemColors.Control
+            Me.LBL_EstadoTurno.Location = New System.Drawing.Point(460, 48)
+            Me.LBL_EstadoTurno.Name = "LBL_EstadoTurno"
+            Me.LBL_EstadoTurno.Size = New System.Drawing.Size(118, 32)
+            Me.LBL_EstadoTurno.TabIndex = 115
+            Me.LBL_EstadoTurno.Text = "No iniciado"
+            Me.LBL_EstadoTurno.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
+            'label1
+            '
+            Me.label1.BackColor = System.Drawing.Color.Transparent
+            Me.label1.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
+            Me.label1.ForeColor = System.Drawing.SystemColors.Control
+            Me.label1.Location = New System.Drawing.Point(383, 48)
+            Me.label1.Name = "label1"
+            Me.label1.Size = New System.Drawing.Size(71, 32)
+            Me.label1.TabIndex = 116
+            Me.label1.Text = "Turno:"
+            Me.label1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
             'P_Caja
             '
             Me.AcceptButton = Me.BTN_NProd
@@ -823,16 +876,16 @@
 
         End Sub
         Friend WithEvents Guna2BorderlessForm1 As Guna.UI2.WinForms.Guna2BorderlessForm
-    Friend WithEvents Timer1 As Timer
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents Guna2AnimateWindow1 As Guna.UI2.WinForms.Guna2AnimateWindow
-    Friend WithEvents LBL_Hora As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents LBL_Fecha As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents Guna2HtmlLabel4 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents PIC_Logo As Guna.UI2.WinForms.Guna2PictureBox
-    Friend WithEvents BTN_NProd As Guna.UI2.WinForms.Guna2CircleButton
+        Friend WithEvents Timer1 As Timer
+        Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+        Friend WithEvents Guna2AnimateWindow1 As Guna.UI2.WinForms.Guna2AnimateWindow
+        Friend WithEvents LBL_Hora As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents LBL_Fecha As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents Guna2HtmlLabel4 As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents PIC_Logo As Guna.UI2.WinForms.Guna2PictureBox
+        Friend WithEvents BTN_NProd As Guna.UI2.WinForms.Guna2CircleButton
         Friend WithEvents LBL_Usu As Guna.UI2.WinForms.Guna2HtmlLabel
         Friend WithEvents Guna2HtmlLabel6 As Guna.UI2.WinForms.Guna2HtmlLabel
         Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
@@ -867,6 +920,9 @@
         Friend WithEvents MNU_CONTX As Guna.UI2.WinForms.Guna2ContextMenuStrip
         Friend WithEvents MNU_MODIFICAR As ToolStripMenuItem
         Friend WithEvents MNU_ELIMINAR As ToolStripMenuItem
+        Friend WithEvents BTN_CerrarSesion As Guna.UI2.WinForms.Guna2TileButton
+        Friend WithEvents LBL_EstadoTurno As Guna.UI2.WinForms.Guna2HtmlLabel
+        Friend WithEvents label1 As Guna.UI2.WinForms.Guna2HtmlLabel
     End Class
 
 End Namespace

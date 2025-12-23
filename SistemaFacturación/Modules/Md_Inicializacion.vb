@@ -7,6 +7,7 @@ Imports System.Web.Util
 Imports NuGet.Versioning
 Imports Serilog
 Imports Serilog.Context
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
 Imports Velopack
 Imports Velopack.Locators
@@ -129,7 +130,9 @@ entre al admjnistrador de tareas y si la encuentras finaliza la tarea. Mutex: {M
                 ' Usamos Invoke porque estamos en un hilo secundario y necesitamos
                 ' interactuar con la interfaz de usuario.
                 frmSplash.Invoke(Sub()
-                                     Dim frmInicial As New P_SelectUsu
+                                     Dim frmInicial As New P_Login With {
+                                        .FromArqueo = False
+                                     }
                                      frmInicial.Show()
                                      frmSplash.Close()
                                  End Sub)

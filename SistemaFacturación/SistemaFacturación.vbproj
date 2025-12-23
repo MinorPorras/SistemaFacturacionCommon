@@ -42,7 +42,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -238,7 +238,7 @@
       <HintPath>..\packages\Syncfusion.XlsIO.WinForms.31.2.2\lib\net462\Syncfusion.XlsIO.Base.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
@@ -409,6 +409,7 @@
     <Compile Include="Modules\Md_Arqueos.vb" />
     <Compile Include="Modules\Md_formating.vb" />
     <Compile Include="Modules\Md_LogSetup.vb" />
+    <Compile Include="Modules\Md_Navegacion.vb" />
     <Compile Include="Modules\Md_Reportes.vb" />
     <Compile Include="Forms\CuentasXCobrar\P_CuentasCobrar.Designer.vb">
       <DependentUpon>P_CuentasCobrar.vb</DependentUpon>
@@ -428,6 +429,7 @@
     <Compile Include="Forms\Reportes\P_ReporteVentas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Types\tp_EstadoArqueo.vb" />
     <Content Include="bd\dbSistemaFacturacion.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

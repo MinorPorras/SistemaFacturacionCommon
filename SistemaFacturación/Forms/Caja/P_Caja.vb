@@ -1,19 +1,20 @@
 ﻿Imports System.ComponentModel
-Imports System.Configuration
-Imports System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
 Imports System.Data.SQLite
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Guna.UI2.WinForms
-Imports Syncfusion.Windows.Forms.Diagram
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.CuentasXCobrar
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Navegacion
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.MSG
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_PROCESOS_BD
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Arqueos
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_formating
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_CONEXION
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Types.tp_EstadoArqueo
 Imports System.Globalization
-Imports Syncfusion.PivotAnalysis.Base
-Imports Syncfusion.XlsIO
 Namespace SistemaFacturacion.Forms.Caja
     Public Class P_Caja
 #Region "Variables y constantes"
@@ -41,6 +42,8 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Sub P_Caja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
             'Me.Bounds = Screen.PrimaryScreen.Bounds'
             Me.WindowState = FormWindowState.Maximized
+
+            LBL_Usu.Text = nomUsuActual
 
             'Se desabilitann botones que tiene activaciones condicionales
             BTN_TVenta.Enabled = False
@@ -746,7 +749,9 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #Region "Movimientos caja"
         Private Sub BTN_AperturaCaja_Click(sender As Object, e As EventArgs) Handles BTN_AperturaCaja.Click
-            ShowAperturaDialog(Me, New Cls_SaldoCaja)
+            If ShowAperturaDialog(Me, New Cls_SaldoCaja) Then
+                LBL_EstadoTurno.Text = Iniciado
+            End If
         End Sub
 
         Private Sub BTN_RegistrarIngreso_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarIngreso.Click
@@ -757,8 +762,14 @@ Namespace SistemaFacturacion.Forms.Caja
             RegistroMovimientos(False, Me)
         End Sub
 
-        Private Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
-            ShowCierreDialog(Me)
+        Private Async Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
+            If Await ShowCierreDialog(Me) Then
+                LBL_EstadoTurno.Text = NoIniciado
+            End If
+        End Sub
+
+        Private Sub BTN_CerrarSesion_Click(sender As Object, e As EventArgs) Handles BTN_CerrarSesion.Click
+            LogOut(True, Me, LBL_Usu)
         End Sub
 #End Region
 

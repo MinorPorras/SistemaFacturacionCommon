@@ -1,47 +1,67 @@
-﻿Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
+﻿Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
+Imports System.Data.SQLite
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.MSG
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_CONEXION
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
+
 Namespace SistemaFacturacion.Forms.Inicio
 
     Public Class P_Login
-        Friend idUsu As Integer
+
+        Friend NextForm As Form
+        Friend FromArqueo As Boolean = False
 
         Private Sub BTN_Login_Click(sender As Object, e As EventArgs) Handles BTN_Login.Click
             T.Tables.Clear()
-            SQL = "SELECT nombre, telefono, email, logo FROM sucursal"
-            Cargar_Tabla(T, SQL)
-            If Not IsDBNull(T.Tables(0).Rows(0).Item(0)) Then
-                If T.Tables(0).Rows.Count > 0 Then
-                    SetAppSetting("Empresa", T.Tables(0).Rows(0).Item(0).ToString())
-                    SetAppSetting("Telefono", T.Tables(0).Rows(0).Item(1).ToString())
-                    SetAppSetting("Correo", T.Tables(0).Rows(0).Item(2).ToString())
-                    SetAppSetting("Logo", T.Tables(0).Rows(0).Item(3).ToString())
-                End If
+            SQL = "SELECT clave, tipo FROM usuario WHERE ID = @idUsu"
+            Dim param As New List(Of SQLiteParameter) From {
+                New SQLiteParameter("@idUsu", CBX_UserSelect.SelectedValue)
+            }
+            CargarTablaParam(T, SQL, param)
+
+            'El id de usuario es incorrecto
+            If T.Tables(0).Rows.Count <= 0 Then
+                MsgError("No se encuentra el usuario para comprar la clave")
+                TXT_Clave.Select()
+                TXT_Clave.SelectAll()
             End If
-            T.Tables.Clear()
-            SQL = "SELECT clave, tipo FROM usuario WHERE ID = " & idUsu
-            Cargar_Tabla(T, SQL)
-            If T.Tables(0).Rows.Count > 0 Then
-                If T.Tables(0).Rows(0).Item(0) = TXT_Clave.Text Then
-                    idUsuActual = idUsu
-                    nomUsuActual = LBL_Usu.Text
-                    If T.Tables(0).Rows(0).Item(1) = 0 Then
-                        CuentaAdmin = False
-                    Else
-                        CuentaAdmin = True
-                    End If
-                    M_Inicio.Show()
-                    M_Inicio.Select()
-                    isNavigating = True
-                    P_SelectUsu.Close()
-                    Me.Close()
-                Else
-                    MsgBox("Usuario o contraseña incorrecta", vbCritical + vbOKOnly, "Error")
-                    TXT_Clave.Select()
-                    TXT_Clave.SelectAll()
-                End If
+
+            'El la clave no coincide con la almacenada en la DB
+            If T.Tables(0).Rows(0).Item(0) <> TXT_Clave.Text Then
+                MsgBox("Usuario o contraseña incorrecta", vbCritical + vbOKOnly, "Error")
+                TXT_Clave.Select()
+                TXT_Clave.SelectAll()
             End If
+
+            idUsuActual = CBX_UserSelect.SelectedValue
+            nomUsuActual = CBX_UserSelect.Text
+
+
+            If T.Tables(0).Rows(0).Item(1) = 0 Then
+                CuentaAdmin = False
+            Else
+                CuentaAdmin = True
+            End If
+
+            NextForm = If(CuentaAdmin, New M_Inicio, New P_Caja)
+
+            If FromArqueo Then
+                NextForm = New P_Caja
+            End If
+
+            NextForm.Show()
+            NextForm.Select()
+
+            If TypeOf (NextForm) Is P_Caja Then
+                Dim cajaForm = CType(NextForm, P_Caja)
+                cajaForm.BTN_RegresarCaja.Enabled = False
+            End If
+
+            isNavigating = True
+            Me.Close()
         End Sub
 
-        Private Sub BTN_RegresarLogin_Click(sender As Object, e As EventArgs) Handles BTN_RegresarLogin.Click
+        Private Sub BTN_RegresarLogin_Click(sender As Object, e As EventArgs)
             P_SelectUsu.Show()
             P_SelectUsu.Select()
             isNavigating = True
@@ -69,6 +89,17 @@ Namespace SistemaFacturacion.Forms.Inicio
 
         Private Sub P_Login_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
             ManejarCierreONavegacion(e)
+        End Sub
+
+        Private Sub P_Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+            T.Tables.Clear()
+            SQL = "SELECT ID, usuario, color FROM usuario"
+            Cargar_Tabla(T, SQL)
+            If T.Tables(0).Rows.Count > 0 Then
+                CBX_UserSelect.DataSource = T.Tables(0)
+                CBX_UserSelect.DisplayMember = "usuario"
+                CBX_UserSelect.ValueMember = "ID"
+            End If
         End Sub
     End Class
 
