@@ -68,8 +68,16 @@ Namespace SistemaFacturacion.Modules
             End Try
         End Function
 
-
-        Friend Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet, excluir As Boolean) As Task(Of List(Of Cls_DatosFactura))
+        ''' <summary>
+        ''' Obtiene la lista de ventas en un periodo de tiempo en específico
+        ''' </summary>
+        ''' <param name="desde">Inicio del periodo de tiempo</param>
+        ''' <param name="hasta">Final de periodo de tiempo</param>
+        ''' <param name="t">Data set al que se agrega la lista de ventas para su posterior uso</param>
+        ''' <param name="excluir">Indica si se deben de excluir los valores de la tabla que no corresponden a ser contabilizados en los arqueos de caja</param>
+        ''' <param name="useActiveUser">Indica si se debe de filtrar para que solo recupere los datos del usuario activo </param>
+        ''' <returns></returns>
+        Friend Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet, excluir As Boolean, Optional useActiveUser As Boolean = False) As Task(Of List(Of Cls_DatosFactura))
             Return Await Task.Run(Function()
                                       Dim consulta As String = "SELECT 
                                                                         f.ID,
@@ -95,6 +103,7 @@ Namespace SistemaFacturacion.Modules
                                                                         f.fecha_emision >= @fechaInicio
                                                                         AND f.fecha_emision <  @fechaFin"
 
+
                                       If excluir Then
                                           consulta += " AND excluir_de_cierre = 0"
                                       End If
@@ -103,6 +112,11 @@ Namespace SistemaFacturacion.Modules
                                           New SQLiteParameter("@fechaInicio", desde),
                                           New SQLiteParameter("@fechaFin", hasta)
                                       }
+
+                                      If useActiveUser Then
+                                          consulta += " AND u.ID = @usuarioId"
+                                          paramList.Add(New SQLiteParameter("@usuarioId", idUsuActual))
+                                      End If
 
                                       'Se limpia el dataset antes de llenarlo
                                       t.Tables.Clear()
@@ -174,14 +188,23 @@ Namespace SistemaFacturacion.Modules
                                                   orderByProperty = "total"
                                           End Select
 
-                                          Dim consulta As String = "SELECT COUNT(fp.ID_Producto) AS unidadesVendidas, p.nombre, SUM(fp.precio_venta * fp.cant) As total " &
-                                                                   "FROM factura f " &
-                                                                   "INNER JOIN factura_producto fp ON f.ID = fp.ID_Factura " &
-                                                                   "INNER JOIN producto p ON fp.ID_Producto = p.ID " &
-                                                                   "WHERE f.fecha_emision >= @fecha_inicio AND f.fecha_emision < @fecha_fin " &
-                                                                   "GROUP BY p.nombre " &
-                                                                   $"ORDER BY {orderByProperty} DESC " &
-                                                                   "LIMIT @limite;"
+                                          ' Usamos DENSE_RANK para que si dos productos empatan, tengan el mismo número sin saltarse el siguiente
+                                          Dim consulta As String =
+                                                "WITH ReporteBase AS (" &
+                                                "  SELECT COUNT(fp.ID_Producto) AS unidadesVendidas, " &
+                                                "         p.nombre, " &
+                                                "         SUM(fp.precio_venta * fp.cant) AS total " &
+                                                "  FROM factura f " &
+                                                "  INNER JOIN factura_producto fp ON f.ID = fp.ID_Factura " &
+                                                "  INNER JOIN producto p ON fp.ID_Producto = p.ID " &
+                                                "  WHERE f.fecha_emision >= @fecha_inicio AND f.fecha_emision < @fecha_fin " &
+                                                "  GROUP BY p.nombre" &
+                                                ") " &
+                                                "SELECT RANK() OVER (ORDER BY " & orderByProperty & " DESC) AS ranking, " &
+                                                "       unidadesVendidas, nombre, total " &
+                                                "FROM ReporteBase " &
+                                                "ORDER BY " & orderByProperty & " DESC " &
+                                                "LIMIT @limite;"
 
 
                                           Dim paramList As New List(Of SQLiteParameter) From {
@@ -196,7 +219,7 @@ Namespace SistemaFacturacion.Modules
                                           If T.Tables.Count > 0 AndAlso T.Tables(0).Rows.Count > 0 Then
                                               Log.Information($"Se encontraron {T.Tables(0).Rows.Count} productos vendidos en el rango especificado.")
                                               For Each row As DataRow In T.Tables(0).Rows
-                                                  Dim prod As New Cls_ProductosMasVendidos(row.Item("unidadesVendidas"), row.Item("nombre"), row.Item("total"))
+                                                  Dim prod As New Cls_ProductosMasVendidos(row.Item("ranking"), row.Item("unidadesVendidas"), row.Item("nombre"), row.Item("total"))
                                                   listProductosMasVendidos.Add(prod)
                                               Next
                                           End If

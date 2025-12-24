@@ -3,12 +3,18 @@ Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Types.tp_EstadoArqueo
+
 
 Namespace SistemaFacturacion.Modules
     Module Md_Arqueos
 
 #Region "Dialog"
-        Public Function ShowAperturaDialog(owner As Form, denominaciones As Cls_SaldoCaja) As Boolean
+        Public Function ShowStartShiftDialog(owner As P_Caja, denominaciones As Cls_SaldoCaja) As Boolean
+            If IsShiftStarted() Then
+                MsgError("Ya hay un turno iniciado, antes de iniciar uno nuevo, debe de terminar el anterior")
+                Return False
+            End If
             Using frmAperturaCaja As New D_AperturaCaja()
                 frmAperturaCaja.Owner = owner
                 frmAperturaCaja.saldoSiguiente = denominaciones
@@ -25,6 +31,7 @@ Namespace SistemaFacturacion.Modules
                 If apertura.IngresarApertura() Then
                     Log.Information("Apertura de caja registrada con éxito. UsuarioID={UserID}, FondoInicial={Fondo}", idUsuActual, apertura.Fondo_inicial)
                     Mensaje("Apertura de caja registrada con éxito", vbOKOnly, "Apertura de caja")
+                    owner.LBL_EstadoTurno.Text = Iniciado
                     Return True
                 Else
                     Log.Error("Fallo al registrar la Apertura de Caja en la DB. UsuarioID={UserID}, FondoInicial={Fondo}", idUsuActual, apertura.Fondo_inicial)
@@ -33,9 +40,9 @@ Namespace SistemaFacturacion.Modules
             End Using
         End Function
 
-        Public Async Function ShowCierreDialog(Owner As Form) As Task(Of Boolean)
+        Public Async Function ShowEndShiftDialog(Owner As P_Caja) As Task(Of Boolean)
             Log.Information("Iniciando flujo de Cierre de Caja.")
-            If Not CheckIfCajaAbierta() Then
+            If Not IsShiftStarted() Then
                 MsgError("No se puede realizar el cierre de caja porque no hay una caja abierta. Por favor, realice una apertura de caja primero.")
                 Return False
             End If
@@ -58,9 +65,7 @@ Namespace SistemaFacturacion.Modules
                                     frmCierre.infoCierre.SaldoSiguienteTurno)
                     Mensaje("Cierre de caja registrado con éxito", vbOKOnly, "Cierre de caja")
                     'Primero se debe de abrir la pestaña de login
-                    LogOut(False, Owner, fromArqueo:=True)
-                    'Se abre el formulario de apertura de caja para iniciar una nueva sesión
-                    ShowAperturaDialog(Owner, frmCierre.infoCierre.SaldoSiguienteTurno)
+                    LogOut(True, Owner, fromArqueo:=True, denominaciones:=frmCierre.infoCierre.SaldoSiguienteTurno)
                     Return True
                 Else
                     MsgError($"Fallo al registrar el Cierre de Caja en la DB. UsuarioID={idUsuActual}, MontoEfectivo={frmCierre.infoCierre.IngresoEfectivo}")
@@ -148,15 +153,26 @@ Namespace SistemaFacturacion.Modules
 #End Region
 
 #Region "Validations"
-        Friend Function CheckIfCajaAbierta() As Boolean
-            Dim SQL As String = "SELECT COUNT(*) FROM Arqueo_Caja WHERE hora_cierre IS NULL"
+        Friend Function IsShiftStarted() As Boolean
+            ' Asumiendo que tu llave primaria se llama id_arqueo
+            Dim SQL As String = "SELECT COUNT(*) FROM Arqueo_Caja " &
+                   "WHERE ID = (SELECT MAX(ID) FROM Arqueo_Caja) " &
+                   "AND hora_cierre IS NULL"
             Cargar_Tabla(T, SQL)
 
             'Si no hay filas, no hay caja abierta
             If T.Tables(0).Rows.Count <= 0 Then
-                Log.Warning("No hay arqueos de caja registrados en la base de datos.")
+                Log.Warning("No se ha inciado ningún turno en la base de datos, primero inicie un nuevo turno")
                 Return False
             End If
+
+            'Si el count de la instrucción es 0 significa que todos los arqueos están completos
+            'O sea no hay caja abiertas y se puede abrir una nueva
+            If T.Tables(0).Rows(0).Item(0) = 0 Then
+                Log.Information("No hay turnos iniciados, puede crear un nuevo")
+                Return False
+            End If
+
             'Si el conteo es mayor que 0, hay caja abierta
             Log.Information("Conteo de arqueos de caja abiertos: {Count}", Convert.ToInt32(T.Tables(0).Rows(0)(0)))
             Return True

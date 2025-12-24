@@ -1,15 +1,21 @@
-﻿Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
-Imports System.Data.SQLite
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.MSG
+﻿Imports System.Data.SQLite
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Arqueos
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_CONEXION
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.MSG
 
 Namespace SistemaFacturacion.Forms.Inicio
 
     Public Class P_Login
 
         Friend NextForm As Form
+
+        'Variables utilizadas para los cierres de caja
         Friend FromArqueo As Boolean = False
+        Friend denominaciones_caja_anterior As Cls_SaldoCaja
+
 
         Private Sub BTN_Login_Click(sender As Object, e As EventArgs) Handles BTN_Login.Click
             T.Tables.Clear()
@@ -31,6 +37,7 @@ Namespace SistemaFacturacion.Forms.Inicio
                 MsgBox("Usuario o contraseña incorrecta", vbCritical + vbOKOnly, "Error")
                 TXT_Clave.Select()
                 TXT_Clave.SelectAll()
+                Return
             End If
 
             idUsuActual = CBX_UserSelect.SelectedValue
@@ -54,7 +61,8 @@ Namespace SistemaFacturacion.Forms.Inicio
 
             If TypeOf (NextForm) Is P_Caja Then
                 Dim cajaForm = CType(NextForm, P_Caja)
-                cajaForm.BTN_RegresarCaja.Enabled = False
+                cajaForm.BTN_RegresarCaja.Enabled = CuentaAdmin
+                ShowStartShiftDialog(cajaForm, denominaciones_caja_anterior)
             End If
 
             isNavigating = True
@@ -93,13 +101,15 @@ Namespace SistemaFacturacion.Forms.Inicio
 
         Private Sub P_Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
             T.Tables.Clear()
-            SQL = "SELECT ID, usuario, color FROM usuario"
+            SQL = "SELECT ID, usuario FROM usuario"
             Cargar_Tabla(T, SQL)
             If T.Tables(0).Rows.Count > 0 Then
                 CBX_UserSelect.DataSource = T.Tables(0)
                 CBX_UserSelect.DisplayMember = "usuario"
                 CBX_UserSelect.ValueMember = "ID"
             End If
+
+            TXT_Clave.Select()
         End Sub
     End Class
 

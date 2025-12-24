@@ -38,6 +38,8 @@
             Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_ReporteVentas))
             Me.TAB_Reportes = New Guna.UI2.WinForms.Guna2TabControl()
             Me.PAG_ReporteVentas = New System.Windows.Forms.TabPage()
+            Me.DTP_HoraFinalRepVentas = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_HoraInicioRepVentas = New Guna.UI2.WinForms.Guna2DateTimePicker()
             Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
             Me.Guna2GroupBox1 = New Guna.UI2.WinForms.Guna2GroupBox()
             Me.TXT_CantProdMasVendido = New Guna.UI2.WinForms.Guna2TextBox()
@@ -61,8 +63,8 @@
             Me.BTN_GenerarReporteVentaPDF = New Guna.UI2.WinForms.Guna2Button()
             Me.BTN_RegresarReporte = New Guna.UI2.WinForms.Guna2Button()
             Me.BTN_GenReporte = New Guna.UI2.WinForms.Guna2Button()
-            Me.DTP_Hasta = New Guna.UI2.WinForms.Guna2DateTimePicker()
-            Me.DTP_Desde = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_HastaRepVentas = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_DesdeRepVentas = New Guna.UI2.WinForms.Guna2DateTimePicker()
             Me.DGV_FactReporte = New Guna.UI2.WinForms.Guna2DataGridView()
             Me.MNU_CONTX = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
             Me.MNU_REIMPRIMIR = New System.Windows.Forms.ToolStripMenuItem()
@@ -81,6 +83,8 @@
             Me.Guna2HtmlLabel11 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.TXT_MejorProductoNombre = New Guna.UI2.WinForms.Guna2TextBox()
             Me.PAN_ReporteProductoInputContainer = New Guna.UI2.WinForms.Guna2Panel()
+            Me.DTP_HoraFinRepProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_HoraInicioRepProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
             Me.Guna2GroupBox3 = New Guna.UI2.WinForms.Guna2GroupBox()
             Me.RDB_OrderByCant = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
             Me.RDB_OrderByTotal = New Syncfusion.Windows.Forms.Tools.RadioButtonAdv()
@@ -88,8 +92,8 @@
             Me.BTN_GenReporteProductos = New Guna.UI2.WinForms.Guna2Button()
             Me.Guna2HtmlLabel13 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.Guna2HtmlLabel14 = New Guna.UI2.WinForms.Guna2HtmlLabel()
-            Me.DTP_HastaReporteProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
-            Me.DTP_DesdeReporteProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_HastaRepProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
+            Me.DTP_DesdeRepProducto = New Guna.UI2.WinForms.Guna2DateTimePicker()
             Me.NUD_LimitReporteProducto = New Guna.UI2.WinForms.Guna2NumericUpDown()
             Me.Guna2HtmlLabel12 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.PAG_ArqueosCaja = New System.Windows.Forms.TabPage()
@@ -172,14 +176,16 @@
             'PAG_ReporteVentas
             '
             Me.PAG_ReporteVentas.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.PAG_ReporteVentas.Controls.Add(Me.DTP_HoraFinalRepVentas)
+            Me.PAG_ReporteVentas.Controls.Add(Me.DTP_HoraInicioRepVentas)
             Me.PAG_ReporteVentas.Controls.Add(Me.TableLayoutPanel1)
             Me.PAG_ReporteVentas.Controls.Add(Me.Guna2HtmlLabel2)
             Me.PAG_ReporteVentas.Controls.Add(Me.Guna2HtmlLabel1)
             Me.PAG_ReporteVentas.Controls.Add(Me.LBL_Usu)
             Me.PAG_ReporteVentas.Controls.Add(Me.TXT_TotalVentas)
             Me.PAG_ReporteVentas.Controls.Add(Me.Guna2Panel1)
-            Me.PAG_ReporteVentas.Controls.Add(Me.DTP_Hasta)
-            Me.PAG_ReporteVentas.Controls.Add(Me.DTP_Desde)
+            Me.PAG_ReporteVentas.Controls.Add(Me.DTP_HastaRepVentas)
+            Me.PAG_ReporteVentas.Controls.Add(Me.DTP_DesdeRepVentas)
             Me.PAG_ReporteVentas.Controls.Add(Me.DGV_FactReporte)
             Me.PAG_ReporteVentas.Location = New System.Drawing.Point(4, 44)
             Me.PAG_ReporteVentas.Name = "PAG_ReporteVentas"
@@ -187,6 +193,42 @@
             Me.PAG_ReporteVentas.Size = New System.Drawing.Size(1246, 706)
             Me.PAG_ReporteVentas.TabIndex = 0
             Me.PAG_ReporteVentas.Text = "Reporte de ventas"
+            '
+            'DTP_HoraFinalRepVentas
+            '
+            Me.DTP_HoraFinalRepVentas.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_HoraFinalRepVentas.BorderRadius = 10
+            Me.DTP_HoraFinalRepVentas.Checked = True
+            Me.DTP_HoraFinalRepVentas.CustomFormat = "hh:mm tt"
+            Me.DTP_HoraFinalRepVentas.FillColor = System.Drawing.Color.White
+            Me.DTP_HoraFinalRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_HoraFinalRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_HoraFinalRepVentas.Location = New System.Drawing.Point(937, 524)
+            Me.DTP_HoraFinalRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_HoraFinalRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_HoraFinalRepVentas.Name = "DTP_HoraFinalRepVentas"
+            Me.DTP_HoraFinalRepVentas.ShowUpDown = True
+            Me.DTP_HoraFinalRepVentas.Size = New System.Drawing.Size(285, 36)
+            Me.DTP_HoraFinalRepVentas.TabIndex = 141
+            Me.DTP_HoraFinalRepVentas.Value = New Date(2025, 12, 23, 19, 28, 0, 0)
+            '
+            'DTP_HoraInicioRepVentas
+            '
+            Me.DTP_HoraInicioRepVentas.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_HoraInicioRepVentas.BorderRadius = 10
+            Me.DTP_HoraInicioRepVentas.Checked = True
+            Me.DTP_HoraInicioRepVentas.CustomFormat = "hh:mm tt"
+            Me.DTP_HoraInicioRepVentas.FillColor = System.Drawing.Color.White
+            Me.DTP_HoraInicioRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_HoraInicioRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_HoraInicioRepVentas.Location = New System.Drawing.Point(938, 405)
+            Me.DTP_HoraInicioRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_HoraInicioRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_HoraInicioRepVentas.Name = "DTP_HoraInicioRepVentas"
+            Me.DTP_HoraInicioRepVentas.ShowUpDown = True
+            Me.DTP_HoraInicioRepVentas.Size = New System.Drawing.Size(285, 36)
+            Me.DTP_HoraInicioRepVentas.TabIndex = 140
+            Me.DTP_HoraInicioRepVentas.Value = New Date(2025, 12, 23, 19, 28, 0, 0)
             '
             'TableLayoutPanel1
             '
@@ -589,39 +631,39 @@
             Me.BTN_GenReporte.TabIndex = 83
             Me.BTN_GenReporte.Text = "Generar reporte"
             '
-            'DTP_Hasta
+            'DTP_HastaRepVentas
             '
-            Me.DTP_Hasta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-            Me.DTP_Hasta.BorderRadius = 10
-            Me.DTP_Hasta.Checked = True
-            Me.DTP_Hasta.CustomFormat = "dd/MM/yyyy HH:mm:ss"
-            Me.DTP_Hasta.FillColor = System.Drawing.Color.White
-            Me.DTP_Hasta.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-            Me.DTP_Hasta.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_Hasta.Location = New System.Drawing.Point(937, 482)
-            Me.DTP_Hasta.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-            Me.DTP_Hasta.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-            Me.DTP_Hasta.Name = "DTP_Hasta"
-            Me.DTP_Hasta.Size = New System.Drawing.Size(286, 36)
-            Me.DTP_Hasta.TabIndex = 123
-            Me.DTP_Hasta.Value = New Date(2025, 3, 17, 19, 28, 7, 244)
+            Me.DTP_HastaRepVentas.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_HastaRepVentas.BorderRadius = 10
+            Me.DTP_HastaRepVentas.Checked = True
+            Me.DTP_HastaRepVentas.CustomFormat = "dd/MM/yyyy"
+            Me.DTP_HastaRepVentas.FillColor = System.Drawing.Color.White
+            Me.DTP_HastaRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_HastaRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_HastaRepVentas.Location = New System.Drawing.Point(937, 482)
+            Me.DTP_HastaRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_HastaRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_HastaRepVentas.Name = "DTP_HastaRepVentas"
+            Me.DTP_HastaRepVentas.Size = New System.Drawing.Size(286, 36)
+            Me.DTP_HastaRepVentas.TabIndex = 123
+            Me.DTP_HastaRepVentas.Value = New Date(2025, 3, 17, 0, 0, 0, 0)
             '
-            'DTP_Desde
+            'DTP_DesdeRepVentas
             '
-            Me.DTP_Desde.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-            Me.DTP_Desde.BorderRadius = 10
-            Me.DTP_Desde.Checked = True
-            Me.DTP_Desde.CustomFormat = "dd/MM/yyyy HH:mm:ss"
-            Me.DTP_Desde.FillColor = System.Drawing.Color.White
-            Me.DTP_Desde.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-            Me.DTP_Desde.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_Desde.Location = New System.Drawing.Point(937, 363)
-            Me.DTP_Desde.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-            Me.DTP_Desde.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-            Me.DTP_Desde.Name = "DTP_Desde"
-            Me.DTP_Desde.Size = New System.Drawing.Size(286, 36)
-            Me.DTP_Desde.TabIndex = 122
-            Me.DTP_Desde.Value = New Date(2025, 3, 17, 19, 28, 7, 244)
+            Me.DTP_DesdeRepVentas.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_DesdeRepVentas.BorderRadius = 10
+            Me.DTP_DesdeRepVentas.Checked = True
+            Me.DTP_DesdeRepVentas.CustomFormat = "dd/MM/yyyy"
+            Me.DTP_DesdeRepVentas.FillColor = System.Drawing.Color.White
+            Me.DTP_DesdeRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_DesdeRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_DesdeRepVentas.Location = New System.Drawing.Point(937, 363)
+            Me.DTP_DesdeRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_DesdeRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_DesdeRepVentas.Name = "DTP_DesdeRepVentas"
+            Me.DTP_DesdeRepVentas.Size = New System.Drawing.Size(286, 36)
+            Me.DTP_DesdeRepVentas.TabIndex = 122
+            Me.DTP_DesdeRepVentas.Value = New Date(2025, 3, 17, 19, 28, 7, 244)
             '
             'DGV_FactReporte
             '
@@ -1010,13 +1052,15 @@
             '
             'PAN_ReporteProductoInputContainer
             '
+            Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_HoraFinRepProducto)
+            Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_HoraInicioRepProducto)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.Guna2GroupBox3)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.Guna2HtmlLabel15)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.BTN_GenReporteProductos)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.Guna2HtmlLabel13)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.Guna2HtmlLabel14)
-            Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_HastaReporteProducto)
-            Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_DesdeReporteProducto)
+            Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_HastaRepProducto)
+            Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_DesdeRepProducto)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.NUD_LimitReporteProducto)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.Guna2HtmlLabel12)
             Me.PAN_ReporteProductoInputContainer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1024,6 +1068,43 @@
             Me.PAN_ReporteProductoInputContainer.Name = "PAN_ReporteProductoInputContainer"
             Me.PAN_ReporteProductoInputContainer.Size = New System.Drawing.Size(385, 694)
             Me.PAN_ReporteProductoInputContainer.TabIndex = 1
+            '
+            'DTP_HoraFinRepProducto
+            '
+            Me.DTP_HoraFinRepProducto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_HoraFinRepProducto.BorderRadius = 10
+            Me.DTP_HoraFinRepProducto.Checked = True
+            Me.DTP_HoraFinRepProducto.CustomFormat = "hh:mm tt"
+            Me.DTP_HoraFinRepProducto.FillColor = System.Drawing.Color.White
+            Me.DTP_HoraFinRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_HoraFinRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_HoraFinRepProducto.Location = New System.Drawing.Point(55, 419)
+            Me.DTP_HoraFinRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_HoraFinRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_HoraFinRepProducto.Name = "DTP_HoraFinRepProducto"
+            Me.DTP_HoraFinRepProducto.ShowUpDown = True
+            Me.DTP_HoraFinRepProducto.Size = New System.Drawing.Size(282, 36)
+            Me.DTP_HoraFinRepProducto.TabIndex = 154
+            Me.DTP_HoraFinRepProducto.Value = New Date(2025, 12, 23, 19, 28, 0, 0)
+            '
+            'DTP_HoraInicioRepProducto
+            '
+            Me.DTP_HoraInicioRepProducto.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_HoraInicioRepProducto.BorderRadius = 10
+            Me.DTP_HoraInicioRepProducto.Checked = True
+            Me.DTP_HoraInicioRepProducto.CustomFormat = "hh:mm tt"
+            Me.DTP_HoraInicioRepProducto.FillColor = System.Drawing.Color.White
+            Me.DTP_HoraInicioRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_HoraInicioRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_HoraInicioRepProducto.Location = New System.Drawing.Point(55, 306)
+            Me.DTP_HoraInicioRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_HoraInicioRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_HoraInicioRepProducto.Name = "DTP_HoraInicioRepProducto"
+            Me.DTP_HoraInicioRepProducto.ShowUpDown = True
+            Me.DTP_HoraInicioRepProducto.Size = New System.Drawing.Size(282, 36)
+            Me.DTP_HoraInicioRepProducto.TabIndex = 153
+            Me.DTP_HoraInicioRepProducto.Value = New Date(2025, 12, 23, 19, 28, 0, 0)
             '
             'Guna2GroupBox3
             '
@@ -1136,40 +1217,40 @@
             Me.Guna2HtmlLabel14.Text = "Desde:"
             Me.Guna2HtmlLabel14.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
             '
-            'DTP_HastaReporteProducto
+            'DTP_HastaRepProducto
             '
-            Me.DTP_HastaReporteProducto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Me.DTP_HastaRepProducto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-            Me.DTP_HastaReporteProducto.BorderRadius = 10
-            Me.DTP_HastaReporteProducto.Checked = True
-            Me.DTP_HastaReporteProducto.CustomFormat = "dd/MM/yyyy HH:mm:ss"
-            Me.DTP_HastaReporteProducto.FillColor = System.Drawing.Color.White
-            Me.DTP_HastaReporteProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-            Me.DTP_HastaReporteProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_HastaReporteProducto.Location = New System.Drawing.Point(55, 377)
-            Me.DTP_HastaReporteProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-            Me.DTP_HastaReporteProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-            Me.DTP_HastaReporteProducto.Name = "DTP_HastaReporteProducto"
-            Me.DTP_HastaReporteProducto.Size = New System.Drawing.Size(282, 36)
-            Me.DTP_HastaReporteProducto.TabIndex = 147
-            Me.DTP_HastaReporteProducto.Value = New Date(2025, 3, 17, 19, 28, 7, 244)
+            Me.DTP_HastaRepProducto.BorderRadius = 10
+            Me.DTP_HastaRepProducto.Checked = True
+            Me.DTP_HastaRepProducto.CustomFormat = "dd/MM/yyyy"
+            Me.DTP_HastaRepProducto.FillColor = System.Drawing.Color.White
+            Me.DTP_HastaRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_HastaRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_HastaRepProducto.Location = New System.Drawing.Point(55, 377)
+            Me.DTP_HastaRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_HastaRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_HastaRepProducto.Name = "DTP_HastaRepProducto"
+            Me.DTP_HastaRepProducto.Size = New System.Drawing.Size(282, 36)
+            Me.DTP_HastaRepProducto.TabIndex = 147
+            Me.DTP_HastaRepProducto.Value = New Date(2025, 3, 17, 0, 0, 0, 0)
             '
-            'DTP_DesdeReporteProducto
+            'DTP_DesdeRepProducto
             '
-            Me.DTP_DesdeReporteProducto.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-            Me.DTP_DesdeReporteProducto.BorderRadius = 10
-            Me.DTP_DesdeReporteProducto.Checked = True
-            Me.DTP_DesdeReporteProducto.CustomFormat = "dd/MM/yyyy HH:mm:ss"
-            Me.DTP_DesdeReporteProducto.FillColor = System.Drawing.Color.White
-            Me.DTP_DesdeReporteProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-            Me.DTP_DesdeReporteProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_DesdeReporteProducto.Location = New System.Drawing.Point(55, 267)
-            Me.DTP_DesdeReporteProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-            Me.DTP_DesdeReporteProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-            Me.DTP_DesdeReporteProducto.Name = "DTP_DesdeReporteProducto"
-            Me.DTP_DesdeReporteProducto.Size = New System.Drawing.Size(282, 36)
-            Me.DTP_DesdeReporteProducto.TabIndex = 146
-            Me.DTP_DesdeReporteProducto.Value = New Date(2025, 3, 17, 19, 28, 7, 244)
+            Me.DTP_DesdeRepProducto.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_DesdeRepProducto.BorderRadius = 10
+            Me.DTP_DesdeRepProducto.Checked = True
+            Me.DTP_DesdeRepProducto.CustomFormat = "dd/MM/yyyy"
+            Me.DTP_DesdeRepProducto.FillColor = System.Drawing.Color.White
+            Me.DTP_DesdeRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+            Me.DTP_DesdeRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+            Me.DTP_DesdeRepProducto.Location = New System.Drawing.Point(55, 267)
+            Me.DTP_DesdeRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+            Me.DTP_DesdeRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+            Me.DTP_DesdeRepProducto.Name = "DTP_DesdeRepProducto"
+            Me.DTP_DesdeRepProducto.Size = New System.Drawing.Size(282, 36)
+            Me.DTP_DesdeRepProducto.TabIndex = 146
+            Me.DTP_DesdeRepProducto.Value = New Date(2025, 3, 17, 0, 0, 0, 0)
             '
             'NUD_LimitReporteProducto
             '
@@ -1255,7 +1336,7 @@
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.50459!))
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109.0!))
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 299.0!))
-            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117.0!))
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
             Me.TBL_LayoutSearch.Controls.Add(Me.DTP_FechaFiltroArqueo, 3, 0)
             Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel17, 2, 0)
             Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel18, 0, 0)
@@ -1277,7 +1358,7 @@
             Me.DTP_FechaFiltroArqueo.FillColor = System.Drawing.Color.White
             Me.DTP_FechaFiltroArqueo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_FechaFiltroArqueo.Format = System.Windows.Forms.DateTimePickerFormat.[Long]
-            Me.DTP_FechaFiltroArqueo.Location = New System.Drawing.Point(820, 3)
+            Me.DTP_FechaFiltroArqueo.Location = New System.Drawing.Point(817, 3)
             Me.DTP_FechaFiltroArqueo.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_FechaFiltroArqueo.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_FechaFiltroArqueo.Name = "DTP_FechaFiltroArqueo"
@@ -1292,7 +1373,7 @@
             Me.Guna2HtmlLabel17.Dock = System.Windows.Forms.DockStyle.Fill
             Me.Guna2HtmlLabel17.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel17.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(711, 3)
+            Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(708, 3)
             Me.Guna2HtmlLabel17.Name = "Guna2HtmlLabel17"
             Me.Guna2HtmlLabel17.Size = New System.Drawing.Size(103, 48)
             Me.Guna2HtmlLabel17.TabIndex = 156
@@ -1309,7 +1390,7 @@
             Me.Guna2HtmlLabel18.ForeColor = System.Drawing.SystemColors.Control
             Me.Guna2HtmlLabel18.Location = New System.Drawing.Point(3, 3)
             Me.Guna2HtmlLabel18.Name = "Guna2HtmlLabel18"
-            Me.Guna2HtmlLabel18.Size = New System.Drawing.Size(132, 48)
+            Me.Guna2HtmlLabel18.Size = New System.Drawing.Size(131, 48)
             Me.Guna2HtmlLabel18.TabIndex = 154
             Me.Guna2HtmlLabel18.Text = "Usuario:"
             Me.Guna2HtmlLabel18.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter
@@ -1330,18 +1411,18 @@
             Me.TXT_BuscarUsuario.ForeColor = System.Drawing.Color.Black
             Me.TXT_BuscarUsuario.HoverState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
             Me.TXT_BuscarUsuario.IconRightSize = New System.Drawing.Size(40, 40)
-            Me.TXT_BuscarUsuario.Location = New System.Drawing.Point(141, 3)
+            Me.TXT_BuscarUsuario.Location = New System.Drawing.Point(140, 3)
             Me.TXT_BuscarUsuario.Name = "TXT_BuscarUsuario"
             Me.TXT_BuscarUsuario.PlaceholderText = ""
             Me.TXT_BuscarUsuario.SelectedText = ""
-            Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(564, 48)
+            Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(562, 48)
             Me.TXT_BuscarUsuario.TabIndex = 155
             '
             'PAN_SWTBuscarFecha
             '
             Me.PAN_SWTBuscarFecha.Controls.Add(Me.SWT_ActivateDateSearch)
             Me.PAN_SWTBuscarFecha.Controls.Add(Me.Guna2HtmlLabel19)
-            Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(1119, 3)
+            Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(1116, 3)
             Me.PAN_SWTBuscarFecha.Name = "PAN_SWTBuscarFecha"
             Me.PAN_SWTBuscarFecha.Size = New System.Drawing.Size(106, 48)
             Me.PAN_SWTBuscarFecha.TabIndex = 158
@@ -1572,8 +1653,8 @@
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents BTN_RegresarReporte As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents BTN_GenReporte As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents DTP_Hasta As Guna.UI2.WinForms.Guna2DateTimePicker
-    Friend WithEvents DTP_Desde As Guna.UI2.WinForms.Guna2DateTimePicker
+    Friend WithEvents DTP_HastaRepVentas As Guna.UI2.WinForms.Guna2DateTimePicker
+    Friend WithEvents DTP_DesdeRepVentas As Guna.UI2.WinForms.Guna2DateTimePicker
     Friend WithEvents DGV_FactReporte As Guna.UI2.WinForms.Guna2DataGridView
     Friend WithEvents BTN_GenerarReporteVentaPDF As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2HtmlLabel3 As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -1608,8 +1689,8 @@
         Friend WithEvents BTN_RegresarReporteProducto As Guna.UI2.WinForms.Guna2Button
         Friend WithEvents Guna2HtmlLabel13 As Guna.UI2.WinForms.Guna2HtmlLabel
         Friend WithEvents Guna2HtmlLabel14 As Guna.UI2.WinForms.Guna2HtmlLabel
-        Friend WithEvents DTP_HastaReporteProducto As Guna.UI2.WinForms.Guna2DateTimePicker
-        Friend WithEvents DTP_DesdeReporteProducto As Guna.UI2.WinForms.Guna2DateTimePicker
+        Friend WithEvents DTP_HastaRepProducto As Guna.UI2.WinForms.Guna2DateTimePicker
+        Friend WithEvents DTP_DesdeRepProducto As Guna.UI2.WinForms.Guna2DateTimePicker
         Friend WithEvents BTN_GenReporteProductos As Guna.UI2.WinForms.Guna2Button
         Friend WithEvents Guna2HtmlLabel15 As Guna.UI2.WinForms.Guna2HtmlLabel
         Friend WithEvents Guna2GroupBox3 As Guna.UI2.WinForms.Guna2GroupBox
@@ -1635,6 +1716,10 @@
         Friend WithEvents DGV_ListaCierres As Guna.UI2.WinForms.Guna2DataGridView
         Friend WithEvents MNU_CONTX_ARQUEO As Guna.UI2.WinForms.Guna2ContextMenuStrip
         Friend WithEvents MNU_ARQUEO_DATOS As ToolStripMenuItem
+        Friend WithEvents DTP_HoraInicioRepVentas As Guna.UI2.WinForms.Guna2DateTimePicker
+        Friend WithEvents DTP_HoraFinalRepVentas As Guna.UI2.WinForms.Guna2DateTimePicker
+        Friend WithEvents DTP_HoraFinRepProducto As Guna.UI2.WinForms.Guna2DateTimePicker
+        Friend WithEvents DTP_HoraInicioRepProducto As Guna.UI2.WinForms.Guna2DateTimePicker
     End Class
 
 End Namespace
