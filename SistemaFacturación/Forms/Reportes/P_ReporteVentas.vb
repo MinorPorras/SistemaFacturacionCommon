@@ -53,13 +53,15 @@ Namespace SistemaFacturacion.Forms.Reportes
 
                 Case "PAG_ReporteProd"
                     ' Lógica para cargar los datos de la pestaña de Reportes.
+                    'Se carga la fecha actual
+                    CargarFechaActual()
                     AplicarEstiloDataGridView(DGV_ListProductosMasVendidos)
                     RDB_OrderByCant.Checked = True
 
                     ' Actualiza el estado de carga para evitar recargas.
                     _tabLoaded("PAG_ReporteProd") = True
                 Case "PAG_ArqueosCaja"
-                    InicializarComponentes()
+                    InicializarComponentesArqueos()
                     ReiniciarTemporizador()
             End Select
         End Sub
@@ -72,14 +74,18 @@ Namespace SistemaFacturacion.Forms.Reportes
 
         Private Sub CargarFechaActual()
             ' Establece la fecha de inicio al inicio del día (00:00:00)
-            DTP_Desde.Value = Date.Now.Date
+            DTP_DesdeRepVentas.Value = Date.Now.Date
+            DTP_HoraInicioRepVentas.Value = Date.Now.Date
 
             ' Establece la fecha de fin al final del día (23:59:59)
-            DTP_Hasta.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
+            DTP_HastaRepVentas.Value = Date.Now.Date.AddDays(1)
+            DTP_HoraFinalRepVentas.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
 
             ' Se aplica la misma lógica
-            DTP_DesdeReporteProducto.Value = Date.Now.Date
-            DTP_HastaReporteProducto.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
+            DTP_DesdeRepProducto.Value = Date.Now.Date
+            DTP_HoraInicioRepProducto.Value = Date.Now.Date
+            DTP_HastaRepProducto.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
+            DTP_HoraFinRepProducto.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
         End Sub
 
         ' Este método puede estar en un módulo o en tu clase del formulario
@@ -160,11 +166,14 @@ Namespace SistemaFacturacion.Forms.Reportes
                 BTN_GenReporte.Text = "Generando reporte..."
                 BTN_GenReporte.BackColor = Color.FromKnownColor(KnownColor.Gray)
                 'Se genera el reporte desde el módulo de reportes
-                Dim reporte = Await GenerarReporte(DTP_Desde.Value, DTP_Hasta.Value, T)
+                Dim fechaInicial As Date = DTP_DesdeRepVentas.Value.Date.Add(DTP_HoraInicioRepVentas.Value.TimeOfDay)
+                Dim fechaFinal As Date = DTP_HastaRepVentas.Value.Date.Add(DTP_HoraFinalRepVentas.Value.TimeOfDay)
+
+                Dim reporte = Await GenerarReporte(fechaInicial, fechaFinal, T)
 
                 'Si no hay ventas registradas en el rango se envía un mensaje de alerta y no se carga nada
                 If reporte.ListaVentas.Count < 0 Then
-                    mensaje("No hay datos que mostrar en ese rango", vbOKOnly, "Sin datos")
+                    Mensaje("No hay datos que mostrar en ese rango", vbOKOnly, "Sin datos")
                     Return
                 End If
 
@@ -202,7 +211,7 @@ Namespace SistemaFacturacion.Forms.Reportes
                 BTN_GenReporte.Text = "Generar reporte"
                 BTN_GenReporte.BackColor = Color.FromKnownColor(KnownColor.MediumSeaGreen)
             Catch ex As Exception
-                msgError("Error al crear el reporte: " + ex.Message)
+                MsgError("Error al crear el reporte: " + ex.Message)
             End Try
         End Sub
 
@@ -235,10 +244,13 @@ Namespace SistemaFacturacion.Forms.Reportes
         End Sub
 
         Private Sub BTN_GenerarReporteVentaPDF_Click(sender As Object, e As EventArgs) Handles BTN_GenerarReporteVentaPDF.Click
-            Dim resultado As DialogResult = MsgBox($"Desea generar el reporte de ventas en este rango: {DTP_Desde.Value:dd MMM yyyy} - {DTP_Hasta.Value:dd MMM yyyy}",
+            Dim resultado As DialogResult = MsgBox($"Desea generar el reporte de ventas en este rango: {DTP_DesdeRepVentas.Value:dd MMM yyyy} - {DTP_HastaRepVentas.Value:dd MMM yyyy}",
                                                    vbOKCancel, "Confirmación")
             If resultado = DialogResult.OK Then
-                Md_Reportes.Crear_PDF_ReporteVentas(DTP_Desde.Value, DTP_Hasta.Value)
+                'Se genera el reporte desde el módulo de reportes
+                Dim fechaInicial As Date = DTP_DesdeRepVentas.Value.Date.Add(DTP_HoraInicioRepVentas.Value.TimeOfDay)
+                Dim fechaFinal As Date = DTP_HastaRepVentas.Value.Date.Add(DTP_HoraFinalRepVentas.Value.TimeOfDay)
+                Md_Reportes.Crear_PDF_ReporteVentas(DTP_DesdeRepVentas.Value, DTP_HastaRepVentas.Value)
             End If
         End Sub
 
@@ -265,10 +277,14 @@ Namespace SistemaFacturacion.Forms.Reportes
             Else
                 orderBy = 2
             End If
-            Dim listaProd = Await getProductosMasVendido(limit, DTP_DesdeReporteProducto.Value, DTP_HastaReporteProducto.Value, orderBy)
+
+            Dim fechaInicial As Date = DTP_DesdeRepProducto.Value.Date.Add(DTP_HoraInicioRepProducto.Value.TimeOfDay)
+            Dim fechaFinal As Date = DTP_HastaRepProducto.Value.Date.Add(DTP_HoraFinRepProducto.Value.TimeOfDay)
+
+            Dim listaProd = Await GetProductosMasVendido(limit, fechaInicial, fechaFinal, orderBy)
 
             If listaProd.Count <= 0 Then
-                msgError("No hay productos que mostrar en este rango")
+                MsgError("No hay productos que mostrar en este rango")
                 'Se vuelve a activar el botón al terminar de generar el reporte
                 BTN_GenReporteProductos.Enabled = True
                 BTN_GenReporteProductos.Text = "Generar reporte"
@@ -295,7 +311,7 @@ Namespace SistemaFacturacion.Forms.Reportes
 
         Private Sub DGV_ListProductosMasVendidos_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DGV_ListProductosMasVendidos.ColumnHeaderMouseClick
             ' Obtener la columna en la que se hizo clic
-            Dim col As DataGridViewColumn = DGV_FactReporte.Columns(e.ColumnIndex)
+            Dim col As DataGridViewColumn = DGV_ListProductosMasVendidos.Columns(e.ColumnIndex)
             Dim colName As String = col.DataPropertyName
 
             ' Obtener la dirección de ordenamiento actual
@@ -314,7 +330,7 @@ Namespace SistemaFacturacion.Forms.Reportes
             End If
 
             ' Ordenar el BindingSource
-            Dim bs As BindingSource = TryCast(DGV_FactReporte.DataSource, BindingSource)
+            Dim bs As BindingSource = TryCast(DGV_ListProductosMasVendidos.DataSource, BindingSource)
             If bs IsNot Nothing Then
                 bs.Sort = colName & " " & IIf(sortDirection = System.ComponentModel.ListSortDirection.Ascending, "ASC", "DESC")
             End If
@@ -326,9 +342,11 @@ Namespace SistemaFacturacion.Forms.Reportes
 
         Private Sub DGV_ListProductosMasVendidos_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_ListProductosMasVendidos.DataBindingComplete
             ' Establecer el orden de las columnas para DGV_ListProductosMasVendidos
-            DGV_ListProductosMasVendidos.Columns("nombre").DisplayIndex = 0
-            DGV_ListProductosMasVendidos.Columns("cantidad").DisplayIndex = 1
-            DGV_ListProductosMasVendidos.Columns("total").DisplayIndex = 2
+            DGV_ListProductosMasVendidos.Columns("ranking").DisplayIndex = 0
+            DGV_ListProductosMasVendidos.Columns("ranking").AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            DGV_ListProductosMasVendidos.Columns("nombre").DisplayIndex = 1
+            DGV_ListProductosMasVendidos.Columns("cantidad").DisplayIndex = 2
+            DGV_ListProductosMasVendidos.Columns("total").DisplayIndex = 3
         End Sub
 #End Region
 
@@ -345,10 +363,11 @@ Namespace SistemaFacturacion.Forms.Reportes
         End Sub
 
         ' Método para inicializar el temporizador y otros componentes necesarios
-        Private Sub InicializarComponentes()
+        Private Sub InicializarComponentesArqueos()
             'Se establece el filtro de la busqueda en desabilitado inicialmente para que muestre todos los cierres
             SWT_ActivateDateSearch.Checked = False
-            DTP_Desde.Enabled = False
+            DTP_DesdeRepVentas.Value = Date.Now
+            DTP_DesdeRepVentas.Enabled = False
             ' Inicializar el temporizador
             searchTimer = New Timer With {
                 .Interval = 250
@@ -406,7 +425,7 @@ Namespace SistemaFacturacion.Forms.Reportes
 
                          ' Si el switch no está marcado, se ignora la fecha en el filtro
                          If SWT_ActivateDateSearch.Checked Then
-                             fecha.Value = DTP_Desde.Value
+                             fecha.Value = DTP_DesdeRepVentas.Value
                          Else
                              fecha.Value = DBNull.Value
                          End If
@@ -472,6 +491,7 @@ Namespace SistemaFacturacion.Forms.Reportes
             Else
                 DTP_FechaFiltroArqueo.Enabled = False
             End If
+            ReiniciarTemporizador()
         End Sub
 
         Private Sub MNU_ARQUEO_DATOS_Click(sender As Object, e As EventArgs) Handles MNU_ARQUEO_DATOS.Click

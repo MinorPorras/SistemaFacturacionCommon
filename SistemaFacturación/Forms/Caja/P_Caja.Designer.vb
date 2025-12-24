@@ -65,8 +65,11 @@
             Me.MNU_MODIFICAR = New System.Windows.Forms.ToolStripMenuItem()
             Me.MNU_ELIMINAR = New System.Windows.Forms.ToolStripMenuItem()
             Me.Panel1 = New System.Windows.Forms.Panel()
+            Me.LBL_EstadoTurno = New Guna.UI2.WinForms.Guna2HtmlLabel()
+            Me.label1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
             Me.PAN_AddProd = New System.Windows.Forms.Panel()
+            Me.BTN_CerrarSesion = New Guna.UI2.WinForms.Guna2TileButton()
             Me.BTN_ConfigCaja = New Guna.UI2.WinForms.Guna2TileButton()
             Me.TXT_BuscarProducto = New Guna.UI2.WinForms.Guna2TextBox()
             Me.PAN_FavProd = New Guna.UI2.WinForms.Guna2Panel()
@@ -74,9 +77,6 @@
             Me.PAN_HeaderFavProd = New Guna.UI2.WinForms.Guna2Panel()
             Me.lbl_tituloProdFav = New Guna.UI2.WinForms.Guna2HtmlLabel()
             Me.FLW_FavProdBtn = New Syncfusion.Windows.Forms.Tools.FlowLayout(Me.components)
-            Me.BTN_CerrarSesion = New Guna.UI2.WinForms.Guna2TileButton()
-            Me.LBL_EstadoTurno = New Guna.UI2.WinForms.Guna2HtmlLabel()
-            Me.label1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
             CType(Me.PIC_Logo, System.ComponentModel.ISupportInitialize).BeginInit()
             Me.TableLayoutPanel1.SuspendLayout()
             Me.TableLayoutPanel2.SuspendLayout()
@@ -302,7 +302,7 @@
             Me.BTN_AperturaCaja.Name = "BTN_AperturaCaja"
             Me.BTN_AperturaCaja.Size = New System.Drawing.Size(440, 54)
             Me.BTN_AperturaCaja.TabIndex = 125
-            Me.BTN_AperturaCaja.Text = "[F4] Apertura de caja"
+            Me.BTN_AperturaCaja.Text = "[F4] Iniciar Turno"
             '
             'BTN_CierreCaja
             '
@@ -321,7 +321,7 @@
             Me.BTN_CierreCaja.Name = "BTN_CierreCaja"
             Me.BTN_CierreCaja.Size = New System.Drawing.Size(441, 54)
             Me.BTN_CierreCaja.TabIndex = 127
-            Me.BTN_CierreCaja.Text = "[F6] Cierre de caja"
+            Me.BTN_CierreCaja.Text = "[F6] Finalizar turno"
             '
             'BTN_GuardarCuenta
             '
@@ -671,6 +671,30 @@
             Me.Panel1.Size = New System.Drawing.Size(651, 102)
             Me.Panel1.TabIndex = 124
             '
+            'LBL_EstadoTurno
+            '
+            Me.LBL_EstadoTurno.BackColor = System.Drawing.Color.Transparent
+            Me.LBL_EstadoTurno.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
+            Me.LBL_EstadoTurno.ForeColor = System.Drawing.SystemColors.Control
+            Me.LBL_EstadoTurno.Location = New System.Drawing.Point(460, 48)
+            Me.LBL_EstadoTurno.Name = "LBL_EstadoTurno"
+            Me.LBL_EstadoTurno.Size = New System.Drawing.Size(118, 32)
+            Me.LBL_EstadoTurno.TabIndex = 115
+            Me.LBL_EstadoTurno.Text = "No iniciado"
+            Me.LBL_EstadoTurno.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
+            'label1
+            '
+            Me.label1.BackColor = System.Drawing.Color.Transparent
+            Me.label1.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
+            Me.label1.ForeColor = System.Drawing.SystemColors.Control
+            Me.label1.Location = New System.Drawing.Point(383, 48)
+            Me.label1.Name = "label1"
+            Me.label1.Size = New System.Drawing.Size(71, 32)
+            Me.label1.TabIndex = 116
+            Me.label1.Text = "Turno:"
+            Me.label1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
+            '
             'Guna2Panel1
             '
             Me.Guna2Panel1.Controls.Add(Me.PAN_AddProd)
@@ -692,6 +716,29 @@
             Me.PAN_AddProd.Name = "PAN_AddProd"
             Me.PAN_AddProd.Size = New System.Drawing.Size(676, 102)
             Me.PAN_AddProd.TabIndex = 101
+            '
+            'BTN_CerrarSesion
+            '
+            Me.BTN_CerrarSesion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.BTN_CerrarSesion.Animated = True
+            Me.BTN_CerrarSesion.BorderRadius = 10
+            Me.BTN_CerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand
+            Me.BTN_CerrarSesion.CustomBorderColor = System.Drawing.Color.Transparent
+            Me.BTN_CerrarSesion.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_CerrarSesion.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_CerrarSesion.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+            Me.BTN_CerrarSesion.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+            Me.BTN_CerrarSesion.FillColor = System.Drawing.Color.Transparent
+            Me.BTN_CerrarSesion.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.BTN_CerrarSesion.ForeColor = System.Drawing.Color.White
+            Me.BTN_CerrarSesion.HoverState.FillColor = System.Drawing.Color.Black
+            Me.BTN_CerrarSesion.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_LogoutCol
+            Me.BTN_CerrarSesion.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Logout
+            Me.BTN_CerrarSesion.ImageSize = New System.Drawing.Size(50, 50)
+            Me.BTN_CerrarSesion.Location = New System.Drawing.Point(551, 25)
+            Me.BTN_CerrarSesion.Name = "BTN_CerrarSesion"
+            Me.BTN_CerrarSesion.Size = New System.Drawing.Size(55, 55)
+            Me.BTN_CerrarSesion.TabIndex = 115
             '
             'BTN_ConfigCaja
             '
@@ -789,53 +836,6 @@
             'FLW_FavProdBtn
             '
             Me.FLW_FavProdBtn.ContainerControl = Me.PAN_FavProdBTNContainer
-            '
-            'BTN_CerrarSesion
-            '
-            Me.BTN_CerrarSesion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-            Me.BTN_CerrarSesion.Animated = True
-            Me.BTN_CerrarSesion.BorderRadius = 10
-            Me.BTN_CerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand
-            Me.BTN_CerrarSesion.CustomBorderColor = System.Drawing.Color.Transparent
-            Me.BTN_CerrarSesion.DisabledState.BorderColor = System.Drawing.Color.DarkGray
-            Me.BTN_CerrarSesion.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
-            Me.BTN_CerrarSesion.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
-            Me.BTN_CerrarSesion.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
-            Me.BTN_CerrarSesion.FillColor = System.Drawing.Color.Transparent
-            Me.BTN_CerrarSesion.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-            Me.BTN_CerrarSesion.ForeColor = System.Drawing.Color.White
-            Me.BTN_CerrarSesion.HoverState.FillColor = System.Drawing.Color.Black
-            Me.BTN_CerrarSesion.HoverState.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_LogoutCol
-            Me.BTN_CerrarSesion.Image = Global.SistemaFacturaciónCommon.My.Resources.Resources.ICO_Logout
-            Me.BTN_CerrarSesion.ImageSize = New System.Drawing.Size(50, 50)
-            Me.BTN_CerrarSesion.Location = New System.Drawing.Point(551, 25)
-            Me.BTN_CerrarSesion.Name = "BTN_CerrarSesion"
-            Me.BTN_CerrarSesion.Size = New System.Drawing.Size(55, 55)
-            Me.BTN_CerrarSesion.TabIndex = 115
-            '
-            'LBL_EstadoTurno
-            '
-            Me.LBL_EstadoTurno.BackColor = System.Drawing.Color.Transparent
-            Me.LBL_EstadoTurno.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
-            Me.LBL_EstadoTurno.ForeColor = System.Drawing.SystemColors.Control
-            Me.LBL_EstadoTurno.Location = New System.Drawing.Point(460, 48)
-            Me.LBL_EstadoTurno.Name = "LBL_EstadoTurno"
-            Me.LBL_EstadoTurno.Size = New System.Drawing.Size(118, 32)
-            Me.LBL_EstadoTurno.TabIndex = 115
-            Me.LBL_EstadoTurno.Text = "No iniciado"
-            Me.LBL_EstadoTurno.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
-            '
-            'label1
-            '
-            Me.label1.BackColor = System.Drawing.Color.Transparent
-            Me.label1.Font = New System.Drawing.Font("Segoe UI Black", 15.75!, System.Drawing.FontStyle.Bold)
-            Me.label1.ForeColor = System.Drawing.SystemColors.Control
-            Me.label1.Location = New System.Drawing.Point(383, 48)
-            Me.label1.Name = "label1"
-            Me.label1.Size = New System.Drawing.Size(71, 32)
-            Me.label1.TabIndex = 116
-            Me.label1.Text = "Turno:"
-            Me.label1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit
             '
             'P_Caja
             '

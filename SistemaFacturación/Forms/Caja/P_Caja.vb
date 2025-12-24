@@ -75,6 +75,12 @@ Namespace SistemaFacturacion.Forms.Caja
                     PIC_Logo.Image = Nothing
                     PIC_Logo.ImageLocation = ""
                 End If
+
+                If IsShiftStarted() Then
+                    LBL_EstadoTurno.Text = Iniciado
+                Else
+                    LBL_EstadoTurno.Text = NoIniciado
+                End If
             Catch ex As Exception
                 msgError("Error al cargar la información inicial de la caja." + vbCrLf + "Error: " + ex.Message)
             End Try
@@ -749,9 +755,7 @@ Namespace SistemaFacturacion.Forms.Caja
 
 #Region "Movimientos caja"
         Private Sub BTN_AperturaCaja_Click(sender As Object, e As EventArgs) Handles BTN_AperturaCaja.Click
-            If ShowAperturaDialog(Me, New Cls_SaldoCaja) Then
-                LBL_EstadoTurno.Text = Iniciado
-            End If
+            ShowStartShiftDialog(Me, New Cls_SaldoCaja)
         End Sub
 
         Private Sub BTN_RegistrarIngreso_Click(sender As Object, e As EventArgs) Handles BTN_RegistrarIngreso.Click
@@ -763,7 +767,7 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Async Sub BTN_CierreCaja_Click(sender As Object, e As EventArgs) Handles BTN_CierreCaja.Click
-            If Await ShowCierreDialog(Me) Then
+            If Await ShowEndShiftDialog(Me) Then
                 LBL_EstadoTurno.Text = NoIniciado
             End If
         End Sub
