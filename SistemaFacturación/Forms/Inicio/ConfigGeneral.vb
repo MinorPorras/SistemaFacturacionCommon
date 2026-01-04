@@ -2,6 +2,7 @@
 Imports Guna.UI2.WinForms
 Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Helper
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
 
 Namespace SistemaFacturacion.Forms.Inicio
@@ -271,12 +272,31 @@ Namespace SistemaFacturacion.Forms.Inicio
 
             ' Deshabilitar el evento para evitar que se dispare
             RemoveHandler SWT_AutoUpdate.CheckedChanged, AddressOf SWT_AutoUpdate_CheckedChanged
+            RemoveHandler SWT_AutoStart.CheckedChanged, AddressOf SWT_AutoStart_CheckedChanged
+
 
             ' Cambiar el estado del control sin ejecutar el evento
             SWT_AutoUpdate.Checked = Md_Inicializacion.GetAppSetting("AutoUpdate") = "True"
+            SWT_AutoStart.Checked = AutoStartHelper.IniciarConWindows
 
             ' Habilitar el evento nuevamente
             AddHandler SWT_AutoUpdate.CheckedChanged, AddressOf SWT_AutoUpdate_CheckedChanged
+            AddHandler SWT_AutoStart.CheckedChanged, AddressOf SWT_AutoStart_CheckedChanged
+
+        End Sub
+
+
+        Private Sub SWT_AutoStart_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_AutoStart.CheckedChanged
+            Try
+                AutoStartHelper.IniciarConWindows = SWT_AutoStart.Checked
+                If SWT_AutoStart.Checked Then
+                    MSG.Mensaje("La aplicación se iniciará la inicar sesión en windows", MsgBoxStyle.OkOnly, "Configuración de inicio cambiada")
+                Else
+                    MSG.Mensaje("La aplicación ya no se iniciará la iniciar sesión en windows", MsgBoxStyle.OkOnly, "Configuración de inicio cambiada")
+                End If
+            Catch ex As Exception
+                MSG.MsgError("Error al establecer la configuración de inicio")
+            End Try
         End Sub
 
         Private Sub SWT_AutoUpdate_CheckedChanged(sender As Object, e As EventArgs) Handles SWT_AutoUpdate.CheckedChanged
@@ -290,7 +310,7 @@ Namespace SistemaFacturacion.Forms.Inicio
 
             ' Establece la configuración y muestra el mensaje
             Md_Inicializacion.SetAppSetting("AutoUpdate", settingValue)
-            MessageBox.Show(message, "Configuración Actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG.Mensaje(message, MsgBoxStyle.OkOnly, "Configuración actualizada")
         End Sub
 
         Private Async Sub BTN_CheckForUpdates_Click(sender As Object, e As EventArgs) Handles BTN_CheckForUpdates.Click

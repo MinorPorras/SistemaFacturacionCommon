@@ -35,7 +35,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>3.0.6.0</ApplicationVersion>
+    <ApplicationVersion>3.0.7.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -406,6 +406,7 @@
     <Compile Include="Forms\Mantenimiento\E_NuevoConcepto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helpers\AutoStartHelper.vb" />
     <Compile Include="Modules\Md_Arqueos.vb" />
     <Compile Include="Modules\Md_formating.vb" />
     <Compile Include="Modules\Md_LogSetup.vb" />
@@ -826,6 +827,7 @@
     <Content Include="Resources\ICO_Eliminar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TextFile1.txt" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

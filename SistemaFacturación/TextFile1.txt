@@ -1,0 +1,18 @@
+﻿TuApp/
+├── Helpers/
+│   ├── MessageBoxHelper.vb
+│   ├── DataGridFormatHelper.vb
+│   └── SerilogHelper.vb
+├── Services/
+│   ├── Interfaces/
+│   │   ├── IDatabaseConnectionService.vb
+│   │   ├── IBackupService.vb
+│   │   └── ICajaArqueoService.vb
+│   ├── DatabaseConnectionService.vb
+│   ├── BackupService.vb
+│   └── CajaArqueoService.vb
+├── Modules/ (para compatibilidad)
+│   └── ConnectionModule.vb
+├── Forms/
+│   └── InputDialogForm.vb
+└── (resto de tu proyecto)
