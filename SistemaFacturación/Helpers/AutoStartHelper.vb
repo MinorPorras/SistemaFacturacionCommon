@@ -8,7 +8,6 @@ Namespace SistemaFacturacion.Helper
     ''' Helper que permite la creación, modificación y eliminación de los registros necesarios para que la aplicación 
     ''' se inicie cuando se inicia sesión en windows
     ''' </summary>
-    ''' <
     Module AutoStartHelper
 
         Private Const REG_KEY As String = "Software\Microsoft\Windows\CurrentVersion\Run"
