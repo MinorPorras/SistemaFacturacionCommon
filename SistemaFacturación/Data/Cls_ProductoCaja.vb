@@ -7,6 +7,7 @@ Namespace SistemaFacturacion.Data
         Public Property Codigo As String
         Public Property Producto As String
         Public Property Precio As Decimal
+        Public Property Variable As Boolean
         Public ReadOnly Property Formated_precio As String
             Get
                 Return Precio.ToString("C", CulturaCR)

@@ -12,7 +12,6 @@ Esta nueva actualización sencilla de la aplicación busca arreglar un par de er
 
 - Se arregló un error en el cual los datos de los reportes no se calculaban correctamente, en este caso para todos los reportes relacionados con las ventas de los productos, siendo estos los reportes de los productos y la sección del producto más vendido del reporte general
 
-
 # Notas del parche versión 3.0.6 (23 de dic de 2025)
 
 Esta actualización busca resolver algunos problemas identificados en el flujo de trabajao de los arqueos de caja. EN este caso se presentan mejorar sustanciales en el flujo de trabajo de los turnos y una mayor claridad de sus procesos. Además de esto se mejoró la precisión con la que se puede específicar los rangos de tiempo en los reportes

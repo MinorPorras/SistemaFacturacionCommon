@@ -15,6 +15,7 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_CONEXION
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Types.tp_EstadoArqueo
 Imports System.Globalization
+Imports Syncfusion.XPS
 Namespace SistemaFacturacion.Forms.Caja
     Public Class P_Caja
 #Region "Variables y constantes"
@@ -82,12 +83,13 @@ Namespace SistemaFacturacion.Forms.Caja
                     LBL_EstadoTurno.Text = NoIniciado
                 End If
             Catch ex As Exception
-                msgError("Error al cargar la información inicial de la caja." + vbCrLf + "Error: " + ex.Message)
+                MsgError("Error al cargar la información inicial de la caja." + vbCrLf + "Error: " + ex.Message)
             End Try
         End Sub
         Private Sub DGV_Caja_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_Caja.DataBindingComplete
             Dim hiddenColumns As New List(Of String) From {
                 {"ID"},
+                {"variable"},
                 {"Precio"},
                 {"Total"}
             }
@@ -103,7 +105,7 @@ Namespace SistemaFacturacion.Forms.Caja
                 {"formated_total", 70}
             }
 
-            formatDGV(DGV_Caja, hiddenColumns, formatedNames, columnSize)
+            FormatDGV(DGV_Caja, hiddenColumns, formatedNames, columnSize)
 
             DGV_Caja.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(255, 128, 0)
             DGV_Caja.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 120, 30)
@@ -175,7 +177,7 @@ Namespace SistemaFacturacion.Forms.Caja
             Dim btnFav As Guna.UI2.WinForms.Guna2Button = CType(sender, Guna.UI2.WinForms.Guna2Button)
             If String.IsNullOrEmpty(btnFav.Tag) Then
                 ' El botón no tiene un ID de producto asignado
-                msgError("No se encontró el producto")
+                MsgError("No se encontró el producto")
                 Return
             End If
 
@@ -188,7 +190,7 @@ Namespace SistemaFacturacion.Forms.Caja
 
             ' Verificar si se encontró el producto
             If T.Tables(0).Rows.Count <= 0 Then
-                msgError("No se encontró el producto")
+                MsgError("No se encontró el producto")
                 Return
             End If
 
@@ -201,7 +203,8 @@ Namespace SistemaFacturacion.Forms.Caja
                     .Codigo = T.Tables(0).Rows(0).Item("codigo"),
                     .Producto = btnFav.Text,
                     .Precio = T.Tables(0).Rows(0).Item("precio_venta"),
-                    .Cantidad = 1
+                    .Cantidad = 1,
+                    .Variable = isVariable
                 }
 
                 AddProduct(producto)
@@ -235,7 +238,7 @@ Namespace SistemaFacturacion.Forms.Caja
                     StrNumFactura = NumFactura.ToString("D15")
                 End If
             Catch ex As Exception
-                msgError("Error al cargar el número de factura." + vbCrLf + "Error: " + ex.Message)
+                MsgError("Error al cargar el número de factura." + vbCrLf + "Error: " + ex.Message)
             End Try
         End Sub
 
@@ -275,7 +278,7 @@ Namespace SistemaFacturacion.Forms.Caja
             BTN_GuardarCuenta.Text = "[F6] Guardar cuenta"
 
             ValidarListView()
-            getTotal()
+            GetTotal()
 
         End Sub
 
@@ -316,14 +319,14 @@ Namespace SistemaFacturacion.Forms.Caja
                 End If
 
             Else
-                msgError("El código que colocó está mal escrito o no existe")
+                MsgError("El código que colocó está mal escrito o no existe")
             End If
         End Sub
 
         Friend Sub Buscar_DatosProd(txtCodProd As Guna.UI2.WinForms.Guna2TextBox, cant As Integer)
             Try
                 T.Tables.Clear()
-                SQL = "SELECT p.ID, p.nombre, pv.precio_venta FROM producto p LEFT JOIN producto_precioVenta pv ON p.ID = pv.ID_Producto" +
+                SQL = "SELECT p.ID, p.nombre, pv.precio_venta, p.variable FROM producto p LEFT JOIN producto_precioVenta pv ON p.ID = pv.ID_Producto" +
                 " WHERE p.codigo = '" & txtCodProd.Text & "'"
                 Cargar_Tabla(T, SQL)
                 If T.Tables(0).Rows.Count > 0 Then
@@ -332,36 +335,59 @@ Namespace SistemaFacturacion.Forms.Caja
                         .Codigo = txtCodProd.Text,
                         .Producto = T.Tables(0).Rows(0).Item("nombre"),
                         .Precio = T.Tables(0).Rows(0).Item("precio_venta"),
-                        .Cantidad = cant
+                        .Cantidad = cant,
+                        .Variable = If(T.Tables(0).Rows(0).Item("variable") = 1, True, False)
                     }
                     AddProduct(producto)
                     TXT_BuscarProducto.SelectAll()
                 Else
-                    msgError("El código que colocó está mal escrito o no existe")
+                    MsgError("El código que colocó está mal escrito o no existe")
                 End If
 
             Catch ex As Exception
-                msgError("El código que colocó está mal escrito o no existe" + ex.Message)
+                MsgError("El código que colocó está mal escrito o no existe" + ex.Message)
             End Try
         End Sub
 
         Friend Sub AddProduct(producto As Cls_ProductoCaja)
             Dim productoExistente As Cls_ProductoCaja = prodList.FirstOrDefault(Function(p) p.ID = producto.ID)
-            If productoExistente IsNot Nothing Then
-                ' 2. Si el producto ya existe, actualiza la cantidad y el total
-                productoExistente.Cantidad += producto.Cantidad
-
-                ' Notificar al BindingSource que un elemento fue modificado
-                binCaja.ResetBindings(False)
-            Else
+            If productoExistente Is Nothing Then
                 prodList.Add(producto)
-                binCaja.ResetBindings(False)
+                ResetBinCaja()
+                Return
+            End If
+            If productoExistente IsNot Nothing And Not productoExistente.Variable Then
+                productoExistente.Cantidad += producto.Cantidad
+                ResetBinCaja()
+                Return
+            End If
+            If productoExistente.Variable Then
+                Dim productosVariables As List(Of Cls_ProductoCaja) = prodList.FindAll(Function(p) p.Variable = True)
+                Dim precioRepetido As Boolean = False
+                For Each prod As Cls_ProductoCaja In productosVariables
+                    If prod.Precio = producto.Precio Then
+                        prod.Cantidad += producto.Cantidad
+                        precioRepetido = True
+                        Exit For
+                    End If
+                Next
+
+                If Not precioRepetido Then
+                    prodList.Add(producto)
+                End If
+                ResetBinCaja()
+                Return
             End If
 
+        End Sub
+
+        Private Sub ResetBinCaja()
+            ' Notificar al BindingSource que un elemento fue modificado
+            binCaja.ResetBindings(False)
             TXT_BuscarProducto.Clear()
             TXT_BuscarProducto.Focus()
             ValidarListView()
-            getTotal()
+            GetTotal()
         End Sub
 
         Private Sub EditProduct(newProd As Cls_ProductoCaja, index As Integer)
