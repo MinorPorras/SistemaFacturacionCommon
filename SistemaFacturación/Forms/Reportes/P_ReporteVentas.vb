@@ -408,7 +408,8 @@ Namespace SistemaFacturacion.Forms.Reportes
                                 "GROUP BY " &
                                 "    ac.ID " &
                                 "ORDER BY " &
-                                "    ac.hora_cierre"
+                                "    ac.hora_cierre " &
+                                "DESC"
 
                          'Se crea el parámetro para el comentario y para la fecha
                          Dim usuario As New SQLiteParameter("@usuario")

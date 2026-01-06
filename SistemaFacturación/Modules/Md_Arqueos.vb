@@ -157,12 +157,15 @@ Namespace SistemaFacturacion.Modules
             ' Asumiendo que tu llave primaria se llama id_arqueo
             Dim SQL As String = "SELECT COUNT(*) FROM Arqueo_Caja " &
                    "WHERE ID = (SELECT MAX(ID) FROM Arqueo_Caja) " &
-                   "AND hora_cierre IS NULL"
-            Cargar_Tabla(T, SQL)
+                   "AND hora_cierre IS NULL AND ID_Usuario = @idUsuario"
+            Dim paramList = New List(Of SQLiteParameter) From {
+                {New SQLiteParameter("@idUsuario", idUsuActual)}
+            }
+            CargarTablaParam(T, SQL, paramList)
 
             'Si no hay filas, no hay caja abierta
             If T.Tables(0).Rows.Count <= 0 Then
-                Log.Warning("No se ha inciado ningún turno en la base de datos, primero inicie un nuevo turno")
+                Log.Warning("No se ha inciado ningún turno, primero inicie uno nuevo")
                 Return False
             End If
 
