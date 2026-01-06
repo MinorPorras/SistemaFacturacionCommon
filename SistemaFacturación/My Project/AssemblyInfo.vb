@@ -9,10 +9,10 @@ Imports System.Runtime.InteropServices
 ' Revisar los valores de los atributos del ensamblado
 
 <Assembly: AssemblyTitle("Common Sistema Facturación")>
-<Assembly: AssemblyDescription("Sistema de facturación para supermercados y tiendas")>
+<Assembly: AssemblyDescription("Sistema de facturación y manejo de inventario para supermercados y tiendas")>
 <Assembly: AssemblyCompany("Minor Porras Varela")>
-<Assembly: AssemblyProduct("SistemaFacturación")>
-<Assembly: AssemblyCopyright("Copyright ©  2025")>
+<Assembly: AssemblyProduct("SistemaFacturaciónCommon")>
+<Assembly: AssemblyCopyright("Copyright ©  2026")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

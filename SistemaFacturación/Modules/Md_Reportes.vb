@@ -191,7 +191,7 @@ Namespace SistemaFacturacion.Modules
                                           ' Usamos DENSE_RANK para que si dos productos empatan, tengan el mismo número sin saltarse el siguiente
                                           Dim consulta As String =
                                                 "WITH ReporteBase AS (" &
-                                                "  SELECT COUNT(fp.ID_Producto) AS unidadesVendidas, " &
+                                                "  SELECT SUM(fp.cant) AS unidadesVendidas, " &
                                                 "         p.nombre, " &
                                                 "         SUM(fp.precio_venta * fp.cant) AS total " &
                                                 "  FROM factura f " &

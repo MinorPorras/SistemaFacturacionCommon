@@ -406,6 +406,7 @@
     <Compile Include="Forms\Mantenimiento\E_NuevoConcepto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helpers\AutoStartHelper.vb" />
     <Compile Include="Modules\Md_Arqueos.vb" />
     <Compile Include="Modules\Md_formating.vb" />
     <Compile Include="Modules\Md_LogSetup.vb" />
@@ -826,6 +827,7 @@
     <Content Include="Resources\ICO_Eliminar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TextFile1.txt" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
