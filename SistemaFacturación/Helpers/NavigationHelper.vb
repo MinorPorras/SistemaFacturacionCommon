@@ -1,10 +1,10 @@
 ﻿Imports Guna.UI2.WinForms
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
-Namespace SistemaFacturacion.Modules
-    Module Md_Navegacion
+
+Namespace SistemaFacturacion.Helper
+    Module NavigationHelper
         ''' <summary>
         ''' Cierra la sesión del usuario actual, limpia la etiqueta de usuario si se proporciona,
         ''' muestra el formulario de inicio de sesión y opcionalmente cierra el formulario llamador.
@@ -30,4 +30,3 @@ Namespace SistemaFacturacion.Modules
         End Sub
     End Module
 End Namespace
-

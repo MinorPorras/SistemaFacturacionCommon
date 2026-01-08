@@ -1,5 +1,7 @@
 ﻿Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Helper.NavigationHelper
+
 Namespace SistemaFacturacion.Forms.Mantenimiento
 
     Public Class M_MantenimientoMenu
@@ -86,9 +88,7 @@ Namespace SistemaFacturacion.Forms.Mantenimiento
         End Sub
 
         Private Sub BTN_LogOut_Click(sender As Object, e As EventArgs) Handles BTN_LogOut.Click
-            Dim frmInicio As New P_SelectUsu
-            M_Inicio.LBL_Usu.Text = ""
-            openForm(frmInicio)
+            LogOut(True, Me)
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click

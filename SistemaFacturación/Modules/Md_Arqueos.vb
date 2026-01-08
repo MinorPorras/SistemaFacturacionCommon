@@ -4,7 +4,8 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Types.tp_EstadoArqueo
-
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Helper.NavigationHelper
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Types
 
 Namespace SistemaFacturacion.Modules
     Module Md_Arqueos
@@ -42,12 +43,15 @@ Namespace SistemaFacturacion.Modules
 
         Public Async Function ShowEndShiftDialog(Owner As P_Caja) As Task(Of Boolean)
             Log.Information("Iniciando flujo de Cierre de Caja.")
-            If Not IsShiftStarted() Then
+            Dim ShiftStateId = IsShiftStarted()
+            If ShiftStateId = -1 Or ShiftStateId = 0 Then
                 MsgError("No se puede realizar el cierre de caja porque no hay una caja abierta. Por favor, realice una apertura de caja primero.")
                 Return False
             End If
+
             Using frmCierre As New P_GenerarCierreCaja
                 frmCierre.Owner = Owner
+                frmCierre.idCierre = ShiftStateId
                 Dim result = frmCierre.ShowDialog()
 
                 If result <> DialogResult.OK Then
@@ -153,11 +157,19 @@ Namespace SistemaFacturacion.Modules
 #End Region
 
 #Region "Validations"
-        Friend Function IsShiftStarted() As Boolean
+        ''' <summary>
+        ''' Verifica que el usuario actual tenga un turno iniciado, Devolviendo un código integer que indica el estado del turno del cajero
+        ''' </summary>
+        ''' <returns>
+        ''' -1 = Error, no se pudo obtener el ID del usuario
+        ''' 0 = No se ha iniciado ningún turno
+        ''' Cualquier Otro integer = ID del último cierre que tiene abierto el usuario actual
+        ''' </returns>
+        Friend Function IsShiftStarted() As Integer
             ' Asumiendo que tu llave primaria se llama id_arqueo
-            Dim SQL As String = "SELECT COUNT(*) FROM Arqueo_Caja " &
-                   "WHERE ID = (SELECT MAX(ID) FROM Arqueo_Caja) " &
-                   "AND hora_cierre IS NULL AND ID_Usuario = @idUsuario"
+            Dim SQL As String = "SELECT COUNT(*), ID FROM Arqueo_Caja 
+                                    WHERE ID = (SELECT MAX(ID) FROM Arqueo_Caja WHERE ID_Usuario = @idUsuario) 
+                                    AND hora_cierre IS NULL AND ID_Usuario = @idUsuario"
             Dim paramList = New List(Of SQLiteParameter) From {
                 {New SQLiteParameter("@idUsuario", idUsuActual)}
             }
@@ -166,19 +178,24 @@ Namespace SistemaFacturacion.Modules
             'Si no hay filas, no hay caja abierta
             If T.Tables(0).Rows.Count <= 0 Then
                 Log.Warning("No se ha inciado ningún turno, primero inicie uno nuevo")
-                Return False
+                Return 0
             End If
 
             'Si el count de la instrucción es 0 significa que todos los arqueos están completos
             'O sea no hay caja abiertas y se puede abrir una nueva
             If T.Tables(0).Rows(0).Item(0) = 0 Then
                 Log.Information("No hay turnos iniciados, puede crear un nuevo")
-                Return False
+                Return 0
+            End If
+
+            If T.Tables(0).Rows(0).Item("ID") = 0 Then
+                MSG.MsgError("No se pudo obtener el ID de la cuenta")
+                Return -1
             End If
 
             'Si el conteo es mayor que 0, hay caja abierta
             Log.Information("Conteo de arqueos de caja abiertos: {Count}", Convert.ToInt32(T.Tables(0).Rows(0)(0)))
-            Return True
+            Return T.Tables(0).Rows(0).Item("ID")
         End Function
 #End Region
 

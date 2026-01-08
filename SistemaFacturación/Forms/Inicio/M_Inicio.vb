@@ -2,7 +2,7 @@
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Mantenimiento
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Reportes
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Navegacion
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Helper.NavigationHelper
 Namespace SistemaFacturacion.Forms.Inicio
 
     Public Class M_Inicio
@@ -58,16 +58,16 @@ Namespace SistemaFacturacion.Forms.Inicio
                 Console.WriteLine("No se encontró la imagen")
             End Try
             Task.Run(Sub()
-                         cargarCalProveedores("dia_pedido", "proveedor_diaPedido")
+                         CargarCalProveedores("dia_pedido", "proveedor_diaPedido")
                      End Sub)
             Task.Run(Sub()
-                         cargarCalProveedores("dia_recibido", "proveedor_recibirPedido")
+                         CargarCalProveedores("dia_recibido", "proveedor_recibirPedido")
                      End Sub)
             CargarEstilosDGV()
             LBL_Usu.Text = nomUsuActual
         End Sub
 
-        Friend Sub cargarCalProveedores(tipoPed As String, tabla As String)
+        Friend Sub CargarCalProveedores(tipoPed As String, tabla As String)
             Task.Run(Sub()
                          Try
                              Invoke(Sub()
@@ -185,7 +185,7 @@ Namespace SistemaFacturacion.Forms.Inicio
 
                          Catch ex As Exception
                              Invoke(Sub()
-                                        msgError("Error: " & ex.Message)
+                                        MsgError("Error: " & ex.Message)
                                     End Sub)
                          End Try
                      End Sub)
@@ -241,13 +241,12 @@ Namespace SistemaFacturacion.Forms.Inicio
             P_Caja.Show()
             P_Caja.Select()
             P_Caja.LBL_Usu.Text = nomUsuActual
-            P_Caja.idUsu = idUsuActual
             isNavigating = True
             Me.Close()
         End Sub
 
         Private Sub BTN_Config_Click(sender As Object, e As EventArgs) Handles BTN_Config.Click
-            entrarConfig(0, Me)
+            EntrarConfig(0, Me)
         End Sub
 
         Private Sub BTN_LogOut_Click(sender As Object, e As EventArgs) Handles BTN_LogOut.Click

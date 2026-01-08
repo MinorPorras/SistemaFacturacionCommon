@@ -69,109 +69,156 @@ Namespace SistemaFacturacion.Modules
         End Function
 
         ''' <summary>
-        ''' Obtiene la lista de ventas en un periodo de tiempo en específico
+        ''' Carga facturas dentro de un rango de fechas y horas específico
+        ''' Usa precisión de segundos para cierres exactos
+        ''' </summary>
+        ''' <param name="t">DataSet donde se cargarán los datos</param>
+        ''' <param name="fechaHoraInicio">Fecha y hora de inicio del rango</param>
+        ''' <param name="fechaHoraFin">Fecha y hora de fin del rango</param>
+        ''' <param name="usuarioId">ID del usuario para filtrar (0 para todos)</param>
+        ''' <returns>Task asíncrono</returns>
+        Public Async Function CargarFacturasPorRangoFechasAsync(
+            ByVal t As DataSet,
+            ByVal fechaHoraInicio As DateTime,
+            ByVal fechaHoraFin As DateTime,
+            Optional ByVal usuarioId As Integer = 0
+        ) As Task
+
+            t.Tables.Clear()
+
+            ' Convertir fechas al formato SQLite correcto
+            Dim fechaInicioSQL As String = SQLiteDateTimeHelper.ToSQLiteString(fechaHoraInicio)
+            Dim fechaFinSQL As String = SQLiteDateTimeHelper.ToSQLiteString(fechaHoraFin)
+
+            ' Construir consulta con filtros precisos
+            Dim consulta As String = "
+                SELECT
+                    f.ID,
+                    f.num_factura AS '# Fact',
+                    f.fecha_emision AS 'Fecha de emisión',
+                    c.nombre AS 'Cliente',
+                    u.usuario As 'Cajero',
+                    fc.comentario  As 'Comentario',
+                    f.efectivo_cliente AS 'Efectivo',
+                    f.tarjeta_cliente AS 'Tarjeta',
+                    f.total AS 'Total',
+                    f.tipo_venta AS 'tipo',
+                    f.vuelto  As Vuelto
+                FROM
+                    factura f
+                INNER JOIN
+                    clientes c ON c.ID = f.ID_Cliente
+                INNER JOIN
+                    usuario u  ON u.ID = f.ID_Usuario
+                LEFT JOIN
+                    factura_comentario fc  ON fc.ID_Factura  = f.ID
+                WHERE
+                    datetime(f.fecha_emision) >= @fechaInicio
+                    AND datetime(f.fecha_emision) <= @fechaFin
+            "
+
+            Dim paramList As New List(Of SQLiteParameter) From {
+                {New SQLiteParameter("@fechaInicio", fechaInicioSQL)},
+                {New SQLiteParameter("@fechaFin", fechaFinSQL)}
+            }
+
+            ' Agregar filtro de usuario si se especifica
+            If usuarioId > 0 Then
+                consulta &= " AND u.ID = @usuarioId"
+                paramList.Add(New SQLiteParameter("@usuarioId", usuarioId))
+            End If
+
+            consulta &= " ORDER BY f.fecha_emision DESC"
+
+            Await CargarTablaParamAsync(t, consulta, paramList)
+
+        End Function
+
+        ''' <summary>
+        ''' Carga facturas para un rango de días completos (00:00:00 a 23:59:59)
+        ''' Sobrecarga conveniente cuando solo necesitas especificar las fechas sin horas
+        ''' </summary>
+        ''' <param name="t">DataSet donde se cargarán los datos</param>
+        ''' <param name="fechaInicio">Fecha de inicio del rango</param>
+        ''' <param name="fechaFin">Fecha de fin del rango</param>
+        ''' <param name="usuarioId">ID del usuario para filtrar (0 para todos)</param>
+        ''' <returns>Task asíncrono</returns>
+        Public Async Function CargarFacturasPorRangoFechasAsync(
+            ByVal t As DataSet,
+            ByVal fechaInicio As String,
+            ByVal fechaFin As String,
+            Optional ByVal usuarioId As Integer = 0
+        ) As Task
+
+            ' Convertir el string a Date y luego llamar a la principal
+            Dim inicio As Date = Date.Parse(fechaInicio)
+            Dim fin As Date = Date.Parse(fechaFin)
+
+            ' Convertir fechas de solo día a rango con horas completas
+            Dim FormatedInicio As DateTime = SQLiteDateTimeHelper.InicioDelDia(inicio)
+            Dim FormatedFin As DateTime = SQLiteDateTimeHelper.FinalDelDia(fin)
+
+            Log.Information("Rango de fechas ajustado: {Inicio} hasta {Fin}",
+                   SQLiteDateTimeHelper.ToSQLiteString(FormatedInicio),
+                   SQLiteDateTimeHelper.ToSQLiteString(FormatedFin))
+
+            ' Llamar a la función principal
+            Await CargarFacturasPorRangoFechasAsync(t, FormatedInicio, FormatedFin, usuarioId)
+
+        End Function
+
+
+        ''' <summary>
+        ''' Obtiene la lista de ventas en un periodo de tiempo en específico y la formatea para su uso
         ''' </summary>
         ''' <param name="desde">Inicio del periodo de tiempo</param>
         ''' <param name="hasta">Final de periodo de tiempo</param>
         ''' <param name="t">Data set al que se agrega la lista de ventas para su posterior uso</param>
-        ''' <param name="excluir">Indica si se deben de excluir los valores de la tabla que no corresponden a ser contabilizados en los arqueos de caja</param>
         ''' <param name="useActiveUser">Indica si se debe de filtrar para que solo recupere los datos del usuario activo </param>
         ''' <returns></returns>
-        Friend Async Function ObtenerListaVentas(desde As Date, hasta As Date, t As DataSet, excluir As Boolean, Optional useActiveUser As Boolean = False) As Task(Of List(Of Cls_DatosFactura))
-            Return Await Task.Run(Function()
-                                      Dim consulta As String = "SELECT 
-                                                                        f.ID,
-                                                                        f.num_factura AS '# Fact',
-                                                                        f.fecha_emision AS 'Fecha de emisión',
-                                                                        c.nombre AS 'Cliente',
-                                                                        u.usuario As 'Cajero',
-                                                                        fc.comentario  As 'Comentario',
-                                                                        f.efectivo_cliente AS 'Efectivo',
-                                                                        f.tarjeta_cliente AS 'Tarjeta',
-                                                                        f.total AS 'Total',
-                                                                        f.tipo_venta AS 'tipo',
-                                                                        f.vuelto  As Vuelto
-                                                                    FROM 
-                                                                        factura f
-                                                                    INNER JOIN 
-                                                                        clientes c ON c.ID = f.ID_Cliente
-                                                                    INNER JOIN
-	                                                                    usuario u  ON u.ID = f.ID_Usuario 
-                                                                    LEFT JOIN 
-	                                                                    factura_comentario fc  ON fc.ID_Factura  =f.ID 
-                                                                    WHERE 
-                                                                        f.fecha_emision >= @fechaInicio
-                                                                        AND f.fecha_emision <  @fechaFin"
+        Friend Async Function ObtenerListaVentas(desde As DateTime, hasta As DateTime, t As DataSet, Optional useActiveUser As Boolean = False) As Task(Of List(Of Cls_DatosFactura))
+            Await CargarFacturasPorRangoFechasAsync(t, desde, hasta, If(useActiveUser, idUsuActual, 0))
 
+            Dim ListaVentas As New List(Of Cls_DatosFactura)
+            For Each row As DataRow In t.Tables(0).Rows
+                Dim factura As New Cls_DatosFactura With {
+                    .IdFactura = row.Item("ID").ToString(),
+                    .NumFactura = row.Item("# Fact").ToString(),
+                    .Fecha = Convert.ToDateTime(row.Item("Fecha de emisión")),
+                    .Cliente = row.Item("Cliente").ToString(),
+                    .Cajero = row.Item("Cajero").ToString(),
+                    .Comentario = row.Item("Comentario").ToString(),
+                    .Efectivo = Convert.ToDecimal(row.Item("Efectivo")),
+                    .Tarjeta = Convert.ToDecimal(row.Item("Tarjeta")),
+                    .TotalCaja = Convert.ToDecimal(row.Item("Total")),
+                    .Vuelto = Convert.ToDecimal(row.Item("Vuelto"))
+                }
 
-                                      If excluir Then
-                                          consulta += " AND excluir_de_cierre = 0"
-                                      End If
+                'Se obtiene el número del tipo de venta
+                Dim tipoVentaNum As Integer = Convert.ToInt32(row.Item("tipo"))
+                Dim tipoVenta As String
 
-                                      Dim paramList As New List(Of SQLiteParameter) From {
-                                          New SQLiteParameter("@fechaInicio", desde),
-                                          New SQLiteParameter("@fechaFin", hasta)
-                                      }
+                Select Case tipoVentaNum
+                    Case 0
+                        tipoVenta = "Efectivo"
+                    Case 1
+                        tipoVenta = "Tarjeta"
+                    Case 2
+                        tipoVenta = "Sinpe"
+                    Case 3
+                        tipoVenta = "Depósito"
+                    Case 4
+                        tipoVenta = "Mixto"
+                    Case Else
+                        tipoVenta = "Desconocido"
+                End Select
+                factura.TipoPago = tipoVenta
+                'Se añade la factura a la lista
+                ListaVentas.Add(factura)
+            Next
 
-                                      If useActiveUser Then
-                                          consulta += " AND u.ID = @usuarioId"
-                                          paramList.Add(New SQLiteParameter("@usuarioId", idUsuActual))
-                                      End If
-
-                                      'Se limpia el dataset antes de llenarlo
-                                      t.Tables.Clear()
-
-                                      Log.Information($"Ejecutando consulta de ventas entre {desde} y {hasta}")
-                                      CargarTablaParam(t, consulta, paramList)
-
-                                      Dim listaVentas As New List(Of Cls_DatosFactura)
-
-                                      ' Si la tabla no tiene filas, se devuelve la lista vacía
-                                      If t.Tables.Count <= 0 Then
-                                          Log.Warning("No se encontraron ventas en el rango especificado.")
-                                          Return listaVentas
-                                      End If
-
-                                      For Each row As DataRow In t.Tables(0).Rows
-                                          Dim factura As New Cls_DatosFactura With {
-                                        .IdFactura = row.Item("ID").ToString(),
-                                        .NumFactura = row.Item("# Fact").ToString(),
-                                        .Fecha = Convert.ToDateTime(row.Item("Fecha de emisión")),
-                                        .Cliente = row.Item("Cliente").ToString(),
-                                        .Cajero = row.Item("Cajero").ToString(),
-                                        .Comentario = row.Item("Comentario").ToString(),
-                                        .Efectivo = Convert.ToDecimal(row.Item("Efectivo")),
-                                        .Tarjeta = Convert.ToDecimal(row.Item("Tarjeta")),
-                                        .TotalCaja = Convert.ToDecimal(row.Item("Total")),
-                                        .Vuelto = Convert.ToDecimal(row.Item("Vuelto"))
-                                        }
-
-                                          'Se obtiene el número del tipo de venta
-                                          Dim tipoVentaNum As Integer = Convert.ToInt32(row.Item("tipo"))
-                                          Dim tipoVenta As String
-
-                                          Select Case tipoVentaNum
-                                              Case 0
-                                                  tipoVenta = "Efectivo"
-                                              Case 1
-                                                  tipoVenta = "Tarjeta"
-                                              Case 2
-                                                  tipoVenta = "Sinpe"
-                                              Case 3
-                                                  tipoVenta = "Depósito"
-                                              Case 4
-                                                  tipoVenta = "Mixto"
-                                              Case Else
-                                                  tipoVenta = "Desconocido"
-                                          End Select
-                                          factura.TipoPago = tipoVenta
-                                          'Se añade la factura a la lista
-                                          listaVentas.Add(factura)
-                                      Next
-
-                                      Log.Information($"Total de ventas obtenidas: {listaVentas.Count}")
-                                      Return listaVentas
-                                  End Function)
+            Log.Information($"Total de ventas obtenidas: {ListaVentas.Count}")
+            Return ListaVentas
         End Function
 
         Friend Async Function GetProductosMasVendido(LIMIT As Integer, desde As Date, hasta As Date, orderBy As Integer) As Task(Of List(Of Cls_ProductosMasVendidos))
