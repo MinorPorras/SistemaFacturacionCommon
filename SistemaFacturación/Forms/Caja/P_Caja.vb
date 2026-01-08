@@ -5,7 +5,7 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Busqueda
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.CuentasXCobrar
-Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Navegacion
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Helper.NavigationHelper
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_Inicializacion
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.MSG
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_PROCESOS_BD
@@ -15,7 +15,8 @@ Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_CONEXION
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Types.tp_EstadoArqueo
 Imports System.Globalization
-Imports Syncfusion.XPS
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Types
+
 Namespace SistemaFacturacion.Forms.Caja
     Public Class P_Caja
 #Region "Variables y constantes"
@@ -26,7 +27,6 @@ Namespace SistemaFacturacion.Forms.Caja
         Private NumFactura As Integer
         Friend StrNumFactura As String
         Friend cantProd As Integer = 1
-        Friend idUsu As Integer
         Friend totalCaja As Double = 0
         Friend Comentario As String = ""
         ' Este ID es para cuando se carga una factura desde cuentas por cobrar
@@ -77,10 +77,15 @@ Namespace SistemaFacturacion.Forms.Caja
                     PIC_Logo.ImageLocation = ""
                 End If
 
-                If IsShiftStarted() Then
-                    LBL_EstadoTurno.Text = Iniciado
+                Dim shiftState = IsShiftStarted()
+                If shiftState = -1 Then
+                    Throw New Exception("Error al verificar el estado del turno, verifique que todo este correcto o llame a soporte")
+                End If
+
+                If shiftState = 0 Then
+                    LBL_EstadoTurno.Text = tp_EstadoArqueo.NoIniciado
                 Else
-                    LBL_EstadoTurno.Text = NoIniciado
+                    LBL_EstadoTurno.Text = tp_EstadoArqueo.Iniciado
                 End If
             Catch ex As Exception
                 MsgError("Error al cargar la información inicial de la caja." + vbCrLf + "Error: " + ex.Message)
@@ -403,7 +408,7 @@ Namespace SistemaFacturacion.Forms.Caja
                 ' Acciones posteriores
                 GetTotal()
             Else
-                msgError($"No se encontró el producto con ID {newProd.ID}.")
+                MsgError($"No se encontró el producto con ID {newProd.ID}.")
             End If
         End Sub
 
@@ -457,7 +462,7 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Sub DGV_Caja_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellEndEdit
             ' Nos aseguramos de que no estamos en una fila de encabezado, ni la fila de inserción, y que hay un objeto
             If e.RowIndex < 0 OrElse e.RowIndex >= prodList.Count Then
-                getTotal()
+                GetTotal()
                 TXT_BuscarProducto.Focus()
                 Exit Sub
             End If
@@ -469,7 +474,7 @@ Namespace SistemaFacturacion.Forms.Caja
             If valorCelda Is Nothing OrElse Not Integer.TryParse(valorCelda.ToString(), nuevaCantidad) Then
                 ' Restaurar el valor antiguo del DGV usando el BindingSource.
                 binCaja.ResetItem(e.RowIndex)
-                msgError("El valor ingresado debe ser un número entero válido para la cantidad.")
+                MsgError("El valor ingresado debe ser un número entero válido para la cantidad.")
                 Return
             End If
 
@@ -478,7 +483,7 @@ Namespace SistemaFacturacion.Forms.Caja
             binCaja.ResetItem(e.RowIndex)
 
             ' Recalcula el total de la factura
-            getTotal()
+            GetTotal()
         End Sub
 
         Private Sub DGV_Caja_CellValidated(sender As Object, e As DataGridViewCellEventArgs) Handles DGV_Caja.CellValidated
@@ -499,7 +504,7 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Sub MNU_MODIFICAR_Click(sender As Object, e As EventArgs) Handles MNU_MODIFICAR.Click
             'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
             If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
-                msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
+                MsgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
                 Return
             End If
 
@@ -520,20 +525,20 @@ Namespace SistemaFacturacion.Forms.Caja
             End Using
 
             ValidarListView()
-            getTotal()
+            GetTotal()
         End Sub
 
         Private Sub MNU_ELIMINAR_Click(sender As Object, e As EventArgs) Handles MNU_ELIMINAR.Click
             'Si no hay una fila seleccionada o si la fila selecionada es la fila nueva se devuelve un error indicando que debe de seleccionar una fila
             If DGV_Caja.SelectedRows.Count <= 0 Or DGV_Caja.SelectedRows(0).IsNewRow Then
-                msgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
+                MsgError("Se debe de seleccionar un producto, no se puede modificar una fila vacía")
                 Exit Sub
             End If
 
             binCaja.RemoveCurrent()
 
             ValidarListView()
-            getTotal()
+            GetTotal()
         End Sub
 
 
@@ -622,7 +627,7 @@ Namespace SistemaFacturacion.Forms.Caja
 
         Private Async Sub BTN_GuardarCuenta_Click(sender As Object, e As EventArgs) Handles BTN_GuardarCuenta.Click
             If DGV_Caja.Rows.Count <= 0 Then
-                msgError("No se puede Guardar una factura vacía")
+                MsgError("No se puede Guardar una factura vacía")
                 Exit Sub
             End If
             Using dlg As New D_GuardarCuenta()
@@ -662,7 +667,7 @@ Namespace SistemaFacturacion.Forms.Caja
                     'Si devuelve OK la acción de guardado se limpia la información se cierra el dialogo y se termina la ejecución de la función
                     If resultado Is "OK" Then
                         LIMPIAR()
-                        mensaje("Cuenta por cobrar guardada correctamente en la base de datos", vbOKOnly, "Cuenta por cobrar guardada")
+                        Mensaje("Cuenta por cobrar guardada correctamente en la base de datos", vbOKOnly, "Cuenta por cobrar guardada")
                         Exit Sub
                     End If
                 End If
@@ -688,7 +693,7 @@ Namespace SistemaFacturacion.Forms.Caja
                 endVentaForm.venta = New Cls_Ventas With {
                     .ID = OBTENERPK("factura", "ID"),
                     .ID_Cliente = idCliente,
-                    .ID_Cajero = idUsu,
+                    .ID_Cajero = idUsuActual,
                     .Fecha_creacion = Date.Now,
                     .ListaProductos = prodList,
                     .Saldo_total = totalCaja,
@@ -726,7 +731,7 @@ Namespace SistemaFacturacion.Forms.Caja
         End Sub
 
         Private Sub BTN_ConfigCaja_Click(sender As Object, e As EventArgs) Handles BTN_ConfigCaja.Click
-            entrarConfig(4, Me)
+            EntrarConfig(4, Me)
         End Sub
 
         Private Sub P_Caja_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown

@@ -72,7 +72,7 @@ Namespace SistemaFacturacion.Modules
         End Sub
 
         ' Carga datos en un DataSet usando una consulta SQL simple
-        Public Sub Cargar_Tabla(ByVal t As DataSet, ByVal consulta As String)
+        Public Async Sub Cargar_Tabla(ByVal t As DataSet, ByVal consulta As String)
             t.Tables.Clear()
             Using db As New SQLiteConnection(GetConnectionString())
                 Try
@@ -88,6 +88,73 @@ Namespace SistemaFacturacion.Modules
                 End Try
             End Using
         End Sub
+
+        ' Carga datos en un DataSet usando parámetros en la consulta SQL (versión asíncrona)
+        Public Async Function CargarTablaParamAsync(
+            ByVal t As DataSet,
+            ByVal consulta As String,
+            ByVal parametros As List(Of SQLiteParameter)
+        ) As Task
+
+            t.Tables.Clear()
+
+            Using db As New SQLiteConnection(GetConnectionString())
+                Try
+                    Await db.OpenAsync()
+
+                    Using cmd As New SQLiteCommand(consulta, db)
+                        If parametros IsNot Nothing Then
+                            For Each param As SQLiteParameter In parametros
+                                cmd.Parameters.AddWithValue(param.ParameterName, param.Value)
+                                Console.WriteLine("Parámetro añadido: " & param.ParameterName & " = " & param.Value)
+                            Next
+                        End If
+
+                        Log.Information("Ejecutando consulta con parámetros: " & consulta)
+
+                        Using da As New SQLiteDataAdapter(cmd)
+                            Await Task.Run(Function() da.Fill(t))
+                        End Using
+                    End Using
+
+                    Log.Information("Datos cargados: {RowCount} filas.", t.Tables(0).Rows.Count)
+
+                Catch ex As Exception
+                    Log.Error(ex, "Error al cargar datos con parámetros")
+                    Throw
+                End Try
+            End Using
+
+        End Function
+
+        ' Carga datos en un DataSet usando una consulta SQL simple (versión asíncrona)
+        Public Async Function Cargar_TablaAsync(
+            ByVal t As DataSet,
+            ByVal consulta As String
+        ) As Task
+
+            t.Tables.Clear()
+
+            Using db As New SQLiteConnection(GetConnectionString())
+                Try
+                    Await db.OpenAsync()
+
+                    Using cmd As New SQLiteCommand(consulta, db)
+                        Using da As New SQLiteDataAdapter(cmd)
+                            Await Task.Run(Function() da.Fill(t))
+                        End Using
+                    End Using
+
+                    Log.Information("Datos cargados: {RowCount} filas.", t.Tables(0).Rows.Count)
+
+                Catch ex As Exception
+                    Log.Error(ex, "Error al cargar datos")
+                    Throw
+                End Try
+            End Using
+
+        End Function
+
 
         ' Ejecuta una consulta SQL que no retorna resultados (INSERT, UPDATE, DELETE)
         Public Function EJECUTAR(ByVal SQL As String) As Boolean

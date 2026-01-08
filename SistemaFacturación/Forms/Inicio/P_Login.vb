@@ -69,13 +69,6 @@ Namespace SistemaFacturacion.Forms.Inicio
             Me.Close()
         End Sub
 
-        Private Sub BTN_RegresarLogin_Click(sender As Object, e As EventArgs)
-            P_SelectUsu.Show()
-            P_SelectUsu.Select()
-            isNavigating = True
-            Me.Close()
-        End Sub
-
         Private Sub P_Login_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
             CenterLoginGroupBox()
         End Sub

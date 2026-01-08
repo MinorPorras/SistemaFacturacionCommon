@@ -1,4 +1,5 @@
-﻿Imports System.Data.SQLite
+﻿Imports System.Data.Entity.Migrations
+Imports System.Data.SQLite
 Imports System.Globalization
 Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
@@ -60,21 +61,24 @@ Namespace SistemaFacturacion.Data
 
 
 #Region "getInfo"
-        Private Async Function ObtenerInfoCierreActual() As Task(Of DataTable)
-            Return Await Task.Run(Function()
+        Private Async Function ObtenerInfoCierreActual(Optional id As Integer = 0) As Task(Of DataTable)
+            Return Await Task.Run(Async Function()
                                       Dim T As New DataSet()
-                                      Using db As New SQLiteConnection(GetConnectionString())
-                                          db.Open()
-                                          Dim consulta = "SELECT ac.ID, ac.ID_Usuario, u.usuario, ac.hora_apertura, ac.fondo_inicial" &
+
+                                      Dim sql = "SELECT ac.ID, ac.ID_Usuario, u.usuario, ac.hora_apertura, ac.fondo_inicial" &
                                                             " FROM Arqueo_Caja ac LEFT JOIN usuario u ON u.ID = ac.ID_Usuario" &
                                                             " Order By ac.ID DESC LIMIT 1"
-                                          Using cmd As New SQLiteCommand(consulta, db)
-                                              Log.Information("Ejecutando consulta para obtener la información del cierre de caja actual: {Consulta}", consulta)
-                                              Using da As New SQLiteDataAdapter(cmd)
-                                                  da.Fill(T)
-                                              End Using
-                                          End Using
-                                      End Using
+                                      If id <> 0 Then
+                                          sql = "SELECT ac.ID, ac.ID_Usuario, u.usuario, ac.hora_apertura, ac.fondo_inicial" &
+                                                            " FROM Arqueo_Caja ac LEFT JOIN usuario u ON u.ID = ac.ID_Usuario" &
+                                                            " WHERE ac.ID = @id Order By ac.ID DESC LIMIT 1"
+                                          Dim paramList As New List(Of SQLiteParameter) From {
+                                            {New SQLiteParameter("@id", id)}
+                                          }
+                                          Await CargarTablaParamAsync(T, sql, paramList)
+                                      Else
+                                          Await Cargar_TablaAsync(T, sql)
+                                      End If
 
                                       ' Verifica si la tabla 0 existe en el DataSet
                                       If T.Tables.Count <= 0 Then
@@ -101,6 +105,7 @@ Namespace SistemaFacturacion.Data
                                       Return T.Tables(0)
                                   End Function)
         End Function
+
 
         Friend Async Function ObtenerTotalMovimientosCaja() As Task
             Await Task.Run(Sub()
@@ -137,9 +142,10 @@ Namespace SistemaFacturacion.Data
                            End Sub)
         End Function
 
-        Public Async Function ObtenerInfoInicial() As Task
+        Public Async Function ObtenerInfoInicial(Optional ID As Integer = 0) As Task
+
             'Se obtiene la información del cierre anterior
-            Dim infoCierreActual As DataTable = Await ObtenerInfoCierreActual()
+            Dim infoCierreActual As DataTable = Await ObtenerInfoCierreActual(ID)
             Log.Information("Obteniendo información inicial para el cierre de caja.")
             ' Manejo de caso sin datos
             If infoCierreActual.Rows.Count = 0 Then
@@ -154,7 +160,7 @@ Namespace SistemaFacturacion.Data
             Log.Information("Fechas de apertura y cierre obtenidas: Apertura={Apertura}, Cierre={Cierre}", fechaInicio, fechaFin)
 
             'Se obtiene la información relacionada con las ventas en la 
-            Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(fechaInicio, fechaFin, T, True, True)
+            Dim listaVentas As List(Of Cls_DatosFactura) = Await ObtenerListaVentas(fechaInicio, fechaFin, T, True)
             Dim ventasEfectivo As Decimal = 0
             Dim ventasTarjeta As Decimal = 0
             For Each venta As Cls_DatosFactura In listaVentas
@@ -204,20 +210,20 @@ Namespace SistemaFacturacion.Data
 
         Friend Async Function ObtenerListaMovimientos(filter As String) As Task(Of DataTable)
             Return Await Task.Run(Function()
-                                      SQL = "SELECT mc.monto As 'Monto', tm.ID, tm.nombre As 'Tipo movimiento', cc.concepto As 'Concepto', mc.referencia As 'Referencia', " &
+                                      Dim consulta = "SELECT mc.monto As 'Monto', tm.ID, tm.nombre As 'Tipo movimiento', cc.concepto As 'Concepto', mc.referencia As 'Referencia', " &
                                             "mc.fecha_hora As 'Fecha' FROM Movimientos_Caja mc LEFT JOIN Tipos_Movimiento tm ON mc.ID_tipo_movimiento = tm.id " &
                                             "LEFT JOIN Conceptos_Caja cc ON cc.ID = mc.ID_concepto WHERE ID_ARQUEO = @ID"
                                       If filter = "Entrada" Then
-                                          SQL += " AND tm.ID = 1"
+                                          consulta += " AND tm.ID = 1"
                                       ElseIf filter = "Salida" Then
-                                          SQL += " AND tm.ID = 2"
+                                          consulta += " AND tm.ID = 2"
                                       End If
 
                                       Dim paramList As New List(Of SQLiteParameter) From {
                                           {New SQLiteParameter("@ID", ID)}
                                       }
-                                      Log.Information("Ejecutando consulta para obtener la lista de movimientos de caja: {CONSULTA}", SQL)
-                                      CargarTablaParam(T, SQL, paramList)
+                                      Log.Information("Ejecutando consulta para obtener la lista de movimientos de caja: {CONSULTA}", consulta)
+                                      CargarTablaParam(T, consulta, paramList)
 
                                       For Each row As DataRow In T.Tables(0).Rows
                                           Dim idTipo As Integer = Convert.ToInt32(row.Item("ID"))

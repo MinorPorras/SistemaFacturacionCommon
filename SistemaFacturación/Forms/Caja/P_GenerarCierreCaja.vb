@@ -9,6 +9,7 @@ Namespace SistemaFacturacion.Forms.Caja
 #Region "Variables y funciones generales"
         Dim listTxtDenominaciones As New Dictionary(Of Integer, Guna2NumericUpDown)
         Friend infoCierre As Cls_CierreCaja
+        Friend idCierre As Integer = 0
 
         Private Sub InicializarListaTxtDenominaciones()
             ' Añadir cada NumericUpDown de denominación a la lista
@@ -34,7 +35,8 @@ Namespace SistemaFacturacion.Forms.Caja
         Private Async Sub P_GenerarCierreCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
             inicializarListaTxtDenominaciones()
             infoCierre = New Cls_CierreCaja()
-            Await infoCierre.obtenerInfoInicial()
+            Await infoCierre.ObtenerInfoInicial(idCierre)
+            infoCierre.ID = idCierre
 
             TXT_SaldoInicial.Text = infoCierre.fondo_inicial.ToString("0.00")
             TXT_VentaEfectivo.Text = infoCierre.ingresoEfectivo.ToString("0.00")
