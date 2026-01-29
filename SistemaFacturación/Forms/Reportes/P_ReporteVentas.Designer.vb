@@ -113,6 +113,8 @@
             Me.DGV_ListaCierres = New Guna.UI2.WinForms.Guna2DataGridView()
             Me.MNU_CONTX_ARQUEO = New Guna.UI2.WinForms.Guna2ContextMenuStrip()
             Me.MNU_ARQUEO_DATOS = New System.Windows.Forms.ToolStripMenuItem()
+            Me.BTN_TodayRepGeneral = New Guna.UI2.WinForms.Guna2Button()
+            Me.BTN_TodayRepProd = New Guna.UI2.WinForms.Guna2Button()
             Me.TAB_Reportes.SuspendLayout()
             Me.PAG_ReporteVentas.SuspendLayout()
             Me.TableLayoutPanel1.SuspendLayout()
@@ -176,6 +178,7 @@
             'PAG_ReporteVentas
             '
             Me.PAG_ReporteVentas.BackColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
+            Me.PAG_ReporteVentas.Controls.Add(Me.BTN_TodayRepGeneral)
             Me.PAG_ReporteVentas.Controls.Add(Me.DTP_HoraFinalRepVentas)
             Me.PAG_ReporteVentas.Controls.Add(Me.DTP_HoraInicioRepVentas)
             Me.PAG_ReporteVentas.Controls.Add(Me.TableLayoutPanel1)
@@ -203,7 +206,7 @@
             Me.DTP_HoraFinalRepVentas.FillColor = System.Drawing.Color.White
             Me.DTP_HoraFinalRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_HoraFinalRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_HoraFinalRepVentas.Location = New System.Drawing.Point(937, 524)
+            Me.DTP_HoraFinalRepVentas.Location = New System.Drawing.Point(938, 574)
             Me.DTP_HoraFinalRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_HoraFinalRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_HoraFinalRepVentas.Name = "DTP_HoraFinalRepVentas"
@@ -221,7 +224,7 @@
             Me.DTP_HoraInicioRepVentas.FillColor = System.Drawing.Color.White
             Me.DTP_HoraInicioRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_HoraInicioRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_HoraInicioRepVentas.Location = New System.Drawing.Point(938, 405)
+            Me.DTP_HoraInicioRepVentas.Location = New System.Drawing.Point(939, 455)
             Me.DTP_HoraInicioRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_HoraInicioRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_HoraInicioRepVentas.Name = "DTP_HoraInicioRepVentas"
@@ -520,7 +523,7 @@
             Me.Guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel1.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(937, 453)
+            Me.Guna2HtmlLabel1.Location = New System.Drawing.Point(938, 503)
             Me.Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
             Me.Guna2HtmlLabel1.Size = New System.Drawing.Size(50, 23)
             Me.Guna2HtmlLabel1.TabIndex = 127
@@ -533,7 +536,7 @@
             Me.LBL_Usu.BackColor = System.Drawing.Color.Transparent
             Me.LBL_Usu.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.LBL_Usu.ForeColor = System.Drawing.SystemColors.Control
-            Me.LBL_Usu.Location = New System.Drawing.Point(937, 334)
+            Me.LBL_Usu.Location = New System.Drawing.Point(938, 384)
             Me.LBL_Usu.Name = "LBL_Usu"
             Me.LBL_Usu.Size = New System.Drawing.Size(54, 23)
             Me.LBL_Usu.TabIndex = 126
@@ -640,7 +643,7 @@
             Me.DTP_HastaRepVentas.FillColor = System.Drawing.Color.White
             Me.DTP_HastaRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_HastaRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_HastaRepVentas.Location = New System.Drawing.Point(937, 482)
+            Me.DTP_HastaRepVentas.Location = New System.Drawing.Point(938, 532)
             Me.DTP_HastaRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_HastaRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_HastaRepVentas.Name = "DTP_HastaRepVentas"
@@ -657,7 +660,7 @@
             Me.DTP_DesdeRepVentas.FillColor = System.Drawing.Color.White
             Me.DTP_DesdeRepVentas.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_DesdeRepVentas.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_DesdeRepVentas.Location = New System.Drawing.Point(937, 363)
+            Me.DTP_DesdeRepVentas.Location = New System.Drawing.Point(938, 413)
             Me.DTP_DesdeRepVentas.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_DesdeRepVentas.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_DesdeRepVentas.Name = "DTP_DesdeRepVentas"
@@ -1052,6 +1055,7 @@
             '
             'PAN_ReporteProductoInputContainer
             '
+            Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.BTN_TodayRepProd)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_HoraFinRepProducto)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.DTP_HoraInicioRepProducto)
             Me.PAN_ReporteProductoInputContainer.Controls.Add(Me.Guna2GroupBox3)
@@ -1079,7 +1083,7 @@
             Me.DTP_HoraFinRepProducto.FillColor = System.Drawing.Color.White
             Me.DTP_HoraFinRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_HoraFinRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_HoraFinRepProducto.Location = New System.Drawing.Point(55, 419)
+            Me.DTP_HoraFinRepProducto.Location = New System.Drawing.Point(55, 450)
             Me.DTP_HoraFinRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_HoraFinRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_HoraFinRepProducto.Name = "DTP_HoraFinRepProducto"
@@ -1090,14 +1094,15 @@
             '
             'DTP_HoraInicioRepProducto
             '
-            Me.DTP_HoraInicioRepProducto.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_HoraInicioRepProducto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.DTP_HoraInicioRepProducto.BorderRadius = 10
             Me.DTP_HoraInicioRepProducto.Checked = True
             Me.DTP_HoraInicioRepProducto.CustomFormat = "hh:mm tt"
             Me.DTP_HoraInicioRepProducto.FillColor = System.Drawing.Color.White
             Me.DTP_HoraInicioRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_HoraInicioRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_HoraInicioRepProducto.Location = New System.Drawing.Point(55, 306)
+            Me.DTP_HoraInicioRepProducto.Location = New System.Drawing.Point(55, 337)
             Me.DTP_HoraInicioRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_HoraInicioRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_HoraInicioRepProducto.Name = "DTP_HoraInicioRepProducto"
@@ -1118,7 +1123,7 @@
             Me.Guna2GroupBox3.FillColor = System.Drawing.Color.Transparent
             Me.Guna2GroupBox3.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2GroupBox3.ForeColor = System.Drawing.Color.White
-            Me.Guna2GroupBox3.Location = New System.Drawing.Point(55, 469)
+            Me.Guna2GroupBox3.Location = New System.Drawing.Point(55, 500)
             Me.Guna2GroupBox3.Name = "Guna2GroupBox3"
             Me.Guna2GroupBox3.Padding = New System.Windows.Forms.Padding(10, 10, 10, 5)
             Me.Guna2GroupBox3.Size = New System.Drawing.Size(282, 114)
@@ -1161,7 +1166,7 @@
             Me.Guna2HtmlLabel15.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel15.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel15.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel15.Location = New System.Drawing.Point(65, 43)
+            Me.Guna2HtmlLabel15.Location = New System.Drawing.Point(65, 19)
             Me.Guna2HtmlLabel15.Name = "Guna2HtmlLabel15"
             Me.Guna2HtmlLabel15.Size = New System.Drawing.Size(272, 34)
             Me.Guna2HtmlLabel15.TabIndex = 151
@@ -1197,7 +1202,7 @@
             Me.Guna2HtmlLabel13.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel13.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel13.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel13.Location = New System.Drawing.Point(55, 348)
+            Me.Guna2HtmlLabel13.Location = New System.Drawing.Point(55, 379)
             Me.Guna2HtmlLabel13.Name = "Guna2HtmlLabel13"
             Me.Guna2HtmlLabel13.Size = New System.Drawing.Size(50, 23)
             Me.Guna2HtmlLabel13.TabIndex = 149
@@ -1206,11 +1211,12 @@
             '
             'Guna2HtmlLabel14
             '
-            Me.Guna2HtmlLabel14.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.Guna2HtmlLabel14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.Guna2HtmlLabel14.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel14.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel14.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel14.Location = New System.Drawing.Point(55, 238)
+            Me.Guna2HtmlLabel14.Location = New System.Drawing.Point(55, 269)
             Me.Guna2HtmlLabel14.Name = "Guna2HtmlLabel14"
             Me.Guna2HtmlLabel14.Size = New System.Drawing.Size(54, 23)
             Me.Guna2HtmlLabel14.TabIndex = 148
@@ -1227,7 +1233,7 @@
             Me.DTP_HastaRepProducto.FillColor = System.Drawing.Color.White
             Me.DTP_HastaRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_HastaRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_HastaRepProducto.Location = New System.Drawing.Point(55, 377)
+            Me.DTP_HastaRepProducto.Location = New System.Drawing.Point(55, 408)
             Me.DTP_HastaRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_HastaRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_HastaRepProducto.Name = "DTP_HastaRepProducto"
@@ -1237,14 +1243,15 @@
             '
             'DTP_DesdeRepProducto
             '
-            Me.DTP_DesdeRepProducto.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.DTP_DesdeRepProducto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.DTP_DesdeRepProducto.BorderRadius = 10
             Me.DTP_DesdeRepProducto.Checked = True
             Me.DTP_DesdeRepProducto.CustomFormat = "dd/MM/yyyy"
             Me.DTP_DesdeRepProducto.FillColor = System.Drawing.Color.White
             Me.DTP_DesdeRepProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_DesdeRepProducto.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-            Me.DTP_DesdeRepProducto.Location = New System.Drawing.Point(55, 267)
+            Me.DTP_DesdeRepProducto.Location = New System.Drawing.Point(55, 298)
             Me.DTP_DesdeRepProducto.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_DesdeRepProducto.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_DesdeRepProducto.Name = "DTP_DesdeRepProducto"
@@ -1254,29 +1261,29 @@
             '
             'NUD_LimitReporteProducto
             '
-            Me.NUD_LimitReporteProducto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Me.NUD_LimitReporteProducto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.NUD_LimitReporteProducto.BackColor = System.Drawing.Color.Transparent
             Me.NUD_LimitReporteProducto.BorderRadius = 10
             Me.NUD_LimitReporteProducto.Cursor = System.Windows.Forms.Cursors.IBeam
             Me.NUD_LimitReporteProducto.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-            Me.NUD_LimitReporteProducto.Location = New System.Drawing.Point(55, 157)
+            Me.NUD_LimitReporteProducto.Location = New System.Drawing.Point(55, 166)
             Me.NUD_LimitReporteProducto.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
             Me.NUD_LimitReporteProducto.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
             Me.NUD_LimitReporteProducto.Name = "NUD_LimitReporteProducto"
             Me.NUD_LimitReporteProducto.Size = New System.Drawing.Size(282, 36)
             Me.NUD_LimitReporteProducto.TabIndex = 145
             Me.NUD_LimitReporteProducto.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-            Me.NUD_LimitReporteProducto.Value = New Decimal(New Integer() {1, 0, 0, 0})
+            Me.NUD_LimitReporteProducto.Value = New Decimal(New Integer() {10, 0, 0, 0})
             '
             'Guna2HtmlLabel12
             '
-            Me.Guna2HtmlLabel12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Me.Guna2HtmlLabel12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.Guna2HtmlLabel12.BackColor = System.Drawing.Color.Transparent
             Me.Guna2HtmlLabel12.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
             Me.Guna2HtmlLabel12.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel12.Location = New System.Drawing.Point(55, 128)
+            Me.Guna2HtmlLabel12.Location = New System.Drawing.Point(55, 137)
             Me.Guna2HtmlLabel12.Name = "Guna2HtmlLabel12"
             Me.Guna2HtmlLabel12.Size = New System.Drawing.Size(152, 23)
             Me.Guna2HtmlLabel12.TabIndex = 143
@@ -1336,7 +1343,7 @@
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.50459!))
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109.0!))
             Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 299.0!))
-            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+            Me.TBL_LayoutSearch.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 122.0!))
             Me.TBL_LayoutSearch.Controls.Add(Me.DTP_FechaFiltroArqueo, 3, 0)
             Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel17, 2, 0)
             Me.TBL_LayoutSearch.Controls.Add(Me.Guna2HtmlLabel18, 0, 0)
@@ -1358,7 +1365,7 @@
             Me.DTP_FechaFiltroArqueo.FillColor = System.Drawing.Color.White
             Me.DTP_FechaFiltroArqueo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
             Me.DTP_FechaFiltroArqueo.Format = System.Windows.Forms.DateTimePickerFormat.[Long]
-            Me.DTP_FechaFiltroArqueo.Location = New System.Drawing.Point(817, 3)
+            Me.DTP_FechaFiltroArqueo.Location = New System.Drawing.Point(815, 3)
             Me.DTP_FechaFiltroArqueo.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
             Me.DTP_FechaFiltroArqueo.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
             Me.DTP_FechaFiltroArqueo.Name = "DTP_FechaFiltroArqueo"
@@ -1373,7 +1380,7 @@
             Me.Guna2HtmlLabel17.Dock = System.Windows.Forms.DockStyle.Fill
             Me.Guna2HtmlLabel17.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.Guna2HtmlLabel17.ForeColor = System.Drawing.SystemColors.Control
-            Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(708, 3)
+            Me.Guna2HtmlLabel17.Location = New System.Drawing.Point(706, 3)
             Me.Guna2HtmlLabel17.Name = "Guna2HtmlLabel17"
             Me.Guna2HtmlLabel17.Size = New System.Drawing.Size(103, 48)
             Me.Guna2HtmlLabel17.TabIndex = 156
@@ -1415,14 +1422,14 @@
             Me.TXT_BuscarUsuario.Name = "TXT_BuscarUsuario"
             Me.TXT_BuscarUsuario.PlaceholderText = ""
             Me.TXT_BuscarUsuario.SelectedText = ""
-            Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(562, 48)
+            Me.TXT_BuscarUsuario.Size = New System.Drawing.Size(560, 48)
             Me.TXT_BuscarUsuario.TabIndex = 155
             '
             'PAN_SWTBuscarFecha
             '
             Me.PAN_SWTBuscarFecha.Controls.Add(Me.SWT_ActivateDateSearch)
             Me.PAN_SWTBuscarFecha.Controls.Add(Me.Guna2HtmlLabel19)
-            Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(1116, 3)
+            Me.PAN_SWTBuscarFecha.Location = New System.Drawing.Point(1114, 3)
             Me.PAN_SWTBuscarFecha.Name = "PAN_SWTBuscarFecha"
             Me.PAN_SWTBuscarFecha.Size = New System.Drawing.Size(106, 48)
             Me.PAN_SWTBuscarFecha.TabIndex = 158
@@ -1596,6 +1603,48 @@
             Me.MNU_ARQUEO_DATOS.Size = New System.Drawing.Size(136, 26)
             Me.MNU_ARQUEO_DATOS.Text = "Ver datos"
             '
+            'BTN_TodayRepGeneral
+            '
+            Me.BTN_TodayRepGeneral.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Me.BTN_TodayRepGeneral.BorderColor = System.Drawing.Color.Red
+            Me.BTN_TodayRepGeneral.BorderRadius = 10
+            Me.BTN_TodayRepGeneral.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_TodayRepGeneral.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_TodayRepGeneral.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+            Me.BTN_TodayRepGeneral.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+            Me.BTN_TodayRepGeneral.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.BTN_TodayRepGeneral.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.BTN_TodayRepGeneral.ForeColor = System.Drawing.Color.White
+            Me.BTN_TodayRepGeneral.HoverState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(94, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.BTN_TodayRepGeneral.ImageSize = New System.Drawing.Size(50, 50)
+            Me.BTN_TodayRepGeneral.Location = New System.Drawing.Point(938, 340)
+            Me.BTN_TodayRepGeneral.Name = "BTN_TodayRepGeneral"
+            Me.BTN_TodayRepGeneral.PressedColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+            Me.BTN_TodayRepGeneral.Size = New System.Drawing.Size(118, 38)
+            Me.BTN_TodayRepGeneral.TabIndex = 142
+            Me.BTN_TodayRepGeneral.Text = "Hoy"
+            '
+            'BTN_TodayRepProd
+            '
+            Me.BTN_TodayRepProd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+            Me.BTN_TodayRepProd.BorderColor = System.Drawing.Color.Red
+            Me.BTN_TodayRepProd.BorderRadius = 10
+            Me.BTN_TodayRepProd.DisabledState.BorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_TodayRepProd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray
+            Me.BTN_TodayRepProd.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer), CType(CType(169, Byte), Integer))
+            Me.BTN_TodayRepProd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer), CType(CType(141, Byte), Integer))
+            Me.BTN_TodayRepProd.FillColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.BTN_TodayRepProd.Font = New System.Drawing.Font("Ebrima", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.BTN_TodayRepProd.ForeColor = System.Drawing.Color.White
+            Me.BTN_TodayRepProd.HoverState.FillColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(94, Byte), Integer), CType(CType(255, Byte), Integer))
+            Me.BTN_TodayRepProd.ImageSize = New System.Drawing.Size(50, 50)
+            Me.BTN_TodayRepProd.Location = New System.Drawing.Point(55, 225)
+            Me.BTN_TodayRepProd.Name = "BTN_TodayRepProd"
+            Me.BTN_TodayRepProd.PressedColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+            Me.BTN_TodayRepProd.Size = New System.Drawing.Size(118, 38)
+            Me.BTN_TodayRepProd.TabIndex = 155
+            Me.BTN_TodayRepProd.Text = "Hoy"
+            '
             'P_ReporteVentas
             '
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1720,6 +1769,8 @@
         Friend WithEvents DTP_HoraFinalRepVentas As Guna.UI2.WinForms.Guna2DateTimePicker
         Friend WithEvents DTP_HoraFinRepProducto As Guna.UI2.WinForms.Guna2DateTimePicker
         Friend WithEvents DTP_HoraInicioRepProducto As Guna.UI2.WinForms.Guna2DateTimePicker
+        Friend WithEvents BTN_TodayRepGeneral As Guna.UI2.WinForms.Guna2Button
+        Friend WithEvents BTN_TodayRepProd As Guna.UI2.WinForms.Guna2Button
     End Class
 
 End Namespace

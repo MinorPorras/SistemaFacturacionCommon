@@ -1,11 +1,13 @@
 ﻿Imports System.Data.SQLite
 Imports System.Globalization
 Imports Guna.UI2.WinForms
+Imports Serilog
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Data
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Caja
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Dialogos
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Forms.Inicio
 Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules
+Imports SistemaFacturaciónCommon.SistemaFacturacion.Modules.Md_formating
 
 
 Namespace SistemaFacturacion.Forms.Reportes
@@ -44,7 +46,7 @@ Namespace SistemaFacturacion.Forms.Reportes
                 Case "PAG_ReporteVentas"
                     ' Lógica para cargar los datos de la pestaña de Ventas.
                     'Se carga la fecha actual
-                    CargarFechaActual()
+                    EstablecerFechaActual()
                     'Se aplican los estilos a los Data grid view
                     AplicarEstiloDataGridView(DGV_FactReporte)
 
@@ -54,7 +56,7 @@ Namespace SistemaFacturacion.Forms.Reportes
                 Case "PAG_ReporteProd"
                     ' Lógica para cargar los datos de la pestaña de Reportes.
                     'Se carga la fecha actual
-                    CargarFechaActual()
+                    EstablecerFechaActual()
                     AplicarEstiloDataGridView(DGV_ListProductosMasVendidos)
                     RDB_OrderByCant.Checked = True
 
@@ -72,21 +74,21 @@ Namespace SistemaFacturacion.Forms.Reportes
             Me.Close()
         End Sub
 
-        Private Sub CargarFechaActual()
-            ' Establece la fecha de inicio al inicio del día (00:00:00)
-            DTP_DesdeRepVentas.Value = Date.Now.Date
-            DTP_HoraInicioRepVentas.Value = Date.Now.Date
-
-            ' Establece la fecha de fin al final del día (23:59:59)
-            DTP_HastaRepVentas.Value = Date.Now.Date.AddDays(1)
-            DTP_HoraFinalRepVentas.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
-
-            ' Se aplica la misma lógica
-            DTP_DesdeRepProducto.Value = Date.Now.Date
-            DTP_HoraInicioRepProducto.Value = Date.Now.Date
-            DTP_HastaRepProducto.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
-            DTP_HoraFinRepProducto.Value = Date.Now.Date.AddDays(1).AddTicks(-1)
+        Private Sub EstablecerFechaActual()
+            Select Case TAB_Reportes.SelectedTab.Name
+                Case "PAG_ReporteVentas"
+                    DTP_DesdeRepVentas.Value = Date.Now.Date
+                    DTP_HoraInicioRepVentas.Value = Date.Now.Date
+                    DTP_HastaRepVentas.Value = Date.Now.Date
+                    DTP_HoraFinalRepVentas.Value = Date.Now.Date.AddDays(1).AddSeconds(-1)
+                Case "PAG_ReporteProd"
+                    DTP_DesdeRepProducto.Value = Date.Now.Date
+                    DTP_HoraInicioRepProducto.Value = Date.Now.Date
+                    DTP_HastaRepProducto.Value = Date.Now.Date
+                    DTP_HoraFinRepProducto.Value = Date.Now.Date.AddDays(1).AddSeconds(-1)
+            End Select
         End Sub
+
 
         ' Este método puede estar en un módulo o en tu clase del formulario
         Private Sub AplicarEstiloDataGridView(ByVal dgv As Guna.UI2.WinForms.Guna2DataGridView)
@@ -155,11 +157,7 @@ Namespace SistemaFacturacion.Forms.Reportes
         Friend facturaContenido As New List(Of String)()
         Friend finFactura As String
 
-        Private Sub BTN_GenReporte_Click(sender As Object, e As EventArgs) Handles BTN_GenReporte.Click
-            MostrarReporteVentas()
-        End Sub
-
-        Private Async Sub MostrarReporteVentas()
+        Private Async Sub BTN_GenReporte_Click(sender As Object, e As EventArgs) Handles BTN_GenReporte.Click
             Try
                 'Se desabilta el botón durante la creación del reporte
                 BTN_GenReporte.Enabled = False
@@ -181,16 +179,14 @@ Namespace SistemaFacturacion.Forms.Reportes
                 Dim bin As New BindingSource With {
                     .DataSource = reporte.ListaVentas
                 }
-                DGV_FactReporte.AutoGenerateColumns = True
                 DGV_FactReporte.DataSource = bin
-                DGV_FactReporte.Columns(0).Visible = False
 
                 'Se agrega el total de ventas global
-                TXT_TotalVentas.Text = reporte.total_ventas.ToString("C", New CultureInfo("es-CR"))
+                TXT_TotalVentas.Text = reporte.total_ventas.ToString("C", CrCultureInfo)
 
                 'Se agrega el total de ventas en efectivo y en tarjeta
-                TXT_VentasEfectivo.Text = reporte.ventas_efectivo.ToString("C", New CultureInfo("es-CR"))
-                TXT_VentasTarjeta.Text = reporte.ventas_tarjeta.ToString("C", New CultureInfo("es-CR"))
+                TXT_VentasEfectivo.Text = reporte.ventas_efectivo.ToString("C", CrCultureInfo)
+                TXT_VentasTarjeta.Text = reporte.ventas_tarjeta.ToString("C", CrCultureInfo)
 
                 'Se agrega el número de ventas en el rango
                 TXT_CantFacturas.Text = reporte.num_ventas.ToString("N0")
@@ -199,7 +195,7 @@ Namespace SistemaFacturacion.Forms.Reportes
                 If reporte.ProductoMasVendido IsNot Nothing Then
                     TXT_NombreProdMasVendido.Text = reporte.ProductoMasVendido.Nombre
                     TXT_CantProdMasVendido.Text = reporte.ProductoMasVendido.Cantidad.ToString("N0")
-                    TXT_TotalProdMasVendido.Text = reporte.ProductoMasVendido.Total.ToString("C", New CultureInfo("es-CR"))
+                    TXT_TotalProdMasVendido.Text = reporte.ProductoMasVendido.Total.ToString("C", CrCultureInfo)
                 Else
                     TXT_NombreProdMasVendido.Text = "Sin datos"
                     TXT_CantProdMasVendido.Text = "Sin datos"
@@ -212,6 +208,45 @@ Namespace SistemaFacturacion.Forms.Reportes
                 BTN_GenReporte.BackColor = Color.FromKnownColor(KnownColor.MediumSeaGreen)
             Catch ex As Exception
                 MsgError("Error al crear el reporte: " + ex.Message)
+            End Try
+        End Sub
+
+
+        Private Sub DGV_FactReporte_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_FactReporte.DataBindingComplete
+            Try
+                If DGV_FactReporte.Columns Is Nothing OrElse DGV_FactReporte.Columns.Count = 0 Then
+                    Log.Warning("No se encontraron las columnas del datagrid")
+                    Return
+                End If
+
+                Dim anchoPantalla As Integer = Screen.FromControl(Me).WorkingArea.Width
+
+                With DGV_FactReporte
+                    .AutoGenerateColumns = True
+                    .AutoSizeColumnsMode = If(anchoPantalla > 1366,
+                                                DataGridViewAutoSizeColumnsMode.Fill,
+                                                DataGridViewAutoSizeColumnsMode.DisplayedCells)
+
+                    'Oculta la columna de ID
+                    .Columns("IdFactura").Visible = False
+                    'Cambia el nombre de las columnas
+                    .Columns("NumFactura").HeaderText = "#"
+                    .Columns("TipoPago").HeaderText = "Tipo"
+                    .Columns("TotalCaja").HeaderText = "Total"
+                    'Adapta el tamaño de columnas específicas
+                    If anchoPantalla <= 768 Then
+                        .Columns("Comentario").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                    End If
+                    'Formatea las columnas de totales a moneda de Costa Rica
+                    .Columns("Efectivo").DefaultCellStyle.Format = "C"
+                    .Columns("Efectivo").DefaultCellStyle.FormatProvider = CrCultureInfo
+                    .Columns("Tarjeta").DefaultCellStyle.Format = "C"
+                    .Columns("Tarjeta").DefaultCellStyle.FormatProvider = CrCultureInfo
+                    .Columns("Vuelto").DefaultCellStyle.Format = "C"
+                    .Columns("Vuelto").DefaultCellStyle.FormatProvider = CrCultureInfo
+                End With
+            Catch ex As Exception
+
             End Try
         End Sub
 
@@ -250,8 +285,12 @@ Namespace SistemaFacturacion.Forms.Reportes
                 'Se genera el reporte desde el módulo de reportes
                 Dim fechaInicial As Date = DTP_DesdeRepVentas.Value.Date.Add(DTP_HoraInicioRepVentas.Value.TimeOfDay)
                 Dim fechaFinal As Date = DTP_HastaRepVentas.Value.Date.Add(DTP_HoraFinalRepVentas.Value.TimeOfDay)
-                Md_Reportes.Crear_PDF_ReporteVentas(DTP_DesdeRepVentas.Value, DTP_HastaRepVentas.Value)
+                Md_Reportes.Crear_PDF_ReporteVentas(fechaInicial, fechaFinal)
             End If
+        End Sub
+
+        Private Sub BTN_SelectToday_Click(sender As Object, e As EventArgs) Handles BTN_TodayRepGeneral.Click
+            EstablecerFechaActual()
         End Sub
 
 #End Region
@@ -342,11 +381,18 @@ Namespace SistemaFacturacion.Forms.Reportes
 
         Private Sub DGV_ListProductosMasVendidos_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DGV_ListProductosMasVendidos.DataBindingComplete
             ' Establecer el orden de las columnas para DGV_ListProductosMasVendidos
-            DGV_ListProductosMasVendidos.Columns("ranking").DisplayIndex = 0
-            DGV_ListProductosMasVendidos.Columns("ranking").AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-            DGV_ListProductosMasVendidos.Columns("nombre").DisplayIndex = 1
-            DGV_ListProductosMasVendidos.Columns("cantidad").DisplayIndex = 2
-            DGV_ListProductosMasVendidos.Columns("total").DisplayIndex = 3
+            With DGV_ListProductosMasVendidos
+                .Columns("ranking").DisplayIndex = 0
+                .Columns("ranking").AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+                .Columns("nombre").DisplayIndex = 1
+                .Columns("cantidad").DisplayIndex = 2
+                .Columns("total").DisplayIndex = 3
+            End With
+
+        End Sub
+
+        Private Sub BTN_TodayRepProd_Click(sender As Object, e As EventArgs) Handles BTN_TodayRepProd.Click
+            EstablecerFechaActual()
         End Sub
 #End Region
 
@@ -524,8 +570,6 @@ Namespace SistemaFacturacion.Forms.Reportes
         Private Sub P_ReporteVentas_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
             ManejarCierreONavegacion(e)
         End Sub
-
-
 #End Region
     End Class
 
