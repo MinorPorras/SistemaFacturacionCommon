@@ -1,8 +1,12 @@
-﻿Imports Guna.UI2.WinForms
+﻿Imports System.Globalization
+Imports Guna.UI2.WinForms
 Imports Serilog
 Namespace SistemaFacturacion.Modules
 
     Module Md_formating
+
+        Public CrCultureInfo As New CultureInfo("es-CR")
+
         Friend Sub FormatHeaderText(formatedNames As Dictionary(Of String, String), DGV As Guna2DataGridView)
             For Each formatedName In formatedNames
                 If DGV.Columns.Contains(formatedName.Key) Then

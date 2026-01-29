@@ -94,16 +94,16 @@ Namespace SistemaFacturacion.Modules
             Dim consulta As String = "
                 SELECT
                     f.ID,
-                    f.num_factura AS '# Fact',
+                    f.num_factura AS '#',
                     f.fecha_emision AS 'Fecha de emisión',
                     c.nombre AS 'Cliente',
                     u.usuario As 'Cajero',
-                    fc.comentario  As 'Comentario',
+                    f.tipo_venta AS 'tipo',
                     f.efectivo_cliente AS 'Efectivo',
                     f.tarjeta_cliente AS 'Tarjeta',
+                    f.vuelto  As Vuelto,
                     f.total AS 'Total',
-                    f.tipo_venta AS 'tipo',
-                    f.vuelto  As Vuelto
+                    fc.comentario  As 'Comentario'
                 FROM
                     factura f
                 INNER JOIN
@@ -183,15 +183,15 @@ Namespace SistemaFacturacion.Modules
             For Each row As DataRow In t.Tables(0).Rows
                 Dim factura As New Cls_DatosFactura With {
                     .IdFactura = row.Item("ID").ToString(),
-                    .NumFactura = row.Item("# Fact").ToString(),
+                    .NumFactura = row.Item("#").ToString(),
                     .Fecha = Convert.ToDateTime(row.Item("Fecha de emisión")),
                     .Cliente = row.Item("Cliente").ToString(),
                     .Cajero = row.Item("Cajero").ToString(),
-                    .Comentario = row.Item("Comentario").ToString(),
                     .Efectivo = Convert.ToDecimal(row.Item("Efectivo")),
                     .Tarjeta = Convert.ToDecimal(row.Item("Tarjeta")),
                     .TotalCaja = Convert.ToDecimal(row.Item("Total")),
-                    .Vuelto = Convert.ToDecimal(row.Item("Vuelto"))
+                    .Vuelto = Convert.ToDecimal(row.Item("Vuelto")),
+                    .Comentario = row.Item("Comentario").ToString()
                 }
 
                 'Se obtiene el número del tipo de venta
@@ -302,8 +302,7 @@ Namespace SistemaFacturacion.Modules
                     pos = New PointF(10, 10)
                     'Se obtiene la información relevante de la base de datos
                     Dim reporte As Cls_ReporteVentas = Await GenerarReporte(desde, hasta, T1)
-                    Log.Information("Reporte de ventas generado: {numVentas}, Total: {montoTotal}", reporte.num_ventas, reporte.total_ventas)
-                    Dim cultura As New CultureInfo("es-CR")
+                    Log.Information("Reporte de ventas generado. Ventas: {numVentas}, Total: {montoTotal}", reporte.num_ventas, reporte.total_ventas)
 
                     Dim listaFiltrada = reporte.ListaVentas.Select(Function(venta) New With {
                             venta.NumFactura,
@@ -311,7 +310,7 @@ Namespace SistemaFacturacion.Modules
                             venta.Cajero,
                             venta.Cliente,
                             venta.TipoPago,
-                            .TotalCaja = venta.TotalCaja.ToString("C", New CultureInfo("es-CR"))})
+                            .TotalCaja = venta.TotalCaja.ToString("C", CrCultureInfo)})
 
                     'Se obtienen los datos de la sucursal
                     Dim sucursal As Cls_Sucursal = Await GetInfoSucursal()
